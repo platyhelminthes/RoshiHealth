@@ -1,0 +1,19 @@
+{
+  "name": "platyhelminthes",
+  "version": "1.0.0",
+  "description": "platyhelminthes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platyhelminthes/Platyhelminthes.git"
+  },
+  "author": "Devon Allon Mike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/platyhelminthes/Platyhelminthes/issues"
+  },
+  "homepage": "https://github.com/platyhelminthes/Platyhelminthes#readme"
+}
