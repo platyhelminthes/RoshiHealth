@@ -7,7 +7,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 app.use(cors());
 var passport = require("./Routes/passport");
-const db = './models'
+var db = require('./models')
 //var expressWs = require('express-ws')(app);
 
 
@@ -26,7 +26,7 @@ app.use(passport.session());
 
 
 
-db.sequelize.sync({ force: false}).then(function() {
+db.sequelize.sync({ force: true}).then(function() {
     app.listen(PORT, function() {
       console.log("App listening on PORT " + PORT);
     });

@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 
-    var Doctors = sequelize.define("users", {
+    var Doctors = sequelize.define("Doctors", {
         id: {
             defaultValue: DataTypes.UUIDV4,
             type: DataTypes.UUID,
