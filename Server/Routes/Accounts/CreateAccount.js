@@ -3,7 +3,7 @@ var Data = require('../../Collections/users')
 module.exports = (req, res) => {
     let data = new Data();
 
-    const { email, password } = req.body;
+    const { fullName, email, password } = req.body;
 
     if (!email || !password) {
         return res.json({
@@ -11,13 +11,18 @@ module.exports = (req, res) => {
             error: 'INVALID INPUTS',
         });
     }
+
+//    var task = {
+//        id: 1,
+//        text: "Set up meeting with nurse",
+//        dueDate: Date.now
+//    }
+    data.fullName = fullName
     data.email = email;
     data.password = password;
-    data.tasks.id = 1;
-    data.tasks.text = "Set up meeting with nurse";
-    data.tasks.dueDate = Date.now;
-    data.reciepts.id = 0;
-    data.reciepts.total = 0
+    //data.tasks = task
+    //data.reciepts.id = 0;
+    //data.reciepts.total = 0
 
    
     data.save((err) => {

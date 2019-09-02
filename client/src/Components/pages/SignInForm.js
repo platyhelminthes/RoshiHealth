@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 class SignInForm extends Component {
     constructor() {
@@ -29,7 +30,15 @@ class SignInForm extends Component {
 
         console.log('The form was submitted with the following data:');
         console.log(this.state);
+        this.Login(this.state.email, this.state.password)
     }
+
+    Login = (email, password) => {
+      axios.post('/api/login/login', {
+          email: email,
+          password: password
+      });
+  };
 
     render() {
         return (

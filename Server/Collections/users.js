@@ -15,54 +15,58 @@ const accounts = new Schema(
         type: String,
         require: true
 },
+    fullName : {
+        type: String,
+        require: true
+},
     subLevel: {
         type: String,
         default: "0"
 },
-    shoppingCart: {
-        nested: {
-        itemIds: {
-            type: [Number]
-        },
-        total: Number
-    }
-},
-    tasks: {
-        nested: {
-        id: {
-            type: Number,
-            require: true
-        },
-        text: {
-            type: String,
-            require: true
-        },
-        finished: {
-            type: String,
-            enum: ["Finished", "Active", "Failed"],
-            default: "Active"
-        },
-        dueDate: {
-            type: Date,
-            require: true
-        }
-    }
-},
-    reciepts: {
-        nested: {
-        id: {
-            type: Number,
-            require: true
-        },
-        itemIds: {
-            any: []
-        },
-        total: {
-            type: Number,
-            require: true
-        }
-    }
-  }
+//    shoppingCart: {
+//        nested: {
+//        itemIds: {
+//            type: [Number]
+//        },
+//        total: Number
+//    }
+//},
+//    tasks: {
+//        nested: {
+//        id: {
+//            type: Number,
+//            require: true
+//        },
+//        text: {
+//            type: String,
+//            require: true
+//        },
+//        finished: {
+//            type: String,
+//            enum: ["Finished", "Active", "Failed"],
+//            default: "Active"
+//        },
+//        dueDate: {
+//            type: Date,
+//            require: true
+//        }
+//    }
+//},
+//    reciepts: {
+//        nested: {
+//        id: {
+//            type: Number,
+//            require: true
+//        },
+//        itemIds: {
+//            any: []
+//        },
+//        total: {
+//            type: Number,
+//            require: true
+//        }
+//    }
+//  }
 },
   { timestamps: true }
 );

@@ -6,7 +6,7 @@ const check = require('./checkLogin')
 
 
 
-routes.post('/login', passport.authenticate('local'), login)
+routes.post('/login', passport.authenticate('local'), login, check)
 routes.get('/check', check)
 
 
