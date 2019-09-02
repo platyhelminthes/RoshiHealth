@@ -5,15 +5,69 @@ bcrypt = require('bcrypt'),
 SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
-const Accounts = new Schema(
+const accounts = new Schema(
   {
-    email: String,
-    password: String,
-  },
+    email: {
+        type: String,
+        require: true
+},
+    password: {
+        type: String,
+        require: true
+},
+    subLevel: {
+        type: String,
+        default: "0"
+},
+    shoppingCart: {
+        nested: {
+        itemIds: {
+            type: [Number]
+        },
+        total: Number
+    }
+},
+    tasks: {
+        nested: {
+        id: {
+            type: Number,
+            require: true
+        },
+        text: {
+            type: String,
+            require: true
+        },
+        finished: {
+            type: String,
+            enum: ["Finished", "Active", "Failed"],
+            default: "Active"
+        },
+        dueDate: {
+            type: Date,
+            require: true
+        }
+    }
+},
+    reciepts: {
+        nested: {
+        id: {
+            type: Number,
+            require: true
+        },
+        itemIds: {
+            any: []
+        },
+        total: {
+            type: Number,
+            require: true
+        }
+    }
+  }
+},
   { timestamps: true }
 );
 
-Accounts.pre('save', function(next) {
+accounts.pre('save', function(next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -34,7 +88,7 @@ Accounts.pre('save', function(next) {
     });
 });
 
-Accounts.methods.comparePassword = function(candidatePassword, cb) {
+accounts.methods.comparePassword = function(candidatePassword, cb) {
     console.log(candidatePassword + " recieved")
 
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
@@ -46,4 +100,4 @@ Accounts.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 
-module.exports = mongoose.model("users", Accounts);
+module.exports = mongoose.model("users", accounts);
