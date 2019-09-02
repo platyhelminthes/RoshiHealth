@@ -1,6 +1,7 @@
 import React from 'react';
 import {Component} from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 class View extends Component {
     state = {
@@ -42,6 +43,7 @@ class View extends Component {
             <button href="/" variant="primary" type="submit" onClick={() => this.Login(this.state.emailLog, this.state.passwordLog)}>Submit</button>
             <h1>Check Login</h1>
             <button onClick={() => this.Check()}>Check</button>
+            <Link to="/user">Go To Your User Info</Link>
             </div>)
     }
 }
