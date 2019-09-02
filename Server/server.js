@@ -1,6 +1,7 @@
 var express = require("express");
 var session = require("express-session");
 
+const mongoose = require('mongoose')
 var cors = require('cors');
 var routes = require('./Routes')
 var app = express();
@@ -8,7 +9,6 @@ var PORT = process.env.PORT || 8080;
 app.use(cors());
 var passport = require("./Routes/passport");
 var db = require('./models')
-//var expressWs = require('express-ws')(app);
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -19,10 +19,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//app.use('/api', routes);
+app.use('/api', routes);
 
 
+const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/test?retryWrites=true&w=majority';
 
+mongoose.connect(dbRoute, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: false
+});
+
+let DB = mongoose.connection;
+
+DB.once('open', () => console.log('connected to the database'));
+DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 
