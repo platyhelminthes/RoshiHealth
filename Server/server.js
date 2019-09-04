@@ -22,7 +22,7 @@ app.use(passport.session());
 app.use('/api', routes);
 
 
-const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/test?retryWrites=true&w=majority';
+const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/EcommerceDB?retryWrites=true&w=majority';
 
 mongoose.connect(dbRoute, {
     useCreateIndex: true,

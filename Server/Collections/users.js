@@ -5,8 +5,40 @@ bcrypt = require('bcrypt'),
 SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
-const accounts = new Schema(
-  {
+const tasksSchema = new Schema({
+        text: {
+            type: String,
+            require: true
+        },
+        finished: {
+            type: String,
+            enum: ["Finished", "Active", "Failed"],
+            default: "Active"
+        },
+        dueDate: {
+            type: Date,
+            require: true,
+            default: Date.now()
+        }
+    })
+
+const shoppingCartSchema = new Schema({
+    itemIds: {
+        type: [String],
+        default: ['empty']
+    },
+    total: {
+        type: Number,
+        default: 0
+    },
+    finishedTransaction: {
+        type: String,
+        enum: ['Failed', 'Finished', 'Active'],
+        default: 'Active'
+    }
+})
+
+const accounts = new Schema({
     email: {
         type: String,
         require: true
@@ -23,50 +55,8 @@ const accounts = new Schema(
         type: String,
         default: "0"
 },
-//    shoppingCart: {
-//        nested: {
-//        itemIds: {
-//            type: [Number]
-//        },
-//        total: Number
-//    }
-//},
-//    tasks: {
-//        nested: {
-//        id: {
-//            type: Number,
-//            require: true
-//        },
-//        text: {
-//            type: String,
-//            require: true
-//        },
-//        finished: {
-//            type: String,
-//            enum: ["Finished", "Active", "Failed"],
-//            default: "Active"
-//        },
-//        dueDate: {
-//            type: Date,
-//            require: true
-//        }
-//    }
-//},
-//    reciepts: {
-//        nested: {
-//        id: {
-//            type: Number,
-//            require: true
-//        },
-//        itemIds: {
-//            any: []
-//        },
-//        total: {
-//            type: Number,
-//            require: true
-//        }
-//    }
-//  }
+    tasks: [tasksSchema],
+    shoppingCart: [shoppingCartSchema]
 },
   { timestamps: true }
 );

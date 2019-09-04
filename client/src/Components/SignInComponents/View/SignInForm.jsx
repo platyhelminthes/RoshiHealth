@@ -31,7 +31,10 @@ class SignInForm extends Component {
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         this.Login(this.state.email, this.state.password)
+        this.Check()
     }
+
+    
 
     Login = (email, password) => {
       axios.post('/api/login/login', {
@@ -39,6 +42,14 @@ class SignInForm extends Component {
           password: password
       });
   };
+
+  Check = () => {
+    axios.get('/api/login/check', {
+
+    })
+}
+
+
 
     render() {
         return (
