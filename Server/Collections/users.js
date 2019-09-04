@@ -6,6 +6,15 @@ SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
 const tasksSchema = new Schema({
+
+        providerId: {
+            type: String,
+            require: true
+        },
+        providerName: {
+            type: String,
+            require: true
+        },
         text: {
             type: String,
             require: true
@@ -21,6 +30,12 @@ const tasksSchema = new Schema({
             default: Date.now()
         }
     })
+
+const providersSchema = new Schema({
+    providerId: {
+        type: String
+    },
+})
 
 const shoppingCartSchema = new Schema({
     itemIds: {
@@ -56,7 +71,8 @@ const accounts = new Schema({
         default: "0"
 },
     tasks: [tasksSchema],
-    shoppingCart: [shoppingCartSchema]
+    shoppingCart: [shoppingCartSchema],
+    providers: [providersSchema]
 },
   { timestamps: true }
 );

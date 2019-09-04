@@ -26,12 +26,10 @@ class SignInForm extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-
+        (e).preventDefault()
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         this.Login(this.state.email, this.state.password)
-        this.Check()
     }
 
     
@@ -40,14 +38,12 @@ class SignInForm extends Component {
       axios.post('/api/login/login', {
           email: email,
           password: password
-      });
-  };
+      }).then(
+        axios.get('/api/login/check', {
 
-  Check = () => {
-    axios.get('/api/login/check', {
-
-    })
-}
+        })
+      )
+  }
 
 
 
