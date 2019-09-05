@@ -3,10 +3,12 @@ const router = express.Router();
 const users = require('./accounts')
 const login = require('./Login')
 const tasks = require('./Tasks')
+const cart = require('./shoppingCart')
 
 
 router.use('/users', users)
 router.use('/login', login)
 router.use('/tasks', tasks)
+router.use('/cart', cart)
 
 module.exports = router;

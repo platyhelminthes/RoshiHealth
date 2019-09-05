@@ -4,6 +4,8 @@ import SignUpForm from './Components/SignUpComponents/View/SignUpForm';
 import SignInForm from './Components/SignInComponents/View/SignInForm';
 import Main from './Components/Main/View/Main'
 import tasks from './Components/Tasks/View/Tasks'
+import cart from './Components/ShoppingCart/View/Cart'
+import subscription from './Components/PurchaseSubscription/View/PurchaseSub'
 
 import './App.css';
 
@@ -28,10 +30,12 @@ class App extends Component {
 
               <Route exact path="/" component={SignUpForm}>
               </Route>
-              <Route path="/sign-in" component={SignInForm}>
+              <Route exact path="/sign-in" component={SignInForm}>
               </Route>
               <Route exact path="/Main" component={Main}/>
               <Route exact path="/tasks" component={tasks}/>
+              <Route exact path="/cart" component={cart}/>
+              <Route exact path="/subscription" component={subscription}/>
           </div>
 
         </div>

@@ -7,12 +7,13 @@ class SignInForm extends Component {
         super();
 
         this.state = {
-            email: '',
-            password: ''
+            email: null,
+            password: null
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        
     }
 
     handleChange(e) {
@@ -46,11 +47,10 @@ class SignInForm extends Component {
   }
 
 
-
     render() {
         return (
         <div className="FormCenter">
-            <form onSubmit={this.handleSubmit} className="FormFields" onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className="FormFields">
             <div className="FormField">
                 <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
                 <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
