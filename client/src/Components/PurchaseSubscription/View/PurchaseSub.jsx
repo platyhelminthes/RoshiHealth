@@ -54,6 +54,7 @@ class Tasks extends Component {
     addToCart = () => {
         axios.post('/api/cart/addProductToCart', {
             productId: this.state.subId,
+            price: this.state.subPrice,
             total: this.state.subPrice
         })
     }

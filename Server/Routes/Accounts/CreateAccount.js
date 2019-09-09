@@ -18,7 +18,6 @@ module.exports = (req, res) => {
     }
 
     var cart = {
-        itemIds: ['empty'],
         total: 0,
         finishedTransaction: 'Active'
     }

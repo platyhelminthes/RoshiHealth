@@ -37,11 +37,20 @@ const providersSchema = new Schema({
     },
 })
 
-const shoppingCartSchema = new Schema({
-    itemIds: {
-        type: [String],
-        default: ['empty']
+const shoppingCartItems = new Schema({
+    itemId: {
+        type: String,
     },
+    ammount: {
+        type: Number,
+    },
+    totalCost: {
+        type: Number
+    }
+})
+
+const shoppingCartSchema = new Schema({
+    items: [shoppingCartItems],
     total: {
         type: Number,
         default: 0

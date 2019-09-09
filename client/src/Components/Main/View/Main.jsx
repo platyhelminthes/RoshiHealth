@@ -12,7 +12,8 @@ class Main extends Component {
             fullName: null,
             task: null,
             email2: null,
-            task2: null
+            task2: null,
+            loading: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,10 +38,14 @@ class Main extends Component {
 
 
     componentDidMount(){
+        setTimeout(this.getInfo, 3000)
+    }
+
+    getInfo = () => {
         axios.get('/api/users/getUserInfo').then(
             (res)=>{
                 console.log(res.data.task[0].text)
-                this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text})
+                this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
             }
         )
     }
@@ -59,6 +64,8 @@ class Main extends Component {
         var email = this.state.email;
         var name = this.state.fullName;
         var task = this.state.task
+        var loading = this.state.loading
+        if(loading == true){return(<h1>Loading...</h1>)}
         return (
         <div>
             <h1>Email: {email}</h1>
