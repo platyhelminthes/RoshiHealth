@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
+import Sidebar from '../../SideNav/View/index'
+import Header from '../../Header/views/index'
 
 class Main extends Component {
+
+
 
     constructor() {
         super();
@@ -10,9 +14,8 @@ class Main extends Component {
         this.state = {
             email: null,
             fullName: null,
-            task: null,
-            email2: null,
-            task2: null
+            loading: true,
+            redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,44 +40,37 @@ class Main extends Component {
 
 
     componentDidMount(){
+        setTimeout(this.getInfo, 500)
+    }
+
+    getInfo = () => {
         axios.get('/api/users/getUserInfo').then(
             (res)=>{
+                if(!res.data.email){this.setState({redirect: true})}
                 console.log(res.data.task[0].text)
-                this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text})
+                this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
             }
         )
     }
 
-    sendTask = (task, email) => {
-        console.log('CLICKED!')
-        axios.post('/api/tasks/addTask', {
-            task: task,
-            email: email
-        })
-    }
+
 
 
 
     render() {
         var email = this.state.email;
         var name = this.state.fullName;
-        var task = this.state.task
+        var loading = this.state.loading
+        if(this.state.redirect == true){return(<Redirect to="/login"/>)}
+        else if(loading == true){return(<h1>Loading...</h1>)}
         return (
-        <div>
+        <div style={{display: "flex", flexDirection: "column"}}>
+            <Header/>
+            <div style={{display: "flex"}}>
+            <Sidebar/>
             <h1>Email: {email}</h1>
             <h1>Name: {name}</h1>
-            <h1>First Task: {task}</h1>
-            <form onSubmit={this.handleSubmit} className="FormFields" onSubmit={this.handleSubmit}>
-            <div className="FormField">
-            <label className="FormField__Label" htmlFor="email">Users Email</label>
-            <input type="email" id="email" className="FormField__Input" placeholder="Enter Users Email" name="email2" value={this.state.email2} onChange={this.handleChange} />
-          </div>
-          <div className="FormField">
-            <label className="FormField__Label" htmlFor="text">Task</label>
-            <input type="text" id="task" className="FormField__Input" placeholder="Enter Task" name="task2" value={this.state.task2} onChange={this.handleChange} />
-          </div>
-            <button className="FormField__Button mr-20">Send Task</button>
-            </form>
+            </div>
           </div>
         );
     }

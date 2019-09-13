@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import { runInNewContext } from 'vm';
+import Header from '../../Header/views/index'
 
 class Tasks extends Component {
     constructor() {
@@ -9,10 +11,11 @@ class Tasks extends Component {
             itemIds: [],
             items: [],
             total: 0,
-            loading: null
+            loading: true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit2 = this.handleSubmit2.bind(this);
     }
 
     handleChange(e) {
@@ -27,65 +30,81 @@ class Tasks extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.checkout()
+        this.checkout(e)
+    }
+
+    handleSubmit2(e) {
+        console.log(e.target.value)
     }
 
     componentDidMount(){
 
-        setTimeout(this.getFromDB,2000)
+        setTimeout(this.getFromDB,500)
+        setTimeout(this.getItems, 1000)
+        setTimeout(this.checkItems, 3000)
     }
-
+    checkItems = () => {
+        console.log(this.state.items)
+        this.setState({loading: false})
+    }
+    getItems = () => {
+        for(var i=0;i<this.state.itemIds.length;i++){
+            axios.post('/api/cart/getItemsInfo', {
+                id: this.state.itemIds[i].itemId
+            }).then((res)=>{
+                res.amount = this.state.itemIds[i-1].amount
+                res.totalCost = this.state.itemIds[i-1].totalCost
+                this.state.items.push(res)
+        console.log(res)})}
+    }
+    checkout = (e) => {
+        console.log(e.target.value)
+    }
+    //this.setState({
+    //    itemIds: res.data.data[0].itemIds
+    //})
     getFromDB = () => {axios.get('/api/cart/getUserCart').then(
         (res)=>{
             this.setState({
-                itemIds: res.data.data[0].itemIds
+                itemIds: res.data.data[0].items,
+                total: res.data.data[0].total
             })
         }
-    ).then(
-        ()=>{
-            for(var i=0;i<this.state.itemIds.length;i++){
-            axios.post('/api/cart/getItemsInfo', {
-                id: this.state.itemIds[i]
-            }).then((res)=>{this.state.items.push(res)}).then(this.calculateTotal
-            )}
-        }
     )}
-    calculateTotal = () => {
-        var amount = 0
-        for(var i=0;i<this.state.items.length;i++){
-            amount = amount + this.state.items[i].data.data.Price
-        }
-        this.setState({total: amount})
-    }
     render() {
         var Name = "Your Name will go here";
-        
+        var items = this.state.items
 
-        if(!this.state.items[0]){return(<h1>Loading...</h1>)}
+        if(this.state.loading == true){return(<h1>Loading...</h1>)}
         return (
         <div>
+            <Header/>
             <div>
                 <h1>{Name}</h1>
-                <table style={{width: '100%'}}>
+                <table style={{width: '100%', border: "2px solid black"}}>
                 <tr >
                     <th style={{border: "2px solid black"}}>item</th>
+                    <th style={{border: "2px solid black"}}>amount</th>
                     <th style={{border: "2px solid black"}}>price</th>
                     </tr>
                 {this.state.items.map(row => (
     
             <tr key={row._id} >
             <td style={{border: "2px solid black"}}>{row.data.data.Name}</td>
-            <td style={{border: "2px solid black"}}>${row.data.data.Price}.00</td>
+            <td style={{border: "2px solid black"}}>{row.amount}</td>
+            <td style={{border: "2px solid black"}}>${row.totalCost}.00</td>
+            <button onClick={this.handleSubmit2} value={row.data.data.Price}>Remove</button>
             </tr>
     
         )
     )}
-    <tr>
-        <td style={{border: "2px solid black"}}>Total</td>
-        <td style={{border: "2px solid black"}}>${this.state.total}.00</td>
+    <tr style={{border: "2px solid black"}}>
+        <td >Total</td>
+        <td ></td>
+        <td >${this.state.total}.00</td>
     </tr>
     </table>
-                    <button onClick={this.handleSubmit}>Checkout</button>
+                    <button onClick={this.handleSubmit} value="test">Checkout</button>
             </div>
         </div>
         );

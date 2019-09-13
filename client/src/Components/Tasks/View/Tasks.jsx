@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import Header from '../../Header/views/index'
 
 class Tasks extends Component {
     constructor() {
@@ -24,6 +25,7 @@ class Tasks extends Component {
         console.log(tasks)
         return (
         <div>
+            <Header/>
             {
                 tasks.map(row => (
                     <div key={row._id}>

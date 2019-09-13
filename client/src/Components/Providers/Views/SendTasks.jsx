@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 
-class SignInForm extends Component {
+class SendTasks extends Component {
     constructor() {
         super();
 
         this.state = {
-            email: null,
-            password: null
+            task: null,
+            patients: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -28,26 +29,34 @@ class SignInForm extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
-        this.Login(this.state.email, this.state.password)
+        this.sendTasks(this.state.task)
     }
 
+    componentDidMount(){
+        this.getPatients()
+    }
     
+    getPatients = () => {
+        axios.post('/api/providers/getPatients')
+        .then(
+            (res)=>{
+                console.log(res)
+            }
+        )
+    }
 
-    Login = (email, password) => {
-      axios.post('/api/login/login', {
-          email: email,
-          password: password
-      }).then(
-        axios.get('/api/login/check', {
-
-        })
-      )
-  }
+    sendTasks = (task) => {
+        axios.post('/api/task/addTask',
+            {
+                task: task
+            }
+        )
+    }
 
 
     render() {
+      var redirect = this.state.redirect
+      if(redirect == true){return (<Redirect to="/Main"/>)}
         return (
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
@@ -57,12 +66,14 @@ class SignInForm extends Component {
               </div>
 
               <div className="FormField">
-                <label className="FormField__Label" htmlFor="password">Password</label>
-                <input type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
+                <label className="FormField__Label" htmlFor="type">Provider Type</label>
+                <input type="type" id="type" className="FormField__Input" placeholder="Enter your type" name="type" value={this.state.type} onChange={this.handleChange} />
               </div>
 
               <div className="FormField">
-                  <button className="FormField__Button mr-20">Sign In</button> <Link to="/" className="FormField__Link">Create an account</Link>
+                  
+                    <button className="FormField__Button mr-20">Sign In</button>
+                     <Link to="/" className="FormField__Link">Create an account</Link>
               </div>
             </form>
           </div>
@@ -70,4 +81,4 @@ class SignInForm extends Component {
     }
 }
 
-export default SignInForm;
+export default SendTasks;
