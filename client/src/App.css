@@ -141,3 +141,35 @@
     margin-left: 5px;
   }
   
+  .sidebar {
+    width: 20vw;
+    background-color: #199087;
+    height: 100vh;
+    display: flex;
+    flex-direction: column
+  }
+
+  .SideLinks {
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    height: 3vh;
+    margin-top: 1vh
+  }
+
+  .SideLinks:hover {
+    background-color: gray
+  }
+
+  .SideLinks:visited {
+    text-decoration: none
+  }
+
+  .Header {
+    height: 10vh;
+    background-color: #225E62;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+  }

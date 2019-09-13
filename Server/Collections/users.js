@@ -41,7 +41,7 @@ const shoppingCartItems = new Schema({
     itemId: {
         type: String,
     },
-    ammount: {
+    amount: {
         type: Number,
     },
     totalCost: {
@@ -81,7 +81,18 @@ const accounts = new Schema({
 },
     tasks: [tasksSchema],
     shoppingCart: [shoppingCartSchema],
-    providers: [providersSchema]
+    providers: [providersSchema],
+    providerInfo: {
+        providerType: {
+            type: String,
+            require: true,
+            default: "Patient"
+    },
+        patientIds: {
+            type: [String],
+            default: 'empty'
+    }
+    }
 },
   { timestamps: true }
 );

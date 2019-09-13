@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import Header from '../../Header/views'
 
 class Tasks extends Component {
     constructor() {
@@ -72,6 +73,7 @@ class Tasks extends Component {
         console.log(subId)
         return (
         <div>
+            <Header/>
             <div>
                     <h1>{subName}</h1>
                     <h1>Price: ${subPrice}.00</h1>

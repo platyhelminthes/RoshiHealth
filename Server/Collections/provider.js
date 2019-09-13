@@ -6,23 +6,23 @@ SALT_WORK_FACTOR = 10;
 
 
 const providers = new Schema({
-    Email: {
+    email: {
         type: String,
         require: true
 },
-    Password: {
+    password: {
         type: String,
         require: true
 },
-    ProviderName: {
+    providerName: {
         type: String,
         require: true
 },
-    ProviderType: {
+    providerType: {
         type: String,
         require: true
 },
-    Patients: {
+    patientIds: {
         type: [String],
         require: true
 }

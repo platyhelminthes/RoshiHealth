@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { runInNewContext } from 'vm';
+import Header from '../../Header/views/index'
 
 class Tasks extends Component {
     constructor() {
@@ -14,6 +15,7 @@ class Tasks extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit2 = this.handleSubmit2.bind(this);
     }
 
     handleChange(e) {
@@ -28,7 +30,11 @@ class Tasks extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.checkout()
+        this.checkout(e)
+    }
+
+    handleSubmit2(e) {
+        console.log(e.target.value)
     }
 
     componentDidMount(){
@@ -46,10 +52,13 @@ class Tasks extends Component {
             axios.post('/api/cart/getItemsInfo', {
                 id: this.state.itemIds[i].itemId
             }).then((res)=>{
-                res.amount = this.state.itemIds[i-1].ammount
+                res.amount = this.state.itemIds[i-1].amount
                 res.totalCost = this.state.itemIds[i-1].totalCost
                 this.state.items.push(res)
         console.log(res)})}
+    }
+    checkout = (e) => {
+        console.log(e.target.value)
     }
     //this.setState({
     //    itemIds: res.data.data[0].itemIds
@@ -69,6 +78,7 @@ class Tasks extends Component {
         if(this.state.loading == true){return(<h1>Loading...</h1>)}
         return (
         <div>
+            <Header/>
             <div>
                 <h1>{Name}</h1>
                 <table style={{width: '100%', border: "2px solid black"}}>
@@ -83,6 +93,7 @@ class Tasks extends Component {
             <td style={{border: "2px solid black"}}>{row.data.data.Name}</td>
             <td style={{border: "2px solid black"}}>{row.amount}</td>
             <td style={{border: "2px solid black"}}>${row.totalCost}.00</td>
+            <button onClick={this.handleSubmit2} value={row.data.data.Price}>Remove</button>
             </tr>
     
         )
@@ -93,7 +104,7 @@ class Tasks extends Component {
         <td >${this.state.total}.00</td>
     </tr>
     </table>
-                    <button onClick={this.handleSubmit}>Checkout</button>
+                    <button onClick={this.handleSubmit} value="test">Checkout</button>
             </div>
         </div>
         );

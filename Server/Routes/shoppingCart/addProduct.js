@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     console.log(total)
     Data.findOneAndUpdate(
         {"email": req.user.email, "shoppingCart.finishedTransaction": "Active"},
-        {$set: {"shoppingCart.$[element].items.$.itemId": id}, $inc: {"shoppingCart.$[element].items.$.ammount": 1, "shoppingCart.$[element].items.$.totalCost": cost, "shoppingCart.$[element].total": cost}},
+        {$set: {"shoppingCart.$[element].items.$.itemId": id}, $inc: {"shoppingCart.$[element].items.$.amount": 1, "shoppingCart.$[element].items.$.totalCost": cost, "shoppingCart.$[element].total": cost}},
         {arrayFilters: [{'element.finishedTransaction': "Active"}], safe: true, upsert: true, new : true},
         function(err) {
         console.log(err);
