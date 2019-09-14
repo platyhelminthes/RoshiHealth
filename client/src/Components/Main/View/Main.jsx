@@ -3,6 +3,11 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
 import Sidebar from '../../SideNav/View/index'
 import Header from '../../Header/views/index'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 class Main extends Component {
 
@@ -15,7 +20,8 @@ class Main extends Component {
             email: null,
             fullName: null,
             loading: true,
-            redirect: false
+            redirect: false,
+            providers: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,19 +46,33 @@ class Main extends Component {
 
 
     componentDidMount(){
-        setTimeout(this.getInfo, 500)
+        setTimeout(this.getInfo, 200)
+        setTimeout(this.getProviders, 1000)
+        setTimeout(this.getProviders2, 2000)
+        setTimeout(this.getProviders2, 3000)
     }
 
     getInfo = () => {
         axios.get('/api/users/getUserInfo').then(
             (res)=>{
                 if(!res.data.email){this.setState({redirect: true})}
-                console.log(res.data.task[0].text)
                 this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
+            }
+        ).then(this.getProviders)
+    }
+
+    getProviders2 = () => {
+        if (!this.state.providers) {console.log('WhatthefUck')}
+    }
+
+    getProviders = () => {
+        axios.get('/api/users/getProviders')
+        .then(
+            (res) => {
+                this.setState({providers: res.data.data})
             }
         )
     }
-
 
 
 
@@ -61,6 +81,7 @@ class Main extends Component {
         var email = this.state.email;
         var name = this.state.fullName;
         var loading = this.state.loading
+        var providers = this.state.providers
         if(this.state.redirect == true){return(<Redirect to="/login"/>)}
         else if(loading == true){return(<h1>Loading...</h1>)}
         return (
@@ -68,12 +89,39 @@ class Main extends Component {
             <Header/>
             <div style={{display: "flex"}}>
             <Sidebar/>
+            <div>
             <h1>Email: {email}</h1>
             <h1>Name: {name}</h1>
+            <h1>Your provider team</h1>
+            <Table>
+            <TableHead>
+            <TableRow>
+            <TableCell>name</TableCell>
+            <TableCell align="left">email</TableCell>
+            <TableCell align="left">Type</TableCell>
+            </TableRow>
+            </TableHead>
+            <TableBody>
+            {providers.map(row => (
+            <TableRow key={row._id}>
+              <TableCell component="th" scope="row">
+                {row.fullName}
+              </TableCell>
+              <TableCell align="left">{row.email}</TableCell>
+              <TableCell align="left">{row.providerInfo.providerType}</TableCell>
+            </TableRow>
+            ))}
+            </TableBody>
+            </Table>
+
             </div>
+            </div>
+
           </div>
         );
     }
 }
 
 export default Main;
+
+
