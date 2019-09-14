@@ -8,6 +8,7 @@ import subscription from './Components/PurchaseSubscription/View/PurchaseSub'
 import admin from './Components/AdminCommands/View/Admin'
 import findProviders from './Components/ChooseDoctor/View/index'
 import sendTasks from './Components/Providers/Views/SendTasks'
+import Redir from './Components/redirect'
 
 import './App.css';
 
@@ -15,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-              
+              <Route exact path="/" component={Redir}/>
               <Route path="/login" component={login}/>
               <Route exact path="/Main" component={Main}/>
               <Route exact path="/tasks" component={tasks}/>

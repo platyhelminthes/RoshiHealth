@@ -34,28 +34,42 @@ class Tasks extends Component {
     }
 
     handleSubmit2(e) {
+        console.log(e.target.name)
         console.log(e.target.value)
+        this.removeFromCart(e.target.name, e.target.value)
+    }
+
+    removeFromCart = (id, cost) => {
+        console.log(cost)
+        axios.post('/api/cart/remove',{
+            id: id,
+            price: cost
+        }).then(this.setState({loading: true})).then(setTimeout(this.getFromDB, 500)).then(setTimeout(this.getItems,1000)).then(setTimeout(this.checkItems,2000))
     }
 
     componentDidMount(){
-
         setTimeout(this.getFromDB,500)
         setTimeout(this.getItems, 1000)
-        setTimeout(this.checkItems, 3000)
+        setTimeout(this.checkItems, 2000)
     }
     checkItems = () => {
         console.log(this.state.items)
         this.setState({loading: false})
     }
     getItems = () => {
+        var items = []
         for(var i=0;i<this.state.itemIds.length;i++){
             axios.post('/api/cart/getItemsInfo', {
                 id: this.state.itemIds[i].itemId
             }).then((res)=>{
+                
                 res.amount = this.state.itemIds[i-1].amount
                 res.totalCost = this.state.itemIds[i-1].totalCost
-                this.state.items.push(res)
+                res.id = this.state.itemIds[i-1].itemId
+                items.push(res)
+                
         console.log(res)})}
+        this.setState({items: items})
     }
     checkout = (e) => {
         console.log(e.target.value)
@@ -65,6 +79,7 @@ class Tasks extends Component {
     //})
     getFromDB = () => {axios.get('/api/cart/getUserCart').then(
         (res)=>{
+            console.log('test')
             this.setState({
                 itemIds: res.data.data[0].items,
                 total: res.data.data[0].total
@@ -93,7 +108,7 @@ class Tasks extends Component {
             <td style={{border: "2px solid black"}}>{row.data.data.Name}</td>
             <td style={{border: "2px solid black"}}>{row.amount}</td>
             <td style={{border: "2px solid black"}}>${row.totalCost}.00</td>
-            <button onClick={this.handleSubmit2} value={row.data.data.Price}>Remove</button>
+            <button onClick={this.handleSubmit2} value={row.data.data.Price} name={row.id}>Remove</button>
             </tr>
     
         )

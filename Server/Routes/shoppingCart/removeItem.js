@@ -2,15 +2,12 @@ var Data = require('../../Collections/users')
 
 module.exports = (req, res, next) => {
 
-    var id = req.body.productId
+    var id = req.body.id
     var cost = req.body.price
-    var total= req.body.total
-    console.log(total)
-    Data.findOneAndRemove(
+    Data.findOneAndUpdate(
         {"email": req.user.email, "shoppingCart.finishedTransaction": "Active"},
-        {$push: {"shoppingCart.$.itemIds": id},
-        $inc: {"shoppingCart.$.total": '-'+cost}},
-        {safe: true, upsert: true, new : true},
+        {$inc: {"shoppingCart.$[element].items.$[element2].amount": -1, "shoppingCart.$[element].items.$[element2].totalCost": -cost, "shoppingCart.$[element].total": -cost}},
+        {arrayFilters: [{'element.finishedTransaction': "Active"}, {'element2.itemId': id}], safe: true, upsert: true, new : true},
         function(err) {
         console.log(err);
     });
