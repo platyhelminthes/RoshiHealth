@@ -36,7 +36,7 @@ class Tasks extends Component {
     handleSubmit2(e) {
         (e).preventDefault()
 
-        this.addToCart()
+        this.addToCart(e.target.value)
     }
 
     componentDidMount(){
@@ -52,11 +52,12 @@ class Tasks extends Component {
         )
     }
 
-    addToCart = () => {
+    addToCart = (a) => {
         axios.post('/api/cart/addProductToCart', {
             productId: this.state.subId,
             price: this.state.subPrice,
-            total: this.state.subPrice
+            total: this.state.subPrice,
+            name: a
         })
     }
 
@@ -77,7 +78,7 @@ class Tasks extends Component {
             <div>
                     <h1>{subName}</h1>
                     <h1>Price: ${subPrice}.00</h1>
-                    <button onClick={this.handleSubmit2}>Add To Your Cart</button>
+                    <button value='subscription' onClick={this.handleSubmit2}>Add To Your Cart</button>
                     <button onClick={this.handleSubmit}>Make the sub</button>
             </div>
         </div>

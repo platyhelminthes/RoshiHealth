@@ -1,12 +1,13 @@
-Data = require('../../Collections/products')
-
+Data = require('../../Collections/users')
 module.exports = (req,res) => {
-    Data.findById(
-        req.body.id,
+
+    Data.find(
+        {'email': req.user.email},
+        {'shoppingCart': {$elemMatch: {'finishedTransaction': 'Active'}}},
         (err, data) => {
-            console.log(data)
-            if (err) return res.json({ success: false, error: err });
-            return res.json({ success: true, data: data });
+            if(err) {return res.json({success: false, error: err})}
+            else{return res.json({success: true, data:data})}
         }
     )
+    
 }
