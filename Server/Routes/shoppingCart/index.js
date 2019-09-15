@@ -6,6 +6,7 @@ const GISD = require('./generateInitialSubscriptionDocument')
 const GC = require('./getCart')
 const GII = require('./getItemsInfo')
 const RI = require('./removeItem')
+const FT = require('./finishTransaction')
 
 
 
@@ -15,6 +16,7 @@ routes.get('/generateSub', GISD)
 routes.get('/getUserCart', GC)
 routes.post('/getItemsInfo', GII)
 routes.post('/remove', RI)
+routes.post('/finish', FT)
 
 
 

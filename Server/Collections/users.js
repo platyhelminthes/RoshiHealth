@@ -41,8 +41,14 @@ const shoppingCartItems = new Schema({
     itemId: {
         type: String,
     },
+    name: {
+        type: String
+    },
     amount: {
         type: Number,
+    },
+    cost: {
+        type: Number
     },
     totalCost: {
         type: Number
@@ -80,7 +86,10 @@ const accounts = new Schema({
         default: "0"
 },
     tasks: [tasksSchema],
-    shoppingCart: [shoppingCartSchema],
+    shoppingCart: {
+        type: [shoppingCartSchema],
+        required: true
+    },
     providers: [providersSchema],
     providerInfo: {
         providerType: {

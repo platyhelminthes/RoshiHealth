@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import {Link, Redirect} from 'react-router-dom'
 import { runInNewContext } from 'vm';
 import Header from '../../Header/views/index'
 
@@ -11,7 +12,8 @@ class Tasks extends Component {
             itemIds: [],
             items: [],
             total: 0,
-            loading: true
+            loading: true,
+            redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,16 +33,16 @@ class Tasks extends Component {
     handleSubmit(e) {
         (e).preventDefault()
         this.checkout(e)
+        this.setState({redirect: true})
     }
 
     handleSubmit2(e) {
-        console.log(e.target.name)
-        console.log(e.target.value)
+
         this.removeFromCart(e.target.name, e.target.value)
     }
 
     removeFromCart = (id, cost) => {
-        console.log(cost)
+        
         axios.post('/api/cart/remove',{
             id: id,
             price: cost
@@ -48,49 +50,35 @@ class Tasks extends Component {
     }
 
     componentDidMount(){
-        setTimeout(this.getFromDB,500)
-        setTimeout(this.getItems, 1000)
-        setTimeout(this.checkItems, 2000)
+        setTimeout(this.getFromDB,1000)
+        
     }
     checkItems = () => {
-        console.log(this.state.items)
+        
         this.setState({loading: false})
     }
-    getItems = () => {
-        var items = []
-        for(var i=0;i<this.state.itemIds.length;i++){
-            axios.post('/api/cart/getItemsInfo', {
-                id: this.state.itemIds[i].itemId
-            }).then((res)=>{
-                
-                res.amount = this.state.itemIds[i-1].amount
-                res.totalCost = this.state.itemIds[i-1].totalCost
-                res.id = this.state.itemIds[i-1].itemId
-                items.push(res)
-                
-        console.log(res)})}
-        this.setState({items: items})
-    }
+
     checkout = (e) => {
-        console.log(e.target.value)
+        axios.post('/api/cart/finish')
     }
-    //this.setState({
-    //    itemIds: res.data.data[0].itemIds
-    //})
-    getFromDB = () => {axios.get('/api/cart/getUserCart').then(
+
+    getFromDB = () => {axios.post('/api/cart/getItemsInfo').then(
         (res)=>{
-            console.log('test')
             this.setState({
-                itemIds: res.data.data[0].items,
-                total: res.data.data[0].total
+                items: res.data.data[0].shoppingCart[0].items,
+                total: res.data.data[0].shoppingCart[0].total
+                
             })
+            console.log(res)
         }
-    )}
+    )
+this.setState({loading: false})}
     render() {
         var Name = "Your Name will go here";
         var items = this.state.items
 
         if(this.state.loading == true){return(<h1>Loading...</h1>)}
+        else if(this.state.redirect == true){return(<Redirect to="/main"/>)}
         return (
         <div>
             <Header/>
@@ -105,10 +93,10 @@ class Tasks extends Component {
                 {this.state.items.map(row => (
     
             <tr key={row._id} >
-            <td style={{border: "2px solid black"}}>{row.data.data.Name}</td>
+            <td style={{border: "2px solid black"}}>{row.name}</td>
             <td style={{border: "2px solid black"}}>{row.amount}</td>
             <td style={{border: "2px solid black"}}>${row.totalCost}.00</td>
-            <button onClick={this.handleSubmit2} value={row.data.data.Price} name={row.id}>Remove</button>
+            <button onClick={this.handleSubmit2} value={row.cost} name={row.itemId}>Remove</button>
             </tr>
     
         )
