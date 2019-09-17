@@ -6,14 +6,16 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router-dom'
 
 class Tasks extends Component {
     constructor() {
         super();
 
         this.state = {
-            task: []
+            task: [],
+            sub: null,
+            redirect: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -24,6 +26,14 @@ class Tasks extends Component {
   }
   tasks = []
     componentDidMount(){
+      axios.get('/api/users/getUserInfo').then(
+        (res)=>{
+          if(res.data.sub != 'A1237'){
+          this.setState({
+            redirect: true
+          })}
+        }
+      )
         axios.get('/api/tasks/getTasks').then(
             (res)=>{
                 console.log(res.data.data[0].tasks)
@@ -53,6 +63,9 @@ class Tasks extends Component {
 
     render() {
         var tasks = this.state.task
+        if(this.state.redirect == true) {
+          return(<Redirect to='Main'/>)
+        }
         return (
         <div>
             <Header/>

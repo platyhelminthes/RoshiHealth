@@ -39,6 +39,8 @@ class SignInForm extends Component {
     
 
     Login = (email, password) => {
+      if(this.sanatize(email) || this.sanatize(password)){alert('No injections allowed!')}
+      else{
       axios.post('/api/login/login', {
           email: email,
           password: password
@@ -46,8 +48,18 @@ class SignInForm extends Component {
         axios.get('/api/login/check', {
 
         })
-      )
+      )}
   }
+  sanatize = (string) => {
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+    if(format.test(string)){
+        return true
+    }
+    else{
+        return false
+    }
+    
+}
 
 
     render() {

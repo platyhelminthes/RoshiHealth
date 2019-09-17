@@ -46,13 +46,25 @@ class SendTasks extends Component {
     }
 
     sendTasks = (task) => {
+        if(this.sanatize(task)){alert('No injections allowed!')}
+        else{
         axios.post('/api/task/addTask',
             {
                 task: task
             }
-        )
+        )}
     }
 
+    sanatize = (string) => {
+        var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+        if(format.test(string)){
+            return true
+        }
+        else{
+            return false
+        }
+        
+    }
 
     render() {
       var redirect = this.state.redirect

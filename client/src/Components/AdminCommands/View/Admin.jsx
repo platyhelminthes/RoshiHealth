@@ -35,14 +35,26 @@ class Admin extends Component {
         this.makeProvider(this.state.email, this.state.type)
     }
 
+    sanatize = (string) => {
+      var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+      if(format.test(string)){
+          return true
+      }
+      else{
+          return false
+      }
+      
+  }
     
     makeProvider = (email, type) => {
+      if(this.sanatize(email) || this.sanatize(type)) {alert('No injections allowed!')}
+      else{
         axios.post('/api/providers/setProvider',
         {
             email: email,
             type: type
         })
-    }
+    }}
 
 
     render() {

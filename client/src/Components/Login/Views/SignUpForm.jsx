@@ -26,6 +26,16 @@ class SignUpForm extends Component {
       [name]: value
     });
   }
+  sanatize = (string) => {
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+    if(format.test(string)){
+        return true
+    }
+    else{
+        return false
+    }
+    
+}
 
   handleSubmit(e) {
     e.preventDefault();
@@ -36,11 +46,13 @@ class SignUpForm extends Component {
   }
 
   CreateAccount = (name, email, password) => {
+    if(this.sanatize(name) || this.sanatize(email) || this.sanatize(password)){alert('no injections allowed')}
+    else{
     axios.post('/api/users/createUser', {
       fullName: name,
       email: email,
       password: password,
-    });
+    })}
   };
 
   render() {

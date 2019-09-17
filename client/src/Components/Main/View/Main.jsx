@@ -21,7 +21,8 @@ class Main extends Component {
             fullName: null,
             loading: true,
             redirect: false,
-            providers: []
+            providers: [],
+            sub: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,6 +46,8 @@ class Main extends Component {
 
 
 
+
+
     componentDidMount(){
         setTimeout(this.getInfo, 200)
         setTimeout(this.getProviders, 1000)
@@ -56,7 +59,7 @@ class Main extends Component {
         axios.get('/api/users/getUserInfo').then(
             (res)=>{
                 if(!res.data.email){this.setState({redirect: true})}
-                this.setState({email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
+                this.setState({sub: res.data.sub, email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
             }
         ).then(this.getProviders)
     }
@@ -84,6 +87,23 @@ class Main extends Component {
         var providers = this.state.providers
         if(this.state.redirect == true){return(<Redirect to="/login"/>)}
         else if(loading == true){return(<h1>Loading...</h1>)}
+        else if(this.state.providerType != "patient") {
+            return(
+<div style={{display: "flex", flexDirection: "column"}}>
+            <Header/>
+            <div style={{display: "flex"}}>
+            <Sidebar/>
+            <div>
+            <h1>Your Provider Email: {email}</h1>
+            <h1>Your Provider Name: {name}</h1>
+        
+
+            </div>
+            </div>
+
+          </div>
+            )
+        }
         return (
         <div style={{display: "flex", flexDirection: "column"}}>
             <Header/>
