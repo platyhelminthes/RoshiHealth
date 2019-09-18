@@ -9,6 +9,7 @@ import admin from './Components/AdminCommands/View/Admin'
 import findProviders from './Components/ChooseDoctor/View/index'
 import sendTasks from './Components/Providers/Views/SendTasks'
 import Redir from './Components/redirect'
+import Schedule from './Components/Scheduling/View/index'
 
 import './App.css';
 
@@ -25,6 +26,7 @@ class App extends Component {
               <Route exact path="/adminPage" component={admin}/>
               <Route exact path="/addProviders" component={findProviders}/>
               <Route exact path="/sendTasks" component={sendTasks}/>
+              <Route exact path="/scheduler" component={Schedule}/>
       </Router>
     );
   }

@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import Header from '../../Header/views/index'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 
 class SendTasks extends Component {
     constructor() {
@@ -9,7 +16,9 @@ class SendTasks extends Component {
 
         this.state = {
             task: null,
-            patients: null
+            patients: null,
+            loading: true,
+            date: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -29,28 +38,44 @@ class SendTasks extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.sendTasks(this.state.task)
+        this.sendTasks(this.state.task, e.target.value, this.state.date)
     }
 
     componentDidMount(){
-        this.getPatients()
+        setTimeout(this.getPatients,500)
+        setTimeout(this.finishLoading, 700)
     }
     
+    finishLoading = () => {
+        if(this.state.patients != null){
+            this.setState({loading: false})
+        }
+        else{
+            setTimeout(this.finishLoading, 500)
+        }
+    }
+
     getPatients = () => {
         axios.post('/api/providers/getPatients')
         .then(
             (res)=>{
-                console.log(res)
+                this.setState({
+                    patients: res.data.data
+                })
             }
         )
     }
 
-    sendTasks = (task) => {
+    sendTasks = (task, id, date) => {
         if(this.sanatize(task)){alert('No injections allowed!')}
         else{
-        axios.post('/api/task/addTask',
+            console.log(id)
+            console.log(date)
+        axios.post('/api/tasks/addTask',
             {
-                task: task
+                task: task,
+                id: id,
+                date: date
             }
         )}
     }
@@ -67,28 +92,55 @@ class SendTasks extends Component {
     }
 
     render() {
+        var patients = this.state.patients
       var redirect = this.state.redirect
-      if(redirect == true){return (<Redirect to="/Main"/>)}
+        var loading = this.state.loading
+
+      if(loading == true){return(<h1>loading</h1>)}
+      else if(redirect == true){return (<Redirect to="/Main"/>)}
         return (
-        <div className="FormCenter">
-            <form onSubmit={this.handleSubmit} className="FormFields">
-            <div className="FormField">
-                <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
-                <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
-              </div>
 
-              <div className="FormField">
-                <label className="FormField__Label" htmlFor="type">Provider Type</label>
-                <input type="type" id="type" className="FormField__Input" placeholder="Enter your type" name="type" value={this.state.type} onChange={this.handleChange} />
-              </div>
-
-              <div className="FormField">
-                  
-                    <button className="FormField__Button mr-20">Sign In</button>
-                     <Link to="/" className="FormField__Link">Create an account</Link>
-              </div>
-            </form>
+            <div style={{backgroundColor: '#9DA6B1'}}>
+            <Header/>
+    <div className="FormCenter">
+        <form onSubmit={this.handleSubmit} className="FormFields">
+          <div className="FormField">
+            <label className="FormField__Label" htmlFor="task">Task</label>
+            <input type="text" id="task" className="FormField__Input" placeholder="Enter Task" name="task" onChange={this.handleChange} />
           </div>
+
+          <div className="FormField">
+            <label className="FormField__Label" htmlFor="date">Due Date</label>
+            <input type="Date" id="date" className="FormField__Input" placeholder="Enter Task" name="date" onChange={this.handleChange} />
+          </div>
+
+        </form>
+      </div>
+      <Table>
+            <TableHead>
+          <TableRow>
+            <TableCell>Task</TableCell>
+            <TableCell align="left">Doctor</TableCell>
+            <TableCell align="right">Due Date</TableCell>
+            <TableCell align="right">Finish Task</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {patients.map(
+            
+            
+            row => (
+            <TableRow key={row._id}>
+              <TableCell component="th" scope="row">
+                {row.fullName}
+              </TableCell>
+              <TableCell align="left">{row.email}</TableCell>
+              <TableCell align="right"><button onClick={this.handleSubmit} value={row._id}>Send</button></TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+            </Table>
+      </div>
         );
     }
 }

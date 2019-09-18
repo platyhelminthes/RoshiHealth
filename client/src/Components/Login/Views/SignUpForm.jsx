@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class SignUpForm extends Component {
   constructor() {
@@ -10,7 +11,8 @@ class SignUpForm extends Component {
       email: '',
       password: '',
       name: '',
-      hasAgreed: false
+      hasAgreed: false,
+      redirect: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +29,7 @@ class SignUpForm extends Component {
     });
   }
   sanatize = (string) => {
-    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
     if(format.test(string)){
         return true
     }
@@ -52,10 +54,12 @@ class SignUpForm extends Component {
       fullName: name,
       email: email,
       password: password,
-    })}
+    }).then(this.setState({redirect: true}))
+  }
   };
 
   render() {
+    if(this.state.redirect == true){return(<Redirect to='/login'/>)}
     return (
       <div className="FormCenter">
         <form onSubmit={this.handleSubmit} className="FormFields">

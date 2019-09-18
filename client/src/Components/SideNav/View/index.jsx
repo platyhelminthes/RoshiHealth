@@ -15,7 +15,8 @@ class Tasks extends Component {
             linkT: '/subscription',
             textT: 'Only Subs May View Tasks',
             linkP: '/subscription',
-            textP: 'Only Subs May View Providers'
+            textP: 'Only Subs May View Providers',
+            providerType: 'Patient'
 
 
         };
@@ -24,9 +25,10 @@ class Tasks extends Component {
     componentDidMount(){
         Axios.get('/api/users/getUserInfo').then(
             (res)=>{
-                console.log(res.data.sub)
+                console.log(res.data)
                 this.setState({
-                    sub: res.data.sub
+                    sub: res.data.sub,
+                    providerType: res.data.providerType
                 })
             }
         )
@@ -36,10 +38,25 @@ class Tasks extends Component {
         setTimeout(this.subCheck, 1000)
     }
     subCheck = () => {
-        if(this.state.sub == 'A1237'){this.setState({linkT: '/tasks', textT: 'Tasks', linkP: '/addProviders', textP: 'Add a provider'})}
+        if(this.state.sub == 'A1237'){this.setState({
+            linkT: '/tasks', 
+            textT: 'Tasks', 
+            linkP: '/addProviders', 
+            textP: 'Add a provider'
+        })}
     }
     render() {
-
+        if(this.state.providerType != 'Patient'){
+            return(
+                <div className="sidebar">
+                {this.state.subCheckBut}
+                <Link to='/sendTasks' className="SideLinks">Send a task to your patients</Link>
+                <Link to="/appointments" className="SideLinks">See appointments</Link>
+                
+              </div>
+            )
+        }
+        else{
         return (
         <div className="sidebar">
             {this.state.subCheckBut}
@@ -49,7 +66,7 @@ class Tasks extends Component {
             <Link to={this.state.linkP} className="SideLinks">{this.state.textP}</Link>
             
           </div>
-        );
+        )};
     }
 }
 

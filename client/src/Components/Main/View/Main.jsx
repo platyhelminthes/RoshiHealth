@@ -22,7 +22,8 @@ class Main extends Component {
             loading: true,
             redirect: false,
             providers: [],
-            sub: null
+            sub: null,
+            providerType: 'Patient'
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,7 +60,14 @@ class Main extends Component {
         axios.get('/api/users/getUserInfo').then(
             (res)=>{
                 if(!res.data.email){this.setState({redirect: true})}
-                this.setState({sub: res.data.sub, email: res.data.email, fullName: res.data.name, task: res.data.task[0].text, loading: false})
+                this.setState({
+                    sub: res.data.sub, 
+                    email: res.data.email,
+                    fullName: res.data.name, 
+                    task: res.data.task[0].text, 
+                    loading: false,
+                    providerType: res.data.providerType
+                })
             }
         ).then(this.getProviders)
     }
@@ -87,7 +95,7 @@ class Main extends Component {
         var providers = this.state.providers
         if(this.state.redirect == true){return(<Redirect to="/login"/>)}
         else if(loading == true){return(<h1>Loading...</h1>)}
-        else if(this.state.providerType != "patient") {
+        else if(this.state.providerType != "Patient") {
             return(
 <div style={{display: "flex", flexDirection: "column"}}>
             <Header/>
@@ -133,8 +141,7 @@ class Main extends Component {
             ))}
             </TableBody>
             </Table>
-
-            </div>
+                </div>
             </div>
 
           </div>

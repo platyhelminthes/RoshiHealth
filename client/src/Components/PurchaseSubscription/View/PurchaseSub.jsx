@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import Header from '../../Header/views'
+import {Redirect} from 'react-router-dom'
 
 class Tasks extends Component {
     constructor() {
@@ -10,10 +11,10 @@ class Tasks extends Component {
                 subName: null,
                 subPrice: null,
                 subId: null,
-                currentTotal: null
+                currentTotal: null,
+                redirect: false
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
     }
 
@@ -27,11 +28,7 @@ class Tasks extends Component {
         });
     }
 
-    handleSubmit(e) {
-        (e).preventDefault()
 
-        this.generateSub()
-    }
 
     handleSubmit2(e) {
         (e).preventDefault()
@@ -59,6 +56,7 @@ class Tasks extends Component {
             total: this.state.subPrice,
             name: a
         })
+        .then(this.setState({redirect: true}))
     }
 
     generateSub = () => {
@@ -72,6 +70,7 @@ class Tasks extends Component {
         var subPrice = this.state.subPrice
         var subId = this.state.subId
         console.log(subId)
+        if(this.state.redirect == true){return(<Redirect to='/Main'/>)}
         return (
         <div>
             <Header/>
@@ -79,7 +78,6 @@ class Tasks extends Component {
                     <h1>{subName}</h1>
                     <h1>Price: ${subPrice}.00</h1>
                     <button value='subscription' onClick={this.handleSubmit2}>Add To Your Cart</button>
-                    <button onClick={this.handleSubmit}>Make the sub</button>
             </div>
         </div>
         );

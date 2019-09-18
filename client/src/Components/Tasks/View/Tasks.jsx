@@ -6,7 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
+import moment from 'moment'
 
 class Tasks extends Component {
     constructor() {
@@ -88,7 +89,7 @@ class Tasks extends Component {
                 {row.text}
               </TableCell>
               <TableCell align="left">{row.providerName}</TableCell>
-              <TableCell align="right">{Date.now}</TableCell>
+              <TableCell align="right">{moment(row.dueDate).format('dddd')}</TableCell>
               <TableCell align="right"><button onClick={this.handleSubmit} value={row._id}>Finish</button></TableCell>
             </TableRow>
           ))}

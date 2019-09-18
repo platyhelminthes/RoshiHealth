@@ -33,7 +33,6 @@ class SignInForm extends Component {
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         this.Login(this.state.email, this.state.password)
-        this.setState({redirect: true})
     }
 
     
@@ -47,11 +46,11 @@ class SignInForm extends Component {
       }).then(
         axios.get('/api/login/check', {
 
-        })
+        }).then(this.setState({redirect: true}))
       )}
   }
   sanatize = (string) => {
-    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
     if(format.test(string)){
         return true
     }

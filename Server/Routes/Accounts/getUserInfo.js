@@ -4,6 +4,7 @@ module.exports = (req, res) => {
         email: req.user.email,
         task: req.user.tasks,
         name: req.user.fullName,
-        sub: req.user.subLevel
+        sub: req.user.subLevel,
+        providerType: req.user.providerInfo.providerType
       });
     }
