@@ -12,10 +12,12 @@ class Tasks extends Component {
             redirect: null,
             sub: null,
             subCheckBut: null,
-            linkT: '/subscription',
+            linkT: '/main/subscription',
             textT: 'Only Subs May View Tasks',
-            linkP: '/subscription',
+            linkP: '/main/subscription',
             textP: 'Only Subs May View Providers',
+            linkS: '/main/subscription',
+            textS: 'Only Subs May Schedule an appointment',
             providerType: 'Patient'
 
 
@@ -39,10 +41,12 @@ class Tasks extends Component {
     }
     subCheck = () => {
         if(this.state.sub == 'A1237'){this.setState({
-            linkT: '/tasks', 
+            linkT: '/main/tasks', 
             textT: 'Tasks', 
-            linkP: '/addProviders', 
-            textP: 'Add a provider'
+            linkP: '/main/addProviders', 
+            textP: 'Add a provider',
+            linkS: '/main/scheduler',
+            textS: 'Schedule an appointment'
         })}
     }
     render() {
@@ -50,8 +54,8 @@ class Tasks extends Component {
             return(
                 <div className="sidebar">
                 {this.state.subCheckBut}
-                <Link to='/sendTasks' className="SideLinks">Send a task to your patients</Link>
-                <Link to="/appointments" className="SideLinks">See appointments</Link>
+                <Link to='/main/sendTasks' className="SideLinks">Send a task to your patients</Link>
+                <Link to="/main/appointments" className="SideLinks">See appointments</Link>
                 
               </div>
             )
@@ -61,9 +65,10 @@ class Tasks extends Component {
         <div className="sidebar">
             {this.state.subCheckBut}
             <Link to={this.state.linkT} className="SideLinks">{this.state.textT}</Link>
-            <Link to="/cart" className="SideLinks">Cart</Link>
-            <Link to="/subscription" className="SideLinks">Subscription</Link>
+            <Link to="/main/cart" className="SideLinks">Cart</Link>
+            <Link to="/main/subscription" className="SideLinks">Subscription</Link>
             <Link to={this.state.linkP} className="SideLinks">{this.state.textP}</Link>
+            <Link to={this.state.linkS} className="SideLinks">{this.state.textS}</Link>
             
           </div>
         )};

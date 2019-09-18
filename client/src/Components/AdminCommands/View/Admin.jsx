@@ -59,7 +59,7 @@ class Admin extends Component {
 
     render() {
       var redirect = this.state.redirect
-      if(redirect == true){return (<Redirect to="/Main"/>)}
+      if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">

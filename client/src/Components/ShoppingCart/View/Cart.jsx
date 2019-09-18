@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import {Link, Redirect} from 'react-router-dom'
 import { runInNewContext } from 'vm';
-import Header from '../../Header/views/index'
 
 class Tasks extends Component {
     constructor() {
@@ -78,10 +77,9 @@ this.setState({loading: false})}
         var items = this.state.items
 
         if(this.state.loading == true){return(<h1>Loading...</h1>)}
-        else if(this.state.redirect == true){return(<Redirect to="/main"/>)}
+        else if(this.state.redirect == true){return(<Redirect to="/main/overview"/>)}
         return (
         <div>
-            <Header/>
             <div>
                 <h1>{Name}</h1>
                 <table style={{width: '100%', border: "2px solid black"}}>

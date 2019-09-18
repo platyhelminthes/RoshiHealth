@@ -37,7 +37,7 @@ class Tasks extends Component {
         <div className="Header">
             <h3>{this.state.email}</h3>
             <h3>{this.state.name}</h3>
-            <Link to='/main' style={{marginRight: '2vw', marginTop:'2vh', color: 'black', textDecoration: 'none'}}>Home</Link>
+            <Link to='/main/overview' style={{marginRight: '2vw', marginTop:'2vh', color: 'black', textDecoration: 'none'}}>Home</Link>
             <Link to='/login' onClick={this.logOut}style={{marginRight: '2vw', marginTop:'2vh', color: 'black', textDecoration: 'none'}}>Logout?</Link>
           </div>
         );

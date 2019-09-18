@@ -1,6 +1,5 @@
 import React from 'react'
 import {Component} from 'react'
-import Header from '../../Header/views/index'
 import moment from 'moment';
 import Axios from 'axios';
 import {Redirect} from 'react-router-dom'
@@ -156,10 +155,12 @@ class Schedule extends Component{
         if(time == ''){alert('sorry that time is not available!')}
         else{
 
-        var dateTime = ''+ this.state.date + 'T' + time + ':00.000-07:00'
+        var dateTime = ''+ this.state.date + 'T' + time + ':00.000+00:00'
+        console.log(dateTime)
+        console.log(moment(dateTime).add(7, 'hours'))
             Axios.post('/api/providers/makeAppointment',
                 {
-                    date: dateTime,
+                    date: moment(dateTime).add(7, 'hours'),
                     id: this.state.docId,
                     name: this.state.doctor
                 }
@@ -195,20 +196,20 @@ class Schedule extends Component{
         if(this.state.appointments.includes('8:00 AM')){
             this.setState({available1: "Not Available", button1:'Not Available', value1: null})
         }
-        else{this.setState({available1: "Available", button1:'Book Appointment', value1: '8:00'})}
+        else{this.setState({available1: "Available", button1:'Book Appointment', value1: '08:00'})}
         if(this.state.appointments.includes('8:30 AM')){
             console.log('tester')
             this.setState({available2: "Not Available", button2:'Not Available', value2: null}) 
         }
-        else{this.setState({available2: "Available", button2:'Book Appointment', value2: '8:30'})}
+        else{this.setState({available2: "Available", button2:'Book Appointment', value2: '08:30'})}
         if(this.state.appointments.includes('9:00 AM')){
             this.setState({available3: "Not Available" , button3:'Not Available', value3: null})
         }
-        else{this.setState({available3: "Available", button3:'Book Appointment', value3: '9:00'})}
+        else{this.setState({available3: "Available", button3:'Book Appointment', value3: '09:00'})}
         if(this.state.appointments.includes('9:30 AM')){
             this.setState({available4: "Not Available", button4:'Not Available', value4: null})
         }
-        else{this.setState({available4: "Available", button4:'Book Appointment', value4: '9:30'})}
+        else{this.setState({available4: "Available", button4:'Book Appointment', value4: '09:30'})}
         if(this.state.appointments.includes('10:00 AM')){
             this.setState({available5: "Not Available", button5:'Not Available', value5: null})
         }
@@ -269,11 +270,10 @@ class Schedule extends Component{
 
     render(){
         var providers = this.state.providers
-        if (this.state.redirect == true){return(<Redirect to='/main'/>)}
+        if (this.state.redirect == true){return(<Redirect to='/main/overview'/>)}
         else if(this.state.loading == true){return(<h1>loading...</h1>)}
         else if(this.state.doctor == null){return(
             <div>
-                <Header/>
                 <table>
                     <thead>
                     <tr>
@@ -299,8 +299,7 @@ class Schedule extends Component{
             </div>
         )}
         else if(this.state.date == null || this.state.date == ''){return(
-            <div style={{backgroundColor:'lightgray'}}>
-                <Header/>
+            <div style={{}}>
             <div className="FormField">
             <label className="FormField__Label" htmlFor="date">Date to check</label>
             <input type="Date" id="date" className="FormField__Input" placeholder="Enter Task" name="date" onChange={this.handleChange} />
@@ -308,8 +307,7 @@ class Schedule extends Component{
           </div>
         )}
         else {return(
-            <div style={{backgroundColor:'lightgray'}}>
-                <Header/>
+            <div style={{}}>
 
 
                 

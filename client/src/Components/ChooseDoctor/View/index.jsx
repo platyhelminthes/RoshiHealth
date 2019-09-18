@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import Header from '../../Header/views'
 
 class ChooseDoctor extends Component {
     constructor() {
@@ -105,7 +104,6 @@ class ChooseDoctor extends Component {
     if(searched == true){
           return(
               <div>
-                  <Header/>
               {
                 doctors.map(row => (
                     <div key={row._id}>
@@ -119,11 +117,10 @@ class ChooseDoctor extends Component {
               </div>
           )
       }
-      else if(redirect == true) {return(<Redirect to="/Main"/>)}
+      else if(redirect == true) {return(<Redirect to="/main/overview"/>)}
       else{
         return (
             <div>
-                <Header/>
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
               <div className="FormField">

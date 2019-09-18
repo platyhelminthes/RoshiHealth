@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import Header from '../../Header/views/index'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -97,11 +96,10 @@ class SendTasks extends Component {
         var loading = this.state.loading
 
       if(loading == true){return(<h1>loading</h1>)}
-      else if(redirect == true){return (<Redirect to="/Main"/>)}
+      else if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
 
             <div style={{backgroundColor: '#9DA6B1'}}>
-            <Header/>
     <div className="FormCenter">
         <form onSubmit={this.handleSubmit} className="FormFields">
           <div className="FormField">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import Header from '../../Header/views'
 import {Redirect} from 'react-router-dom'
 
 class Tasks extends Component {
@@ -70,10 +69,9 @@ class Tasks extends Component {
         var subPrice = this.state.subPrice
         var subId = this.state.subId
         console.log(subId)
-        if(this.state.redirect == true){return(<Redirect to='/Main'/>)}
+        if(this.state.redirect == true){return(<Redirect to='/main/overview'/>)}
         return (
         <div>
-            <Header/>
             <div>
                     <h1>{subName}</h1>
                     <h1>Price: ${subPrice}.00</h1>
