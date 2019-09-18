@@ -29,7 +29,7 @@ class App extends Component {
   render() {
       if(this.state.redirect==true){
           return(
-              <Redirect to='/main'/>
+              <Redirect to='/main/overview'/>
           )
       }
       else{

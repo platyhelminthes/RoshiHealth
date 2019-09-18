@@ -55,6 +55,18 @@ const shoppingCartItems = new Schema({
     }
 })
 
+const appointmentsSchema = new Schema({
+    date: {
+        type: Date
+    },
+    user: {
+        type: String
+    },
+    userName: {
+        type: String
+    }
+})
+
 const shoppingCartSchema = new Schema({
     items: [shoppingCartItems],
     total: {
@@ -85,6 +97,7 @@ const accounts = new Schema({
         type: String,
         default: "0"
 },
+    appointments: [appointmentsSchema],
     tasks: [tasksSchema],
     shoppingCart: {
         type: [shoppingCartSchema],

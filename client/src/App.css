@@ -144,9 +144,13 @@
   .sidebar {
     width: 20vw;
     background-color: #199087;
-    height: 100vh;
+    height: 75vh;
+    margin-top: 15vh;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    border: 2px solid #26262b 
   }
 
   .SideLinks {
@@ -168,8 +172,19 @@
 
   .Header {
     height: 10vh;
-    background-color: #225E62;
+    width: 100%;
+    background-color: #36393F;
     display: flex;
     flex-direction: row;
-    justify-content: space-between
+    justify-content: space-between;
+    border: 2px solid #26262b 
+  }
+
+  .colorWhite {
+    color: whitesmoke
+  }
+
+  #mainBack {
+    background-color: #485461;
+    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
   }

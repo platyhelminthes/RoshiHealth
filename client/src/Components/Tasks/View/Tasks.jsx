@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import Header from '../../Header/views/index'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router-dom';
+import moment from 'moment'
 
 class Tasks extends Component {
     constructor() {
         super();
 
         this.state = {
-            task: []
+            task: [],
+            sub: null,
+            redirect: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -24,6 +26,14 @@ class Tasks extends Component {
   }
   tasks = []
     componentDidMount(){
+      axios.get('/api/users/getUserInfo').then(
+        (res)=>{
+          if(res.data.sub != 'A1237'){
+          this.setState({
+            redirect: true
+          })}
+        }
+      )
         axios.get('/api/tasks/getTasks').then(
             (res)=>{
                 console.log(res.data.data[0].tasks)
@@ -53,16 +63,18 @@ class Tasks extends Component {
 
     render() {
         var tasks = this.state.task
+        if(this.state.redirect == true) {
+          return(<Redirect to='/main/overview'/>)
+        }
         return (
         <div>
-            <Header/>
             <Table>
             <TableHead>
           <TableRow>
-            <TableCell>Task</TableCell>
-            <TableCell align="left">Doctor</TableCell>
-            <TableCell align="right">Due Date</TableCell>
-            <TableCell align="right">Finish Task</TableCell>
+            <TableCell style={{color: 'white'}}>Task</TableCell>
+            <TableCell style={{color: 'white'}} align="left">Doctor</TableCell>
+            <TableCell style={{color: 'white'}} align="right">Due Date</TableCell>
+            <TableCell style={{color: 'white'}} align="right">Finish Task</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,12 +83,12 @@ class Tasks extends Component {
             
             row => (
             <TableRow key={row._id}>
-              <TableCell component="th" scope="row">
+              <TableCell style={{color: 'white'}} component="th" scope="row">
                 {row.text}
               </TableCell>
-              <TableCell align="left">{row.providerName}</TableCell>
-              <TableCell align="right">{Date.now}</TableCell>
-              <TableCell align="right"><button onClick={this.handleSubmit} value={row._id}>Finish</button></TableCell>
+              <TableCell style={{color: 'white'}} align="left">{row.providerName}</TableCell>
+              <TableCell style={{color: 'white'}} align="right">{moment(row.dueDate).format('dddd')}</TableCell>
+              <TableCell style={{color: 'white'}} align="right"><button onClick={this.handleSubmit} value={row._id}>Finish</button></TableCell>
             </TableRow>
           ))}
         </TableBody>

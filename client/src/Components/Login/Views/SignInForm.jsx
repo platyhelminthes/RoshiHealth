@@ -33,26 +33,37 @@ class SignInForm extends Component {
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         this.Login(this.state.email, this.state.password)
-        this.setState({redirect: true})
     }
 
     
 
     Login = (email, password) => {
+      if(this.sanatize(email) || this.sanatize(password)){alert('No injections allowed!')}
+      else{
       axios.post('/api/login/login', {
           email: email,
           password: password
       }).then(
         axios.get('/api/login/check', {
 
-        })
-      )
+        }).then(this.setState({redirect: true}))
+      )}
   }
+  sanatize = (string) => {
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
+    if(format.test(string)){
+        return true
+    }
+    else{
+        return false
+    }
+    
+}
 
 
     render() {
       var redirect = this.state.redirect
-      if(redirect == true){return (<Redirect to="/Main"/>)}
+      if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import Header from '../../Header/views'
 
 class ChooseDoctor extends Component {
     constructor() {
@@ -20,6 +19,15 @@ class ChooseDoctor extends Component {
         this.handleSubmit2 = this.handleSubmit2.bind(this);
         
     }
+    componentDidMount(){
+        axios.get('/api/users/getUserInfo').then(
+            (res)=>{
+                if(res.data.sub != 'A1237') {
+                    this.setState({redirect: true})
+                }
+            }
+        )
+    }
 
     handleChange(e) {
         let target = e.target;
@@ -33,9 +41,11 @@ class ChooseDoctor extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
+        if(this.sanatize(this.state.search)){alert('No injections!')}
+        else{
         console.log(this.state.search)
         this.findProviders(this.state.search)
-        setTimeout(this.changePage, 3000)
+        setTimeout(this.changePage, 3000)}
     }
     handleSubmit2(e) {
         (e).preventDefault()
@@ -45,6 +55,8 @@ class ChooseDoctor extends Component {
     }
 
     findProviders = (search) => {
+        if(this.sanatize(search)){alert('No injections allowed sorry')}
+        else{
         axios.post('/api/providers/searchProviders',
         {search: search})
         .then(
@@ -52,7 +64,7 @@ class ChooseDoctor extends Component {
                 this.setState({doctors: res.data.data})
             }
             
-        )
+        )}
     }
 
     changePage = () => {
@@ -72,15 +84,26 @@ class ChooseDoctor extends Component {
         })
     }
 
+    
+    sanatize = (string) => {
+        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+        if(format.test(string)){
+            return true
+        }
+        else{
+            return false
+        }
+        
+    }
 
     render() {
       var redirect = this.state.redirect
       var searched = this.state.searched
       var doctors = this.state.doctors
-      if(searched == true){
+
+    if(searched == true){
           return(
               <div>
-                  <Header/>
               {
                 doctors.map(row => (
                     <div key={row._id}>
@@ -94,11 +117,10 @@ class ChooseDoctor extends Component {
               </div>
           )
       }
-      else if(redirect == true) {return(<Redirect to="/Main"/>)}
+      else if(redirect == true) {return(<Redirect to="/main/overview"/>)}
       else{
         return (
             <div>
-                <Header/>
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
               <div className="FormField">
