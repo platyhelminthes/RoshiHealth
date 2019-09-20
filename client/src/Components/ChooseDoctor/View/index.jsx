@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+
 
 class ChooseDoctor extends Component {
     constructor() {
@@ -11,7 +11,8 @@ class ChooseDoctor extends Component {
             search: null,
             searched: false,
             doctors: null,
-            redirect: false
+            redirect: false,
+            allowed: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -20,11 +21,12 @@ class ChooseDoctor extends Component {
         
     }
     componentDidMount(){
-        axios.get('/api/users/getUserInfo').then(
+        axios.get('/api/users/getUser').then(
             (res)=>{
-                if(res.data.sub != 'A1237') {
+                if(res.data.data.subLevel != 'A1237') {
                     this.setState({redirect: true})
                 }
+                else{this.setState({allowed: res.data.data.doctorsToAdd})}
             }
         )
     }
@@ -41,22 +43,22 @@ class ChooseDoctor extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        if(this.sanatize(this.state.search)){alert('No injections!')}
-        else{
+        
+        this.setState({search: e.target.value})
         console.log(this.state.search)
-        this.findProviders(this.state.search)
-        setTimeout(this.changePage, 3000)}
+        this.findProviders(e.target.value)
+        setTimeout(this.changePage, 3000)
     }
     handleSubmit2(e) {
         (e).preventDefault()
-        this.addDoctor(e.target.value)
+        this.addDoctor(e.target.value, this.state.search)
         this.addPatient(e.target.value)
         this.setState({redirect: true})
     }
 
     findProviders = (search) => {
-        if(this.sanatize(search)){alert('No injections allowed sorry')}
-        else{
+        
+        
         axios.post('/api/providers/searchProviders',
         {search: search})
         .then(
@@ -64,17 +66,18 @@ class ChooseDoctor extends Component {
                 this.setState({doctors: res.data.data})
             }
             
-        )}
+        )
     }
 
     changePage = () => {
         this.setState({searched: true})
         console.log(this.state.doctors)
     }
-    addDoctor = (id) => {
+    addDoctor = (id, type) => {
         axios.post('/api/providers/addProvider',
         {
-            id: id
+            id: id,
+            type: type
         })
     }
     addPatient = (id) => {
@@ -100,6 +103,7 @@ class ChooseDoctor extends Component {
       var redirect = this.state.redirect
       var searched = this.state.searched
       var doctors = this.state.doctors
+      var allowed = this.state.allowed
 
     if(searched == true){
           return(
@@ -121,19 +125,14 @@ class ChooseDoctor extends Component {
       else{
         return (
             <div>
-        <div className="FormCenter">
-            <form onSubmit={this.handleSubmit} className="FormFields">
-              <div className="FormField">
-                <label className="FormField__Label" htmlFor="text">Provider Type</label>
-                <input type="type" id="type" className="FormField__Input" placeholder="Enter your type" name="search" value={this.state.search} onChange={this.handleChange} />
-              </div>
+                {
+                allowed.map(row => (
 
-              <div className="FormField">
-                  
-                    <button className="FormField__Button mr-20">Search Doctors</button>
-              </div>
-            </form>
-          </div>
+                        <button value={row} onClick={this.handleSubmit}>{row}</button>
+
+                    )
+                )
+              }
           </div>
         )};
     }

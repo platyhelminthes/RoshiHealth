@@ -8,14 +8,17 @@ import TableRow from '@material-ui/core/TableRow';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment'
 
+import loadingCircle from '../../Pictures/loadingCircle.png'
+
 class Tasks extends Component {
     constructor() {
         super();
 
         this.state = {
-            task: [],
+            task: null,
             sub: null,
-            redirect: false
+            redirect: false,
+            loading: true
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -42,8 +45,16 @@ class Tasks extends Component {
             }
         ).then(
           setTimeout(this.sortTasks, 1000)
-        )
+        ).then(this.load())
     }
+
+    load = () => {
+      if(this.state.task == null){
+        console.log(this.state.task)
+          setTimeout(this.load, 200)
+      }
+      else{this.setState({loading: false})}
+  }
     sortTasks = () => {
       var push = []
       for(var i=0;i<this.tasks.length;i++){
@@ -58,7 +69,7 @@ class Tasks extends Component {
       axios.post('/api/tasks/finishTask',
       {
         id: id
-      })
+      }).then(this.setState({redirect: true}))
     }
 
     render() {
@@ -66,6 +77,12 @@ class Tasks extends Component {
         if(this.state.redirect == true) {
           return(<Redirect to='/main/overview'/>)
         }
+        else if(this.state.loading == true){return(
+          <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
+              <h1 style={{marginLeft: '6vw', marginTop: '20vh'}}>Loading...</h1>
+              <img style={{marginTop: '5vh', width:'300px', height:'297px'}}src={loadingCircle} id="loadingCircle"/>
+          </div>
+          )}
         return (
         <div>
             <Table>
