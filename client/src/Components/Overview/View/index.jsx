@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment'
 
+import loadingCircle from '../../Pictures/loadingCircle.png'
+
 
 
 class Overview extends Component{
@@ -107,7 +109,12 @@ class Overview extends Component{
         var providers = this.state.providers
         var appointments = this.state.appointments
         if(this.state.redirect == true){return(<Redirect to="/login"/>)}
-        else if(loading == true){return(<h1>Loading...</h1>)}
+        else if(this.state.loading == true){return(
+            <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
+                <h1 style={{marginLeft: '6vw', marginTop: '20vh'}}>Loading...</h1>
+                <img style={{marginTop: '5vh', width:'300px', height:'297px'}}src={loadingCircle} id="loadingCircle"/>
+            </div>
+            )}
         else if(this.state.providerType != "Patient") {
             return(
 <div style={{display: "flex", flexDirection: "column"}}>
@@ -126,7 +133,7 @@ class Overview extends Component{
             )
         }
         return (
-        <div style={{display: "flex", flexDirection: "column", backgroundColor: '#36393F', height: '90vh'}}>
+        <div style={{display: "flex", flexDirection: "column", height: '90vh'}}>
 
             <div style={{display: "flex"}}>
 

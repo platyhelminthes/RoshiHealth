@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Table from '@material-ui/core/Table';
@@ -16,10 +15,10 @@ class SendTasks extends Component {
         super();
 
         this.state = {
-            task: null,
+            doctor: null,
             patients: null,
             loading: true,
-            date: null
+            id: null
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -39,7 +38,7 @@ class SendTasks extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.sendTasks(this.state.task, e.target.value, this.state.date)
+        this.sendDoctor(this.state.doctor, e.target.value)
     }
 
     componentDidMount(){
@@ -67,16 +66,15 @@ class SendTasks extends Component {
         )
     }
 
-    sendTasks = (task, id, date) => {
-        if(this.sanatize(task)){alert('No injections allowed!')}
+    sendDoctor = (name, id) => {
+        if(this.sanatize(name) || this.sanatize(id)){alert('No injections allowed!')}
         else{
             console.log(id)
-            console.log(date)
-        axios.post('/api/tasks/addTask',
+            console.log(name)
+        axios.post('/api/providers/sendDoctor',
             {
-                task: task,
-                id: id,
-                date: date
+                name: name,
+                id: id
             }
         )}
     }
@@ -106,18 +104,14 @@ class SendTasks extends Component {
       else if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
 
-            <div style={{backgroundColor: '#9DA6B1'}}>
+            <div>
     <div className="FormCenter">
         <form onSubmit={this.handleSubmit} className="FormFields">
           <div className="FormField">
-            <label className="FormField__Label" htmlFor="task">Task</label>
-            <input type="text" id="task" className="FormField__Input" placeholder="Enter Task" name="task" onChange={this.handleChange} />
+            <label className="FormField__Label" htmlFor="doctor">Doctor Type</label>
+            <input type="text" id="doctor" className="FormField__Input" placeholder="Enter type of doctor" name="doctor" onChange={this.handleChange} />
           </div>
 
-          <div className="FormField">
-            <label className="FormField__Label" htmlFor="date">Due Date</label>
-            <input type="Date" id="date" className="FormField__Input" placeholder="Enter Task" name="date" onChange={this.handleChange} />
-          </div>
 
         </form>
       </div>
@@ -125,8 +119,8 @@ class SendTasks extends Component {
             <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell align="left">email</TableCell>
-            <TableCell align="right">send</TableCell>
+            <TableCell align="left">Email</TableCell>
+            <TableCell align="right">Send</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

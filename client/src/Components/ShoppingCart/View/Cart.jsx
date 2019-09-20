@@ -3,6 +3,8 @@ import axios from 'axios'
 import {Link, Redirect} from 'react-router-dom'
 import { runInNewContext } from 'vm';
 
+import loadingCircle from '../../Pictures/loadingCircle.png'
+
 class Tasks extends Component {
     constructor() {
         super();
@@ -76,7 +78,12 @@ this.setState({loading: false})}
         var Name = "Your Name will go here";
         var items = this.state.items
 
-        if(this.state.loading == true){return(<h1>Loading...</h1>)}
+        if(this.state.loading == true){return(
+            <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
+                <h1 style={{marginLeft: '6vw', marginTop: '20vh'}}>Loading...</h1>
+                <img style={{marginTop: '5vh', width:'300px', height:'297px'}}src={loadingCircle} id="loadingCircle"/>
+            </div>
+            )}
         else if(this.state.redirect == true){return(<Redirect to="/main/overview"/>)}
         return (
         <div>

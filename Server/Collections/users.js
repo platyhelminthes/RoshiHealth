@@ -114,7 +114,8 @@ const accounts = new Schema({
             type: [String],
             default: 'empty'
     }
-    }
+    },
+    doctorsToAdd: [String]
 },
   { timestamps: true }
 );
