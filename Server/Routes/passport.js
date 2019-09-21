@@ -1,7 +1,7 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 
-var db = require("./DBConnect");
+var db = require("../Collections/users");
 
 // Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
 passport.use(new LocalStrategy(
@@ -10,12 +10,9 @@ passport.use(new LocalStrategy(
     usernameField: "email"
   },
   function(email, password, done) {
+    console.log(email)
     // When a user tries to sign in this code runs
-    db.users.findOne({
-      where: {
-        email: email
-      }
-    }).then(function(dbusers) {
+    db.findOne({email: email}).then(function(dbusers) {
       // If there's no user with the given email
       if (!dbusers) {
           console.log('1')
@@ -24,7 +21,10 @@ passport.use(new LocalStrategy(
         });
       }
       // If there is a user with the given email, but the password the user gives us is incorrect
-      else if (!dbusers.validPassword(password)) {
+      else if (dbusers.comparePassword(password, function(err, isMatch) {
+        if (err) throw err;
+        console.log(password, isMatch);
+    })) {
           console.log('2')
         return done(null, false, {
           message: "Incorrect password."
