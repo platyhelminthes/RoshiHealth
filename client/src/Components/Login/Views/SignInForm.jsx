@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 
 class SignInForm extends Component {
@@ -8,7 +9,8 @@ class SignInForm extends Component {
 
         this.state = {
             email: null,
-            password: null
+            password: null,
+            redirect: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -36,18 +38,32 @@ class SignInForm extends Component {
     
 
     Login = (email, password) => {
+      if(this.sanatize(email) || this.sanatize(password)){alert('No injections allowed!')}
+      else{
       axios.post('/api/login/login', {
           email: email,
           password: password
       }).then(
         axios.get('/api/login/check', {
 
-        })
-      )
+        }).then(this.setState({redirect: true}))
+      )}
   }
+  sanatize = (string) => {
+    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
+    if(format.test(string)){
+        return true
+    }
+    else{
+        return false
+    }
+    
+}
 
 
     render() {
+      var redirect = this.state.redirect
+      if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
         <div className="FormCenter">
             <form onSubmit={this.handleSubmit} className="FormFields">
@@ -62,7 +78,9 @@ class SignInForm extends Component {
               </div>
 
               <div className="FormField">
-                  <button className="FormField__Button mr-20">Sign In</button> <Link to="/main" className="FormField__Link">Create an account</Link>
+                  
+                    <button className="FormField__Button mr-20">Sign In</button>
+                     <Link to="/" className="FormField__Link">Create an account</Link>
               </div>
             </form>
           </div>

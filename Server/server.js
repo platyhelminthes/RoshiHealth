@@ -8,7 +8,7 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 app.use(cors());
 var passport = require("./Routes/passport");
-var db = require('./models')
+//var db = require('./models')
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -37,19 +37,18 @@ DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
 
-db.sequelize.sync({ force: true}).then(function() {
+//db.sequelize.sync({ force: true}).then(function() {
     app.listen(PORT, function() {
       console.log("App listening on PORT " + PORT);
     });
-  });
-
-
-//var path = require("path");
-
-//if (process.env.NODE_ENV === "production") {
-//  app.use(express.static(path.join(__dirname, "../frontend/build")));
-//
-//  app.get("*", function (req, res) {
-//   res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 //  });
-//}
+
+
+var path = require("path");
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", function (req, res) {
+   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+}

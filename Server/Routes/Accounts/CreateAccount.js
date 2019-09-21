@@ -14,11 +14,10 @@ module.exports = (req, res) => {
 
     var task = {
         id: 1,
-        text: "Set up meeting with nurse"
+        text: "Choose an intake nurse and make an appointment with them."
     }
 
     var cart = {
-        itemIds: ['empty'],
         total: 0,
         finishedTransaction: 'Active'
     }
@@ -28,6 +27,9 @@ module.exports = (req, res) => {
     data.password = password;
     data.tasks.push(task)
     data.shoppingCart.push(cart)
+    data.providerInfo.test = "Patient"
+    data.doctorsToAdd.push('Primary Doctor')
+    data.subLevel = 'nonSub'
     console.log(data)
    
     data.save((err) => {
