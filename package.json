@@ -4,7 +4,7 @@
   "description": "platyhelminthes",
   "main": "index.js",
     "engines": {
-    "node": "10.3.0"
+    "node": "10.x"
   },
   "scripts": {
     "install": "cd client && npm i",
