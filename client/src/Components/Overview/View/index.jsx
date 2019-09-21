@@ -43,7 +43,6 @@ class Overview extends Component{
 
     handleSubmit(e) {
         (e).preventDefault()
-        console.log(this.state.email2);
     }
 
 
@@ -51,10 +50,7 @@ class Overview extends Component{
 
 
     componentDidMount(){
-        setTimeout(this.getInfo, 200)
-        setTimeout(this.getProviders, 1000)
-        setTimeout(this.getProviders2, 2000)
-        setTimeout(this.getProviders2, 3000)
+        setTimeout(this.getInfo, 300)
         this.load()
     }
 
@@ -69,20 +65,20 @@ class Overview extends Component{
         axios.get('/api/users/getUser').then(
             (res)=>{
                 if(!res.data.data.email){this.setState({redirect: true})}
-                console.log(res)
                 this.setState({
                     sub: res.data.data.subLevel, 
                     email: res.data.data.email,
                     fullName: res.data.data.fullName,
                     providerType: res.data.data.providerInfo.providerType
                 })
-                console.log(res.data.data.appointments)
-                for(var i=0;i<res.data.data.appointments.length;i++){
+                if(res.data.data.appointments.length > 0){
+                for(var i=0; i<res.data.data.appointments.length; i++){
                     if(moment(moment(res.data.data.appointments[i].date).format('LLL')).isBefore()){res.data.data.appointments.splice(i, 1)}
-                    
+                    else{
                     res.data.data.appointments[i].date = moment(moment(res.data.data.appointments[i].date).format('LLL'), 'LLL').fromNow()
-                    
-                }
+                    }
+                }}
+                
                 this.setState({appointments: res.data.data.appointments})
             }
         ).then(this.getProviders)
@@ -106,8 +102,8 @@ class Overview extends Component{
         var email = this.state.email;
         var name = this.state.fullName;
         var loading = this.state.loading
-        var providers = this.state.providers
         var appointments = this.state.appointments
+        if(appointments != null){console.log(appointments)}
         if(this.state.redirect == true){return(<Redirect to="/login"/>)}
         else if(this.state.loading == true){return(
             <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
@@ -140,6 +136,7 @@ class Overview extends Component{
             <div>
             <h1>Email: {email}</h1>
             <h1>Name: {name}</h1>
+
             <Table>
             <TableHead>
             <TableRow>
@@ -148,6 +145,8 @@ class Overview extends Component{
             </TableRow>
             </TableHead>
             <TableBody>
+            {this.noAppointments}
+
             {appointments.map(row => (
             <TableRow key={row._id}>
               <TableCell component="th" scope="row">

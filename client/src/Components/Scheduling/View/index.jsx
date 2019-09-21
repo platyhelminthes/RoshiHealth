@@ -14,11 +14,12 @@ class Schedule extends Component {
         super();
 
         this.state = {
+            count: 0,
             redirect: false,
             appointments: ['08:00 ppp', '08:30'],
             appointmentsPresort: [],
             loading: true,
-            providers: null,
+            providers: [],
             doctor: null,
             docId: null,
             date: null,
@@ -113,23 +114,26 @@ class Schedule extends Component {
     componentDidMount() {
         this.getProviders()
     }
-
     load = () => {
-
-        if (this.state.providers == null) {
-            setTimeout(this.load, 100)
-        }
-        else {
-            if (this.state.providers.length == 0) {
-                console.log('step1')
-                setTimeout(this.getProviders, 200)
-
+        if (this.state.providers.length == 0) {
+            this.setState({count: this.state.count + 1})
+            setTimeout(this.checkLoad, 100)
             }
-            else {
+
+        else {
                 console.log('step3')
                 this.setState({ loading: false })
             }
+        
+    }
+
+    checkLoad = () => {
+        console.log(this.state.count)
+        if(this.state.count > 5){
+            this.setState({count: 0})
+            this.getProviders()
         }
+        else{setTimeout(this.load, 100)}
     }
 
     nullCheck = () => {

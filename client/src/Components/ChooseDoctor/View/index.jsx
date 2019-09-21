@@ -104,8 +104,8 @@ class ChooseDoctor extends Component {
       var searched = this.state.searched
       var doctors = this.state.doctors
       var allowed = this.state.allowed
-
-    if(searched == true){
+    if(allowed.length == 0){return(<h1>You currently dont have any providers to add to your team. Please contact your nurse if you would like to make a change</h1>)}
+    else if(searched == true){
           return(
               <div>
               {

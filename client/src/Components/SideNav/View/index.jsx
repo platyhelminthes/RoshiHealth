@@ -43,23 +43,16 @@ class Tasks extends Component {
     }
 
     load = () => {
+        console.log(this.state.sub)
         if(this.state.sub == null) {
             setTimeout(this.load, 200)
             setTimeout(this.getInfo, 500)
         }
-        else if(this.state.sub == 'notSub'){this.subButtons = ('')}
+        else if(this.state.sub == 'nonSub'){this.subButtons = ('')}
         else if(this.state.sub == 'A1237'){this.subButton = ('')}
     }
-    subButton = (<React.Fragment>
-            <Link to="/main/subscription" className="SideLinks">Subscription</Link>
-        </React.Fragment>)
-
-    subButtons = (<React.Fragment>
-    <Link to='/main/addProviders' className="SideLinks">Team</Link>
-    <Link to='/main/scheduler' className="SideLinks">Make Appointment</Link>
-    <Link to='/main/tasks' className="SideLinks">Tasks</Link>
-    </React.Fragment>)
     render() {
+        var sub = this.state.sub
         if(this.state.providerType != 'Patient'){
             return(
                 <div className="sidebar">
@@ -81,7 +74,26 @@ class Tasks extends Component {
               </div>
             )
         }
-        else{
+        else if(sub == 'nonSub'){return(
+            <div className="sidebar">
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center',alignContent: 'center', backgroundColor: '#36393F', height: '10vh', border: '2px solid #26262b', borderTopLeftRadius: '20px', borderTopRightRadius: '20px'}}>
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around'}}>
+                <div style={{backgroundColor: 'white', width: '6vw', height: '.5vh'}}></div>
+                <div style={{backgroundColor: 'white', width: '6vw', height: '.5vh'}}></div>
+                <div style={{backgroundColor: 'white', width: '6vw', height: '.5vh'}}></div>
+                </div>
+            </div>
+            <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
+            <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
+            <Link to="/main/subscription" className="SideLinks">Subscription</Link>
+            </div>
+            <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
+                <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>
+            </div>
+            
+          </div>
+        )}
+        else {
         return (
         <div className="sidebar">
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center',alignContent: 'center', backgroundColor: '#36393F', height: '10vh', border: '2px solid #26262b', borderTopLeftRadius: '20px', borderTopRightRadius: '20px'}}>
@@ -93,8 +105,9 @@ class Tasks extends Component {
             </div>
             <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
             <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
-            {this.subButton}
-            {this.subButtons}
+            <Link to='/main/addProviders' className="SideLinks">Team</Link>
+            <Link to='/main/scheduler' className="SideLinks">Make Appointment</Link>
+            <Link to='/main/tasks' className="SideLinks">Tasks</Link>
             </div>
             <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
                 <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>
