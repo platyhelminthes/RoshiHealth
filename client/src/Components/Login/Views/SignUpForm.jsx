@@ -46,10 +46,10 @@ class SignUpForm extends Component {
     console.log(this.state);
 
   }
-  handleSubmit2(e) {
-    e.preventDefault();
-    this.Login(this.state.email, this.state.password))
-  }
+ //handleSubmit2(e) {
+ //  e.preventDefault();
+ //  this.Login(this.state.email, this.state.password))
+ //}
 
   CreateAccount = (name, email, password) => {
     if(this.sanatize(name) || this.sanatize(email) || this.sanatize(password)){alert('no injections allowed')}

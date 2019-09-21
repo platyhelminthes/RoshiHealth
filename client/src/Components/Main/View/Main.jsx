@@ -12,7 +12,6 @@ import Schedule from '../../Scheduling/View/index'
 import {Route} from 'react-router-dom'
 import video from '../../Video/View/index'
 import sendDoctor from '../../Providers/Views/sendDoctors'
-import Axios from 'axios';
 
 
 class Main extends Component {
