@@ -73,12 +73,18 @@ class Overview extends Component{
                 })
                 if(res.data.data.appointments.length > 0){
                 for(var i=0; i<res.data.data.appointments.length; i++){
-                    if(moment(moment(res.data.data.appointments[i].date).format('LLL')).isBefore()){res.data.data.appointments.splice(i, 1)}
-                    else{
+                    console.log(moment(res.data.data.appointments[i].date).format('LLL') + " This is the APPOINTMENT")
+                    console.log(moment().format('LLL') +'what')
+                    if(moment(moment(res.data.data.appointments[i].date).format('LLL')).isBefore()){
+                        console.log('What the actual fuck')
+                        res.data.data.appointments.splice(i, 1)
+                        }else{
+                        console.log(moment(moment(res.data.data.appointments[i].date).format('LLL'), 'LLL').fromNow() + "hoohah")
                     res.data.data.appointments[i].date = moment(moment(res.data.data.appointments[i].date).format('LLL'), 'LLL').fromNow()
                     }
                 }}
-                
+                console.log(res.data.data.appointments)
+                console.log('After appoitnment')
                 this.setState({appointments: res.data.data.appointments})
             }
         ).then(this.getProviders)
