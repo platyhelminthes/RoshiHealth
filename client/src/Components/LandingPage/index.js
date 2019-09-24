@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import SideDrawer from '../components/SideDrawer/SideDrawer';
-import Backdrop from '../components/BackDrop/Backdrop';
-import Featured from '../components/featured';
-import Nav from '../components/nav';
-import Layout from '../components/layout';
-import Quotes from '../components/quotes/index';
-import SEO from "../components/seo";
+import SideDrawer from './SideDrawer/SideDrawer';
+import Backdrop from './BackDrop/Backdrop';
+import Featured from './featured/index';
+import Nav from './nav/index';
+// import Layout from './layout';
+import Quotes from './quotes/index';
+// import SEO from "../components/seo";
+import './layout.css';
 
 class IndexPage extends Component {
   state = {
@@ -29,10 +30,10 @@ class IndexPage extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
+      <div>
+      {/* <Layout> */}
+            {/* <SEO title="Home" /> */}
       
-      <Layout>
-            <SEO title="Home" />
-
         <Nav drawerClickHandler={this.drawerToggleClickHandler} />
         <SideDrawer show={this.state.sideDrawerOpen} />
         {backdrop}
@@ -40,8 +41,8 @@ class IndexPage extends Component {
         {/* <Home /> */}
         {/* <Footer /> */}
         <Quotes />
-        </Layout>
-      
+        {/* </Layout> */}
+        </div>
     );
   }
 }
