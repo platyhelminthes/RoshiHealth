@@ -45,8 +45,7 @@ class Tasks extends Component {
     load = () => {
         console.log(this.state.sub)
         if(this.state.sub == null) {
-            setTimeout(this.load, 200)
-            setTimeout(this.getInfo, 500)
+            setTimeout(this.load, 1000)
         }
         else if(this.state.sub == 'nonSub'){this.subButtons = ('')}
         else if(this.state.sub == 'A1237'){this.subButton = ('')}

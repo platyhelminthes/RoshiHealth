@@ -44,10 +44,18 @@ class SignInForm extends Component {
           email: email,
           password: password
       }).then(
-        axios.get('/api/login/check', {
-
-        }).then(this.setState({redirect: true}))
-      )}
+        (res) => {
+          this.setState({redirect: true})
+        }
+        )
+        .catch(
+          (err) => {
+            if(err.response.data == 'Unauthorized') {
+              alert('Incorrect password or email!')
+            }
+            console.log(err.request)
+          })
+      }
   }
   sanatize = (string) => {
     var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/

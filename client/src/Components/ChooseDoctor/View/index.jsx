@@ -47,7 +47,7 @@ class ChooseDoctor extends Component {
         this.setState({search: e.target.value})
         console.log(this.state.search)
         this.findProviders(e.target.value)
-        setTimeout(this.changePage, 3000)
+        setTimeout(this.changePage, 700)
     }
     handleSubmit2(e) {
         (e).preventDefault()
@@ -104,6 +104,7 @@ class ChooseDoctor extends Component {
       var searched = this.state.searched
       var doctors = this.state.doctors
       var allowed = this.state.allowed
+    if(this.state.redirect == true){return(<Redirect to='/main'/>)}
     if(allowed.length == 0){return(<h1>You currently dont have any providers to add to your team. Please contact your nurse if you would like to make a change</h1>)}
     else if(searched == true){
           return(

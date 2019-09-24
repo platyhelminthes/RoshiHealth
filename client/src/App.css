@@ -1,4 +1,10 @@
-.App {
+  body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%!important
+  }
+  
+  .App {
     height: 100vh;
     display: flex;
     color: white;

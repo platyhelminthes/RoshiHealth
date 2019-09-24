@@ -5,7 +5,7 @@ import {Redirect} from 'react-router-dom'
 class Redir extends Component {
     render(){
         return(
-            <Redirect to='/home'/>
+            <Redirect to='/main/overview'/>
         )
     }
 }

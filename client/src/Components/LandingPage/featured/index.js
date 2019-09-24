@@ -1,8 +1,10 @@
 import React from 'react'
-import { navigate } from 'gatsby'
+import { Link } from 'react-router-dom'
+// import { navigate } from 'gatsby'
 import './featured.css'
 // import bgImg from '../../images/headerImg.jpg'
-import bgImg from '../../images/general-footer-image.jpg'
+import bgImg from '../images/general-footer-image.jpg'
+
 
 export default () => (
              <div  className='header__section'>
@@ -12,7 +14,7 @@ export default () => (
                    <h1 className='header__title'>Roshi Health</h1>
                    <p className='header__subtitle'>The Future of Healthcare</p>
                    <p className='header__shortDescription'>Functional Doctors. Integrative Health Team.  Sophisticated Technology.  Weekly Accountibility. Real Prevention. Low Monthly Cost.  <em>The last health program you'll ever need</em></p>
-                   <button onClick={() => navigate(`/members/`)} className='btn__med'>Members</button>
+                   <button className='btn__med'><Link to='/login/sign-in' className='btn__med'>Members</Link></button>
                  </div>
                </div>
              </div>
