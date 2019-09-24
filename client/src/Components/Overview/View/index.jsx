@@ -25,7 +25,8 @@ class Overview extends Component{
             providers: [],
             sub: null,
             providerType: 'Patient',
-            appointments: null
+            appointments: null,
+            AK: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,12 +52,12 @@ class Overview extends Component{
 
     componentDidMount(){
         setTimeout(this.getInfo, 300)
-        this.load()
+        setTimeout(this.load, 1000)
     }
 
     load = () => {
         if(this.state.appointments == null){
-            setTimeout(this.load, 200)
+            setTimeout(this.load, 1000)
         }
         else{this.setState({loading: false})}
     }
@@ -69,7 +70,8 @@ class Overview extends Component{
                     sub: res.data.data.subLevel, 
                     email: res.data.data.email,
                     fullName: res.data.data.fullName,
-                    providerType: res.data.data.providerInfo.providerType
+                    providerType: res.data.data.providerInfo.providerType,
+                    AK: res.data.data._id
                 })
                 if(res.data.data.appointments.length > 0){
                 for(var i=0; i<res.data.data.appointments.length; i++){
@@ -138,7 +140,10 @@ class Overview extends Component{
         <div style={{display: "flex", flexDirection: "column", height: '90vh'}}>
 
             <div style={{display: "flex"}}>
-
+            <div>
+                <p>For connecting to your video appointment please use this key:</p>
+                <p>{this.state.AK}</p>
+            </div>
             <div>
             <h1>Email: {email}</h1>
             <h1>Name: {name}</h1>

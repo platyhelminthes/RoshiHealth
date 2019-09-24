@@ -42,10 +42,38 @@ class SignUpForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.CreateAccount(this.state.name, this.state.email, this.state.password)
+
+
     console.log('The form was submitted with the following data:');
     console.log(this.state);
 
   }
+
+  Login = () => {
+    if(this.sanatize(this.state.email) || this.sanatize(this.state.password)){alert('No injections allowed!')}
+    else{
+    axios.post('/api/login/login', {
+        email: this.state.email,
+        password: this.state.password
+    }).then(
+      
+      (res) => {
+        if(!res){alert('Thats it!')}
+        else(alert('INCORRECT'))
+        this.setState({redirect: true})
+        console.log(res)
+      }
+
+      )
+      .catch(
+        (err) => {
+          if(err.response.data == 'Unauthorized') {
+            alert('Incorrect password or email!')
+          }
+          console.log(err.request)
+        })
+    }
+}
  //handleSubmit2(e) {
  //  e.preventDefault();
  //  this.Login(this.state.email, this.state.password))
@@ -58,12 +86,12 @@ class SignUpForm extends Component {
       fullName: name,
       email: email,
       password: password,
-    }).then(this.setState({redirect: true}))
+    }).then(setTimeout(this.Login, 500))
   }
   };
 
   render() {
-    if(this.state.redirect == true){return(<Redirect to='/login'/>)}
+    if(this.state.redirect == true){return(<Redirect to='/main'/>)}
     return (
       <div className="FormCenter">
         <form onSubmit={this.handleSubmit} className="FormFields">

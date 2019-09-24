@@ -14,6 +14,7 @@ passport.use(new LocalStrategy(
     // When a user tries to sign in this code runs
     db.findOne({email: email}).then(function(dbusers) {
       // If there's no user with the given email
+      var passWrong = true
       if (!dbusers) {
           console.log('1')
         return done(null, false, {
@@ -21,18 +22,20 @@ passport.use(new LocalStrategy(
         });
       }
       // If there is a user with the given email, but the password the user gives us is incorrect
-      else if (dbusers.comparePassword(password, function(err, isMatch) {
-        if (err) throw err;
-        console.log(password, isMatch);
-    })) {
-          console.log('2')
-        return done(null, false, {
-          message: "Incorrect password."
-        });
+      else {
+        dbusers.comparePassword(password, function(err, isMatch) {
+          if(isMatch){
+            console.log('3')
+            return done(null, dbusers);
+          }
+          else {
+            console.log('2')
+            return done(null, false, {
+            message: "Incorrect password."
+          })}
+    })
       }
       // If none of the above, return the user
-      console.log('3')
-      return done(null, dbusers);
       
     });
   }
