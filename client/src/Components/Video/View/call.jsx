@@ -147,9 +147,13 @@ export default class Call extends Component {
 
   render() {
     return (
-      <div>
-          <button>Test</button>
-        <div id="agora_local" style={{ width: "400px", height: "400px" }} />
+      <div style={{paddingLeft: '50px',  paddingRight: '50px', justifyItems: 'space-between', display: 'flex', flexDirection: 'row' }}>
+        <div>
+          <h4>{this.props.name}:</h4>
+        <div id="agora_local" style={{ width: "600px", height: "600px", marginRight: '50px'}} />
+        </div>
+        <div>
+        <h4>{this.props.name}:</h4>
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
@@ -157,10 +161,11 @@ export default class Call extends Component {
             <div
               key={streamId}
               id={`agora_remote ${streamId}`}
-              style={{ width: "400px", height: "400px" }}
+              style={{ width: "600px", height: "600px" }}
             />
           );
         })}
+        </div>
       </div>
     );
   }

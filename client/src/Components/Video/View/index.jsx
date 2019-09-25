@@ -6,7 +6,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      channel: ""
+      channel: "",
+      name: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -30,6 +31,7 @@ class App extends Component {
     Axios.get('/api/users/getUser')
     .then(
       (res)=>{
+        this.setState({name: res.data.data.fullName})
         if(res.data.data.providerInfo.providerType !== 'Patient'){
           this.setState({channel: this.props.location.state.id})
         }
@@ -48,8 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.handleSubmit}>Join</button>
-        <Call channel={this.state.channel} />
+        <Call name={this.state.name} channel={this.state.channel} />
       </div>
     );
   }
