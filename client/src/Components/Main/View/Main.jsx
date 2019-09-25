@@ -12,6 +12,7 @@ import Schedule from '../../Scheduling/View/index'
 import {Route} from 'react-router-dom'
 import video from '../../Video/View/index'
 import sendDoctor from '../../Providers/Views/sendDoctors'
+import appointments from '../../Providers/Views/viewAppointments'
 
 
 class Main extends Component {
@@ -48,6 +49,7 @@ class Main extends Component {
               <Route exact path="/main/scheduler" component={Schedule}/>
               <Route exact path='/main/video' component={video}/>
               <Route exact path='/main/sendDoctor' component={sendDoctor}/>
+              <Route exact path='/main/appointments' component={appointments}/>
             </div>
             </div>
             </div>

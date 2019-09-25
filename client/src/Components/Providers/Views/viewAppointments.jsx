@@ -18,64 +18,53 @@ class Tasks extends Component {
             task: null,
             sub: null,
             redirect: false,
-            loading: true
+            loading: true,
+            appointments: [],
+            APID: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(e) {
       (e).preventDefault()
 
-      this.finishTask(e.target.value)
+      this.goToAppointment(e.target.value)
   }
-  tasks = []
     componentDidMount(){
-      axios.get('/api/users/getUserInfo').then(
+      axios.get('/api/users/getUser').then(
         (res)=>{
-          if(res.data.sub != 'A1237'){
-          this.setState({
-            redirect: true
-          })}
-        }
-      )
-        axios.get('/api/tasks/getTasks').then(
-            (res)=>{
-                console.log(res.data.data[0].tasks)
-                this.tasks = res.data.data[0].tasks
-                //this.setState({task: results})
-            }
-        ).then(
-          setTimeout(this.sortTasks, 1000)
-        ).then(this.load())
+          this.setState({ appointments: res.data.data.appointments})
+          }
+        )
+    .then(this.load())
+    }
+
+    goToAppointment = (id) => {
+      this.setState({
+        APID: id,
+        redirect: true
+      })
+
     }
 
     load = () => {
-      if(this.state.task == null){
+      if(this.state.appointments == null){
         console.log(this.state.task)
-          setTimeout(this.load, 200)
+          setTimeout(this.load, 1000)
       }
       else{this.setState({loading: false})}
   }
-    sortTasks = () => {
-      var push = []
-      for(var i=0;i<this.tasks.length;i++){
-        if(this.tasks[i].finished == 'Active') {
-          push.push(this.tasks[i])
-        }
-      }
-      this.setState({task: push})
-    }
+    
 
-    finishTask = (id) => {
-      axios.post('/api/tasks/finishTask',
-      {
-        id: id
-      }).then(this.setState({redirect: true}))
-    }
+    
 
     render() {
-        var tasks = this.state.task
+        var appointments = this.state.appointments
+        var ID = this.state.APID
         if(this.state.redirect == true) {
-          return(<Redirect to='/main/overview'/>)
+          return(<Redirect to={{
+            pathname: '/main/video',
+            state: {id: ID}
+          }}/>)
         }
         else if(this.state.loading == true){return(
           <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
@@ -95,7 +84,7 @@ class Tasks extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks.map(
+          {appointments.map(
             
             
             row => (
@@ -103,9 +92,9 @@ class Tasks extends Component {
               <TableCell style={{color: 'white'}} component="th" scope="row">
                 {row.text}
               </TableCell>
-              <TableCell style={{color: 'white'}} align="left">{row.providerName}</TableCell>
+              <TableCell style={{color: 'white'}} align="left">{row.userName}</TableCell>
               <TableCell style={{color: 'white'}} align="right">{moment(row.dueDate).format('dddd')}</TableCell>
-              <TableCell style={{color: 'white'}} align="right"><button onClick={this.handleSubmit} value={row._id}>Finish</button></TableCell>
+              <TableCell style={{color: 'white'}} align="right"><button onClick={this.handleSubmit} value={row.user}>Finish</button></TableCell>
             </TableRow>
           ))}
         </TableBody>

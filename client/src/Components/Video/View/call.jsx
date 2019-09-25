@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AgoraRTC from "agora-rtc-sdk";
-let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
+let client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
 
 const USER_ID = Math.floor(Math.random() * 1000000001);
 const APP_ID = "447ace3314494bceaa985d26f5116646";
