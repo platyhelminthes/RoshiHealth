@@ -34,3 +34,37 @@ button {
   background: none;
   border: 1px solid #fff;
 }
+
+.quote {
+  font-size: 18;
+  font-weight:  500;
+}
+
+.author {
+  font-size: 22;
+  font-weight: 800;
+}
+
+
+
+.quote-fade-out {
+  opacity: 0;
+  animation-name: fade-out;
+  animation-duration: 2s;
+}
+
+.quote-fade-in {
+  opacity: 100;
+  animation-name: fade-in;
+  animation-duration: 2s;
+}
+
+@keyframes fade-out {
+  from {opacity: 100}
+  to {opacity: 0}
+}
+
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 100}
+}

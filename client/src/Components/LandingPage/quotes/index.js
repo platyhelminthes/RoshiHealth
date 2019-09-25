@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
+import './quotes.css';
 
-export default class Quotes extends Component {
+
+ class Quotes extends Component {
     state = {
         quote: 1
-    }
+    };
+
+    // componentDidMount() {
+    //     setInterval(this.change, 2000)
+    // }
 
     componentDidMount() {
         setInterval(this.change, 2000)
@@ -17,30 +23,12 @@ export default class Quotes extends Component {
             quote: Math.floor(Math.random() * 2)
         })
     };
-    // state = { titleIndex: 0, fadeIn: true };
-
-    // componentDidMount() {
-    //     this.timeout = setTimeout(() => this.setState({ fadeIn:  false}), 2000);
-    //     this.animateTitles();
-    // }
-
-    // componentWillUnmount() {
-
-    //     clearInterval(this.titleInterval);
-    //     clearTimeout(this.timeout);
-    // }
-
-    // animateTitles = () => {
-    //     this.titleInterval = setInterval(() => {
-    //         const titleIndex = (this.state.titleIndex + 1) % TITLES.length;
-
-    //         this.setState({ titleIndex, fadeIn: true });
-    //         setTimeout(() => this.setState({ fadeIn:  false}), 2000);
-    //     }, 4000);
-    // }
+   
+   
 
 
     render() {
+
         const quotes = this.state.quote
         const quoteList = [
             {
@@ -57,14 +45,77 @@ export default class Quotes extends Component {
             }
         ];
         return (
-            <div>
-                <h1>{quoteList[quotes].quote}</h1>
-            <h1>{quoteList[quotes].author}</h1>
-            </div>
-
+            <React.Fragment>
+                <p className="quote quote-fade-in quote-fade-out">{quoteList[quotes].quote}</p>
+            <p className="author quote-fade-out quote-fade-out">{quoteList[quotes].author}</p>
+            </React.Fragment>
+            
         )
     }
 }
 
+export default Quotes;
 
 
+
+
+
+
+
+const quoteList = [
+    {
+        quote: 'This is a test',
+        author: 'n'
+    },
+    {
+        quote: 'Eat ass',
+        author: 'b'
+    },
+    {
+        quote: 'Ass eats you in russia',
+        author: 'a'
+    }
+];
+
+class Quotes extends Component {
+    state = {
+        quote: 1
+    };
+
+    componentDidMount() {
+        setInterval(this.change, 2000)
+    }
+
+    
+
+    
+    change = () => {
+        this.setState({
+            quote: Math.floor(Math.random() * 2)
+        })
+    };
+   
+   animateQuotes = () => {
+       this.quoteInterval = setInterval(() => { 
+        const quotes = this.state.quote
+        
+       }, 4000);
+   }
+
+    render() {
+
+      
+        const quote = quoteList[quotes].quote;
+        const author = quoteList[quotes].author;
+        
+        return (
+            <React.Fragment>
+                <p className="quote quote-fade-in quote-fade-out">{quote}</p>
+            <p className="author quote-fade-out quote-fade-out">{author}</p>
+            </React.Fragment>
+            
+        )
+    }
+}
+
+export default Quotes;
