@@ -153,16 +153,18 @@ export default class Call extends Component {
         <div id="agora_local" style={{ width: "600px", height: "600px", marginRight: '50px'}} />
         </div>
         <div>
-        <h4>{this.props.name}:</h4>
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
           return (
+            <div>
+            <h4>Other: </h4>
             <div
               key={streamId}
               id={`agora_remote ${streamId}`}
               style={{ width: "600px", height: "600px" }}
             />
+            </div>
           );
         })}
         </div>
