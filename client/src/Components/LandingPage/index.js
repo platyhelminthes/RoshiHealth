@@ -6,7 +6,7 @@ import Nav from './nav/index';
 // import Layout from './layout';
 import Quotes from './quotes/index';
 // import SEO from "../components/seo";
-import './layout.css';
+import './index.css';
 
 class IndexPage extends Component {
   state = {
@@ -40,7 +40,7 @@ class IndexPage extends Component {
         <Featured />
         {/* <Home /> */}
         {/* <Footer /> */}
-        <Quotes />
+        <Quotes className="quotes" />
         {/* </Layout> */}
         </div>
     );
