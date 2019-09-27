@@ -40,7 +40,7 @@ class IndexPage extends Component {
         <Featured />
         {/* <Home /> */}
         {/* <Footer /> */}
-        <Quotes />
+        <Quotes style={{float: 'right'}}/>
         {/* </Layout> */}
         </div>
     );
