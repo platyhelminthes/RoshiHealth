@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/platyhelminthes/Platyhelminthes#readme",
   "dependencies": {
+    "animejs": "^3.1.0",
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
     "concurrently": "^4.1.2",

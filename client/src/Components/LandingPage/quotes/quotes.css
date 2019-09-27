@@ -7,30 +7,41 @@
   flex-direction: column;
 } */
 
-p{
-    color: #fff;
-}
-div {
+/* p{
+    
+} */
+
+
+.quote-box {
+  float: right;
+  font-size: 18;
+  font-weight:  500;
   color: #fff;
 }
-#quotation {
-  font-family: 'Jim Nightshade', script;
-  font-size: 13vmin;
-  line-height: 1.2;
-  hanging-punctuation: first;
+
+.author {
+  font-size: 22;
+  font-weight: 800;
 }
-#source {
-  font-family: 'Assistant', sans-serif;
-  font-size: 4vmin;
-  text-indent: 4vmin;
-  color: #fff;
+ 
+.quote-fade-out {
+  opacity: 0;
+  animation-name: fade-out;
+  animation-duration: 2s;
 }
-button { 
-  font-family: 'Assistant', sans-serif;
-  display: block;
-  padding: .5rem;
-  outline: none;
-  font-size: .8rem;
-  background: none;
-  border: 1px solid #fff;
+
+.quote-fade-in {
+  opacity: 100;
+  animation-name: fade-in;
+  animation-duration: 2s;
+}
+
+@keyframes fade-out {
+  from {opacity: 100}
+  to {opacity: 0}
+}
+
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 100}
 }

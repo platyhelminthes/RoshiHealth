@@ -57,7 +57,7 @@ export default class Quotes extends Component {
             }
         ];
         return (
-            <div style={{float: 'right'}}>
+            <div>
                 <h1>{quoteList[quotes].quote}</h1>
             <h1>{quoteList[quotes].author}</h1>
             </div>
