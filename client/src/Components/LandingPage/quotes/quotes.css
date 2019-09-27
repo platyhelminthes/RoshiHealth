@@ -7,46 +7,23 @@
   flex-direction: column;
 } */
 
-p{
-    color: #fff;
-}
-div {
-  color: #fff;
-}
-#quotation {
-  font-family: 'Jim Nightshade', script;
-  font-size: 13vmin;
-  line-height: 1.2;
-  hanging-punctuation: first;
-}
-#source {
-  font-family: 'Assistant', sans-serif;
-  font-size: 4vmin;
-  text-indent: 4vmin;
-  color: #fff;
-}
-button { 
-  font-family: 'Assistant', sans-serif;
-  display: block;
-  padding: .5rem;
-  outline: none;
-  font-size: .8rem;
-  background: none;
-  border: 1px solid #fff;
-}
+/* p{
+    
+} */
 
-.quote {
+
+.quote-box {
+  float: right;
   font-size: 18;
   font-weight:  500;
+  color: #fff;
 }
 
 .author {
   font-size: 22;
   font-weight: 800;
 }
-
-
-
+ 
 .quote-fade-out {
   opacity: 0;
   animation-name: fade-out;
