@@ -6,6 +6,7 @@ import Nav from './nav/index';
 // import Layout from './layout';
 import Quotes from './quotes/index';
 // import SEO from "../components/seo";
+import '../../Components/LandingPage/fonts/JoeMax.otf';
 import './index.css';
 
 class IndexPage extends Component {
