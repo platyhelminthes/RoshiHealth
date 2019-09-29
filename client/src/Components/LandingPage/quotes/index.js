@@ -102,5 +102,7 @@ class Quotes extends Component {
     }
 }
 
+export default Quotes
+
 
 
