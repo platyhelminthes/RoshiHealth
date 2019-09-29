@@ -7,6 +7,8 @@ const GC = require('./getCart')
 const GII = require('./getItemsInfo')
 const RI = require('./removeItem')
 const FT = require('./finishTransaction')
+const AI = require('./addItem')
+const CH = require('./charge')
 
 
 
@@ -17,6 +19,8 @@ routes.get('/getUserCart', GC)
 routes.post('/getItemsInfo', GII)
 routes.post('/remove', RI)
 routes.post('/finish', FT)
+routes.post('/addItem', AI)
+routes.post('/charge', CH.charge)
 
 
 

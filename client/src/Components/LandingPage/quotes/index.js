@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-// import anime from 'animejs';
-import './quotes.css';
+import './quotes.css'
+
 
 const quoteList = [
     {
@@ -21,9 +21,8 @@ const quoteList = [
     }
 ];
 
-class Quotes extends Component {
+export default class Quotes extends Component {
     state = {
-        // quote: 1,
         fadeIn: true, 
         quoteIndex: 0
     };
@@ -38,7 +37,14 @@ class Quotes extends Component {
         clearTimeout(this.timeout);
     }
 
+    
 
+    // state = { titleIndex: 0, fadeIn: true };
+
+    // componentDidMount() {
+    //     this.timeout = setTimeout(() => this.setState({ fadeIn:  false}), 2000);
+    //     this.animateTitles();
+    // }
     change = () => {
         this.quoteInterval = setInterval(() => {
             const quoteIndex = (this.state.quoteIndex + 1) % quoteList.length;
@@ -47,15 +53,26 @@ class Quotes extends Component {
             setTimeout(() => this.setState({ fadeIn: false }), 2000);
         }, 4000);
     };
+    // componentWillUnmount() {
 
+    //     clearInterval(this.titleInterval);
+    //     clearTimeout(this.timeout);
+    // }
+
+    // animateTitles = () => {
+    //     this.titleInterval = setInterval(() => {
+    //         const titleIndex = (this.state.titleIndex + 1) % TITLES.length;
+
+    //         this.setState({ titleIndex, fadeIn: true });
+    //         setTimeout(() => this.setState({ fadeIn:  false}), 2000);
+    //     }, 4000);
+    // }
 
 
     render() {
-
         const { fadeIn, quoteIndex } = this.state;
         const quote = quoteList[quoteIndex].quote;
         const authors = quoteList[quoteIndex].author;
-
         return (
             <React.Fragment>
                 <div className='quote-box'>
@@ -68,5 +85,5 @@ class Quotes extends Component {
     }
 }
 
-export default Quotes;
+
 
