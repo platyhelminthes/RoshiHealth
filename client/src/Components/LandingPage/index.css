@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css?family=Acme|Exo+2|Geo|Jura|Play|Rajdhani|Teko:300|Titillium+Web&display=swap');
 
 @font-face {
@@ -9,7 +10,9 @@
       url('../../Components/LandingPage/fonts/JoeMax.otf') format('opentype')
 }
 
-body {
+
+
+.main {
     background-color: #0a0a0a;
     margin: 0 auto;
     padding: 0 5%;

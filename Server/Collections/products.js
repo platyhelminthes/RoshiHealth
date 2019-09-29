@@ -8,6 +8,12 @@ const Products = new Schema({
         type: String,
         require: true
 },
+    Description: {
+        type: String
+},
+    DocType: {
+        type: String
+},
     Type: {
         type: String,
         require: true
@@ -18,7 +24,7 @@ const Products = new Schema({
 },
     Stock: {
         type: String,
-        default: "0"
+        default: "NA"
 }});
 
 

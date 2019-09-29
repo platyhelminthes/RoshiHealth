@@ -45,8 +45,7 @@ class Tasks extends Component {
     load = () => {
         console.log(this.state.sub)
         if(this.state.sub == null) {
-            setTimeout(this.load, 200)
-            setTimeout(this.getInfo, 500)
+            setTimeout(this.load, 1000)
         }
         else if(this.state.sub == 'nonSub'){this.subButtons = ('')}
         else if(this.state.sub == 'A1237'){this.subButton = ('')}
@@ -63,10 +62,11 @@ class Tasks extends Component {
                 <div style={{backgroundColor: 'white', width: '6vw', height: '.5vh'}}></div>
                 </div>
             </div>
-                
+                <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start', fontSize: '13.5px'}}>
                 <Link to='/main/sendTasks' style={{marginTop: '1vh'}} className="SideLinks">Tasks</Link>
                 <Link to="/main/appointments" className="SideLinks">Appointments</Link>
                 <Link to='/main/sendDoctor' className="SideLinks">Patients</Link>
+                </div>
                 <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
                 <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>
             </div>
@@ -108,6 +108,8 @@ class Tasks extends Component {
             <Link to='/main/addProviders' className="SideLinks">Team</Link>
             <Link to='/main/scheduler' className="SideLinks">Make Appointment</Link>
             <Link to='/main/tasks' className="SideLinks">Tasks</Link>
+            <Link to='/main/video' className="SideLinks">Video Appointment</Link>
+            <Link to='/main/store' className="SideLinks">Store</Link>
             </div>
             <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
                 <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>

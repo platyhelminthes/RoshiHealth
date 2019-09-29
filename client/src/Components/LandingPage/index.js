@@ -31,7 +31,7 @@ class IndexPage extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
-      <div>
+      <div className="main" style={{paddingLeft: '200px', paddingRight: '200px'}}>
       {/* <Layout> */}
             {/* <SEO title="Home" /> */}
       

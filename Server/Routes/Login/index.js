@@ -7,7 +7,7 @@ const LO = require('./logOut')
 
 
 
-routes.post('/login', passport.authenticate('local'), login, check)
+routes.post('/login', passport.authenticate('local'), login)
 routes.get('/check', check)
 routes.get('/logOut', LO)
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {Link, Redirect} from 'react-router-dom'
-import { runInNewContext } from 'vm';
+import Checkout from './checkOut'
+import {Elements, StripeProvider} from 'react-stripe-elements';
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
@@ -14,7 +15,8 @@ class Tasks extends Component {
             items: [],
             total: 0,
             loading: true,
-            redirect: false
+            redirect: false,
+            checkout: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,8 +35,7 @@ class Tasks extends Component {
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.checkout(e)
-        this.setState({redirect: true})
+        this.setState({checkout: true})
     }
 
     handleSubmit2(e) {
@@ -85,6 +86,16 @@ this.setState({loading: false})}
             </div>
             )}
         else if(this.state.redirect == true){return(<Redirect to="/main/overview"/>)}
+        else if(this.state.checkout == true){return(
+            <StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
+            <div className="example">
+              <h1>React Stripe Elements Example</h1>
+              <Elements>
+                <Checkout />
+              </Elements>
+            </div>
+          </StripeProvider>
+        )}
         return (
         <div>
             <div>
