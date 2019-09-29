@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "platyhelminthes",
   "main": "index.js",
-    "engines": {
+  "engines": {
     "node": "10.x"
   },
   "scripts": {
@@ -38,6 +38,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "sequelize": "^5.17.0",
+    "stripe": "^7.9.1",
     "uuid": "^3.3.3"
   }
 }

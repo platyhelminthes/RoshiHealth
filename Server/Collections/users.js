@@ -50,6 +50,9 @@ const shoppingCartItems = new Schema({
     cost: {
         type: Number
     },
+    docType: {
+        type: String
+    },
     totalCost: {
         type: Number
     }
