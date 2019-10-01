@@ -6,7 +6,8 @@ import Nav from './nav/index';
 // import Layout from './layout';
 import Quotes from './quotes/index';
 // import SEO from "../components/seo";
-import './layout.css';
+import '../../Components/LandingPage/fonts/JoeMax.otf';
+import './index.css';
 
 class IndexPage extends Component {
   state = {
@@ -30,7 +31,7 @@ class IndexPage extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler} />
     }
     return (
-      <div style={{paddingLeft: '200px', paddingRight: '200px'}}>
+      <div className="main" style={{}}>
       {/* <Layout> */}
             {/* <SEO title="Home" /> */}
       
@@ -40,7 +41,7 @@ class IndexPage extends Component {
         <Featured />
         {/* <Home /> */}
         {/* <Footer /> */}
-        <Quotes />
+        <Quotes className="quotes" />
         {/* </Layout> */}
         </div>
     );

@@ -1,0 +1,50 @@
+
+@import url('https://fonts.googleapis.com/css?family=Acme|Exo+2|Geo|Jura|Play|Rajdhani|Teko:300|Titillium+Web&display=swap');
+
+@font-face {
+    font-family: 'JoeMax';
+    /* font-style: normal;
+    font-weight: normal; */
+    src:
+    local('JoeMax'),
+      url('../../Components/LandingPage/fonts/JoeMax.otf') format('opentype')
+}
+
+
+
+.main {
+    margin: 0 auto;
+    padding: 0 5%;
+    max-width: 1200px;
+    min-height: 100vh
+  }
+  
+  body h1 {
+    /* font-family: */
+    font-family: 'JoeMax';
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 55px;
+    color: #F2C041;
+  }
+  
+  .btn__med {
+    text-decoration: none;
+    width: 124;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #F2C041;
+    color: #5E271E;
+    font-family: 'East Sea Dokdo', cursive;
+    border: none;
+    font-size: 30px;
+    font-weight: 300;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+  }
+  
+  .btn__med:hover {
+    filter: brightness(80%)
+  }
+
+ 

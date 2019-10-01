@@ -5,9 +5,10 @@ const mongoose = require('mongoose')
 var cors = require('cors');
 var routes = require('./Routes')
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 80;
 app.use(cors());
 var passport = require("./Routes/passport");
+
 //var db = require('./models')
 
 

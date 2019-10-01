@@ -1,36 +1,63 @@
 
-/* body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-} */
 
-p{
-    color: #fff;
+@import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo|Jim+Nightshade|Julee|La+Belle+Aurore&display=swap');
+
+
+
+
+.quote-box {
+  float: right;
+
+  margin: -80px auto;
+  max-width: 550px;
+  /* font-size: 26;
+  font-weight:  500;
+  color: #fff; */
+  
 }
-div {
+
+.quote-box p{
+  font-size: 24px;
+  font-weight:  500;
   color: #fff;
+  font-family: 'East Sea Dokdo', cursive;
 }
-#quotation {
-  font-family: 'Jim Nightshade', script;
-  font-size: 13vmin;
-  line-height: 1.2;
-  hanging-punctuation: first;
+
+.quote-quotes p {
+  font-size: 40px !important;
+  color: #F2C041;
+  margin: 0 0 -40px -20px;
 }
-#source {
-  font-family: 'Assistant', sans-serif;
-  font-size: 4vmin;
-  text-indent: 4vmin;
-  color: #fff;
+.quote p {
+  font-family: 'Play', sans-serif;
+  font-size: 14px;
 }
-button { 
-  font-family: 'Assistant', sans-serif;
-  display: block;
-  padding: .5rem;
-  outline: none;
-  font-size: .8rem;
-  background: none;
-  border: 1px solid #fff;
+
+.author p {
+  /* font-size: 30; */
+  font-weight: 800;
+  color: #F2C041;
+  font-family: 'East Sea Dokdo', cursive;
+}
+ 
+.quote-fade-out {
+  opacity: 0;
+  animation-name: fade-out;
+  animation-duration: 2s;
+}
+
+.quote-fade-in {
+  opacity: 100;
+  animation-name: fade-in;
+  animation-duration: 2s;
+}
+
+@keyframes fade-out {
+  from {opacity: 100}
+  to {opacity: 0}
+}
+
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 100}
 }
