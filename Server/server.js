@@ -2,13 +2,10 @@ var express = require("express");
 var session = require("express-session");
 
 const mongoose = require('mongoose')
-var cors = require('cors');
 var routes = require('./Routes')
 var app = express();
 var PORT = 80;
-app.use(cors());
 var passport = require("./Routes/passport");
-
 //var db = require('./models')
 
 
