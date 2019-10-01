@@ -82,7 +82,7 @@ class SendTasks extends Component {
     }
 
     sanatize = (string) => {
-        var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+        var format = /[ !#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
         if(format.test(string)){
             return true
         }
