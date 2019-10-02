@@ -4,8 +4,9 @@ var session = require("express-session");
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
 var app = express();
-var PORT = 80;
+var {PORT} = process.env;
 var passport = require("./Server/Routes/passport");
+var path = require("path");
 //var db = require('./models')
 
 
@@ -33,7 +34,13 @@ let DB = mongoose.connection;
 DB.once('open', () => console.log('connected to the database'));
 DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("./client/build"));
 
+  app.get("/*", function (req, res) {
+   res.sendFile('index.html', {root: __dirname + "./client/build/index.html"});
+  });
+}
 
 //db.sequelize.sync({ force: true}).then(function() {
     app.listen(PORT, function() {
@@ -42,11 +49,4 @@ DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 //  });
 
 
-var path = require("path");
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "./client/build")));
 
-  app.get("*", function (req, res) {
-   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-  });
-}
