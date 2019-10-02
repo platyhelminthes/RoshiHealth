@@ -2,10 +2,10 @@ var express = require("express");
 var session = require("express-session");
 
 const mongoose = require('mongoose')
-var routes = require('./Routes')
+var routes = require('./Server/Routes')
 var app = express();
 var PORT = 80;
-var passport = require("./Routes/passport");
+var passport = require("./Server/Routes/passport");
 //var db = require('./models')
 
 
@@ -44,9 +44,9 @@ DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var path = require("path");
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "./client/build")));
 
   app.get("*", function (req, res) {
-   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+   res.sendFile(path.join(__dirname, "./client/build/index.html"));
   });
 }
