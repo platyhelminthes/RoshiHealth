@@ -37,7 +37,7 @@ DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //db.sequelize.sync({ force: true}).then(function() {
     app.listen(port, function() {
-      console.log("App listening on PORT " + PORT);
+      console.log("App listening on PORT " + port);
     });
 //  });
 
