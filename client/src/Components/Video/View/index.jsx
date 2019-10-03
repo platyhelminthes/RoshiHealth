@@ -34,7 +34,7 @@ class App extends Component {
     .then(
       (res)=>{
         console.log(res + 'ohiawfhoiawfohiawfohifahoifawohi')
-        if(!res.data.data){this.setState({redirect: true})}
+        if(!res.data.data.email){this.setState({redirect: true})}
         this.setState({name: res.data.data.fullName})
         if(res.data.data.providerInfo.providerType !== 'Patient'){
           this.setState({channel: this.props.location.state.id})

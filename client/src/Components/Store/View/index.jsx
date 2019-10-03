@@ -26,7 +26,13 @@ class Store extends Component{
 
     getInfo = () => {
         axios.get('/api/users/getUser')
-            .then((res)=>{console.log(res)})
+            .then((res)=>{
+                console.log(res + 'thisss')
+            })
+            .catch(
+                (err) => {
+                  this.setState({redirect: true})
+            })
     }
 
     load = () => {
@@ -79,7 +85,7 @@ class Store extends Component{
             <Loading/>
         )}
         else if(this.state.redirect == true){return(
-            <Redirect to='/main'/>
+            <Redirect to='/login'/>
         )}
         else{
         return(
