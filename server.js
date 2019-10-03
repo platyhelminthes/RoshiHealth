@@ -5,7 +5,7 @@ dotenv.config()
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 var passport = require("./Server/Routes/passport");
 //var db = require('./models')
 
