@@ -6,7 +6,6 @@ var routes = require('./Server/Routes')
 var app = express();
 var PORT = process.env.PORT || 80;
 var passport = require("./Server/Routes/passport");
-var path = require("path");
 //var db = require('./models')
 
 
