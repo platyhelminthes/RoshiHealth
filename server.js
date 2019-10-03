@@ -5,7 +5,7 @@ dotenv.config()
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
 var app = express();
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 3000;
 var passport = require("./Server/Routes/passport");
 //var db = require('./models')
 
@@ -34,19 +34,21 @@ let DB = mongoose.connection;
 DB.once('open', () => console.log('connected to the database'));
 DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("./client/build"));
-
-  app.get("/*", function (req, res) {
-   res.sendFile('index.html', {root: __dirname + "./client/build/index.html"});
-  });
-}
 
 //db.sequelize.sync({ force: true}).then(function() {
     app.listen(port, function() {
       console.log("App listening on PORT " + PORT);
     });
 //  });
+
+var path = require("path");
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "./client/build")));
+
+  app.get("*", function (req, res) {
+   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  });
+}
 
 
 
