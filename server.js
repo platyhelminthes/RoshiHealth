@@ -1,10 +1,11 @@
 var express = require("express");
 var session = require("express-session");
-
+const dotenv = require('dotenv')
+dotenv.config()
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
 var app = express();
-var PORT = process.env.PORT || 80;
+var port = process.env.PORT || 80;
 var passport = require("./Server/Routes/passport");
 //var db = require('./models')
 
@@ -42,7 +43,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //db.sequelize.sync({ force: true}).then(function() {
-    app.listen(PORT, function() {
+    app.listen(port, function() {
       console.log("App listening on PORT " + PORT);
     });
 //  });
