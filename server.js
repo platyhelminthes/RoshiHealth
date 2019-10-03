@@ -1,14 +1,12 @@
 var express = require("express");
 var session = require("express-session");
-
+const dotenv = require('dotenv')
+dotenv.config()
 const mongoose = require('mongoose')
-var cors = require('cors');
-var routes = require('./Routes')
+var routes = require('./Server/Routes')
 var app = express();
-var PORT = process.env.PORT || 8080;
-app.use(cors());
-var passport = require("./Routes/passport");
-
+var port = process.env.PORT || 3001;
+var passport = require("./Server/Routes/passport");
 //var db = require('./models')
 
 
@@ -37,19 +35,20 @@ DB.once('open', () => console.log('connected to the database'));
 DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-
 //db.sequelize.sync({ force: true}).then(function() {
-    app.listen(PORT, function() {
-      console.log("App listening on PORT " + PORT);
+    app.listen(port, function() {
+      console.log("App listening on PORT " + port);
     });
 //  });
 
-
 var path = require("path");
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "./client/build")));
 
   app.get("*", function (req, res) {
-   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+   res.sendFile(path.join(__dirname, "./client/build/index.html"));
   });
 }
+
+
+

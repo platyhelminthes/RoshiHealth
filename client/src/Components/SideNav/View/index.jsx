@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import "../../../App.css"
 import Axios from 'axios';
+import {Redirect} from 'react-router-dom'
 
 
 class Tasks extends Component {
@@ -39,7 +40,12 @@ class Tasks extends Component {
                     email: res.data.data.email
                 })
             }
-        ).then(this.load())
+        )
+        .catch(
+            (err) => {
+              
+              this.setState({redirect: true})
+            }).then(this.load())
     }
 
     load = () => {
@@ -52,7 +58,8 @@ class Tasks extends Component {
     }
     render() {
         var sub = this.state.sub
-        if(this.state.providerType != 'Patient'){
+        if(this.state.redirect == true){return(<Redirect to='/login'/>)}
+        else if(this.state.providerType != 'Patient'){
             return(
                 <div className="sidebar">
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center',alignContent: 'center', backgroundColor: '#36393F', height: '10vh', border: '2px solid #26262b', borderTopLeftRadius: '20px', borderTopRightRadius: '20px'}}>
