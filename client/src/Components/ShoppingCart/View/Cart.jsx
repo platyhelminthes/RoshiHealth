@@ -53,15 +53,10 @@ class Tasks extends Component {
 
     componentDidMount(){
         setTimeout(this.getFromDB,1000)
-        
-    }
-    checkItems = () => {
-        
-        this.setState({loading: false})
     }
 
-    checkout = (e) => {
-        axios.post('/api/cart/finish')
+    checkItems = () => {
+        this.setState({loading: false})
     }
 
     getFromDB = () => {axios.post('/api/cart/getItemsInfo').then(
@@ -78,6 +73,7 @@ this.setState({loading: false})}
     render() {
         var Name = "Your Name will go here";
         var items = this.state.items
+        console.log(items)
 
         if(this.state.loading == true){return(
             <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
@@ -91,7 +87,7 @@ this.setState({loading: false})}
             <div className="example">
               <h1>React Stripe Elements Example</h1>
               <Elements>
-                <Checkout />
+                <Checkout items={this.state.items} total={this.state.total}/>
               </Elements>
             </div>
           </StripeProvider>

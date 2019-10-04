@@ -9,6 +9,7 @@ const RI = require('./removeItem')
 const FT = require('./finishTransaction')
 const AI = require('./addItem')
 const CH = require('./charge')
+const UA = require('./updateAccount')
 
 
 
@@ -21,6 +22,7 @@ routes.post('/remove', RI)
 routes.post('/finish', FT)
 routes.post('/addItem', AI)
 routes.post('/charge', CH.charge)
+routes.post('/updateAccount', UA)
 
 
 
