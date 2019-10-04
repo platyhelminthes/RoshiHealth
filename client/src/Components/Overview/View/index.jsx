@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment'
+import Alerts from './upcomingAlerts'
+import News from './news'
+import SubInfo from './subscriberInfo'
+import Promotion from './promotion'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
@@ -86,7 +85,7 @@ class Overview extends Component{
                     }
                 }}
                 console.log(res.data.data.appointments)
-                console.log('After appoitnment')
+                console.log('After appointment')
                 this.setState({appointments: res.data.data.appointments})
             }
         ).then(this.getProviders)
@@ -137,38 +136,20 @@ class Overview extends Component{
             )
         }
         return (
-        <div style={{display: "flex", flexDirection: "column", height: '90vh'}}>
+        <div style={{display: "flex", flexDirection: "column", height: '90vh', overflow: 'hidden'}}>
 
             <div style={{display: "flex"}}>
-            <div>
-                <p>For connecting to your video appointment please use this key:</p>
-                <p>{this.state.AK}</p>
+
+            <div style={{minWidth: '25vw', marginLeft: '5vw'}}>
+            <SubInfo/>
+            <Promotion/>
             </div>
-            <div>
-            <h1>Email: {email}</h1>
-            <h1>Name: {name}</h1>
-
-            <Table>
-            <TableHead>
-            <TableRow>
-            <TableCell></TableCell>
-            <TableCell align="left"></TableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            {this.noAppointments}
-
-            {appointments.map(row => (
-            <TableRow key={row._id}>
-              <TableCell component="th" scope="row">
-                You have an appointment with {row.userName} in
-              </TableCell>
-              <TableCell align="left">{row.date}</TableCell>
-            </TableRow>
-            ))}
-            </TableBody>
-            </Table>
-                </div>
+            <div style={{minWidth: '35vw', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+            <News/>
+            </div>
+            <div style={{minWidth: '30vw'}}>
+            <Alerts AP={this.state.appointments}/>
+            </div>
             </div>
 
           </div>
@@ -181,3 +162,29 @@ class Overview extends Component{
 }
 
 export default Overview
+
+
+//<h1>Email: {email}</h1>
+//<h1>Name: {name}</h1>
+
+
+//<Table>
+//<TableHead>
+//<TableRow>
+//<TableCell></TableCell>
+//<TableCell align="left"></TableCell>
+//</TableRow>
+//</TableHead>
+//<TableBody>
+//{this.noAppointments}
+//
+//{appointments.map(row => (
+//<TableRow key={row._id}>
+//  <TableCell component="th" scope="row">
+//    You have an appointment with {row.userName} in
+//  </TableCell>
+//  <TableCell align="left">{row.date}</TableCell>
+//</TableRow>
+//))}
+//</TableBody>
+//</Table>
