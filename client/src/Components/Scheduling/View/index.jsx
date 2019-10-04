@@ -16,6 +16,8 @@ class Schedule extends Component {
         this.state = {
             count: 0,
             redirect: false,
+            APT: null,
+            docs: [],
             appointments: ['08:00 ppp', '08:30'],
             appointmentsPresort: [],
             loading: true,
@@ -112,10 +114,11 @@ class Schedule extends Component {
         console.log(this.state.appointments)
     }
     componentDidMount() {
+        this.getUser()
         this.getProviders()
     }
     load = () => {
-        if (this.state.providers.length == 0) {
+        if (this.state.docs.length == 0) {
             this.setState({count: this.state.count + 1})
             setTimeout(this.checkLoad, 100)
             }
@@ -174,7 +177,32 @@ class Schedule extends Component {
             )
         }
     }
+    getUser = () => {
+        Axios.get('/api/users/getUser')
+        .then((res)=>{
+            this.setState({APT: res.data.data.appointmentTokens})
+        })
+        .then(setTimeout(this.checkAPT, 3000))
+        .then(setTimeout(this.checkDocs, 4000))
+    }
 
+    checkDocs = () => {
+        console.log(this.state.docs)
+    }
+    checkAPT = () => {
+        console.log(this.state.providers.length)
+        console.log(this.state.APT.length)
+        for(var i=0; i < this.state.providers.length; i++) {
+
+            
+            for(var j=0; j < this.state.APT.length; j++){
+                
+                if(this.state.providers[i].providerInfo.providerType == this.state.APT[j].type && this.state.APT[j].ammount > 0){
+                    this.state.docs.push(this.state.providers[i])
+                }
+            }
+        }
+    }
     getProviders = () => {
         Axios.get('/api/users/getProviders')
             .then(
@@ -276,7 +304,7 @@ class Schedule extends Component {
     }
 
     render() {
-        var providers = this.state.providers
+        var providers = this.state.docs
         if (this.state.redirect == true) { return (<Redirect to='/main/overview' />) }
         else if (this.state.loading == true) {
             return (

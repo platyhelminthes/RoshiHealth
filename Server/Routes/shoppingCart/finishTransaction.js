@@ -2,6 +2,10 @@ const Data = require('../../Collections/users')
 
 module.exports = (req, res) => {
 
+
+
+
+
     function step2(){
         Data.findOneAndUpdate(
             {'email': req.user.email},
@@ -14,25 +18,14 @@ module.exports = (req, res) => {
         )
     }
 
-    function step3() {
-        Data.findOneAndUpdate(
-            {'email': req.user.email},
-            {
-                $set: {
-                    'subLevel': 'A1237'
-                }
-            },
-            function(err) {
-                console.log(err);
-            }
-        )
-    }
+    
 
 
     var cart = {
         total: 0,
         finishedTransaction: 'Active'
     }
+
 
 
 
@@ -47,9 +40,6 @@ module.exports = (req, res) => {
         }
     )
     .then(
-        setTimeout(step2, 2000)
+        setTimeout(step2, 4000)
     )
-    .then(
-        setTimeout(step3, 4000)
-        )
 }
