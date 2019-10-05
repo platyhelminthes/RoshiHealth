@@ -14,7 +14,7 @@ import video from '../../Video/View/index'
 import sendDoctor from '../../Providers/Views/sendDoctors'
 import appointments from '../../Providers/Views/viewAppointments'
 import store from '../../Store/View/index'
-
+import '../styling/main.css'
 
 class Main extends Component {
 
@@ -34,7 +34,7 @@ class Main extends Component {
 
     render(){
         return(
-            <div id="mainBack" class="colorWhite" style={{overflow: 'hidden',width:'100vw', height:'100vw', display:'flex', backgroundImage: `../../LandingPage/images/general-header-image.jpg`}}>
+            <div className='main-container' id="mainBack" class="colorWhite" style={{overflow: 'hidden',width:'100vw', height:'100vw', display:'flex', backgroundImage: `../../LandingPage/images/general-header-image.jpg`}}>
 
             <Sidebar/>
             <div style={{width:'90vw', minHeight: '100vh'}}>
