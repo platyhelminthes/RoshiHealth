@@ -1,0 +1,22 @@
+.sideButton:hover {
+    background-color: gray
+}
+
+.sideButton {
+    width: 100%;
+    background-color: white; 
+    border: none;
+    color: black;
+    height: 5vh
+}
+
+.sideBar {
+    width: 20vw; 
+    border: 2px solid black
+}
+
+.sideBarHead {
+    width: 100%;
+    text-align: center
+    
+}
