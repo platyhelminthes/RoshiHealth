@@ -91,7 +91,7 @@ class Tasks extends Component {
         return (
         <div className="sidebar">
 
-            <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
+            <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start', borderTop: 'solid 1px white' }}>
             <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
             <Link to='/main/addProviders' className="SideLinks">Team</Link>
             <Link to='/main/scheduler' className="SideLinks">Make Appointment</Link>

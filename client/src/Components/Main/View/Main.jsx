@@ -14,6 +14,8 @@ import video from '../../Video/View/index'
 import sendDoctor from '../../Providers/Views/sendDoctors'
 import appointments from '../../Providers/Views/viewAppointments'
 import store from '../../Store/View/index'
+import '../styling/main.css'
+import backimg from '../images/mountains.jpg'
 
 
 class Main extends Component {
@@ -34,10 +36,9 @@ class Main extends Component {
 
     render(){
         return(
-            <div id="mainBack" class="colorWhite" style={{overflow: 'hidden',width:'100vw', height:'100vw', display:'flex', backgroundImage: `../../LandingPage/images/general-header-image.jpg`}}>
-
+            <div id="mainBack" className='main__back' style={{backgroundImage: `url(${backimg})`}}>
             <Sidebar/>
-            <div style={{width:'90vw', minHeight: '100vh'}}>
+            <div className='overview-container' style={{width:'90vw', minHeight: '100vh'}}>
             <Header/>
             <div style={{border: '2px solid #26262b', borderLeft:'none', height:'90vh', overflowX: 'hidden', overflowY: 'hidden',  backgroundColor: '#36393F', background: 'rgba(204, 204, 204, 0.05)'}}>
               <Route exact path="/main/overview" component={Overview}/>
