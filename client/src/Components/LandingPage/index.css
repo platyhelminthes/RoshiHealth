@@ -3,8 +3,6 @@
 
 @font-face {
     font-family: 'JoeMax';
-    /* font-style: normal;
-    font-weight: normal; */
     src:
     local('JoeMax'),
       url('../../Components/LandingPage/fonts/JoeMax.otf') format('opentype')

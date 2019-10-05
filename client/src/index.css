@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
+
+@import url('https://fonts.googleapis.com/css?family=Acme|Exo+2|Geo|Jura|Play|Rajdhani|Teko:300|Titillium+Web&display=swap');
+
+
+
+
 * {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Play', sans-serif;    
 }
+
 
 body {
   overflow: hidden;
