@@ -61,11 +61,16 @@ class Tasks extends Component {
 
     getFromDB = () => {axios.post('/api/cart/getItemsInfo').then(
         (res)=>{
+            var stuff = []
+            for(var i=0; i<res.data.data[0].shoppingCart[0].items.length; i++){
+            if(res.data.data[0].shoppingCart[0].items[i].amount > 0){
+                stuff.push(res.data.data[0].shoppingCart[0].items[i])
+            }
             this.setState({
-                items: res.data.data[0].shoppingCart[0].items,
+                items: stuff,
                 total: res.data.data[0].shoppingCart[0].total
                 
-            })
+            })}
             console.log(res)
         }
     )

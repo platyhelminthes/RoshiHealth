@@ -3,8 +3,11 @@ import { Component } from 'react'
 import moment from 'moment';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom'
-
+import Doctors from './doctorPicker.jsx'
+import CalendarComp from './calendar.jsx'
+import CurrentAppointments from './currentAppointments'
 import loadingCircle from '../../Pictures/loadingCircle.png'
+import '../Styles/Schedule.css'
 
 
 
@@ -17,15 +20,19 @@ class Schedule extends Component {
             count: 0,
             redirect: false,
             APT: null,
+            currentAPT: 0,
             docs: [],
+            userAppointments: null,
             appointments: ['08:00 ppp', '08:30'],
             appointmentsPresort: [],
+            appointmentsToShow: null,
+            pickedDoctor: null,
             loading: true,
             providers: [],
             doctor: null,
+            doctorType: null,
             docId: null,
             date: null,
-            redirect: false,
             available1: 'available',
             available2: 'available',
             available3: 'available',
@@ -87,15 +94,11 @@ class Schedule extends Component {
         this.handleSubmit3 = this.handleSubmit3.bind(this);
     }
 
-    handleChange = (e) => {
-        let target = e.target;
-        let value = target.type === 'checkbox' ? target.checked : target.value;
-        let name = target.name;
 
-        this.setState({
-            [name]: value
-        });
-        this.dateCheck(e.target.value)
+    handleChange = (date) => {
+        var dateClean = moment(date).format('YYYY-MM-DD')
+        this.setState({date: dateClean})
+        this.dateCheck(dateClean)
         console.log(this.state.appointments)
     }
     dateCheck = (date) => {
@@ -118,7 +121,7 @@ class Schedule extends Component {
         this.getProviders()
     }
     load = () => {
-        if (this.state.docs.length == 0) {
+        if (this.state.providers.length == 0) {
             this.setState({count: this.state.count + 1})
             setTimeout(this.checkLoad, 100)
             }
@@ -151,19 +154,41 @@ class Schedule extends Component {
 
     handleSubmit2(e) {
         (e).preventDefault()
+        console.log(e.target.value)
         this.getAppointments(e.target.value)
+        setTimeout(this.checkAppointments, 300)
+        setTimeout(this.checkAPT, 700)
     }
 
     handleSubmit3(e) {
         (e).preventDefault()
+        if(this.state.date == null) {
+            alert('Please choose a date')
+        }
+        else if(this.state.doctor == null){
+            alert('Please choose a doctor')
+        }
+        else if(this.state.doctor == null && this.state.date == null) {
+            alert('Please pick a doctor and a date')
+        }
+        else if(this.state.currentAPT <= 0){
+            alert('Please purchase an appointment for this doctor type')
+        }
+        else{
         this.createAppointment(e.target.value)
         this.setState({ redirect: true })
+        }
     }
 
     createAppointment = (time) => {
 
         if (time == '') { alert('sorry that time is not available!') }
         else {
+            console.log(this.state.doctorType + 'please')
+            Axios.post('/api/users/removeAPT',
+            {
+                ATType: this.state.doctorType
+            })
 
             var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
             console.log(dateTime)
@@ -180,10 +205,12 @@ class Schedule extends Component {
     getUser = () => {
         Axios.get('/api/users/getUser')
         .then((res)=>{
-            this.setState({APT: res.data.data.appointmentTokens})
+            this.setState({
+                APT: res.data.data.appointmentTokens,
+                userAppointments: res.data.data.appointments
+            })
+            
         })
-        .then(setTimeout(this.checkAPT, 3000))
-        .then(setTimeout(this.checkDocs, 4000))
     }
 
     checkDocs = () => {
@@ -191,17 +218,27 @@ class Schedule extends Component {
     }
     checkAPT = () => {
         console.log(this.state.providers.length)
-        console.log(this.state.APT.length)
-        for(var i=0; i < this.state.providers.length; i++) {
-
-            
-            for(var j=0; j < this.state.APT.length; j++){
-                
-                if(this.state.providers[i].providerInfo.providerType == this.state.APT[j].type && this.state.APT[j].ammount > 0){
-                    this.state.docs.push(this.state.providers[i])
-                }
+        console.log(this.state.doctorType)
+        console.log(this.state.appointmentsToShow)
+        for(var i=0; i < this.state.APT.length; i++) {                  
+                if(this.state.doctorType == this.state.APT[i].type){
+                    console.log(this.state.APT[i])
+                    this.setState({currentAPT: this.state.APT[i].ammount})
             }
         }
+    }
+
+    checkAppointments = (name) => {
+        console.log('itRand')
+        console.log(this.state.doctor)
+        var show = []
+        for(var i=0; i<this.state.userAppointments.length; i++){
+            if(this.state.userAppointments[i].userName == this.state.doctor && moment(this.state.userAppointments[i].date).isAfter()){
+                console.log('pushed')
+                show.push(this.state.userAppointments[i])
+            }
+        }
+        this.setState({appointmentsToShow: show})
     }
     getProviders = () => {
         Axios.get('/api/users/getProviders')
@@ -218,7 +255,9 @@ class Schedule extends Component {
         ).then(
             (res) => {
                 this.setState({
+                    currentAPT: 0,
                     appointmentsPresort: res.data.data[0].appointments,
+                    doctorType: res.data.data[0].providerInfo.providerType,
                     doctor: res.data.data[0].fullName,
                     docId: res.data.data[0]._id
                 })
@@ -304,7 +343,9 @@ class Schedule extends Component {
     }
 
     render() {
-        var providers = this.state.docs
+        var providers = this.state.providers
+        var date = this.state.date
+        if (this.state.date == null){date = "please choose a date"}
         if (this.state.redirect == true) { return (<Redirect to='/main/overview' />) }
         else if (this.state.loading == true) {
             return (
@@ -314,158 +355,118 @@ class Schedule extends Component {
                 </div>
             )
         }
-        else if (this.state.doctor == null) {
-            return (
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Provider Name</th>
-                                <th>Provider Type</th>
-                                <th>------</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                providers.map(
-                                    row => (
-                                        <tr>
-                                            <td>{row.fullName}</td>
-                                            <td>{row.providerInfo.providerType}</td>
-                                            <button value={row._id} onClick={this.handleSubmit2}>Make Appointment?</button>
-                                        </tr>
-                                    )
-                                )
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
-        else if (this.state.date == null || this.state.date == '') {
-            return (
-                <div style={{}}>
-                    <div className="FormField">
-                        <label className="FormField__Label" htmlFor="date">Date to check</label>
-                        <input type="Date" id="date" className="FormField__Input" placeholder="Enter Task" name="date" onChange={this.handleChange} />
-                    </div>
-                </div>
-            )
-        }
         else {
             return (
-                <div style={{width: '100%', display: 'flex', flexDirection: 'column', paddingLeft: '10vw' }}>
+                <div style={{width: '100%', display: 'flex', flexDirection: 'row', paddingLeft: '5vw', paddingTop: '2vh'}}>
+                    <div style={{ display: 'flex', justifyContent: 'space-around', marginRight: '10vw', flexDirection: 'column' }}>
 
-
-                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                        <div>
-                            <h1>{this.state.doctor}</h1>
-                            <h1>{this.state.date}</h1>
-                        </div>
-                        <div style={{ marginTop: '5vh', width: '30vw' }} className="FormField">
-                            <label className="FormField__Label" htmlFor="date">Date to check</label>
-                            <input type="Date" id="date" className="FormField__Input" placeholder="Enter Task" name="date" onChange={this.handleChange} />
-                        </div>
-
+                            <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers}/>
+                            <CurrentAppointments appointments={this.state.appointmentsToShow}/>
+                            <CalendarComp handleChange={this.handleChange}/>
                     </div>
-                    <div style={{width: '160%', display: 'flex'}}>
-                    <table style={{justifyContent:'center', width: '75%' }}>
+                    <div style={{width: '200%', display: 'flex', flexDirection: 'column', marginTop: '4vh'}}>
+                    
+                    <div style={{backgroundColor: 'gray', width: '45vw', height: '5vh', marginBottom: '5vh', borderRadius: '15px', alignItems: 'center', display: 'flex', justifyContent: 'space-around'}}>
+                        <h4 style={{textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%'}}>{date}</h4>
+                        <h4 style={{textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%'}}> Appointment Tokens Left: {this.state.currentAPT}</h4>
+                    </div> 
+                    <table style={{justifyContent:'center', width: '89%', backgroundColor: 'gray'}}>
                         <thead>
                             <tr>
-                                <th style={{ border: '2px solid black', float: 'left', width: '33%' }}>Time</th>
-                                <th style={{ border: '2px solid black', float: 'left', width: '33%' }}>Available</th>
+                                <th style={{ border: '2px solid black', float: 'left', width: '40%' }}>Time</th>
+                                <th style={{ border: '2px solid black', float: 'left', width: '40%' }}>Available</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>8:00AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available1}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>8:00AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available1}</td>
                                 <button value={this.state.value1} onClick={this.handleSubmit3}>{this.state.button1}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>8:30AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available2}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>8:30AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available2}</td>
                                 <button value={this.state.value2} onClick={this.handleSubmit3}>{this.state.button2}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>9:00AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available3}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>9:00AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available3}</td>
                                 <button value={this.state.value3} onClick={this.handleSubmit3}>{this.state.button3}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>9:30AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available4}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>9:30AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available4}</td>
                                 <button value={this.state.value4} onClick={this.handleSubmit3}>{this.state.button4}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>10:00AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available5}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>10:00AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available5}</td>
                                 <button value={this.state.value5} onClick={this.handleSubmit3}>{this.state.button5}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>10:30AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available6}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>10:30AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available6}</td>
                                 <button value={this.state.value6} onClick={this.handleSubmit3}>{this.state.button6}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>11:00AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available7}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>11:00AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available7}</td>
                                 <button value={this.state.value7} onClick={this.handleSubmit3}>{this.state.button7}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>11:30AM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available8}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>11:30AM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available8}</td>
                                 <button value={this.state.value8} onClick={this.handleSubmit3}>{this.state.button8}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>12:00pm</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available9}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>12:00pm</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available9}</td>
                                 <button value={this.state.value9} onClick={this.handleSubmit3}>{this.state.button9}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>12:30pm</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available10}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>12:30pm</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available10}</td>
                                 <button value={this.state.value10} onClick={this.handleSubmit3}>{this.state.button10}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>1:00pm</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available11}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>1:00pm</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available11}</td>
                                 <button value={this.state.value11} onClick={this.handleSubmit3}>{this.state.button11}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>1:30PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available12}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>1:30PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available12}</td>
                                 <button value={this.state.value12} onClick={this.handleSubmit3}>{this.state.button12}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>2:00PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available13}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>2:00PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available13}</td>
                                 <button value={this.state.value13} onClick={this.handleSubmit3}>{this.state.button13}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>2:30PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available14}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>2:30PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available14}</td>
                                 <button value={this.state.value14} onClick={this.handleSubmit3}>{this.state.button14}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>3:00PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available15}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>3:00PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available15}</td>
                                 <button value={this.state.value15} onClick={this.handleSubmit3}>{this.state.button15}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>3:30PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available16}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>3:30PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available16}</td>
                                 <button value={this.state.value16} onClick={this.handleSubmit3}>{this.state.button16}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>4:00PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available17}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>4:00PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available17}</td>
                                 <button value={this.state.value17} onClick={this.handleSubmit3}>{this.state.button17}</button>
                             </tr>
                             <tr>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>4:30PM</td>
-                                <td style={{ border: '2px solid black', float: 'left', width: '33%' }}>{this.state.available18}</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>4:30PM</td>
+                                <td style={{ border: '2px solid black', float: 'left', width: '40%' }}>{this.state.available18}</td>
                                 <button value={this.state.value18} onClick={this.handleSubmit3}>{this.state.button18}</button>
                             </tr>
                         </tbody>
