@@ -81,6 +81,7 @@ class SignUpForm extends Component {
 
   CreateAccount = (name, email, password) => {
     if(this.sanatize(name) || this.sanatize(email)){alert('no injections allowed')}
+    else if(email == '' || email == null || password == '' || password == null || name == '' || name == null){alert('please enter information')}
     else{
     axios.post('/api/users/createUser', {
       fullName: name,
