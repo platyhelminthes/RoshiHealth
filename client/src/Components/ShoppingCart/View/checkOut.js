@@ -5,19 +5,22 @@ import Axios from 'axios';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = {
+      complete: false,
+      APPTOKENS: []
+    };
     this.submit = this.submit.bind(this);
   }
 
-  addAppointments = () => {
+  addAppointments = (l) => {
     Axios.post('/api/users/addProvider',
     {
-      name: this.props.items[0].docType
+      name: this.props.items[l].docType
     })
     Axios.post('/api/cart/updateAccount',
     {
-      ATType: this.props.items[0].docType,
-      ATAmmount: this.props.items[0].ammount
+      ATType: this.props.items[l].docType,
+      ATAmmount: this.props.items[l].ammount
     })
   }
 
@@ -27,6 +30,10 @@ class CheckoutForm extends Component {
 }
 
   async submit(ev) {
+    Axios.get('/api/users/getUser')
+    .then((res)=>{
+      this.setState({APPTOKENS: res.data.data.appointmentTokens})
+    })
     let {token} = await this.props.stripe.createToken({name: "Name"});
     console.log(token.id)
     let response = await Axios.post("/api/cart/charge", {
@@ -35,30 +42,30 @@ class CheckoutForm extends Component {
     })
   
     if (response.statusText == 'OK') {
+
+
+    for(var l=0; l<this.props.items.length; l++){
       var next = true
-      Axios.get('/api/users/getUser')
-      .then((res)=>{
-        for(var i=0; i < res.data.data.appointmentTokens.length; i++){
-        if(res.data.data.appointmentTokens[i].type == this.props.items[0].docType){
-          this.addToken()
+      for(var i=0; i < this.state.APPTOKENS.length; i++){
+        if(this.state.APPTOKENS[i].type == this.props.items[l].docType){
+          this.addToken(l)
           setTimeout(this.checkout, 2000)
           setTimeout(this.setState({complete: true}), 4000)
           next = false
         }}
-      })
       setTimeout(()=>{if(next == true){
-        this.addAppointments()
+        this.addAppointments(l)
         setTimeout(this.checkout, 2000)
         setTimeout(this.setState({complete: true}), 4000)
-      }}, 500)
+      }}, 500)}
     }
   }
 
-  addToken = () => {
+  addToken = (l) => {
     Axios.post('/api/cart/addToken',
     {
-      ATType: this.props.items[0].docType,
-      ATAmmount: this.props.items[0].amount
+      ATType: this.props.items[l].docType,
+      ATAmmount: this.props.items[l].amount
     })
   }
 
