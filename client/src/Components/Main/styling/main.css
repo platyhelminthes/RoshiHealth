@@ -63,3 +63,13 @@
     overflow-y: hidden;
     background-color: transparent;
     }
+
+    .overview__divs {
+        border: 2px solid #26262b;
+        border-left: none;
+        height: 90vh;
+        overflow-x: hidden; 
+        overflow-y: hidden;  
+        background-color: #36393F; 
+        background: rgba(204, 204, 204, 0.05);
+    }
