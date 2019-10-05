@@ -40,7 +40,7 @@ class Main extends Component {
             <Sidebar/>
             <div className='overview-container' style={{width:'90vw', minHeight: '100vh'}}>
             <Header/>
-            <div style={{border: '2px solid #26262b', borderLeft:'none', height:'90vh', overflowX: 'hidden', overflowY: 'hidden',  backgroundColor: '#36393F', background: 'rgba(204, 204, 204, 0.05)'}}>
+            <div className='overview__divs' >
               <Route exact path="/main/overview" component={Overview}/>
               <Route exact path="/main/tasks" component={tasks}/>
               <Route exact path="/main/cart" component={cart}/>
