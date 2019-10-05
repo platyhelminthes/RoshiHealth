@@ -357,7 +357,7 @@ class Schedule extends Component {
         }
         else {
             return (
-                <div style={{width: '100%', display: 'flex', flexDirection: 'row', paddingLeft: '5vw', paddingTop: '2vh'}}>
+                <div style={{width: '86vw', display: 'flex', flexDirection: 'row', paddingLeft: '5vw', paddingTop: '2vh'}}>
                     <div style={{ display: 'flex', justifyContent: 'space-around', marginRight: '10vw', flexDirection: 'column' }}>
 
                             <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers}/>
