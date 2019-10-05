@@ -57,13 +57,36 @@ class Store extends Component{
 
     purchaseItem = (docType, Type, Price, id) => {
         console.log(docType, Type, Price, id)
-        axios.post('/api/cart/addItem',
-        {
-         docType: docType,
-         Type: Type,
-         Price: Price,
-         productId: id 
+        axios.get('/api/users/getUser')
+        .then((res)=>{
+            var next = true
+            for(var i=0; i < res.data.data.shoppingCart.length; i++){
+                if(res.data.data.shoppingCart[i].finishedTransaction == 'Active'){
+                    console.log('found')
+                    for(var j=0; j < res.data.data.shoppingCart[i].items.length; j++){
+                        console.log(res.data.data.shoppingCart[i].items[j.docType])
+                        if(res.data.data.shoppingCart[i].items[j].docType == docType){
+                            next = false
+                    alert('You already purchased this type of appointment')
+                        }
+                    }
+                }
+            }
+            if(next == true){
+                axios.post('/api/cart/addItem',
+                        {
+                         docType: docType,
+                         Type: Type,
+                         Price: Price,
+                         productId: id 
+                        })
+                }
+            
         })
+    }
+
+    purchaseStep2 = () => {
+
     }
 
     getAppointments = (search) => {

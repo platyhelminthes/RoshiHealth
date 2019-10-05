@@ -184,6 +184,11 @@ class Schedule extends Component {
 
         if (time == '') { alert('sorry that time is not available!') }
         else {
+            console.log(this.state.doctorType + 'please')
+            Axios.post('/api/users/removeAPT',
+            {
+                ATType: this.state.doctorType
+            })
 
             var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
             console.log(dateTime)
