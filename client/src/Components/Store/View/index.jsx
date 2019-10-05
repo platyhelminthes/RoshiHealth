@@ -67,7 +67,15 @@ class Store extends Component{
                         console.log(res.data.data.shoppingCart[i].items[j.docType])
                         if(res.data.data.shoppingCart[i].items[j].docType == docType){
                             next = false
-                    alert('You already purchased this type of appointment')
+                            console.log(docType + 'hello')
+                            axios.post('/api/cart/increaseToken',
+                            {
+                                type: docType,
+                                ammount: 1,
+                                Price: Price
+                            }
+                            
+                            )
                         }
                     }
                 }

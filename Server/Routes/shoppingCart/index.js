@@ -11,6 +11,7 @@ const AI = require('./addItem')
 const CH = require('./charge')
 const UA = require('./updateAccount')
 const ADDT = require('./addToken')
+const INCT = require('./increaseToken')
 
 
 routes.post('/addProductToCart', AP)
@@ -24,6 +25,7 @@ routes.post('/addItem', AI)
 routes.post('/charge', CH.charge)
 routes.post('/updateAccount', UA)
 routes.post('/addToken', ADDT)
+routes.post('/increaseToken', INCT)
 
 
 

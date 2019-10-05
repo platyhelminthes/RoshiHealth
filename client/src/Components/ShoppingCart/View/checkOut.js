@@ -17,7 +17,7 @@ class CheckoutForm extends Component {
     Axios.post('/api/cart/updateAccount',
     {
       ATType: this.props.items[0].docType,
-      ATAmmount: 1
+      ATAmmount: this.props.items[0].ammount
     })
   }
 
@@ -58,7 +58,7 @@ class CheckoutForm extends Component {
     Axios.post('/api/cart/addToken',
     {
       ATType: this.props.items[0].docType,
-      ATAmmount: 1
+      ATAmmount: this.props.items[0].amount
     })
   }
 
