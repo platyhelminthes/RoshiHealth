@@ -23,10 +23,7 @@ class ChooseDoctor extends Component {
     componentDidMount(){
         axios.get('/api/users/getUser').then(
             (res)=>{
-                if(res.data.data.subLevel != 'A1237') {
-                    this.setState({redirect: true})
-                }
-                else{this.setState({allowed: res.data.data.doctorsToAdd})}
+                this.setState({allowed: res.data.data.doctorsToAdd})
             }
         )
     }

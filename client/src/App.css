@@ -188,8 +188,11 @@
     text-decoration: none
   }
 
-  .Header {
+  .JoeMax {
     font-family: 'JoeMax' !important;
+  }
+
+  .Header {
     color: #F2C041;
     height: 7vh;
     width: 100%;

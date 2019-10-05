@@ -13,9 +13,21 @@ class Store extends Component{
         this.state = {
             items: null,
             loading: true,
+            ammount: null
         }
         this.handleSubmit1 = this.handleSubmit1.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange = (e) => {
+        let target = e.target;
+        let value = target.value;
+        let name = target.name;
+
+        this.setState({
+          [name]: value
+        });
     }
 
     componentDidMount(){
@@ -57,13 +69,46 @@ class Store extends Component{
 
     purchaseItem = (docType, Type, Price, id) => {
         console.log(docType, Type, Price, id)
-        axios.post('/api/cart/addItem',
-        {
-         docType: docType,
-         Type: Type,
-         Price: Price,
-         productId: id 
+        axios.get('/api/users/getUser')
+        .then((res)=>{
+            console.log(this.state.ammount + "allooottt")
+            var next = true
+            for(var i=0; i < res.data.data.shoppingCart.length; i++){
+                if(res.data.data.shoppingCart[i].finishedTransaction == 'Active'){
+                    console.log('found')
+                    for(var j=0; j < res.data.data.shoppingCart[i].items.length; j++){
+                        console.log(res.data.data.shoppingCart[i].items[j.docType])
+                        if(res.data.data.shoppingCart[i].items[j].docType == docType){
+                            next = false
+                            console.log(docType + 'hello')
+                            axios.post('/api/cart/increaseToken',
+                            {
+                                type: docType,
+                                ammount: this.state.ammount,
+                                Price: Price
+                            }
+                            
+                            )
+                        }
+                    }
+                }
+            }
+            if(next == true){
+                axios.post('/api/cart/addItem',
+                        {
+                         docType: docType,
+                         Type: Type,
+                         Price: Price,
+                         productId: id,
+                         ammount: this.state.ammount
+                        })
+                }
+            
         })
+    }
+
+    purchaseStep2 = () => {
+
     }
 
     getAppointments = (search) => {
@@ -100,6 +145,7 @@ class Store extends Component{
                         <p>{row.DocType}</p>
                         <p>${row.Price}.00</p>
                         <p>{row.Description}</p>
+                        <input type="number" placeholder="How Many" name="ammount" onChange={this.onChange} />
                         <button onClick={this.handleSubmit2} data-docType={row.DocType} data-id={row._id} data-price={row.Price} value={row.Type}>purchase</button>
                     </div>
                     )
@@ -110,5 +156,6 @@ class Store extends Component{
         )}
     }
 }
+
 
 export default Store

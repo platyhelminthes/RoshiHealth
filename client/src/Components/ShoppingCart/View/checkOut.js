@@ -5,15 +5,23 @@ import Axios from 'axios';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = {
+      complete: false,
+      APPTOKENS: []
+    };
     this.submit = this.submit.bind(this);
   }
 
-  addAppointments = () => {
+  addAppointments = (l) => {
+    console.log(l)
+    Axios.post('/api/users/addProvider',
+    {
+      name: this.props.items[l].docType
+    })
     Axios.post('/api/cart/updateAccount',
     {
-      ATType: this.props.items[0].docType,
-      ATAmmount: 1
+      ATType: this.props.items[l].docType,
+      ATAmmount: this.props.items[l].ammount
     })
   }
 
@@ -23,6 +31,10 @@ class CheckoutForm extends Component {
 }
 
   async submit(ev) {
+    Axios.get('/api/users/getUser')
+    .then((res)=>{
+      this.setState({APPTOKENS: res.data.data.appointmentTokens})
+    })
     let {token} = await this.props.stripe.createToken({name: "Name"});
     console.log(token.id)
     let response = await Axios.post("/api/cart/charge", {
@@ -31,11 +43,33 @@ class CheckoutForm extends Component {
     })
   
     if (response.statusText == 'OK') {
-      
-      this.addAppointments()
-      setTimeout(this.checkout, 2000)
-      setTimeout(this.setState({complete: true}), 4000)
+
+
+    for(var l=0; l<this.props.items.length; l++){
+      var next = true
+      for(var i=0; i < this.state.APPTOKENS.length; i++){
+        if(this.state.APPTOKENS[i].type == this.props.items[l].docType){
+          this.addToken(l)
+          setTimeout(this.checkout, 2000)
+          setTimeout(this.setState({complete: true}), 4000)
+          next = false
+        }}
+      if(next == true){
+        console.log(l + 'before timeout')
+        this.addAppointments(l)
+        setTimeout(this.checkout, 2000)
+        setTimeout(this.setState({complete: true}), 4000)
+      }}
     }
+  }
+
+  addToken = (l) => {
+    console.log(l + "this.addToken")
+    Axios.post('/api/cart/addToken',
+    {
+      ATType: this.props.items[l].docType,
+      ATAmmount: this.props.items[l].amount
+    })
   }
 
   render() {
