@@ -75,18 +75,18 @@ class Tasks extends Component {
               </div>
             )
         }
-        else if(sub == 'nonSub'){return(
-            <div className="sidebar">
-            <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
-            <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
-            <Link to="/main/subscription" className="SideLinks">Subscription</Link>
-            </div>
-            <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
-                <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>
-            </div>
-            
-          </div>
-        )}
+        //else if(sub == 'nonSub'){return(
+        //    <div className="sidebar">
+        //    <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
+        //    <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
+        //    <Link to="/main/subscription" className="SideLinks">Subscription</Link>
+        //    </div>
+        //    <div style={{backgroundColor: '#36393F', height: '5vh', border: '2px solid #26262b', borderBottomLeftRadius: '20px', borderBottomRightRadius: '20px'}}>
+        //        <p style={{justifySelf: 'center', alignSelf: 'center', margin: 0, width: '100%',paddingTop: '.75vh', fontSize: '.75vw', textAlign: 'center'}}>{this.state.email}</p>
+        //    </div>
+        //    
+        //  </div>
+        //)}
         else {
         return (
         <div className="sidebar">
