@@ -154,6 +154,18 @@
     padding-bottom: 2px;
     margin-left: 5px;
   }
+  .mobile-sidebar {
+    justify-content: space-between;
+    width: 100%;
+    background-color: #F2C041;
+    border-radius: 25px 0 0 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #36393F;
+    padding-top: 47px;
+    padding-right: .05vw
+  }
   
   .sidebar {
     justify-content: space-between;
@@ -267,6 +279,12 @@
       margin-bottom: 10px;
     }
     .FormField__Link {
+      display: none;
+    }
+    .sidebar {
+      display: none;
+    }
+    .JoeMax {
       display: none;
     }
 }
