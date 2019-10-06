@@ -1,0 +1,76 @@
+.mobileNav {
+    transform: translateY(80px);
+    margin-top: -110px;
+}
+
+.nav__items {
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav__item--left {
+    margin-right: auto;
+}
+
+.nav__item--logo {
+    height: 40px;
+}
+
+.nav__item--link {
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.nav__item--link:hover {
+    color: #F2C041;
+}
+
+.active {
+    color: #F2C041;
+}
+
+@media (max-width: 768px) {
+    .nav__item--left {
+        display: none;
+        border: none;
+        height: 40px;
+        margin-top: 40px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .nav__items {
+        margin-top: 10px;
+    }
+    
+    .nav__item--link,
+    .nav__item--logo {
+        display: none;
+        }
+      
+}
+
+@media (min-width: 769px) {
+    .navbar__toggle-button {
+        display: none; 
+    }
+
+    .nav__item--logo {
+        margin-left: 0;
+    }
+
+    
+    
+
+}
