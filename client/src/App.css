@@ -157,7 +157,10 @@
   .mobile-sidebar {
     justify-content: space-between;
     width: 100%;
-    background-color: #F2C041;
+    background: linear-gradient( to 
+    bottom, rgba(63, 123, 127,0.9) 45%, 
+    rgba(63, 123, 127,0.9) 60%, 
+    rgba(63, 123, 127,1) 90%);
     border-radius: 25px 0 0 0;
     height: 100%;
     display: flex;
@@ -170,7 +173,10 @@
   .sidebar {
     justify-content: space-between;
     width: 10vw;
-    background-color: #F2C041;
+    background: linear-gradient( to 
+    bottom, rgba(63, 123, 127,0.9) 45%, 
+    rgba(63, 123, 127,0.9) 60%, 
+    rgba(63, 123, 127,1) 90%);
     border-radius: 25px 0 0 0;
     height: 100vh;
     display: flex;

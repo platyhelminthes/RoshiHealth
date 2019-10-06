@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
 import moment from 'moment'
-import Alerts from './upcomingAlerts'
+// import Alerts from './upcomingAlerts'
 import News from './news'
 import SubInfo from './subscriberInfo'
 import Promotion from './promotion'
@@ -140,21 +140,21 @@ class Overview extends Component {
             )
         }
         return (
-            <div style={{ display: "flex", flexDirection: "column", height: '90vh', overflow: 'hidden' }}>
+            <div className="overview-container">
 
-                <div style={{ display: "flex" }}>
-
-                    <div style={{ minWidth: '25vw', marginLeft: '5vw' }}>
+                {/* <div > */}
+                {/* style={{ display: "flex" }} */}
+                    <div className="overview-panel-one" >
                         <SubInfo />
                         <Promotion />
                     </div>
-                    <div style={{ minWidth: '35vw', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div className="overview-panel-two" >
                         <News />
                     </div>
-                    <div style={{ minWidth: '30vw' }}>
+                    {/* <div className="overview-panel-three" >
                         <Alerts AP={this.state.appointments} />
-                    </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
 
             </div>
         );

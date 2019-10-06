@@ -38,7 +38,7 @@ class Main extends Component {
         return(
             <div id="mainBack" className='main__back' style={{backgroundImage: `url(${backimg})`}}>
             <Sidebar/>
-            <div className='overview-container' style={{width:'90vw', minHeight: '100vh'}}>
+            <div className='main-container' >
             <Header/>
             <div className='overview__divs' >
               <Route exact path="/main/overview" component={Overview}/>
