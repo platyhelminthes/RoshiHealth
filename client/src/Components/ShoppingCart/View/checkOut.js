@@ -13,6 +13,7 @@ class CheckoutForm extends Component {
   }
 
   addAppointments = (l) => {
+    console.log(l)
     Axios.post('/api/users/addProvider',
     {
       name: this.props.items[l].docType
@@ -53,15 +54,17 @@ class CheckoutForm extends Component {
           setTimeout(this.setState({complete: true}), 4000)
           next = false
         }}
-      setTimeout(()=>{if(next == true){
+      if(next == true){
+        console.log(l + 'before timeout')
         this.addAppointments(l)
         setTimeout(this.checkout, 2000)
         setTimeout(this.setState({complete: true}), 4000)
-      }}, 500)}
+      }}
     }
   }
 
   addToken = (l) => {
+    console.log(l + "this.addToken")
     Axios.post('/api/cart/addToken',
     {
       ATType: this.props.items[l].docType,

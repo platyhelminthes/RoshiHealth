@@ -5,7 +5,7 @@ import Axios from 'axios';
 import {Redirect} from 'react-router-dom'
 
 
-class Tasks extends Component {
+class MobileSideNav extends Component {
     constructor() {
         super();
 
@@ -61,7 +61,7 @@ class Tasks extends Component {
         if(this.state.redirect == true){return(<Redirect to='/login'/>)}
         else if(this.state.providerType != 'Patient'){
             return(
-                <div className="sidebar">
+                <div className="mobile-sidebar">
 
                 <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start', fontSize: '13.5px'}}>
                 <Link to='/main/sendTasks' style={{marginTop: '1vh'}} className="SideLinks">Tasks</Link>
@@ -76,7 +76,7 @@ class Tasks extends Component {
             )
         }
         //else if(sub == 'nonSub'){return(
-        //    <div className="sidebar">
+        //    <div className="mobile-sidebar">
         //    <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start'}}>
         //    <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
         //    <Link to="/main/subscription" className="SideLinks">Subscription</Link>
@@ -89,7 +89,7 @@ class Tasks extends Component {
         //)}
         else {
         return (
-        <div className="sidebar">
+        <div className="mobile-sidebar">
 
             <div style={{height: '75vh',display: 'flex', flexDirection: 'column', justifyContent: 'start', borderTop: 'solid 1px white' }}>
             <Link to="/main/cart" style={{marginTop: '1vh'}} className="SideLinks">Cart</Link>
@@ -108,4 +108,4 @@ class Tasks extends Component {
     }
 }
 
-export default Tasks;
+export default MobileSideNav;

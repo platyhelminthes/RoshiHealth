@@ -145,7 +145,7 @@ class Store extends Component{
                         <p>{row.DocType}</p>
                         <p>${row.Price}.00</p>
                         <p>{row.Description}</p>
-                        <input type="number" className="FormField__Input" placeholder="How Many" name="ammount" value={this.state.ammount} onChange={this.onChange} />
+                        <input type="number" placeholder="How Many" name="ammount" onChange={this.onChange} />
                         <button onClick={this.handleSubmit2} data-docType={row.DocType} data-id={row._id} data-price={row.Price} value={row.Type}>purchase</button>
                     </div>
                     )
