@@ -42,7 +42,7 @@ class SignInForm extends Component {
       else if(email == '' || email == null || password == '' || password == null){alert('please enter information')}
       else{
       axios.post('/api/login/login', {
-          email: email,
+          email: email.toLowerCase(),
           password: password
       }).then(
         (res) => {
