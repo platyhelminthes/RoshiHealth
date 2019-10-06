@@ -1,10 +1,145 @@
-/* .display-container {
+.display-container {
     background-color: red;
 }
 
-.overview-container {
+/* .overview-container {
 background-color: blue;
 display: grid;
 grid-template-columns: repeat(12, 1fr);
 grid-template-rows: repeat(6, 1fr);
 } */
+
+.overview-container{
+/* display: flex; */
+ flex-direction: column; 
+ height: 100vh; 
+ overflow: hidden;
+ width: 100vw;
+ z-index: 1;
+ display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: repeat(6, 1fr);
+grid-template-areas: 
+"one two ."
+"one two ."
+"one two .";
+}
+
+.overview-panel-one {
+    grid-area: one;
+    min-width: 100%;
+     margin-left: 5vw;
+}
+
+.overview-panel-two {
+    grid-area: two;
+    min-width: 35vw; 
+    min-height: 86vh;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+/* .overview-panel-three {
+    grid-area: three;
+    min-width: 30vw;
+} */
+
+.__main-mobile {
+    width: 22vw;
+}
+
+.overview-container {
+    overflow-y: auto;
+}
+.__main-mobile-subscription-reminders{
+    background-color: #36393F;
+    height: 40vh;
+    width:22vw;
+     margin-top: 3vh; 
+     border-radius: 10px; 
+     text-align: center; 
+     padding: 5vw;
+}
+/* .__main-mobile-appointments-reminders {
+    margin-left: 3vh;
+    width:90vw;
+    height: 90vh; 
+    overflow: auto; 
+} */
+.__main-mobile-news-reminders {
+    background-color: #36393F; 
+        margin-left: 3vh;
+        height: 83vh;
+        margin-top: 3vh; 
+        border-radius: 10px; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        overflow: auto;
+        padding-bottom: 3vh;
+}
+.__main-mobile-promotions-reminders {
+    background-color: #36393F; 
+    height: 40vh; 
+    width:22vw;
+    margin-top: 3vh; 
+    border-radius: 10px; 
+    text-align: center; 
+    padding: 5vw;
+}
+
+@media (max-width: 769px) {
+    .__main-mobile {
+        width: 90vw;
+    }
+    .__main-mobile-appointments-reminders {
+        margin-left: 3vh;
+        width:90vw;
+        height: 90vh; 
+        overflow: auto; 
+        display: flex; 
+        /* flexDirection: column;  */
+        /* paddingBottom: 5vh;} */
+    }
+    .__main-mobile-subscription-reminders{
+        width: 90vw;
+        height: 40vh;
+         margin-top: 3vh; 
+         border-radius: 10px; 
+         text-align: center; 
+         padding: 5vw;
+    }
+    .__main-mobile-news-reminders {
+        width: 90vw;
+            margin-left: 3vh;
+            height: 83vh;
+            margin-top: 3vh; 
+            border-radius: 10px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow: auto;
+            padding-bottom: 3vh;
+    }
+    .__main-mobile-promotions-reminders {
+        width: 90vw;
+        height: 40vh; 
+        margin-top: 3vh; 
+        border-radius: 10px; 
+        text-align: center; 
+        padding: 5vw;
+    }
+    
+    .overview-container {
+        overflow-y: auto;
+        display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: repeat(3, 1fr);
+grid-template-areas: 
+"one"
+"two"
+"three";
+    }
+
+}
