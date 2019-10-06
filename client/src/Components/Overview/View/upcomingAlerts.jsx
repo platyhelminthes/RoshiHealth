@@ -44,9 +44,9 @@ class Alerts extends Component{
             else{
         return(
             
-            <div style={{height: '90vh', overflow: 'auto', display: 'flex', flexDirection: 'column', paddingBottom: '5vh'}}>
+            <div className = '__main-mobile-appointments-reminders' >
                 {ap.map(row => (
-                    <div style={{backgroundColor: 'gray', width: '20vw', height: '15vh', borderRadius: '10px', padding: '.5vw', marginTop: '4vh'}} key={row._id}>
+                    <div className='__main-mobile' style={{backgroundColor: '#36393F', height: '15vh', borderRadius: '10px', padding: '.5vw', marginTop: '4vh'}} key={row._id}>
                       <h4 style={{fontSize: '15px',textAlign: 'center'}}>
                         You have an appointment with {row.userName} in
                       </h4>

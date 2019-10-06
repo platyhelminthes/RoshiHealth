@@ -11,7 +11,7 @@ class Promotion extends Component{
 render(){
 
     return(
-        <div style={{backgroundColor: 'gray', width: '20vw', height: '40vh', marginTop: '3vh', borderRadius: '10px', textAlign: 'center', padding: '5vw'}}>
+        <div className='__main-mobile-promotions-reminders' >
 
         <h2>Promotion Coming</h2>
 
