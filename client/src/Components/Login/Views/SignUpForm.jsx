@@ -53,7 +53,7 @@ class SignUpForm extends Component {
     if(this.sanatize(this.state.email)){alert('No injections allowed!')}
     else{
     axios.post('/api/login/login', {
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password
     }).then(
       
@@ -85,7 +85,7 @@ class SignUpForm extends Component {
     else{
     axios.post('/api/users/createUser', {
       fullName: name,
-      email: email,
+      email: email.toLowerCase(),
       password: password,
     }).then(setTimeout(this.Login, 500))
   }
