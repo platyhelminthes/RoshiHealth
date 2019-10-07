@@ -21,7 +21,7 @@ class CheckoutForm extends Component {
     Axios.post('/api/cart/updateAccount',
     {
       ATType: this.props.items[l].docType,
-      ATAmmount: this.props.items[l].ammount
+      ATAmmount: this.props.items[l].amount
     })
   }
 
