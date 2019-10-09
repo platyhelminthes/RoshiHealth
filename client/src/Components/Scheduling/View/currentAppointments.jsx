@@ -15,13 +15,13 @@ class CurrentAppointments extends Component {
 render(){
     var appointments = this.props.appointments
     if(appointments == null){return(
-        <div style={{backgroundColor: 'gray', height: '35vh', width: '23vw', borderRadius: '15px'}}>
+        <div className="appt-card" >
     <h4>Current appointments will go here</h4>
     </div>
     )}
     else{
     return(
-            <div style={{backgroundColor: 'gray', height: '35vh', width: '23vw', borderRadius: '15px'}}>
+            <div className="idk-wtf-this-is" >
                 {            
                     appointments.map(
                         row => (
