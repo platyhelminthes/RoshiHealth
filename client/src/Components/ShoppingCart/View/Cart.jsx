@@ -106,10 +106,12 @@ class Tasks extends Component {
             )
         }
         return (
+            
+
             <div className="cart_container" >
-                <h1 style={{ fontSize: '18px', marginLeft: '15px' }}>Shopping Cart</h1>
+                <h1 className='cart-header'>Shopping Cart</h1>
                 <div className='cart-card'>
-                    <h2>{Name}</h2>
+                    {/* <h2>{Name}</h2> */}
                     <table className="cart-table" >
                         <tr >
                             <th>Product Detail</th>
@@ -118,8 +120,8 @@ class Tasks extends Component {
                             <th>Total</th>
                         </tr>
                         <tr >
-                            <th style={{backgroundImage: `url(${prodoc})`, height: '150px', width: '125px', backgroundRepeat: 'no-repeat'}}></th>
-                            <th style={{textAlign:'left', maxWidth:'250px', justifyContent:'top', verticalAlign:'top', paddingTop:'10px'}}>Some Details about the product can go here.  Maybe some extra fluffy fluf stuff.  FUck if i know.</th>
+                            <th style={{ backgroundImage: `url(${prodoc})`, height: '150px', width: '125px', backgroundRepeat: 'no-repeat' }}></th>
+                            <th style={{ textAlign: 'left', maxWidth: '250px', justifyContent: 'top', verticalAlign: 'top', paddingTop: '10px' }}>Some Details about the product can go here.  Maybe some extra fluffy fluf stuff.  FUck if i know.</th>
                             <th>Price</th>
                             <th>Total</th>
                         </tr>
@@ -144,28 +146,30 @@ class Tasks extends Component {
 
                 </div>
                 <div className="checkout__card">
-                    <div className="checkout__card-items">
-                        <h2>Order summary</h2>
-                        <div style={{ borderTop: 'solid 1px white', width: '20vw'}}></div>
-                        <div>
-                            <li style={{ display:'flex', justifyContent:'space-between'}}>
-                                <ul>Items</ul>
-                                <ul>${this.state.total}.00</ul>
-                            </li>
-                        </div>
-                        <div>Shipping</div>
-                        <div style={{ borderTop: 'solid 1px white', width: '20vw' }}></div>
-                        <div>Total Cost</div>
-                        <div style={{ borderTop: 'solid 1px white', width: '20vw' }}></div>
+                    <ul className="checkout__card-items">
+                            <h2 >Order summary</h2>
+                        <li >
+                            <span>Items</span>
+                            <span>${this.state.total}.00</span>
+                        </li>
+                        {/* <span>Shipping</span> */}
+                        <li style={{ borderTop:'solid 1px white', padding: '10px 0px 10px 0px' }}>Total Cost</li>
+                        <li>
                         <button className="cart__button" onClick={this.handleSubmit} value="test">Checkout</button>
-                        <div>Promotional Code</div>
-                    </div>
+                        </li>
+                        <li >
+                            <span>Promotion Code</span>
+                            <span style={{ fontWeight: '800' }}>+</span>
+                        </li>
+                        
+
+                    </ul>
                 </div>
-            </div>
-        );
-    }
-}
-
-export default Tasks;
-
-
+                </div>
+                );
+            }
+        }
+        
+        export default Tasks;
+        
+        
