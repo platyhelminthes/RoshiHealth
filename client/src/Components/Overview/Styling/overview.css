@@ -1,17 +1,6 @@
-.display-container {
-    background-color: red;
-}
-
-/* .overview-container {
-background-color: blue;
-display: grid;
-grid-template-columns: repeat(12, 1fr);
-grid-template-rows: repeat(6, 1fr);
-} */
 
 .overview-container{
 /* display: flex; */
- flex-direction: column; 
  height: 100vh; 
  overflow: hidden;
  width: 100vw;

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {Link, Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Checkout from './checkOut'
-import {Elements, StripeProvider} from 'react-stripe-elements';
-
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import '../styles/cart.css'
+import prodoc from '../images/prodoc.png'
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
 class Tasks extends Component {
@@ -29,13 +30,13 @@ class Tasks extends Component {
         let name = target.name;
 
         this.setState({
-          [name]: value
+            [name]: value
         });
     }
 
     handleSubmit(e) {
         (e).preventDefault()
-        this.setState({checkout: true})
+        this.setState({ checkout: true })
     }
 
     handleSubmit2(e) {
@@ -44,93 +45,131 @@ class Tasks extends Component {
     }
 
     removeFromCart = (id, cost) => {
-        
-        axios.post('/api/cart/remove',{
+
+        axios.post('/api/cart/remove', {
             id: id,
             price: cost
-        }).then(this.setState({loading: true})).then(setTimeout(this.getFromDB, 500)).then(setTimeout(this.getItems,1000)).then(setTimeout(this.checkItems,2000))
+        }).then(this.setState({ loading: true })).then(setTimeout(this.getFromDB, 500)).then(setTimeout(this.getItems, 1000)).then(setTimeout(this.checkItems, 2000))
     }
 
-    componentDidMount(){
-        setTimeout(this.getFromDB,1000)
+    componentDidMount() {
+        setTimeout(this.getFromDB, 1000)
     }
 
     checkItems = () => {
-        this.setState({loading: false})
+        this.setState({ loading: false })
     }
 
-    getFromDB = () => {axios.post('/api/cart/getItemsInfo').then(
-        (res)=>{
-            var stuff = []
-            for(var i=0; i<res.data.data[0].shoppingCart[0].items.length; i++){
-            if(res.data.data[0].shoppingCart[0].items[i].amount > 0){
-                stuff.push(res.data.data[0].shoppingCart[0].items[i])
+    getFromDB = () => {
+        axios.post('/api/cart/getItemsInfo').then(
+            (res) => {
+                var stuff = []
+                for (var i = 0; i < res.data.data[0].shoppingCart[0].items.length; i++) {
+                    if (res.data.data[0].shoppingCart[0].items[i].amount > 0) {
+                        stuff.push(res.data.data[0].shoppingCart[0].items[i])
+                    }
+                    this.setState({
+                        items: stuff,
+                        total: res.data.data[0].shoppingCart[0].total
+
+                    })
+                }
+                console.log(res)
             }
-            this.setState({
-                items: stuff,
-                total: res.data.data[0].shoppingCart[0].total
-                
-            })}
-            console.log(res)
-        }
-    )
-this.setState({loading: false})}
+        )
+        this.setState({ loading: false })
+    }
     render() {
         var Name = "Your Name will go here";
         var items = this.state.items
         console.log(items)
 
-        if(this.state.loading == true){return(
-            <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
-                <h1 style={{marginLeft: '6vw', marginTop: '20vh'}}>Loading...</h1>
-                <img style={{marginTop: '5vh', width:'300px', height:'297px'}}src={loadingCircle} id="loadingCircle"/>
-            </div>
-            )}
-        else if(this.state.redirect == true){return(<Redirect to="/main/overview"/>)}
-        else if(this.state.checkout == true){return(
-            <StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
-            <div className="example">
-              <h1>React Stripe Elements Example</h1>
-              <Elements>
-                <Checkout items={this.state.items} total={this.state.total}/>
-              </Elements>
-            </div>
-          </StripeProvider>
-        )}
+        if (this.state.loading == true) {
+            return (
+                <div style={{ alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                    <h1 style={{ marginLeft: '6vw', marginTop: '20vh' }}>Loading...</h1>
+                    <img style={{ marginTop: '5vh', width: '300px', height: '297px' }} src={loadingCircle} id="loadingCircle" />
+                </div>
+            )
+        }
+        else if (this.state.redirect == true) { return (<Redirect to="/main/overview" />) }
+        else if (this.state.checkout == true) {
+            return (
+                <StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
+                    <div className="example">
+                        <h1>React Stripe Elements Example</h1>
+                        <Elements>
+                            <Checkout items={this.state.items} total={this.state.total} />
+                        </Elements>
+                    </div>
+                </StripeProvider>
+            )
+        }
         return (
-        <div>
-            <div>
-                <h1>{Name}</h1>
-                <table style={{width: '100%', border: "2px solid black"}}>
-                <tr >
-                    <th style={{border: "2px solid black"}}>item</th>
-                    <th style={{border: "2px solid black"}}>amount</th>
-                    <th style={{border: "2px solid black"}}>price</th>
-                    </tr>
-                {this.state.items.map(row => (
-    
-            <tr key={row._id} >
-            <td style={{border: "2px solid black"}}>{row.name}</td>
-            <td style={{border: "2px solid black"}}>{row.amount}</td>
-            <td style={{border: "2px solid black"}}>${row.totalCost}.00</td>
-            <button onClick={this.handleSubmit2} value={row.cost} name={row.itemId}>Remove</button>
-            </tr>
-    
-        )
-    )}
-    <tr style={{border: "2px solid black"}}>
-        <td >Total</td>
-        <td ></td>
-        <td >${this.state.total}.00</td>
-    </tr>
-    </table>
-                    <button onClick={this.handleSubmit} value="test">Checkout</button>
-            </div>
-        </div>
-        );
-    }
-}
+            
 
-export default Tasks;
+            <div className="cart_container" >
+                <h1 className='cart-header'>Shopping Cart</h1>
+                <div className='cart-card'>
+                    {/* <h2>{Name}</h2> */}
+                    <table className="cart-table" >
+                        <tr >
+                            <th>Product Detail</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr >
+                            <th style={{ backgroundImage: `url(${prodoc})`, height: '150px', width: '125px', backgroundRepeat: 'no-repeat' }}></th>
+                            <th style={{ textAlign: 'left', maxWidth: '250px', justifyContent: 'top', verticalAlign: 'top', paddingTop: '10px' }}>Some Details about the product can go here.  Maybe some extra fluffy fluf stuff.  FUck if i know.</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        {this.state.items.map(row => (
+
+                            <tr key={row._id} >
+                                <td>{row.name}</td>
+                                <td>{row.amount}</td>
+                                <td>${row.totalCost}.00</td>
+                                <button onClick={this.handleSubmit2} value={row.cost} name={row.itemId}>Remove</button>
+                            </tr>
+
+                        )
+                        )}
+                        <tr style={{ border: "2px solid black" }}>
+                            <td >Total</td>
+                            <td ></td>
+                            <td >${this.state.total}.00</td>
+                        </tr>
+                    </table>
 
 
+                </div>
+                <div className="checkout__card">
+                    <ul className="checkout__card-items">
+                            <h2 >Order summary</h2>
+                        <li >
+                            <span>Items</span>
+                            <span>${this.state.total}.00</span>
+                        </li>
+                        {/* <span>Shipping</span> */}
+                        <li style={{ borderTop:'solid 1px white', padding: '10px 0px 10px 0px' }}>Total Cost</li>
+                        <li>
+                        <button className="cart__button" onClick={this.handleSubmit} value="test">Checkout</button>
+                        </li>
+                        <li >
+                            <span>Promotion Code</span>
+                            <span style={{ fontWeight: '800' }}>+</span>
+                        </li>
+                        
+
+                    </ul>
+                </div>
+                </div>
+                );
+            }
+        }
+        
+        export default Tasks;
+        
+        

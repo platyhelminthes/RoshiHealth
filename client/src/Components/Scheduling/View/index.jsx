@@ -357,20 +357,18 @@ class Schedule extends Component {
         }
         else {
             return (
-                <div style={{width: '86vw', display: 'flex', flexDirection: 'row', paddingLeft: '5vw', paddingTop: '2vh'}}>
-                    <div style={{ display: 'flex', justifyContent: 'space-around', marginRight: '10vw', flexDirection: 'column' }}>
-
+                <div className="appointment-cont" >
+                    <div className="no-idea" >
                             <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers}/>
                             <CurrentAppointments appointments={this.state.appointmentsToShow}/>
                             <CalendarComp handleChange={this.handleChange}/>
                     </div>
-                    <div style={{width: '200%', display: 'flex', flexDirection: 'column', marginTop: '4vh'}}>
-                    
-                    <div style={{backgroundColor: 'gray', width: '45vw', height: '5vh', marginBottom: '5vh', borderRadius: '15px', alignItems: 'center', display: 'flex', justifyContent: 'space-around'}}>
+                    <div className="wtf" >
+                    <div className="info-bar" >
                         <h4 style={{textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%'}}>{date}</h4>
                         <h4 style={{textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%'}}> Appointment Tokens Left: {this.state.currentAPT}</h4>
                     </div> 
-                    <table style={{justifyContent:'center', width: '89%', backgroundColor: 'gray'}}>
+                    <table className="selector-appt" >
                         <thead>
                             <tr>
                                 <th style={{ border: '2px solid black', float: 'left', width: '40%' }}>Time</th>
