@@ -6,7 +6,7 @@ class Picker extends Component {
 
     constructor(props){
         super(props)
-        state = {
+        this.state = {
             loading: true
         }
     }
@@ -14,8 +14,11 @@ class Picker extends Component {
     render(){
         return(
 
-            <div className="__square-box">
-                
+            <div className="__team-panel-one">
+                <select>
+                    <option>Select a provider to add</option>
+                    <option>Test 1</option>
+                </select>
             </div>
 
         )
