@@ -39,9 +39,10 @@ class SignInForm extends Component {
 
     Login = (email, password) => {
       if(this.sanatize(email) || this.sanatize(password)){alert('No injections allowed!')}
+      else if(email == '' || email == null || password == '' || password == null){alert('please enter information')}
       else{
       axios.post('/api/login/login', {
-          email: email,
+          email: email.toLowerCase(),
           password: password
       }).then(
         (res) => {
