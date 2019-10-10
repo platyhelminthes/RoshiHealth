@@ -58,8 +58,7 @@ class Tasks extends Component {
                 <HeaderNav drawerClickHandler={this.drawerToggleClickHandler} />
         <SideDrawer show={this.state.sideDrawerOpen} />
         {backdrop}
-                <h3 className="JoeMax">{this.state.email}</h3>
-                <h3 className="JoeMax">{this.state.name}</h3>
+
                 <div style={{ marginTop: '3vh' }}>
                     <Link to='/main/overview' className="JoeMax" style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Home</Link>
                     <Link to='/login' className="JoeMax" onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout?</Link>
@@ -70,3 +69,6 @@ class Tasks extends Component {
 }
 
 export default Tasks;
+
+//<h3 className="JoeMax">{this.state.email}</h3>
+//<h3 className="JoeMax">{this.state.name}</h3>

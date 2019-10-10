@@ -125,7 +125,7 @@ class ChooseDoctor extends Component {
       else{
         return (
             <div className="__team-container">
-                <Picker/>
+                {/*<Picker DTA={}/>*/}
                 {/* {
                 allowed.map(row => (
 

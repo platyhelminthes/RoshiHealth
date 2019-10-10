@@ -1,0 +1,132 @@
+#__side-Nav {
+    height: 100vh;
+    width: 20vw;
+    background: #31353D
+
+}
+
+#__main-head {
+    display: flex;
+    flex-direction: column;
+}
+
+#__head-logo {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid gray;
+}
+
+#__head-bio {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2vh;
+    padding-bottom: 2vh;
+    border-bottom: 1px solid gray;
+
+}
+
+#__head-bio-pic img {
+    width: 5vw;
+    border-radius: 15px;
+}
+
+#__head-bio-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 9vw;
+}
+
+#__head-bio-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 12vw
+}
+
+#__head-bio-info p{
+    margin: 0;
+    margin-top: 10px;
+}
+
+#__head-online {
+    display: flex
+}
+
+#__head-search {
+    padding-left: 1vw;
+    padding-top: 2vh;
+}
+
+#__head-search input {
+    width: 90%;
+    background: #3a3f48;
+    border: 0;
+    height: 2vh
+}
+
+#__head-search input:focus {
+    outline: none;
+}
+
+#__head-search input::placeholder {
+    color: #818896
+}
+
+.__body-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.__SideLinks {
+    font-family: 'Play', sans-serif;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    justify-self: start;
+    width: 20vw;
+    vertical-align: center;
+    height: 3vh;
+    padding: 0;
+    margin-left: 2vw;
+}
+
+.__SideLinks:hover {
+  color: orange
+}
+
+.__SideLinks:visited {
+  text-decoration: none
+}
+
+.__SideLinks-Static-Box {
+    width: 90%;
+    height: 5vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 10vw;
+    padding-left: 1vw
+}
+
+.__SideLinks-Static {
+  font-family: 'Play', sans-serif;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  justify-self: start;
+  vertical-align: center;
+  max-height: 2vh;
+  width: 4vw
+}
+
+.__SideLinks-Static-Box:hover .__SideLinks-Static {
+  color: orange
+}
+
+.__SideLinks-Static:visited {
+  text-decoration: none
+}
