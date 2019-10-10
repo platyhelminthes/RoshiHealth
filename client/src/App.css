@@ -210,18 +210,18 @@
     font-family: 'JoeMax' !important;
   }
 
+
   .Header {
-    color: #F2C041;
-    height: 7vh;
-    width: 100%;
-    border-bottom: solid whitesmoke 1px !important;
-    background-color: transparent;
-    /* background-color: #36393F; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 2px solid #26262b 
-  }
+        color: #F2C041;
+        height: 7vh;
+        width: 100%;     
+        background-color: transparent;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+  
 
   .colorWhite {
     color: whitesmoke
