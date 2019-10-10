@@ -150,7 +150,7 @@ export default class Call extends Component {
       <div style={{paddingLeft: '50px',  paddingRight: '50px', justifyItems: 'space-between', display: 'flex', flexDirection: 'row' }}>
         <div>
           <h4>{this.props.name}:</h4>
-        <div id="agora_local" style={{ width: "600px", height: "600px", marginRight: '50px'}} />
+        <div id="agora_local" style={{ width: "40vw", height: "75vh", marginRight: '50px'}} />
         </div>
         <div>
         {Object.keys(this.state.remoteStreams).map(key => {
@@ -162,7 +162,7 @@ export default class Call extends Component {
             <div
               key={streamId}
               id={`agora_remote ${streamId}`}
-              style={{ width: "600px", height: "600px" }}
+              style={{  width: "40vw", height: "75vh" }}
             />
             </div>
           );

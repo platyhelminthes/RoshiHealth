@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import '../styling/team.css'
+import Picker from './Picker'
 
 
 class ChooseDoctor extends Component {
@@ -122,16 +124,16 @@ class ChooseDoctor extends Component {
       else if(redirect == true) {return(<Redirect to="/main/overview"/>)}
       else{
         return (
-            <div>
-                {
+            <div className="__team-container">
+                <Picker/>
+                {/* {
                 allowed.map(row => (
 
                         <button value={row} onClick={this.handleSubmit}>{row}</button>
 
                     )
                 )
-              }
-              
+              } */}
           </div>
         )};
     }
