@@ -6,9 +6,9 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
-    "sb main main main main main"
-    "sb main main main main main"
-    "sb main main main main main";
+    "main main main main main main"
+    "main main main main main main"
+    "main main main main main main";
 }
 
 .store__main {
@@ -87,7 +87,7 @@
   background-color: #36393F;
   border-radius: 15px;
   max-height: 40vh;
-  margin: 2vw;
+  margin: 4vw;
   max-width: 20vw;
   padding-left: 1vw;
   padding-right: 1vw;

@@ -139,10 +139,10 @@ class Store extends Component {
         else {
             return (
                 <div className="store-container" >
-                    <Sidebar handleSubmit1={this.handleSubmit1} />
+                    
                     <div className="store__main" >
                         <div className="store__header" style={{ backgroundImage: `url(${backimg})` }}>
-                            <h1>I'm a fucking header bro</h1>
+                            
                         </div>
                         <div className="store___box-container">
                             {items.map(
@@ -170,3 +170,4 @@ class Store extends Component {
 
 
 export default Store
+//<Sidebar handleSubmit1={this.handleSubmit1} />
