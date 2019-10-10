@@ -1,22 +1,20 @@
-
-
 .main__back {
-    z-index: -1;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100vw;
-    padding: 12px 0px 0px 75px;
-    overflow: hidden;
-    display: flex; 
-    color: white;
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100vw;
+  /* padding: 12px 0px 0px 75px; */
+  overflow: hidden;
+  display: flex;
+  color: white;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 /* #mainBack {
@@ -34,48 +32,47 @@
     z-index: -1;
 } */
 
-
-
 .main__back:before {
-    font-family: 'Play', sans-serif;    
-    z-index: -1;
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-        to bottom, 
-        rgba(54,57,63,0.9) 20%,
-        rgba(54,57,63,0.6) 60%,
-        rgba(54,57,63,1) 90%);
+  font-family: "Play", sans-serif;
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(54, 57, 63, 0.9) 30%,
+    rgba(54, 57, 63, 0.9) 60%,
+    rgba(54, 57, 63, 1) 100%
+  );
 }
 
 .main-container {
-    /* background-color: transparent;
+  /* background-color: transparent;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(6, 1fr); */
-    width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background-color: transparent;
-    }
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: transparent;
+}
 
-    .overview__divs {
-        border: 2px solid #26262b;
-        border-left: none;
-        height: 100vh;
-        overflow-x: hidden; 
-        overflow-y: hidden;  
-        background-color: #36393F; 
-        background: rgba(204, 204, 204, 0.05);
-    }
+.overview__divs {
+  border: 2px solid #26262b;
+  border-left: none;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #36393f;
+  background: rgba(204, 204, 204, 0.05);
+}
 
-    @media (max-width: 769px) {
-        .main__back {
-            padding: 0;
-        }
-    }
+@media (max-width: 769px) {
+  .main__back {
+    padding: 0;
+  }
+}

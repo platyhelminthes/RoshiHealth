@@ -50,9 +50,13 @@ background-color: gray;
 .wtf {
     grid-area: idk;
   width: 50%;
+  overflow-y:none;
   /* display: flex; */
   /* flex-direction: column; */
   margin-top: 1vh;
+}
+.react-calendar {
+  margin-top: 10px;
 }
 
 .appt-card {
@@ -103,4 +107,8 @@ background-color: gray;
       .appt-card {
           width: 87vw; 
       }
+      .idk-wtf-this-is{
+        width: 87vw;
+      }
+      
 }
