@@ -293,4 +293,8 @@
     .JoeMax {
       display: none;
     }
+
+    #__side-Nav {
+      display: none;
+    }
 }
