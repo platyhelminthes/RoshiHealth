@@ -10,7 +10,6 @@ import findProviders from '../../ChooseDoctor/View/index'
 import sendTasks from '../../Providers/Views/SendTasks'
 import Schedule from '../../Scheduling/View/index'
 import {Route} from 'react-router-dom'
-import video from '../../Video/View/index'
 import sendDoctor from '../../Providers/Views/sendDoctors'
 import appointments from '../../Providers/Views/viewAppointments'
 import store from '../../Store/View/index'
@@ -49,7 +48,6 @@ class Main extends Component {
               <Route exact path="/main/addProviders" component={findProviders}/>
               <Route exact path="/main/sendTasks" component={sendTasks}/>
               <Route exact path="/main/scheduler" component={Schedule}/>
-              <Route exact path='/main/video' component={video}/>
               <Route exact path='/main/sendDoctor' component={sendDoctor}/>
               <Route exact path='/main/appointments' component={appointments}/>
               <Route exact path='/main/store' component={store}/>

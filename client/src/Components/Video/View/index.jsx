@@ -9,16 +9,10 @@ class App extends Component {
     this.state = {
       channel: "",
       name: null,
-      redirect: false
+      redirect: false,
+      clicked: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleSubmit(e) {
-    (e).preventDefault()
-
-    this.joinChannel()
-}
 
 
   selectChannel = channel => {
@@ -26,7 +20,17 @@ class App extends Component {
   };
 
   componentDidMount(){
-    setTimeout(this.getUser, 1500)
+    this.getUser()
+    console.log(this.props.location.state)
+    if(this.props.location.state == null){this.setState({redirect: true})}
+    else{
+    this.setState({clicked: this.props.location.state.clicked})
+    setTimeout(this.checkClicked, 500)}
+  }
+  checkClicked = () => {
+    if(this.state.clicked == false){
+      this.setState({redirect: true})
+    }
   }
 
   getUser = () => {
@@ -53,11 +57,11 @@ class App extends Component {
 
   render() {
     if(this.state.redirect === true){
-      return(<Redirect to='/login'/>)
+      return(<Redirect to='/main'/>)
     }
     return (
-      <div className="App">
-        <Call name={this.state.name} channel={this.state.channel} />
+      <div className="video">
+        <Call clicked={this.state.clicked} name={this.state.name} channel={this.state.channel} />
       </div>
     );
   }

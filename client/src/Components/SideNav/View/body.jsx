@@ -7,8 +7,6 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import { ExpansionPanelActions } from '@material-ui/core';
 
 const dropDown = {
     background: '#31353D',
@@ -54,13 +52,45 @@ const dropDownActive={
     margin: '0'
 }
 
+function RenderTest(props){
+    if(props.true == true){
+        return(
+            <div className='__SideLinks-Static-Box'>
+                    <HouseIcon/>
+                    <Link to={{
+  pathname: '/video',
+  state: {
+    clicked: true
+  }}} className='__SideLinks-Static' style={{width: '20vw'}} >Go to Appointment</Link>
+            </div>
+        )
+    }
+    else{ return(null)}
+}
+
+
 class body extends Component {
 
     constructor(props){
         super(props)
 
-
+        this.state = {
+            true: false
+        }
     }
+
+componentDidMount(){
+    setTimeout(this.checkAP, 3000)
+}
+
+checkAP = () => {
+    console.log(this.props.APtime)
+    if(this.props.APtime == true){
+        this.setState({true: true})
+    }
+}
+
+ renderStuff = {}
 
 
     render(){
@@ -93,20 +123,35 @@ class body extends Component {
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel style={dropDownBack} >
-                    <ExpansionPanelSummary
-                        expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        style={dropDown}
-                    >
+                        <ExpansionPanelSummary
+                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={dropDown}
+                        >
                         <HouseIcon style={{color: 'white'}}/>
                         <p to="/main/overview" style={dropDownHead}>Team</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         <Link to="/main/addProviders" className='__SideLinks'>View Team</Link>
-                        <Link to="/main/scheduler" className='__SideLinks'>Make Appointment</Link>
+                        <Link className='__SideLinks'>Something Else</Link>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+                <ExpansionPanel style={dropDownBack} >
+                        <ExpansionPanelSummary
+                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={dropDown}
+                        >
+                        <HouseIcon style={{color: 'white'}}/>
+                        <p to="/main/overview" style={dropDownHead}>Appointments</p>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails style={dropDownActive}>
+                        <Link  to="/main/scheduler"  className='__SideLinks'>Make An Appointment</Link>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <RenderTest true={this.state.true}/>
             </div>
         )
     }
