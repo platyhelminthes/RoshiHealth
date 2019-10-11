@@ -55,13 +55,13 @@ const dropDownActive={
 function RenderTest(props){
     if(props.true == true){
         return(
-            <div className='__SideLinks-Static-Box'>
+            <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
                     <HouseIcon/>
                     <Link to={{
   pathname: '/video',
   state: {
     clicked: true
-  }}} className='__SideLinks-Static' style={{width: '20vw'}} >Go to Appointment</Link>
+  }}} className='__SideLinks-Static' style={{width: '20vw', paddingLeft: '.7vw'}} >Go to Appointment</Link>
             </div>
         )
     }
