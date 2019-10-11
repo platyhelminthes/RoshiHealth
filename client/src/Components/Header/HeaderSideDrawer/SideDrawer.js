@@ -1,5 +1,5 @@
 import React from 'react';
-import SideNav from '../../SideNav/mobile/index';
+import SideBarMobile from '../../SideNav/mobileView/View/index';
 import './SideDrawer.css';
 
 const sideDrawer = props => {
@@ -10,7 +10,7 @@ const sideDrawer = props => {
 
     return (
     <div className={drawerClasses}>
-        <SideNav />
+        <SideBarMobile />
     </div>
     );
 };
