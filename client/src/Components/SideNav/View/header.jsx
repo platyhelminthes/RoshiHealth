@@ -15,7 +15,6 @@ class header extends Component {
             <div id='__main-head'>
                 <div id='__head-logo'>
                     <h2>Roshi Health</h2>
-                    <p>X</p>
                 </div>
                 <div id='__head-bio'>
                     <div id='__head-bio-pic'>
@@ -31,9 +30,9 @@ class header extends Component {
                         
                     </div>
                 </div>
-                <div id='__head-search'>
+                {/*<div id='__head-search'>
                     <input placeholder='search' type='text-area'/>
-                </div>
+        </div>*/}
             </div>
         )
     }

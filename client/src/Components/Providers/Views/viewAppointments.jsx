@@ -62,8 +62,8 @@ class Tasks extends Component {
         var ID = this.state.APID
         if(this.state.redirect == true) {
           return(<Redirect to={{
-            pathname: '/main/video',
-            state: {id: ID}
+            pathname: '/video',
+            state: {id: ID, clicked: true}
           }}/>)
         }
         else if(this.state.loading == true){return(

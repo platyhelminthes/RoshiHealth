@@ -18,8 +18,14 @@ export default class Call extends Component {
   };
 
   componentDidMount() {
-    this.initLocalStream();
-    this.initClient();
+    setTimeout(this.start, 1000)
+  }
+
+  start = () => {
+    if(this.props.clicked == true){
+      this.initLocalStream();
+      this.initClient();
+      }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -147,10 +153,10 @@ export default class Call extends Component {
 
   render() {
     return (
-      <div style={{paddingLeft: '50px',  paddingRight: '50px', justifyItems: 'space-between', display: 'flex', flexDirection: 'row' }}>
+      <div>
         <div>
-          <h4>{this.props.name}:</h4>
-        <div id="agora_local" style={{ width: "40vw", height: "75vh", marginRight: '50px'}} />
+        
+        <div id="agora_local" style={{ width: "20vw", height: "40vh", float: 'right', marginTop: '60vh', zIndex: '1', position: 'absolute'}} />
         </div>
         <div>
         {Object.keys(this.state.remoteStreams).map(key => {
@@ -158,15 +164,18 @@ export default class Call extends Component {
           let streamId = stream.getId();
           return (
             <div>
-            <h4>Other: </h4>
             <div
               key={streamId}
               id={`agora_remote ${streamId}`}
-              style={{  width: "40vw", height: "75vh" }}
+              style={{  width: "100vw", height: "100vh", float: 'left', position: 'absolute' }}
             />
             </div>
           );
         })}
+        
+        </div>
+        <div style={{width: '100vw', justifyItems: 'center'}}>
+        <a href='/main/overview' style={{width: '10vw', height: '5vh', position: 'absolute', bottom: '5vw', marginLeft: '50vw', background: 'red', borderRadius: '20px', textAlign: 'center', paddingTop: '1vh' }}>Leave</a>
         </div>
       </div>
     );
