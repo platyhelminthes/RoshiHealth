@@ -18,14 +18,15 @@ export default class Call extends Component {
   };
 
   componentDidMount() {
-    setTimeout(this.start, 1000)
+    this.start()
   }
 
   start = () => {
-    if(this.props.clicked == true){
+    
+      console.log('ClickEdDD')
       this.initLocalStream();
       this.initClient();
-      }
+    
   }
 
   componentDidUpdate(prevProps, prevState) {

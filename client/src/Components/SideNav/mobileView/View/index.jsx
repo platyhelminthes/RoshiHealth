@@ -1,8 +1,8 @@
 import React from 'react'
 import {Component} from 'react'
-import '../style/sideNav.css'
+import '../style/mobile.css'
 import Header from './header'
-import Body from './body'
+import MobileBody from './body'
 import Axios from 'axios'
 import moment from 'moment'
 
@@ -10,7 +10,7 @@ import moment from 'moment'
 
 
 
-class Sidenav extends Component {
+class SidenavMobile extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -18,8 +18,7 @@ class Sidenav extends Component {
             email: null,
             appointments: [],
             APTime: false,
-            true: false,
-            allowed: null
+            true: false
         }
     }
 
@@ -29,8 +28,7 @@ class Sidenav extends Component {
                 this.setState({
                     name: res.data.data.fullName,
                     email: res.data.data.email,
-                    appointments: res.data.data.appointments,
-                    allowed: res.data.data.doctorsToAdd
+                    appointments: res.data.data.appointments
                 })
             }
         ).then(setTimeout(this.checkApp, 1000))
@@ -58,12 +56,12 @@ class Sidenav extends Component {
 
     render(){
         return(
-            <div id='__side-Nav'>
+            <div id='__mobile-side-Nav'>
                 <Header name={this.state.name} email={this.state.email}/>
-                <Body allowed={this.state.allowed} APtime={this.state.APTime}/>
+                <MobileBody APtime={this.state.APTime}/>
             </div>
         )
     }
 }
 
-export default Sidenav
+export default SidenavMobile;

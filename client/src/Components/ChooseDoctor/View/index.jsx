@@ -1,77 +1,69 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import userImg from '../../Pictures/UserPicTemp.jpg'
 import '../styling/team.css'
-import Picker from './Picker'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 class ChooseDoctor extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            search: null,
             searched: false,
             doctors: null,
             redirect: false,
-            allowed: []
+            allowed: [],
+            selected: null,
+            selector: 0
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClick2 = this.handleClick2.bind(this)
         this.handleSubmit2 = this.handleSubmit2.bind(this);
         
     }
+
     componentDidMount(){
-        axios.get('/api/users/getUser').then(
-            (res)=>{
-                this.setState({allowed: res.data.data.doctorsToAdd})
-            }
-        )
+        console.log(this.props.location.state.search)
+        this.findProviders(this.props.location.state.search)
     }
 
-    handleChange(e) {
-        let target = e.target;
-        let value = target.type === 'checkbox' ? target.checked : target.value;
-        let name = target.name;
-
-        this.setState({
-          [name]: value
-        });
-    }
-
-    handleSubmit(e) {
+    handleClick(e) {
         (e).preventDefault()
-        
-        this.setState({search: e.target.value})
-        console.log(this.state.search)
-        this.findProviders(e.target.value)
-        setTimeout(this.changePage, 700)
+        if(this.state.selector == this.state.doctors.length -1){}
+        else{
+        this.setState({selector: this.state.selector+1})
+        }
     }
+
+    handleClick2(e) {
+        (e).preventDefault()
+        if(this.state.selector == 0){}
+        else{
+        this.setState({selector: this.state.selector-1})}
+    }
+
     handleSubmit2(e) {
         (e).preventDefault()
-        this.addDoctor(e.target.value, this.state.search)
+        this.addDoctor(e.target.value, this.props.location.state.search)
         this.addPatient(e.target.value)
         this.setState({redirect: true})
     }
 
     findProviders = (search) => {
-        
-        
+        console.log(search + 'whathadhawwadiu')
         axios.post('/api/providers/searchProviders',
         {search: search})
         .then(
             (res)=>{
-                this.setState({doctors: res.data.data})
+                console.log(res)
+                this.setState({doctors: res.data.data, searched: true})
             }
-            
         )
     }
 
-    changePage = () => {
-        this.setState({searched: true})
-        console.log(this.state.doctors)
-    }
     addDoctor = (id, type) => {
         axios.post('/api/providers/addProvider',
         {
@@ -79,23 +71,12 @@ class ChooseDoctor extends Component {
             type: type
         })
     }
+
     addPatient = (id) => {
         axios.post('/api/providers/addPatient',
         {
             id: id
         })
-    }
-
-    
-    sanatize = (string) => {
-        var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
-        if(format.test(string)){
-            return true
-        }
-        else{
-            return false
-        }
-        
     }
 
     render() {
@@ -104,38 +85,30 @@ class ChooseDoctor extends Component {
       var doctors = this.state.doctors
       var allowed = this.state.allowed
     if(this.state.redirect == true){return(<Redirect to='/main'/>)}
-    if(allowed.length == 0){return(<h1>You currently dont have any providers to add to your team. Please contact your nurse if you would like to make a change</h1>)}
+    if(doctors == null){return(<h1>test</h1>)}
     else if(searched == true){
-          return(
-              <div>
-              {
-                doctors.map(row => (
-                    <div key={row._id}>
-                        <h1>Name: {row.fullName}</h1>
-                        <h1>Type: {row.providerInfo.providerType}</h1>
-                        <button onClick={this.handleSubmit2} value={row._id}>Choose this doctor?</button>
-                    </div>
-                    )
-                )
-              }
-              </div>
-          )
-      }
-      else if(redirect == true) {return(<Redirect to="/main/overview"/>)}
-      else{
         return (
             <div className="__team-container">
-                {/*<Picker DTA={}/>*/}
-                {/* {
-                allowed.map(row => (
-
-                        <button value={row} onClick={this.handleSubmit}>{row}</button>
-
-                    )
-                )
-              } */}
+                <div className='__add-Doctor-Main'>
+                    <div className='__add-Doctor-Left'>
+                    <button style={{height: '5vh', background: 'gray', borderRadius: '13px', border: '0', width: '5vw'}} onClick={this.handleClick2}><ArrowBackIcon/></button>
+                        <img className='__add-Doctor-Img' src={userImg} />
+                        <div className='__add-Doctor-Fluff'></div>
+                    </div>
+                    <div className='__add-Doctor-Right'>
+                        <div className='__add-Doctor-Bio-Right'>
+                            <h2>Name: {this.state.doctors[this.state.selector].fullName}</h2>
+                            <h2>Profession: {this.state.doctors[this.state.selector].providerInfo.providerType}</h2>
+                            <h2>About: TEST TEST TEST TEST</h2>
+                            <button onClick={this.handleSubmit2} value={this.state.doctors[this.state.selector]._id}>choose this doctor</button>
+                        </div>
+                        <button style={{height: '5vh', marginTop: '40vh', marginLeft: '3vw', background: 'gray', borderRadius: '13px', border: '0', width: '5vw'}} onClick={this.handleClick}><ArrowForwardIcon/></button>
+                    </div>
+                </div>
           </div>
-        )};
+        )
+      }
+      else if(redirect == true) {return(<Redirect to="/main/overview"/>)}
     }
 }
 

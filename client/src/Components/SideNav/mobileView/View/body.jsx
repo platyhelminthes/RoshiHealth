@@ -1,7 +1,7 @@
 import React from 'react'
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
-import '../style/sideNav.css'
+import '../style/mobile.css'
 import HouseIcon from '@material-ui/icons/House';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -55,13 +55,13 @@ const dropDownActive={
 function RenderTest(props){
     if(props.true == true){
         return(
-            <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
+            <div className='__SideLinks-Static-Box'>
                     <HouseIcon/>
                     <Link to={{
   pathname: '/video',
   state: {
     clicked: true
-  }}} className='__SideLinks-Static' style={{width: '20vw', paddingLeft: '.7vw'}} >Go to Appointment</Link>
+  }}} className='__SideLinks-Static' style={{width: '20vw'}} >Go to Appointment</Link>
             </div>
         )
     }
@@ -69,20 +69,18 @@ function RenderTest(props){
 }
 
 
-class body extends Component {
+class mobileBody extends Component {
 
     constructor(props){
         super(props)
 
         this.state = {
-            true: false,
-            doctorsAllowed: []
+            true: false
         }
     }
 
 componentDidMount(){
-    setTimeout(this.checkAP, 1500)
-    setTimeout(this.checkDoctors, 2000)
+    setTimeout(this.checkAP, 3000)
 }
 
 checkAP = () => {
@@ -92,34 +90,19 @@ checkAP = () => {
     }
 }
 
-checkDoctors = () => {
-    var checker = []
-        if(this.props.allowed != null){
-            for(var i=0; i<this.props.allowed.length; i++){
-                checker.push(this.props.allowed[i])
-                console.log(this.props.allowed)
-            }
-        }
-        setTimeout(this.pushDoctors(checker),1500)
-}
-
-pushDoctors = (test) => {
-    this.setState({doctorsAllowed: test})
-}
-
  renderStuff = {}
 
 
     render(){
         return(
-            <div className='__body-main'>
-                <div className='__SideLinks-Static-Box'>
+            <div className='__mobile-body-main'>
+                <div className='__mobile-SideLinks-Static-Box'>
                     <HouseIcon/>
-                    <Link to='/main/overview'className='__SideLinks-Static'>Overview</Link>
+                    <Link to='/main/overview'className='__Mobile-SideLinks-Static'>Overview</Link>
                 </div>
                 <div className='__SideLinks-Static-Box'>
                     <HouseIcon/>
-                    <Link to='/main/tasks'className='__SideLinks-Static'>Tasks</Link>
+                    <Link to='/main/tasks'className='__Mobile-SideLinks-Static'>Tasks</Link>
                 </div>
                 <ExpansionPanel style={dropDownBack} >
                 <ExpansionPanelSummary
@@ -151,32 +134,7 @@ pushDoctors = (test) => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         <Link to="/main/addProviders" className='__SideLinks'>View Team</Link>
-                            <ExpansionPanel style={dropDownBack} >
-                        <ExpansionPanelSummary
-                                expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                                style={dropDown}
-                                className='__DD-header'
-                            >
-                                <p style={dropDownHead}>Choose a doctor</p>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails style={dropDownActive}>
-                                    {
-                                        this.state.doctorsAllowed.map(row => (
-                                          <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
-                                              <Link to={{
-                                              pathname: '/main/addProviders',
-                                              state: {
-                                                search: row
-                                              }}} className='__SideLinks' style={{width: '20vw', paddingLeft: '.7vw'}} >{row}</Link>
-                                          </div>
-                                            )
-                                        )
-                                    }
-                            </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        
+                        <Link className='__SideLinks'>Something Else</Link>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel style={dropDownBack} >
@@ -200,4 +158,4 @@ pushDoctors = (test) => {
 
 }
 
-export default body
+export default mobileBody

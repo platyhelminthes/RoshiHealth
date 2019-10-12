@@ -3,9 +3,9 @@ import React from 'react';
 import './SideDrawer.css';
 
 const sideDrawer = props => {
-    let drawerClasses = 'side-drawer';
+    let drawerClasses = 'layout-side-drawer';
     if (props.show) {
-        drawerClasses = 'side-drawer open';
+        drawerClasses = 'layout-side-drawer open';
     }
 
     return (
