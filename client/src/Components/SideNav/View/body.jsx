@@ -76,7 +76,8 @@ class body extends Component {
 
         this.state = {
             true: false,
-            doctorsAllowed: []
+            doctorsAllowed: ['No doctors to add'],
+            link: ''
         }
     }
 
@@ -94,23 +95,26 @@ checkAP = () => {
 
 checkDoctors = () => {
     var checker = []
-        if(this.props.allowed != null){
+        if(this.props.allowed[1] != null){
+            if(this.props.allowed.length > 0){
             for(var i=0; i<this.props.allowed.length; i++){
                 checker.push(this.props.allowed[i])
                 console.log(this.props.allowed)
             }
-        }
-        setTimeout(this.pushDoctors(checker),1500)
+            setTimeout(this.pushDoctors(checker),1500)
+        }        
+    }  
 }
 
 pushDoctors = (test) => {
-    this.setState({doctorsAllowed: test})
+    this.setState({doctorsAllowed: test, link: '/main/addProviders'})
 }
 
  renderStuff = {}
 
 
     render(){
+        var link = this.state.link
         return(
             <div className='__body-main'>
                 <div className='__SideLinks-Static-Box'>
@@ -150,7 +154,7 @@ pushDoctors = (test) => {
                         <p to="/main/overview" style={dropDownHead}>Team</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
-                        <Link to="/main/addProviders" className='__SideLinks'>View Team</Link>
+                        <Link to="/main/Team" className='__SideLinks'>View Team</Link>
                             <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                                 expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
@@ -166,7 +170,7 @@ pushDoctors = (test) => {
                                         this.state.doctorsAllowed.map(row => (
                                           <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
                                               <Link to={{
-                                              pathname: '/main/addProviders',
+                                              pathname: link,
                                               state: {
                                                 search: row
                                               }}} className='__SideLinks' style={{width: '20vw', paddingLeft: '.7vw'}} >{row}</Link>

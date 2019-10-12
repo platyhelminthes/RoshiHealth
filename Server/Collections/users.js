@@ -121,6 +121,15 @@ const accounts = new Schema({
         patientIds: {
             type: [String],
             default: 'empty'
+    },
+    availability: {
+        monday: [String],
+        tuesday: [String],
+        wednesday: [String],
+        thursday: [String],
+        friday: [String],
+        saturday: [String],
+        sunday: [String]
     }
     },
     doctorsToAdd: [String],
