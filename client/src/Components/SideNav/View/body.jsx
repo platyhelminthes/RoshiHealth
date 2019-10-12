@@ -75,12 +75,14 @@ class body extends Component {
         super(props)
 
         this.state = {
-            true: false
+            true: false,
+            doctorsAllowed: []
         }
     }
 
 componentDidMount(){
-    setTimeout(this.checkAP, 3000)
+    setTimeout(this.checkAP, 1500)
+    setTimeout(this.checkDoctors, 2000)
 }
 
 checkAP = () => {
@@ -88,6 +90,21 @@ checkAP = () => {
     if(this.props.APtime == true){
         this.setState({true: true})
     }
+}
+
+checkDoctors = () => {
+    var checker = []
+        if(this.props.allowed != null){
+            for(var i=0; i<this.props.allowed.length; i++){
+                checker.push(this.props.allowed[i])
+                console.log(this.props.allowed)
+            }
+        }
+        setTimeout(this.pushDoctors(checker),1500)
+}
+
+pushDoctors = (test) => {
+    this.setState({doctorsAllowed: test})
 }
 
  renderStuff = {}
@@ -134,7 +151,32 @@ checkAP = () => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         <Link to="/main/addProviders" className='__SideLinks'>View Team</Link>
-                        <Link className='__SideLinks'>Something Else</Link>
+                            <ExpansionPanel style={dropDownBack} >
+                        <ExpansionPanelSummary
+                                expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                style={dropDown}
+                                className='__DD-header'
+                            >
+                                <p style={dropDownHead}>Choose a doctor</p>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails style={dropDownActive}>
+                                    {
+                                        this.state.doctorsAllowed.map(row => (
+                                          <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
+                                              <Link to={{
+                                              pathname: '/main/addProviders',
+                                              state: {
+                                                search: row
+                                              }}} className='__SideLinks' style={{width: '20vw', paddingLeft: '.7vw'}} >{row}</Link>
+                                          </div>
+                                            )
+                                        )
+                                    }
+                            </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel style={dropDownBack} >

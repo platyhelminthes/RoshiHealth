@@ -18,7 +18,8 @@ class Sidenav extends Component {
             email: null,
             appointments: [],
             APTime: false,
-            true: false
+            true: false,
+            allowed: null
         }
     }
 
@@ -28,7 +29,8 @@ class Sidenav extends Component {
                 this.setState({
                     name: res.data.data.fullName,
                     email: res.data.data.email,
-                    appointments: res.data.data.appointments
+                    appointments: res.data.data.appointments,
+                    allowed: res.data.data.doctorsToAdd
                 })
             }
         ).then(setTimeout(this.checkApp, 1000))
@@ -58,7 +60,7 @@ class Sidenav extends Component {
         return(
             <div id='__side-Nav'>
                 <Header name={this.state.name} email={this.state.email}/>
-                <Body APtime={this.state.APTime}/>
+                <Body allowed={this.state.allowed} APtime={this.state.APTime}/>
             </div>
         )
     }
