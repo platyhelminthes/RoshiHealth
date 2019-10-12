@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import userImg from '../../Pictures/UserPicTemp.jpg'
 import '../styling/team.css'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 class ChooseDoctor extends Component {
@@ -89,7 +91,7 @@ class ChooseDoctor extends Component {
             <div className="__team-container">
                 <div className='__add-Doctor-Main'>
                     <div className='__add-Doctor-Left'>
-                    <button style={{height: '5vh'}} onClick={this.handleClick2}>--></button>
+                    <button style={{height: '5vh', background: 'gray', borderRadius: '13px', border: '0', width: '5vw'}} onClick={this.handleClick2}><ArrowBackIcon/></button>
                         <img className='__add-Doctor-Img' src={userImg} />
                         <div className='__add-Doctor-Fluff'></div>
                     </div>
@@ -100,7 +102,7 @@ class ChooseDoctor extends Component {
                             <h2>About: TEST TEST TEST TEST</h2>
                             <button onClick={this.handleSubmit2} value={this.state.doctors[this.state.selector]._id}>choose this doctor</button>
                         </div>
-                        <button style={{height: '5vh'}} onClick={this.handleClick}>--></button>
+                        <button style={{height: '5vh', marginTop: '40vh', marginLeft: '3vw', background: 'gray', borderRadius: '13px', border: '0', width: '5vw'}} onClick={this.handleClick}><ArrowForwardIcon/></button>
                     </div>
                 </div>
           </div>

@@ -20,10 +20,26 @@
     align-items: center;
 }
 
+.__add-Doctor-Left button:focus {
+    outline: none
+}
+
+.__add-Doctor-Left button:active {
+    border: 3px solid darkslategray!important;
+}
+
 .__add-Doctor-Right {
     width: 40vw;
     height: 100%;
     display: flex;
+}
+
+.__add-Doctor-Right button:focus {
+    outline: none;
+}
+
+.__add-Doctor-Right button:active {
+    border: 3px solid darkslategray!important;
 }
 
 .__add-Doctor-Img {
