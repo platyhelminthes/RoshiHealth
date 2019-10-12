@@ -6,6 +6,7 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import '../styles/cart.css'
 import prodoc from '../images/prodoc.png'
 import loadingCircle from '../../Pictures/loadingCircle.png'
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
 class Tasks extends Component {
     constructor() {
@@ -96,7 +97,7 @@ class Tasks extends Component {
         else if (this.state.checkout == true) {
             return (
                 <StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
-                    <div className="example">
+                    <div className="example" style={{}}>
                         <h1>React Stripe Elements Example</h1>
                         <Elements>
                             <Checkout items={this.state.items} total={this.state.total} />
@@ -117,29 +118,29 @@ class Tasks extends Component {
                             <th>Product Detail</th>
                             <th>Quantity</th>
                             <th>Price</th>
-                            <th>Total</th>
                         </tr>
-                        <tr >
+                        {/*<tr >
                             <th style={{ backgroundImage: `url(${prodoc})`, height: '150px', width: '125px', backgroundRepeat: 'no-repeat' }}></th>
-                            <th style={{ textAlign: 'left', maxWidth: '250px', justifyContent: 'top', verticalAlign: 'top', paddingTop: '10px' }}>Some Details about the product can go here.  Maybe some extra fluffy fluf stuff.  FUck if i know.</th>
+                            <th style={{ textAlign: 'left', maxWidth: '250px', justifyContent: 'top', verticalAlign: 'top', paddingTop: '10px'}}>Some Details about the product can go here.  Maybe some extra fluffy fluf stuff.  FUck if i know.</th>
                             <th>Price</th>
                             <th>Total</th>
-                        </tr>
+                        </tr>*/}
                         {this.state.items.map(row => (
-
+                            
                             <tr key={row._id} >
-                                <td>{row.name}</td>
-                                <td>{row.amount}</td>
-                                <td>${row.totalCost}.00</td>
-                                <button onClick={this.handleSubmit2} value={row.cost} name={row.itemId}>Remove</button>
+                                
+                                <td style={{textAlign: 'center' }}><LocalHospitalIcon/> {row.name}</td>
+                                <td style={{textAlign: 'center' }}>{row.amount}</td>
+                                <td style={{textAlign: 'center' }}>${row.totalCost}.00</td>
+                                {/*<button onClick={this.handleSubmit2} value={row.cost} name={row.itemId}>Remove</button>*/}
                             </tr>
 
                         )
                         )}
                         <tr style={{ border: "2px solid black" }}>
-                            <td >Total</td>
+                            <td style={{textAlign: 'center' }}>Total</td>
                             <td ></td>
-                            <td >${this.state.total}.00</td>
+                            <td style={{textAlign: 'center' }}>${this.state.total}.00</td>
                         </tr>
                     </table>
 

@@ -15,6 +15,8 @@ import appointments from '../../Providers/Views/viewAppointments'
 import store from '../../Store/View/index'
 import '../styling/main.css'
 import backimg from '../images/mountains.jpg'
+import Team from '../../TeamView/view/index'
+import Availability from '../../Providers/Views/availability';
 
 
 class Main extends Component {
@@ -51,6 +53,8 @@ class Main extends Component {
               <Route exact path='/main/sendDoctor' component={sendDoctor}/>
               <Route exact path='/main/appointments' component={appointments}/>
               <Route exact path='/main/store' component={store}/>
+              <Route exact path='/main/Team' component={Team}/>
+              <Route exact path='/main/availability' component={Availability}/>
             </div>
             </div>
             </div>

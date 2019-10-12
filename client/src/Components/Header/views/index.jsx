@@ -60,8 +60,8 @@ class Tasks extends Component {
         {backdrop}
 
                 <div style={{ marginTop: '3vh' }}>
-                    <Link to='/main/overview' className="JoeMax" style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Home</Link>
-                    <Link to='/login' className="JoeMax" onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout?</Link>
+                    <Link to='/home' className="JoeMax" style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Home</Link>
+                    <Link to='/login' className="JoeMax" onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
                 </div>
             </div>
         );

@@ -1,0 +1,88 @@
+.__team-View {
+    height: 100%;
+    width: 100%;
+    display: flex
+}
+
+.__team-View-Left {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.__left-Top {
+    height: 50%;
+    width: 100%
+}
+
+.__left-Top img{
+    max-height: 75%;
+    margin-left: 35%;
+    margin-top: 10%
+}
+
+.__left-Bottom {
+    height: 50%;
+    width: 100%
+}
+
+.__left-Bottom img{
+    height: 75%;
+    margin-left: 35%;
+}
+
+.__team-View-Right {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.__right-Top{
+    width: 100%;
+    height: 10%
+}
+
+.__right-Bottom {
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    word-wrap: break-word;
+    height: 75%;
+    background: gray;
+    border-radius: 20px;
+}
+
+.__button-Right {
+    width: 10%;
+    height: 100%
+}
+.__button-Right button{
+    width: 10%;
+    height: 100%
+}
+
+.__button-Left {
+    width: 10%;
+    height: 100%
+}
+
+.__button-Left button:focus{
+    outline: none;
+}
+
+.__button-Left button:active{
+    outline: none;
+    border: 2px solid gray!important
+}
+
+.__button-Right button:focus{
+    outline: none;
+}
+
+.__button-Right button:active{
+    outline: none;
+    border: 2px solid gray!important
+}
