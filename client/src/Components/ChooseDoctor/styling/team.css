@@ -1,29 +1,65 @@
 .__team-container{
-    /* display: flex; */
-     flex-direction: column; 
-     height: 100vh; 
-     overflow: hidden;
-     width: 100vw;
-     z-index: 1;
-     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-areas: 
-    "one two ."
-    "one two ."
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
     }
 
-    .__team-panel-one {
-        grid-area: one;
-        min-width: 100%;
-         margin-left: 5vw;
-    }
-    
-    .overview-panel-two {
-        grid-area: two;
-        min-width: 35vw; 
-        min-height: 86vh;
-        display: flex; 
-        flex-direction: column; 
-        justify-content: space-between;
-    }
+.__add-Doctor-Main {
+    width: 100vw;
+    height: 80vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.__add-Doctor-Left {
+    width: 40vw;
+    Height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__add-Doctor-Right {
+    width: 40vw;
+    height: 100%;
+    display: flex;
+}
+
+.__add-Doctor-Img {
+    width: 20vw;
+    height: 40vh;
+    z-index: 2;
+    border-radius: 30px;
+    margin-left: 9vw;
+}
+
+.__add-Doctor-Right {
+    display: flex;
+    height: 100%;
+}
+
+.__add-Doctor-Bio-Right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%
+}
+
+.__add-Doctor-Bio-Left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%
+}
+
+.__add-Doctor-Fluff {
+    width: 20vw;
+    height: 20vw;
+    background: gray;
+    position: absolute;
+    border-radius: 30px;
+    z-index: 1;
+    right: 50vw;
+    top: 40vh;
+}
