@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import Checkout from './checkOut'
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import '../styles/cart.css'
-import prodoc from '../images/prodoc.png'
+// import prodoc from '../images/prodoc.png'
 import loadingCircle from '../../Pictures/loadingCircle.png'
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 
