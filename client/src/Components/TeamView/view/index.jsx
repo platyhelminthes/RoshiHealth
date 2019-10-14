@@ -78,7 +78,7 @@ render(){
                 </div>
                 <div className='__right-Bottom'>
                     <h2>Name: {doctor.fullName}</h2>
-                    <h2>Title: {doctor.providerType}</h2>
+                    <h2>Title: {doctor.providerInfo.providerType}</h2>
                     <h2>About: This is a bio for a doctor. This doctor is a good accredited doctor.
                     </h2>
                     
