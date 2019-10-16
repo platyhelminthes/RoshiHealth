@@ -95,7 +95,7 @@ checkAP = () => {
 
 checkDoctors = () => {
     var checker = []
-        if(this.props.allowed[1] != null){
+        if(this.props.allowed[1] != 'none'){
             if(this.props.allowed.length > 0){
             for(var i=0; i<this.props.allowed.length; i++){
                 checker.push(this.props.allowed[i])

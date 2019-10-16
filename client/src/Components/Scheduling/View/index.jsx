@@ -52,7 +52,6 @@ class Schedule extends Component {
         alert(moment(date).format('dddd'))
         this.setState({ date: dateClean, dateDay: moment(date).format('dddd')})
         this.dateCheck(dateClean, Day)
-        console.log(this.state.appointments)
     }
 
     dateCheck = (date, day12) => {
@@ -104,7 +103,6 @@ class Schedule extends Component {
 
     handleSubmit2(e) {
         (e).preventDefault()
-        console.log(e.target.value)
         this.getAppointments(e.target.value)
         setTimeout(this.checkAppointments, 300)
         setTimeout(this.checkAPT, 700)
@@ -132,18 +130,16 @@ class Schedule extends Component {
     }
 
     createAppointment = (time) => {
-
+            var cleanTime = null
         if (time == '') { alert('sorry that time is not available!') }
         else {
-            console.log(this.state.doctorType + 'please')
+            if(time)
             Axios.post('/api/users/removeAPT',
                 {
                     ATType: this.state.doctorType
                 })
 
             var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
-            console.log(dateTime)
-            console.log(moment(dateTime).add(7, 'hours'))
             Axios.post('/api/providers/makeAppointment',
                 {
                     date: moment(dateTime).add(7, 'hours'),
@@ -165,27 +161,19 @@ class Schedule extends Component {
     }
 
     checkDocs = () => {
-        console.log(this.state.docs)
     }
     checkAPT = () => {
-        console.log(this.state.providers.length)
-        console.log(this.state.doctorType)
-        console.log(this.state.appointmentsToShow)
         for (var i = 0; i < this.state.APT.length; i++) {
             if (this.state.doctorType == this.state.APT[i].type) {
-                console.log(this.state.APT[i])
                 this.setState({ currentAPT: this.state.APT[i].ammount })
             }
         }
     }
 
     checkAppointments = (name) => {
-        console.log('itRand')
-        console.log(this.state.doctor)
         var show = []
         for (var i = 0; i < this.state.userAppointments.length; i++) {
             if (this.state.userAppointments[i].userName == this.state.doctor && moment(this.state.userAppointments[i].date).isAfter()) {
-                console.log('pushed')
                 show.push(this.state.userAppointments[i])
             }
         }

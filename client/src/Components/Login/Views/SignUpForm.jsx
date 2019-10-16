@@ -58,8 +58,6 @@ class SignUpForm extends Component {
     }).then(
       
       (res) => {
-        if(!res){alert('Thats it!')}
-        else(alert('INCORRECT'))
         this.setState({redirect: true})
         console.log(res)
       }

@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Axios from 'axios';
+import moment from 'moment'
 
 class Availability extends Component {
     constructor(props){
@@ -167,6 +168,7 @@ class Availability extends Component {
     handleClick = (e) => {
 
         this.timesToSend.push(e.target.value)
+        this.timesToSend.push(moment(e.target.value, 'hh:mm a').add( 30, 'minutes').format('h:mm a'))
         this.setState({displayTimes: this.timesToSend})
     }
 
