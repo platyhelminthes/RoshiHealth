@@ -47,6 +47,8 @@
 #__head-bio-info p{
     margin: 0;
     margin-top: 10px;
+    word-wrap: break-word;
+    max-width: 13vw;
 }
 
 #__head-online {
@@ -107,7 +109,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding-right: 10vw;
+    padding-right: 4vw;
     padding-left: 1vw
 }
 
@@ -120,7 +122,7 @@
   justify-self: start;
   vertical-align: center;
   max-height: 2vh;
-  width: 4vw
+  width: 10vw
 }
 
 .__SideLinks-Static-Box:hover .__SideLinks-Static {
