@@ -21,7 +21,7 @@
   grid-area: card;
   background-color: #36393f;
   height: auto;
-  width: 23vw;
+  width: 20vw;
   border-radius: 2%;
   box-shadow: grey;
 }
@@ -127,14 +127,15 @@
 @media (max-width: 769px) {
   .cart_container {
     padding: 10px;
+    height: auto;
     /* overflow-y: none !important;         */
     display: grid;
     grid-template-columns: 1;
     grid-template-rows: 3;
     grid-template-areas:
       "head"
-      "main"
-      "card";
+      "card"
+      "main";
   }
   .cart-table {
     width: 90%;
@@ -148,7 +149,12 @@
     margin-top: 10px;
   }
   .checkout__card {
-    width: 95%;
+    width: 93%;
     /* margin: 10px 0px 0px 10px; */
+  }
+
+  .checkout {
+    top: 10%;
+    right: 3%;
   }
 }
