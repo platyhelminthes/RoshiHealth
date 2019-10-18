@@ -37,20 +37,17 @@ class SidenavMobile extends Component {
     }
 
     checkApp = () => {
-        console.log('its working')
-        console.log(this.state.appointments)
         for(var i=0; i < this.state.appointments.length; i++){
-            console.log('hello?')
+
             var time = moment().subtract(30, 'minutes')
             var APtime = moment(this.state.appointments[i])
             if(moment(APtime).isBefore(time)){
                 this.setState({APTime: true})
             }
             else{
-                console.log('appointment not ready')
+
             }
-            console.log(moment(this.state.appointments[i]).subtract(30, 'minutes'))
-            console.log(moment(this.state.appointments[i]))
+
         }
     }
 
