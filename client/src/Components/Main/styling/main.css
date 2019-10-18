@@ -64,9 +64,9 @@
 .overview__divs {
   border: 2px solid #26262b;
   border-left: none;
-  height: 100vh;
+  height: 93vh;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   background-color: #36393f;
   background: rgba(204, 204, 204, 0.05);
 }

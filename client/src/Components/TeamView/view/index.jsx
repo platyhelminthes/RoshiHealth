@@ -14,27 +14,12 @@ class Teamview extends Component {
         super(props)
         this.state= {
             selector: 0,
-            doctors: null,
-            loading: true
+            doctors: this.props.doctors,
+            loading: false
         }
 
         this.handleClick = this.handleClick.bind(this)
         this.handleClick2 = this.handleClick2.bind(this)
-    }
-
-    componentDidMount(){
-        Axios.get('/api/users/getProviders')
-        .then(
-            (res)=>{
-                console.log(res.data.data[1])
-                this.setState({doctors: res.data.data})
-            }
-        ).then(setTimeout(this.finishLoading, 1000))
-    }
-    finishLoading = () => {
-        if(this.state.doctors != null && this.state.doctors.length > 0){
-            this.setState({loading: false})
-        }
     }
 
     handleClick(e) {
@@ -78,7 +63,7 @@ render(){
                 </div>
                 <div className='__right-Bottom'>
                     <h2>Name: {doctor.fullName}</h2>
-                    <h2>Title: {doctor.providerType}</h2>
+                    <h2>Title: {doctor.providerInfo.providerType}</h2>
                     <h2>About: This is a bio for a doctor. This doctor is a good accredited doctor.
                     </h2>
                     

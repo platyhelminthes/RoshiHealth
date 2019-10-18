@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Axios from 'axios';
+import moment from 'moment'
 
 class Availability extends Component {
     constructor(props){
@@ -17,42 +18,47 @@ class Availability extends Component {
             timesAM: ['12:00 AM', '1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM'],
             timesPM: ['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM'],
             monday: [1],
-            tueday: [1],
+            tuesday: [1],
             wednesday: [1],
             thursday: [1],
             friday: [1],
             saturday: [1],
-            sunday: [1]
+            sunday: [1],
+            displayTimes: ['select ', 'a', ' time']
         }
         this.clickHandle = this.clickHandle.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleClick2 = this.handleClick2.bind(this);
     }
 
     componentDidMount(){
+
+        this.getUser()
+        
+    }
+
+    timesToSend = []
+
+    getUser = () => {
         Axios.get('/api/users/getUser')
         .then((res)=> {
             console.log(res)
             this.setState({
                 name: res.data.data.fullName,
                 monday: res.data.data.providerInfo.availability.monday,
-                tueday: res.data.data.providerInfo.availability.tuesday,
+                tuesday: res.data.data.providerInfo.availability.tuesday,
                 wednesday: res.data.data.providerInfo.availability.wednesday,
                 thursday: res.data.data.providerInfo.availability.thursday,
                 friday: res.data.data.providerInfo.availability.friday,
                 saturday: res.data.data.providerInfo.availability.saturday,
                 sunday: res.data.data.providerInfo.availability.sunday,
-            
-            
-            
-            
-            
-            
             })
         })
     }
 
     clickHandle = (e) => {
         (e).preventDefault()
+        this.timesToSend.length = 0
         this.setState({daySelected: e.target.value})
         setTimeout(this.reset, 50)
         setTimeout(this.checkTimes, 100)
@@ -75,7 +81,7 @@ class Availability extends Component {
                 timeAM.splice(number, 1)
             }
             if(this.state.timesPM.includes(this.state.monday[i])){
-                var number = timeAM.indexOf(this.state.monday[i])
+                var number = timePM.indexOf(this.state.monday[i])
                 timePM.splice(number, 1)
             }
         }}
@@ -90,7 +96,7 @@ class Availability extends Component {
                     timeAM.splice(number, 1)
                 }
                 if(this.state.timesPM.includes(this.state.tuesday[i])){
-                    var number = timeAM.indexOf(this.state.tuesday[i])
+                    var number = timePM.indexOf(this.state.tuesday[i])
                     timePM.splice(number, 1)
                 }
             }}
@@ -103,7 +109,7 @@ class Availability extends Component {
                     timeAM.splice(number, 1)
                 }
                 if(this.state.timesPM.includes(this.state.wednesday[i])){
-                    var number = timeAM.indexOf(this.state.wednesday[i])
+                    var number = timePM.indexOf(this.state.wednesday[i])
                     timePM.splice(number, 1)
                 }
             }}
@@ -115,7 +121,7 @@ class Availability extends Component {
                     timeAM.splice(number, 1)
                 }
                 if(this.state.timesPM.includes(this.state.thursday[i])){
-                    var number = timeAM.indexOf(this.state.thursday[i])
+                    var number = timePM.indexOf(this.state.thursday[i])
                     timePM.splice(number, 1)
                 }
             }}
@@ -127,7 +133,7 @@ class Availability extends Component {
                     timeAM.splice(number, 1)
                 }
                 if(this.state.timesPM.includes(this.state.friday[i])){
-                    var number = timeAM.indexOf(this.state.friday[i])
+                    var number = timePM.indexOf(this.state.friday[i])
                     timePM.splice(number, 1)
                 }
             }}
@@ -139,7 +145,7 @@ class Availability extends Component {
                         timeAM.splice(number, 1)
                     }
                     if(this.state.timesPM.includes(this.state.saturday[i])){
-                        var number = timeAM.indexOf(this.state.saturday[i])
+                        var number = timePM.indexOf(this.state.saturday[i])
                         timePM.splice(number, 1)
                     }
                 }}
@@ -151,7 +157,7 @@ class Availability extends Component {
                             timeAM.splice(number, 1)
                         }
                         if(this.state.timesPM.includes(this.state.sunday[i])){
-                            var number = timeAM.indexOf(this.state.sunday[i])
+                            var number = timePM.indexOf(this.state.sunday[i])
                             timePM.splice(number, 1)
                         }
                     }}                      
@@ -160,12 +166,30 @@ class Availability extends Component {
     }
 
     handleClick = (e) => {
+
+        this.timesToSend.push(e.target.value)
+        this.timesToSend.push(moment(e.target.value, 'hh:mm a').add( 30, 'minutes').format('h:mm a'))
+        this.setState({displayTimes: this.timesToSend})
+    }
+
+    handleClick2 = (e) => {
         (e).preventDefault()
-        Axios.post('/api/providers/addAvailable', {
-            day: this.state.daySelected,
-            time: e.target.value
-        })
+        if(this.state.daySelected == null){alert('choose a day')}
+        else if(this.timesToSend.length == 0){alert('select a time')}
+        else{
+        this.sendTimes()
+        setTimeout(this.getUser, 500)
+        setTimeout(this.reset, 700)
+        setTimeout(this.checkTimes, 900)
+        }
         
+    }
+
+    sendTimes = () => {
+        Axios.post('/api/providers/addAvailability', {
+            day: this.state.daySelected,
+            time: this.timesToSend
+        })
     }
 
 
@@ -183,6 +207,8 @@ class Availability extends Component {
                     <button onClick={this.clickHandle}value='saturday'>saturday</button>
                     <button onClick={this.clickHandle}value='sunday'>sunday</button>
                 </div>
+                <button onClick={this.handleClick2}>checkTimes</button>
+                <p>{this.state.displayTimes}</p>
                 <div className='__availability-Bottom'>
                 <div className='__availability-Left'>
                     <div>

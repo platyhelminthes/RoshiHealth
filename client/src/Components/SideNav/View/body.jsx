@@ -95,7 +95,7 @@ checkAP = () => {
 
 checkDoctors = () => {
     var checker = []
-        if(this.props.allowed[1] != null){
+        if(this.props.allowed[1] != 'none'){
             if(this.props.allowed.length > 0){
             for(var i=0; i<this.props.allowed.length; i++){
                 checker.push(this.props.allowed[i])
@@ -114,6 +114,7 @@ pushDoctors = (test) => {
 
 
     render(){
+        console.log(this.props.doctors)
         var link = this.state.link
         return(
             <div className='__body-main'>
@@ -143,7 +144,10 @@ pushDoctors = (test) => {
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
-                <ExpansionPanel style={dropDownBack} >
+                {this.props.doctors.length == 0 ?
+                (null)
+                :
+                (<ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
                             aria-controls="panel1a-content"
@@ -155,34 +159,13 @@ pushDoctors = (test) => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         <Link to="/main/Team" className='__SideLinks'>View Team</Link>
-                            <ExpansionPanel style={dropDownBack} >
-                        <ExpansionPanelSummary
-                                expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                                style={dropDown}
-                                className='__DD-header'
-                            >
-                                <p style={dropDownHead}>Choose a doctor</p>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails style={dropDownActive}>
-                                    {
-                                        this.state.doctorsAllowed.map(row => (
-                                          <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
-                                              <Link to={{
-                                              pathname: link,
-                                              state: {
-                                                search: row
-                                              }}} className='__SideLinks' style={{width: '20vw', paddingLeft: '.7vw'}} >{row}</Link>
-                                          </div>
-                                            )
-                                        )
-                                    }
-                            </ExpansionPanelDetails>
-                            </ExpansionPanel>
                         
                     </ExpansionPanelDetails>
-                </ExpansionPanel>
+                </ExpansionPanel>)}
+                {this.props.doctors.length == 0 ?
+                (null)
+                :
+                (
                 <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
@@ -197,6 +180,7 @@ pushDoctors = (test) => {
                         <Link  to="/main/scheduler"  className='__SideLinks'>Make An Appointment</Link>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+                )}
                 <RenderTest true={this.state.true}/>
             </div>
         )

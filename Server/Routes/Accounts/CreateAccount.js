@@ -12,10 +12,10 @@ module.exports = (req, res) => {
         });
     }
 
-    var task = {
-        id: 1,
-        text: "Choose an intake nurse and make an appointment with them."
-    }
+    //var task = {
+    //    id: 1,
+    //    text: "Choose an intake nurse and make an appointment with them."
+    //}
 
     var cart = {
         total: 0,
@@ -25,10 +25,10 @@ module.exports = (req, res) => {
     data.fullName = fullName
     data.email = email;
     data.password = password;
-    data.tasks.push(task)
+    //data.tasks.push(task)
     data.shoppingCart.push(cart)
     data.providerInfo.test = "Patient"
-    data.doctorsToAdd.push('Primary Doctor')
+    //data.doctorsToAdd.push('Primary Doctor')
     data.subLevel = 'nonSub'
     console.log(data)
    
