@@ -11,8 +11,8 @@ import moment from 'moment'
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
 class Tasks extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             task: null,
@@ -27,31 +27,21 @@ class Tasks extends Component {
 
       this.finishTask(e.target.value)
   }
-  tasks = []
+  tasks = this.props.tasks
     componentDidMount(){
-      axios.get('/api/users/getUserInfo').then(
-        (res)=>{
-          if(res.data.sub != 'A1237'){
-          this.setState({
-            redirect: true
-          })}
-        }
-      )
-        axios.get('/api/tasks/getTasks').then(
-            (res)=>{
-                console.log(res.data.data[0].tasks)
-                this.tasks = res.data.data[0].tasks
-                //this.setState({task: results})
-            }
-        ).then(
-          setTimeout(this.sortTasks, 1000)
-        ).then(this.load())
+      console.log(this.props.tasks)
+      if(this.props.tasks == null){
+        this.setState({redirect: true})
+      }else{
+        this.sortTasks()
+        this.load()
+      }
+
     }
 
     load = () => {
       if(this.state.task == null){
-        console.log(this.state.task)
-          setTimeout(this.load, 200)
+          setTimeout(this.load, 100)
       }
       else{this.setState({loading: false})}
   }

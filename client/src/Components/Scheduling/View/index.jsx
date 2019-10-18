@@ -14,16 +14,16 @@ import Appointments from './availableAppointments'
 
 class Schedule extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             count: 0,
             redirect: false,
-            APT: null,
+            APT: this.props.APT,
             currentAPT: 0,
             docs: [],
-            userAppointments: null,
+            userAppointments: this.props.UAPP,
             appointments: ['08:00 ppp', '08:30'],
             appointmentsPresort: [],
             appointmentsToShow: null,
@@ -68,11 +68,12 @@ class Schedule extends Component {
         setTimeout(this.checkAvailable, 200)
     }
     componentDidMount() {
-        this.getUser()
+        //this.getUser()
         this.getProviders()
+        console.log(this.props.UAPP)
     }
     load = () => {
-        if (this.state.providers.length == 0) {
+        if (this.state.userAppointments == null) {
             this.setState({ count: this.state.count + 1 })
             setTimeout(this.checkLoad, 100)
         }
@@ -149,16 +150,16 @@ class Schedule extends Component {
             )
         }
     }
-    getUser = () => {
-        Axios.get('/api/users/getUser')
-            .then((res) => {
-                this.setState({
-                    APT: res.data.data.appointmentTokens,
-                    userAppointments: res.data.data.appointments
-                })
-
-            })
-    }
+    //getUser = () => {
+    //    Axios.get('/api/users/getUser')
+    //        .then((res) => {
+    //            this.setState({
+    //                APT: res.data.data.appointmentTokens,
+    //                userAppointments: res.data.data.appointments
+    //            })
+//
+    //        })
+    //}
 
     checkDocs = () => {
     }

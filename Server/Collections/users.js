@@ -83,10 +83,7 @@ const shoppingCartSchema = new Schema({
     }
 })
 
-const APTSchema = new Schema({
-    type: String,
-    ammount: Number
-})
+
 
 const accounts = new Schema({
     email: {
@@ -133,7 +130,7 @@ const accounts = new Schema({
     }
     },
     doctorsToAdd: [String],
-    appointmentTokens: [APTSchema]
+    wallet: Number
 },
   { timestamps: true }
 );

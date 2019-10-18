@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Sidebar from './sideBar.jsx'
 import backimg from '../images/headerimg.jpg'
+import {Link} from 'react-router-dom'
 
 
 class Store extends Component {
@@ -32,23 +33,12 @@ class Store extends Component {
 
     componentDidMount() {
         this.getAppointments('appointment')
-        this.getInfo()
         this.load()
     }
 
-    getInfo = () => {
-        axios.get('/api/users/getUser')
-            .then((res) => {
-                console.log(res + 'thisss')
-            })
-            .catch(
-                (err) => {
-                    this.setState({ redirect: true })
-                })
-    }
 
     load = () => {
-        if (this.state.items !== null) {
+        if (this.state.items !== null || this.props.types == null) {
             this.setState({ loading: false })
         }
         else {
@@ -146,18 +136,28 @@ class Store extends Component {
                         </div>
                         <div className="store___box-container">
                             {items.map(
-                                row => (
+                                
 
+                                row => (
+                                    (this.props.types.includes(row.DocType) ?
+                                    (null)
+                                    :
+                                    (
+                                    
                                     <div className="appt_type_boxes" >
                                         <h2>{row.Type}</h2>
                                         <p>{row.DocType}</p>
-                                        <p>${row.Price}.00</p>
+                                        <p>Appointment price: ${row.Price}.00</p>
                                         <p>{row.Description}</p>
-                                        <input type="number" placeholder="How Many" name="ammount" onChange={this.onChange} />
-                                        <button onClick={this.handleSubmit2} data-docType={row.DocType} data-id={row._id} data-price={row.Price} value={row.Type}>purchase</button>
-                                    </div>
+                                        <Link to={{
+                                              pathname: '/main/addProviders',
+                                              state: {
+                                                search: row.DocType
+                                              }}} className='__SideLinks' style={{width: '100%', paddingLeft: '0'}} >Add {row.DocType} To Your Team</Link>
+                                    </div>)
+                                            
 
-                                )
+                                ))
                             )}
                         </div>
                     </div>
