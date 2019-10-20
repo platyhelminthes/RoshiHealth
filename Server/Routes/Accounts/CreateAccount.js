@@ -20,8 +20,9 @@ module.exports = (req, res) => {
     var cart = {
         total: 0,
         finishedTransaction: 'Active'
-    }
+    }  
 
+    data.wallet = 0
     data.fullName = fullName
     data.email = email;
     data.password = password;
