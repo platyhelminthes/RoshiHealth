@@ -119,15 +119,16 @@ const accounts = new Schema({
             type: [String],
             default: 'empty'
     },
-    availability: {
-        monday: [String],
-        tuesday: [String],
-        wednesday: [String],
-        thursday: [String],
-        friday: [String],
-        saturday: [String],
-        sunday: [String]
-    }
+        availability: {
+            monday: [String],
+            tuesday: [String],
+            wednesday: [String],
+            thursday: [String],
+            friday: [String],
+            saturday: [String],
+            sunday: [String]
+    },
+    cost: Number
     },
     doctorsToAdd: [String],
     wallet: Number

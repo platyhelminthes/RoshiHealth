@@ -106,7 +106,7 @@ class Schedule extends Component {
         (e).preventDefault()
         this.getAppointments(e.target.value)
         setTimeout(this.checkAppointments, 300)
-        setTimeout(this.checkAPT, 700)
+        //setTimeout(this.checkAPT, 700)
     }
 
     handleSubmit3(e) {
@@ -163,13 +163,13 @@ class Schedule extends Component {
 
     checkDocs = () => {
     }
-    checkAPT = () => {
-        for (var i = 0; i < this.state.APT.length; i++) {
-            if (this.state.doctorType == this.state.APT[i].type) {
-                this.setState({ currentAPT: this.state.APT[i].ammount })
-            }
-        }
-    }
+    //checkAPT = () => {
+    //    for (var i = 0; i < this.state.APT.length; i++) {
+    //        if (this.state.doctorType == this.state.APT[i].type) {
+    //            this.setState({ currentAPT: this.state.APT[i].ammount })
+    //        }
+    //    }
+    //}
 
     checkAppointments = (name) => {
         var show = []
@@ -260,18 +260,21 @@ class Schedule extends Component {
         else {
             return (
                 <div className="appointment-cont" >
-                    <div className="no-idea" >
-                        <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
-                        <CurrentAppointments appointments={this.state.appointmentsToShow} />
-                        <CalendarComp handleChange={this.handleChange} />
-                    </div>
-                    <div className="wtf" >
-                        <div className="info-bar" >
-                            <h4 style={{ textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%' }}>{date}</h4>
-                            <h4 style={{ textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%' }}> Appointment Tokens Left: {this.state.currentAPT}</h4>
+                    <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
+                    <div className='__scheduler-main'>
+                        <div className='__scheduler-left'>
+                            <CalendarComp style={{width: '10vw', height: '90%'}} handleChange={this.handleChange} />
                         </div>
-                        <Appointments times={this.state.appointmentTimes} onClick={this.handleSubmit3}/>
+                        <div className='__scheduler-right'>
+                            <div className='__scheduler-right-top'>
+                                <Appointments times={this.state.appointmentTimes} onClick={this.handleSubmit3}/>
+                            </div>
+                            <div className='__scheduler-right-bottom'>
+                                <CurrentAppointments appointments={this.state.appointmentsToShow} />
+                            </div>
+                        </div>
                     </div>
+                    
 
 
 
@@ -286,3 +289,17 @@ class Schedule extends Component {
 }
 
 export default Schedule
+
+
+//<div className="no-idea" >
+//                        <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
+//                        <CurrentAppointments appointments={this.state.appointmentsToShow} />
+//                        <CalendarComp handleChange={this.handleChange} />
+//                    </div>
+//                    <div className="wtf" >
+//                        <div className="info-bar" >
+//                            <h4 style={{ textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%' }}>{date}</h4>
+//                            <h4 style={{ textAlign: 'center', margin: '0', marginTop: '.5vh', width: '50%' }}> Appointment Tokens Left: {this.state.currentAPT}</h4>
+//                        </div>
+//                        <Appointments times={this.state.appointmentTimes} onClick={this.handleSubmit3}/>
+//                    </div>

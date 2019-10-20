@@ -135,12 +135,12 @@ pushDoctors = (test) => {
                         className='__DD-header'
                     >
                         <HouseIcon style={{color: 'white'}}/>
-                        <p style={dropDownHead}>Store</p>
+                        <p style={dropDownHead}>Doctors</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         
-                            <Link to="/main/cart" className='__SideLinks'>Cart</Link>
-                            <Link to="/main/store" className='__SideLinks'>Store</Link>
+        {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
+                            <Link to="/main/Doctors" className='__SideLinks'>View Doctors</Link>
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
