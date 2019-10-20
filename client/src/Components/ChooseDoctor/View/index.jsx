@@ -5,6 +5,7 @@ import userImg from '../../Pictures/UserPicTemp.jpg'
 import '../styling/team.css'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {Link} from 'react-router-dom'
 
 
 class ChooseDoctor extends Component {
@@ -46,10 +47,10 @@ class ChooseDoctor extends Component {
     }
 
     handleSubmit2(e) {
-        (e).preventDefault()
+        this.setState({redirect: true})
         this.addDoctor(e.target.value, this.props.location.state.search)
         this.addPatient(e.target.value)
-        this.setState({redirect: true})
+        this.props.resetTruth()
     }
 
     findProviders = (search) => {
@@ -84,7 +85,7 @@ class ChooseDoctor extends Component {
       var searched = this.state.searched
       var doctors = this.state.doctors
       var allowed = this.state.allowed
-    if(this.state.redirect == true){return(<Redirect to='/main'/>)}
+    if(this.props.redirect == true){return(<Redirect to='/main'/>)}
     if(doctors == null){return(<h1>test</h1>)}
     else if(searched == true){
         return (

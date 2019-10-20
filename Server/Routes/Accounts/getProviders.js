@@ -11,8 +11,10 @@ Data.findOne(
     }
     
 ).then(
-    
-    ()=>{
+    setTimeout(step2, 600)
+)
+
+function step2(){
         for(var i=0;i<idSearch.length;i++){
             search.push(idSearch[i].providerId)
             console.log('done once')
@@ -25,8 +27,6 @@ Data.findOne(
                 return res.json({ success: true, data: data});
             }
         )
-    }
-)
-
-
+    
+}
 }
