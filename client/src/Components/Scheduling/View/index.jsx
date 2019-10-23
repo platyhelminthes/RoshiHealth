@@ -30,14 +30,15 @@ class Schedule extends Component {
             pickedDoctor: null,
             loading: true,
             appointmentTimes: [],
-            providers: [],
+            providers: this.props.doctors,
             doctor: null,
             doctorType: null,
             docId: null,
             date: null,
             days: null,
             dateDay: null,
-            openAppointments: []
+            openAppointments: [],
+            cost: 'doctors price'
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,7 +50,6 @@ class Schedule extends Component {
     handleChange = (date) => {
         var dateClean = moment(date).format('YYYY-MM-DD')
         var Day = moment(date).format('dddd')
-        alert(moment(date).format('dddd'))
         this.setState({ date: dateClean, dateDay: moment(date).format('dddd')})
         this.dateCheck(dateClean, Day)
     }
@@ -69,9 +69,11 @@ class Schedule extends Component {
     }
     componentDidMount() {
         //this.getUser()
-        this.getProviders()
+        //this.getProviders()
         console.log(this.props.UAPP)
+        this.load()
     }
+
     load = () => {
         if (this.state.userAppointments == null) {
             this.setState({ count: this.state.count + 1 })
@@ -99,7 +101,6 @@ class Schedule extends Component {
     handleSubmit(e) {
         (e).preventDefault()
         this.checkAvailable()
-
     }
 
     handleSubmit2(e) {
@@ -120,11 +121,10 @@ class Schedule extends Component {
         else if (this.state.doctor == null && this.state.date == null) {
             alert('Please pick a doctor and a date')
         }
-        else if (this.state.currentAPT <= 0) {
-            alert('Please purchase an appointment for this doctor type')
+        else if (this.props.wallet <= this.props.cost) {
+            alert('You do not have enough funds in your wallet to afford this doctor')
         }
         else {
-            alert(e.target.value)
             this.createAppointment(e.target.value)
             this.setState({ redirect: true })
         }
@@ -137,7 +137,7 @@ class Schedule extends Component {
             if(time)
             Axios.post('/api/users/removeAPT',
                 {
-                    ATType: this.state.doctorType
+                    price: this.state.cost
                 })
 
             var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
@@ -145,7 +145,7 @@ class Schedule extends Component {
                 {
                     date: moment(dateTime).add(7, 'hours'),
                     id: this.state.docId,
-                    name: this.state.doctor
+                    name: this.state.doctor,
                 }
             )
         }
@@ -180,27 +180,29 @@ class Schedule extends Component {
         }
         this.setState({ appointmentsToShow: show })
     }
-    getProviders = () => {
-        Axios.get('/api/users/getProviders')
-            .then(
-                (res) => {
-                    this.setState({ providers: res.data.data })
-                }
-            ).then(this.load())
-    }
+    //getProviders = () => {
+    //    Axios.get('/api/users/getProviders')
+    //        .then(
+    //            (res) => {
+    //                this.setState({ providers: res.data.data })
+    //            }
+    //        ).then(this.load())
+    //}
 
     getAppointments = (id) => {
         Axios.post('/api/providers/getAppointments',
             { id: id }
         ).then(
+            
             (res) => {
+                console.log(res)
                 this.setState({
-                    currentAPT: 0,
                     appointmentsPresort: res.data.data[0].appointments,
                     doctorType: res.data.data[0].providerInfo.providerType,
                     doctor: res.data.data[0].fullName,
                     docId: res.data.data[0]._id,
-                    days: res.data.data[0].providerInfo.availability
+                    days: res.data.data[0].providerInfo.availability,
+                    cost: res.data.data[0].providerInfo.price
                 })
             }
         ).then(this.checkAvailable)
@@ -211,7 +213,6 @@ class Schedule extends Component {
         if(this.state.dateDay == 'Monday'){
             for(var i=0; i < this.state.appointments.length;i++){
                 if(this.state.days.monday.includes(this.state.appointments[i])){
-                    alert(this.state.appointments[i])
                     this.state.days.monday.splice(this.state.days.monday.indexOf(this.state.appointments[i]), 1 )
                 }
             }
@@ -260,7 +261,10 @@ class Schedule extends Component {
         else {
             return (
                 <div className="appointment-cont" >
-                    <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
+                    <div className='__scheduler-doctorInfo'>
+                        <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
+                        <p>price: {this.state.cost}</p>
+                    </div>
                     <div className='__scheduler-main'>
                         <div className='__scheduler-left'>
                             <CalendarComp style={{width: '10vw', height: '90%'}} handleChange={this.handleChange} />
