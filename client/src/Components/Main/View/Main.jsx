@@ -38,7 +38,8 @@ class Main extends Component {
             doctors: null,
             types: null,
             wallet: null,
-            redirect: false
+            redirect: false,
+            cost: null
 
         };
     }
@@ -161,7 +162,7 @@ class Main extends Component {
               render={(props)=><FindProviders {...props} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
               <Route exact path="/main/sendTasks" component={sendTasks}/>
               <Route exact path="/main/scheduler" 
-                render={(props)=><Schedule {...props} APT={this.state.APT} UAPP={this.state.appointments}/>}/>
+                render={(props)=><Schedule {...props} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
               <Route exact path='/main/sendDoctor' component={sendDoctor}/>
               <Route exact path='/main/appointments' component={appointments}/>
               <Route exact path='/main/Doctors' 

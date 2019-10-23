@@ -11,7 +11,7 @@ Data.findOne(
     }
     
 ).then(
-    setTimeout(step2, 600)
+    setTimeout(step2, 300)
 )
 
 function step2(){

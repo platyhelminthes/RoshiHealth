@@ -24,25 +24,29 @@ class availableAppointments extends Component {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Time</TableCell>
+                            <TableCell style={{color: 'white'}}>Time</TableCell>
                             <TableCell align="left"></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {times.map(
                             
-                                row => (
+                                row => ( row.length == 0?
+                                    (null)
+                                    :
+                                    (
+                                    
                                     (row.length == 8 ?
-                                    (<TableRow >
-                                        <TableCell component="th" scope="row">{row}</TableCell>
-                                        <button value={moment(row, ['h:mm A']).format('HH:mm')} onClick={this.props.onClick}>Select Time</button>
+                                    (<TableRow style={{borderBottom: '1px solid rgba(224, 224, 224, 1)'}}>
+                                        <TableCell style={{minHeight: '3vh', color: 'white'}} component="th" scope="row">{row}</TableCell>
+                                        <button className='__book-button' value={moment(row, ['h:mm A']).format('HH:mm')} onClick={this.props.onClick}>Select Time</button>
                                     </TableRow>)
                                     : 
-                                    (<TableRow >
-                                        <TableCell component="th" scope="row">{row}</TableCell>
-                                        <button value={moment(row, ['h:mm A']).format('HH:mm')} onClick={this.props.onClick}>Select Time</button>
+                                    (<TableRow style={{borderBottom: '1px solid rgba(224, 224, 224, 1)'}}>
+                                        <TableCell style={{minHeight: '3vh', color: 'white'}} component="th" scope="row">{row}</TableCell>
+                                        <button className='__book-button' value={moment(row, ['h:mm A']).format('HH:mm')} onClick={this.props.onClick}>Select Time</button>
                                     </TableRow>)
-                        )))
+                        ))))
                             }
                     </TableBody>
                 </Table>
