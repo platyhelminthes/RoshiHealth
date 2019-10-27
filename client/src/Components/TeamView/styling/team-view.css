@@ -86,3 +86,47 @@
     outline: none;
     border: 2px solid gray!important
 }
+
+.__teamview-Picker {
+    height: 80%;
+    width: 100%;
+    display: flex
+}
+
+.__teamview-Picker .Left {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    width: 40%;
+    height: 100%;
+    border-right: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__teamview-Picker .Left button {
+    width: 50%;
+    height: 75%;
+    background: orange;
+    border: none;
+}
+
+.__teamview-Picker .Right button {
+    width: 50%;
+    height: 75%;
+    background: orange;
+    border: none;
+}
+
+.__teamview-Picker .Right {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
