@@ -8,6 +8,7 @@ const GP = require('./getPatients')
 const GA = require('./getAppointment')
 const MAP = require('./makeAppointment')
 const SD = require('./sendDoctors')
+const SA = require('./setAvailability')
 
 
 
@@ -20,6 +21,7 @@ routes.post('/getPatients', GP)
 routes.post('/getAppointments', GA)
 routes.post('/makeAppointment', MAP)
 routes.post('/sendDoctor', SD)
+routes.post('/addAvailability', SA)
 
 
 

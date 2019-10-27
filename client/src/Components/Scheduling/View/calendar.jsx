@@ -15,7 +15,7 @@ class CalendarComp extends Component {
 render(){
 
     return(
-            <div>
+            <div style={{paddingLeft: '5%', paddingRight: '5%', height: '90%', marginTop: '5%', marginBottom: '10%', borderRight: '1px solid black'}}>
                 <Calendar
                   onChange={this.props.handleChange}
                   value={this.state.date}

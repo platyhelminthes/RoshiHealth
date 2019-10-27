@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
+import '../Styles/Login.css'
 
 class SignInForm extends Component {
     constructor() {
@@ -75,11 +76,13 @@ class SignInForm extends Component {
       if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
         <div className="FormCenter">
+          <div className='error_Message'></div>
             <form onSubmit={this.handleSubmit} className="FormFields">
             <div className="FormField">
                 <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
                 <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
               </div>
+
 
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="password">Password</label>

@@ -83,10 +83,7 @@ const shoppingCartSchema = new Schema({
     }
 })
 
-const APTSchema = new Schema({
-    type: String,
-    ammount: Number
-})
+
 
 const accounts = new Schema({
     email: {
@@ -122,18 +119,21 @@ const accounts = new Schema({
             type: [String],
             default: 'empty'
     },
-    availability: {
-        monday: [String],
-        tuesday: [String],
-        wednesday: [String],
-        thursday: [String],
-        friday: [String],
-        saturday: [String],
-        sunday: [String]
-    }
+        availability: {
+            monday: [String],
+            tuesday: [String],
+            wednesday: [String],
+            thursday: [String],
+            friday: [String],
+            saturday: [String],
+            sunday: [String]
+    },
+    cost: Number
     },
     doctorsToAdd: [String],
-    appointmentTokens: [APTSchema]
+    wallet: Number,
+    confirmation: String,
+    confirmed: Boolean
 },
   { timestamps: true }
 );

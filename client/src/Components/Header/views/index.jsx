@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import HeaderNav from '../HeaderNav/index';
 import SideDrawer from '../HeaderSideDrawer/SideDrawer';
 import Backdrop from '../HeaderBackDrop/Backdrop';
-import "../../../App.css";
+import "../Styles/Header.css";
 import Axios from 'axios';
+import DropDownTest from './dropDownTest'
+import Checkout from './checkOut'
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -16,13 +20,16 @@ class Tasks extends Component {
             redirect: null,
             email: null,
             name: null,
-            sideDrawerOpen: false
+            sideDrawerOpen: false,
+            purchase: false,
+            DD: false,
+            total: null
 
         };
+
+        this.openModal = this.openModal.bind(this);
     }
-    componentDidMount() {
-        this.getInfo()
-    }
+
 
     drawerToggleClickHandler = () => {
         this.setState((prevState) => {
@@ -34,14 +41,26 @@ class Tasks extends Component {
         this.setState({ sideDrawerOpen: false });
       };
 
-    getInfo = () => {
-        Axios.get('/api/users/getUserInfo')
-            .then(
-                (res) => {
-                    this.setState({ email: res.data.email, name: res.data.name })
-                }
-            )
-    }
+      closeModal = () => {
+        this.setState({ purchase: false });
+      };
+
+      openModal = (e) => {
+        (e).preventDefault()
+        this.setState({ purchase: true, total: e.target.value });
+      };
+
+      openDropDown = () => {
+          this.setState({DD: true})
+      }
+
+      closeDropDown = () => {
+        if(this.state.DD == true){
+        this.setState({DD: false})
+        }
+      }
+
+    
     logOut = () => {
         Axios.get('/api/login/logOut')
     }
@@ -54,21 +73,51 @@ class Tasks extends Component {
     }
 
         return (
-            <div className="Header">
+            <div className="__Header-Main">
                 <HeaderNav drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer show={this.state.sideDrawerOpen} />
-        {backdrop}
+                <SideDrawer show={this.state.sideDrawerOpen} />
+                {backdrop}
 
-                <div style={{ marginTop: '3vh' }}>
-                    <Link to='/home' className="JoeMax" style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Home</Link>
-                    <Link to='/login' className="JoeMax" onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
+                <div className="__Header-Items">
+                    
+                    {this.state.DD == true ?
+                    (<div className='__Header-Dropdown' >
+                
+                        <button value='50' onClick={this.openModal}>Add $50</button>
+                        <button value='100' onClick={this.openModal}>Add $100</button>
+                        <button value='200' onClick={this.openModal}>Add $200</button>
+                        <button value='300' onClick={this.openModal}>Add $300</button>
+                        <button value='500' onClick={this.openModal}>Add $500</button>
+                        <button value='1000' onClick={this.openModal}>Add $1000</button>
+                        <p style={{textAlign: 'center', marginTop: '0'}} onClick={this.closeDropDown}>close?</p>
+                    </div>)
+                    :
+                    (null)
+                    }
+                
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    
+                <p className='__Header-Wallet'>Wallet: ${this.props.wallet}.00</p>
+                <button className='__Header-Add-Button' onClick={this.openDropDown}><AddIcon style={{fontSize: '15px'}}/> Add money?</button>
+
                 </div>
+                <Link to='/login' onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
+                </div>
+                {this.state.purchase == true ?
+                (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
+                        <Elements>
+                            <Checkout updateTruthWallet={this.props.updateTruthWallet} closeModal={this.closeModal} total={this.state.total} />
+                        </Elements>
+                </StripeProvider>)
+                :
+                (null)
+                }
             </div>
         );
     }
 }
 
 export default Tasks;
-
+//<DropDownTest openModal={this.openModal}/>
 //<h3 className="JoeMax">{this.state.email}</h3>
 //<h3 className="JoeMax">{this.state.name}</h3>
