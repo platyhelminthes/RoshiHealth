@@ -131,7 +131,9 @@ const accounts = new Schema({
     cost: Number
     },
     doctorsToAdd: [String],
-    wallet: Number
+    wallet: Number,
+    confirmation: String,
+    confirmed: Boolean
 },
   { timestamps: true }
 );

@@ -39,43 +39,61 @@ class Main extends Component {
             types: null,
             wallet: null,
             redirect: false,
-            cost: null
+            cost: null,
+            confirmed: false
 
         };
     }
 
     componentDidMount(){
-        Axios.get('/api/users/getUser')
-        .then(
-        (res)=>{
-            console.log(res)
-            this.setState({
-                email: res.data.data.email,
-                name: res.data.data.fullName,
-                appointments: res.data.data.appointments,
-                allowed: res.data.data.doctorsToAdd,
-                doctor: res.data.data.providerInfo.providerType,
-                tasks: res.data.data.tasks,
-                APT: res.data.data.appointmentTokens,
-                wallet: res.data.data.wallet
-            })
-        }
-        )
-        .then(this.findDocs())
-        .then(setTimeout(this.sort, 800))
-        .then(this.load())
+      this.getInfo()
+      this.findDocs()
+    //    Axios.get('/api/users/getUser')
+    //    .then(
+    //    (res)=>{
+    //        console.log(res)
+    //        this.setState({
+    //            email: data.email,
+    //            name: data.fullName,
+    //            appointments: data.appointments,
+    //            allowed: data.doctorsToAdd,
+    //            doctor: data.providerInfo.providerType,
+    //            tasks: data.tasks,
+    //            APT: data.appointmentTokens,
+    //            wallet: data.wallet
+    //        })
+    //    }
+    //    )
+    //    .then(this.findDocs())
+    //    .then(setTimeout(this.sort, 800))
+    //    .then(this.load())
 
     }
 
-    findDocs = () => {
+    getInfo = async () => {
+      let res = await Axios.get('/api/users/getUser')
+      let {data} = res.data
+      this.setState({
+            email: data.email,
+            name: data.fullName,
+            appointments: data.appointments,
+            allowed: data.doctorsToAdd,
+            doctor: data.providerInfo.providerType,
+            tasks: data.tasks,
+            APT: data.appointmentTokens,
+            wallet: data.wallet,
+            confirmed: data.confirmed
+      })
+    }
 
-      Axios.get('/api/users/getProviders')
-      .then(
-          (res)=>{
-            console.log(res)
-              this.setState({doctors: res.data.data})
-          }
-      )
+    findDocs = async () => {
+
+      let res = await Axios.get('/api/users/getProviders')
+      let {data} = res.data
+      this.setState({doctors: data})
+      this.sort()
+
+
     }
 
     sort = () => {
@@ -85,7 +103,7 @@ class Main extends Component {
       for(var i=0; i < this.state.doctors.length; i++){
         stuff.push(this.state.doctors[i].providerInfo.providerType)
       }
-      this.setState({types: stuff})
+      this.setState({types: stuff, loading: false})
     }
     }
 
@@ -107,35 +125,11 @@ class Main extends Component {
       this.setState({wallet: ammount})
     }
 
-    resetTruth = () => {
+    resetTruth = async () => {
       this.setState({redirect: true})
       this.setState({loading: true})
-      Axios.get('/api/users/getUser')
-      .then(
-      (res)=>{
-          console.log(res)
-          this.setState({
-              email: res.data.data.email,
-              name: res.data.data.fullName,
-              appointments: res.data.data.appointments,
-              allowed: res.data.data.doctorsToAdd,
-              doctor: res.data.data.providerInfo.providerType,
-              tasks: res.data.data.tasks,
-              APT: res.data.data.appointmentTokens,
-              wallet: res.data.data.wallet
-          })
-      }
-      )
-      
-
-      Axios.get('/api/users/getProviders')
-      .then(
-          (res)=>{
-            console.log(res)
-              this.setState({doctors: res.data.data})
-
-          }
-      )
+      this.getInfo()
+      this.findDocs()
       .then(setTimeout(this.sort, 500))
       .then(setTimeout(this.load, 1500))
     }
@@ -144,6 +138,14 @@ class Main extends Component {
 
     render(){
         if(this.state.loading == true){return(<Loading/>)}
+        else if (this.state.confirmed == false){
+          return(
+            <div>
+              <h2>Please check your email and confirm your account</h2>
+            </div>
+          )
+        }
+        else{
         return(
             <div id="mainBack" className='main__back' style={{backgroundImage: `url(${backimg})`}}>
             <Sidebar doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
@@ -178,7 +180,7 @@ class Main extends Component {
 
 
 
-        )
+        )}
     }
 
 

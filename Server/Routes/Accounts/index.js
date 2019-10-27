@@ -7,6 +7,7 @@ const GP = require('./getProviders')
 const RAPT = require('./removeAPT')
 const ADDP = require('./addProvider')
 const ADDF = require('./addFunds')
+const CFA = require('./confirmAccount')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -15,6 +16,7 @@ routes.get('/getProviders', GP)
 routes.post('/removeAPT', RAPT)
 routes.post('/addProvider', ADDP)
 routes.post('/addFunds', ADDF)
+routes.post('/confirmAccount', CFA)
 
 
 
