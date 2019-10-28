@@ -19,8 +19,8 @@ class confirmAccount extends Component {
 
     componentDidMount(){
         var aa = window.location.href
-        var after = aa.substring(37, 73)
-        var email = aa.substring(74)
+        var after = aa.substring(39, 75)
+        var email = aa.substring(76)
         this.setState({num: after, email: email})
     }
 
