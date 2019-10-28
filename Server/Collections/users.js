@@ -128,6 +128,13 @@ const accounts = new Schema({
             saturday: [String],
             sunday: [String]
     },
+        subInfo: {
+            healthCounselor: String,
+            doctors: [String],
+            healthCounselorTokens: Number,
+            teamTokens: Number,
+            subRenewDate: Date
+    },
     cost: Number
     },
     doctorsToAdd: [String],

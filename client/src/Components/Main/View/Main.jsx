@@ -4,6 +4,7 @@ import Header from '../../Header/views/index'
 import Overview from '../../Overview/View/index'
 import Tasks from '../../Tasks/View/Tasks'
 import Cart from '../../ShoppingCart/View/Cart'
+import moment from 'moment'
 import subscription from '../../PurchaseSubscription/View/PurchaseSub'
 import admin from '../../AdminCommands/View/Admin'
 import FindProviders from '../../ChooseDoctor/View/index'
@@ -40,13 +41,18 @@ class Main extends Component {
             wallet: null,
             redirect: false,
             cost: null,
-            confirmed: false
+            confirmed: false,
+            openInfoState: false,
+            nextAppointment: 'You currently have no appointment',
+            subLevel: null
 
         };
+        this.openInfo = this.openInfo.bind(this)
     }
 
     componentDidMount(){
       this.getInfo()
+      this.getAppointments()
       this.findDocs()
     //    Axios.get('/api/users/getUser')
     //    .then(
@@ -82,8 +88,15 @@ class Main extends Component {
             tasks: data.tasks,
             APT: data.appointmentTokens,
             wallet: data.wallet,
-            confirmed: data.confirmed
+            confirmed: data.confirmed,
+            subLevel: data.subLevel
       })
+    }
+
+    getAppointments = async () => {
+      let res = await Axios.get('/api/users/getAppointments')
+      let {data} = res.data
+      console.log(data)
     }
 
     findDocs = async () => {
@@ -92,18 +105,25 @@ class Main extends Component {
       let {data} = res.data
       this.setState({doctors: data})
       this.sort()
-
-
     }
 
     sort = () => {
-      console.log(this.state.doctors)
+      console.log(this.state.appointments)
+      var newest = moment().add(30, 'years')
+      for(var i=0; i<this.state.appointments.length;i++){
+        console.log(moment(this.state.appointments[i].date).isBefore(newest))
+        if(moment(this.state.appointments[i].date).isBefore(newest) && moment(this.state.appointments[i].date).isAfter(moment())){
+          newest = this.state.appointments[i].date
+          this.setState({nextAppointment: moment(this.state.appointments[i].date).format('MMMM DD YYYY LT')})
+        }
+      }
       if(this.state.doctors != null){
       var stuff = []
       for(var i=0; i < this.state.doctors.length; i++){
         stuff.push(this.state.doctors[i].providerInfo.providerType)
       }
       this.setState({types: stuff, loading: false})
+      
     }
     }
 
@@ -123,6 +143,14 @@ class Main extends Component {
       var ammount = parseInt(this.state.wallet) + parseInt(a)
 
       this.setState({wallet: ammount})
+    }
+
+    openInfo(e){
+      if(this.state.openInfoState == true){
+        this.setState({openInfoState: false})
+      }
+      else{
+      this.setState({openInfoState: true})}
     }
 
     resetTruth = async () => {
@@ -173,6 +201,14 @@ class Main extends Component {
                 render={(props)=><Team {...props} doctors={this.state.doctors}/>}/>
               <Route exact path='/main/availability' 
                 render={(props)=><Availability {...props} />}/>
+                {
+                    this.state.openInfoState == true ?
+                    (<div className="__appointment-Info" onClick={this.openInfo}>
+                      <h2>Next Appointment: {this.state.nextAppointment}</h2>
+                    </div>)
+                    :
+                    (<button className="__appointment-Pill" onClick={this.openInfo}></button>)
+                  }
             </div>
             </div>
             </div>

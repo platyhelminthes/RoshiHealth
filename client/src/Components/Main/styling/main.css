@@ -17,6 +17,35 @@
   left: 0;
 }
 
+.__appointment-Pill {
+  width: 5vw;
+  height: 7vh;
+  position: absolute;
+  background: green;
+  right: 0;
+  top: 20vh;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-right: 0;
+}
+
+.__appointment-Pill:focus {
+  outline: none;
+}
+
+.__appointment-Info {
+  width: 20vw;
+  height: 40vh;
+  position: absolute;
+  background: orange;
+  right: 0;
+  top: 20vh;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-right: 0;
+}
+
+
 /* #mainBack {
     padding: 20px 0px 0px 75px;
     background-position: center;

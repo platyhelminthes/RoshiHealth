@@ -1,5 +1,6 @@
 var Data = require('../../Collections/users')
 const nodemailer = require('nodemailer')
+const sgTransport = require('nodemailer-sendgrid-transport') 
 const uuidv4 = require('uuid/v4');
 
 module.exports = (req, res) => {
@@ -14,13 +15,15 @@ module.exports = (req, res) => {
         });
     }
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
+    var options = {
+        service: 'SendGrid',
         auth: {
-               user: 'roshihealth@gmail.com',
-               pass: 'Roshi123!'
-           }
-       });
+          api_user: 'fallenangel1996',
+          api_key: 'Jakeybear5!'
+        }
+      }
+
+    var client = nodemailer.createTransport(sgTransport(options));
 
     let link = '<a href="roshihealth.com/confirmAccount/'+confirmNum+'/'+ email +'" >Confirm your account</a>'
     
@@ -34,7 +37,7 @@ module.exports = (req, res) => {
     //    id: 1,
     //    text: "Choose an intake nurse and make an appointment with them."
     //}
-    transporter.sendMail(mailOptions, function (err, info) {
+    client.sendMail(mailOptions, function (err, info) {
         if(err)
           console.log(err)
         else
