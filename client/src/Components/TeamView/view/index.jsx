@@ -53,9 +53,20 @@ render(){
                 <div className='Left'>
                     <button value='doctors' onClick={this.pickView}>View Your Doctors</button>
                 </div>
-                <div className='Right'>
-                    <button value='healthteam' onClick={this.pickView}>View Your Health Team</button>
-                </div>
+                {
+                    this.props.subLevel !== 'A1237' ?
+                (   
+                    <div className='Right'>
+                        <button value='healthteam'>Please Purchase A Subsciption</button>
+                    </div>
+                )
+                :
+                (   
+                    <div className='Right'>
+                        <button value='healthteam' onClick={this.pickView}>View Your Health Team</button>
+                    </div>
+                )
+                }
             </div>
         )
     }

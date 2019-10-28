@@ -8,6 +8,7 @@ const RAPT = require('./removeAPT')
 const ADDP = require('./addProvider')
 const ADDF = require('./addFunds')
 const CFA = require('./confirmAccount')
+const GAP = require('./getAppointments')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -17,6 +18,7 @@ routes.post('/removeAPT', RAPT)
 routes.post('/addProvider', ADDP)
 routes.post('/addFunds', ADDF)
 routes.post('/confirmAccount', CFA)
+routes.get('/getAppointments', GAP)
 
 
 

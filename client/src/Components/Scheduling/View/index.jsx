@@ -209,8 +209,11 @@ class Schedule extends Component {
     }
 
     checkAvailable = () => {
+        if(this.state.doctor == null){
+            return null
+        }
 
-        if(this.state.dateDay == 'Monday'){
+        else if(this.state.dateDay == 'Monday'){
             for(var i=0; i < this.state.appointments.length;i++){
                 if(this.state.days.monday.includes(this.state.appointments[i])){
                     this.state.days.monday.splice(this.state.days.monday.indexOf(this.state.appointments[i]), 1 )
@@ -220,27 +223,57 @@ class Schedule extends Component {
         
         }
 
-        if(this.state.dateDay == 'Tuesday'){
+        else if(this.state.dateDay == 'Tuesday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.tuesday.includes(this.state.appointments[i])){
+                    this.state.days.tuesday.splice(this.state.days.tuesday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.tuesday})
         }
 
-        if(this.state.dateDay == 'Wednesday'){
+        else if(this.state.dateDay == 'Wednesday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.wednesday.includes(this.state.appointments[i])){
+                    this.state.days.wednesday.splice(this.state.days.wednesday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.wednesday})
         }
 
-        if(this.state.dateDay == 'Thursday'){
+        else if(this.state.dateDay == 'Thursday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.thursday.includes(this.state.appointments[i])){
+                    this.state.days.thursday.splice(this.state.days.thursday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.thursday})
         }
 
-        if(this.state.dateDay == 'Friday'){
+        else if(this.state.dateDay == 'Friday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.friday.includes(this.state.appointments[i])){
+                    this.state.days.friday.splice(this.state.days.friday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.friday})
         }
 
-        if(this.state.dateDay == 'Saturday'){
+        else if(this.state.dateDay == 'Saturday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.saturday.includes(this.state.appointments[i])){
+                    this.state.days.saturday.splice(this.state.days.saturday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.saturday})
         }
 
-        if(this.state.dateDay == 'Sunday'){
+        else if(this.state.dateDay == 'Sunday'){
+            for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.days.sunday.includes(this.state.appointments[i])){
+                    this.state.days.sunday.splice(this.state.days.sunday.indexOf(this.state.appointments[i]), 1 )
+                }
+            }
             this.setState({appointmentTimes: this.state.days.sunday})
         }
     }

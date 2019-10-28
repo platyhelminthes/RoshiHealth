@@ -1,6 +1,7 @@
 var express = require("express");
 var session = require("express-session");
 const dotenv = require('dotenv')
+const cron = require("node-cron");
 dotenv.config()
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
@@ -20,6 +21,9 @@ app.use(passport.session());
 
 app.use('/api', routes);
 
+cron.schedule("* * * * *", function() {
+  console.log("running a task every minute");
+});
 
 const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/EcommerceDB?retryWrites=true&w=majority';
 
