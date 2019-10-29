@@ -168,7 +168,7 @@ class Availability extends Component {
     handleClick = (e) => {
 
         this.timesToSend.push(e.target.value)
-        this.timesToSend.push(moment(e.target.value, 'hh:mm a').add( 30, 'minutes').format('h:mm a'))
+        this.timesToSend.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
         this.setState({displayTimes: this.timesToSend})
     }
 
