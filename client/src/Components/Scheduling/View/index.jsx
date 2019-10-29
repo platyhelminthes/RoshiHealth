@@ -202,7 +202,7 @@ class Schedule extends Component {
                     doctor: res.data.data[0].fullName,
                     docId: res.data.data[0]._id,
                     days: res.data.data[0].providerInfo.availability,
-                    cost: res.data.data[0].providerInfo.price
+                    cost: res.data.data[0].providerInfo.cost
                 })
             }
         ).then(this.checkAvailable)

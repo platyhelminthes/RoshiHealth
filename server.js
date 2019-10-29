@@ -8,6 +8,10 @@ var routes = require('./Server/Routes')
 var app = express();
 var port = process.env.PORT || 3001;
 var passport = require("./Server/Routes/passport");
+var Data = require('./Server/Collections/users')
+const moment = require('moment')
+const nodemailer = require('nodemailer')
+const sgTransport = require('nodemailer-sendgrid-transport') 
 //var db = require('./models')
 
 
@@ -21,9 +25,7 @@ app.use(passport.session());
 
 app.use('/api', routes);
 
-cron.schedule("* * * * *", function() {
-  console.log("running a task every minute");
-});
+
 
 const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/EcommerceDB?retryWrites=true&w=majority';
 
@@ -54,5 +56,45 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+cron.schedule("0 5 * * *", function() {
+  
+  Data.find().exec((err, res)=>{
+    for(var i=0; i < res.length; i++){
+      var appointments = []
+      for(var j=0; j<res[i].appointments.length; j++){
+        var day = moment(res[i].appointments[j].date).format('YYYY-MM-DD')
+        if(moment(day).isSame(moment().format('YYYY-MM-DD'))){
+          appointments.push(moment(res[i].appointments[j].date).format('LT'))
+        }
+      }
 
+      if(appointments == []){console.log('no appointments')}
+      else{
+      var options = {
+        service: 'SendGrid',
+        auth: {
+          api_user: 'fallenangel1996',
+          api_key: 'Jakeybear5!'
+        }
+      }
+   
+    var client = nodemailer.createTransport(sgTransport(options));
 
+      
+    
+    const mailOptions = {
+     from: 'roshihealth@gmail.com', // sender address
+     to: res[i].email, // list of receivers
+     subject: 'Appointments today', // Subject line
+     html: '<h1 style="color: red">You have appointments today</h1> <p>Appointments At</p>' + appointments// plain text body
+      };
+    client.sendMail(mailOptions, function (err, info) {
+        if(err)
+          console.log(err)
+        else
+          console.log(info);
+     });
+    }}
+
+  })
+});
