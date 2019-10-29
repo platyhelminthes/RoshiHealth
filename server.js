@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-cron.schedule("0 5 * * *", function() {
+cron.schedule("0 12 * * *", function() {
   
   Data.find().exec((err, res)=>{
     for(var i=0; i < res.length; i++){
