@@ -65,7 +65,7 @@ class Schedule extends Component {
         }
         this.setState({ appointments: matching })
         matching = []
-        setTimeout(this.checkAvailable, 200)
+        setTimeout(this.checkAvailable, 500)
     }
     componentDidMount() {
         //this.getUser()
