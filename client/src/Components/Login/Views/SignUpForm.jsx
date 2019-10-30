@@ -12,7 +12,9 @@ class SignUpForm extends Component {
       password: '',
       name: '',
       hasAgreed: false,
-      redirect: false
+      redirect: false,
+      textsAllowed: null,
+      number: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,7 +43,7 @@ class SignUpForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.CreateAccount(this.state.name, this.state.email, this.state.password)
+    this.CreateAccount(this.state.name, this.state.email, this.state.password, this.state.number, this.state.textsAllowed)
 
 
     console.log('The form was submitted with the following data:');
@@ -77,14 +79,15 @@ class SignUpForm extends Component {
  //  this.Login(this.state.email, this.state.password))
  //}
 
-  CreateAccount = (name, email, password) => {
+  CreateAccount = (name, email, password, number, texts) => {
     if(this.sanatize(name) || this.sanatize(email)){alert('no injections allowed')}
-    else if(email == '' || email == null || password == '' || password == null || name == '' || name == null){alert('please enter information')}
     else{
     axios.post('/api/users/createUser', {
       fullName: name,
       email: email.toLowerCase(),
       password: password,
+      number: number,
+      texts: texts
     }).then(setTimeout(this.Login, 500))
   }
   };
@@ -96,20 +99,31 @@ class SignUpForm extends Component {
         <form onSubmit={this.handleSubmit} className="FormFields">
           <div className="FormField">
             <label className="FormField__Label" htmlFor="name">Full Name</label>
-            <input type="text" id="name" className="FormField__Input" placeholder="Enter your full name" name="name" value={this.state.name} onChange={this.handleChange} />
+            <input type="text" id="name" required='required' className="FormField__Input" placeholder="Enter your full name" name="name" value={this.state.name} onChange={this.handleChange} />
           </div>
           <div className="FormField">
             <label className="FormField__Label" htmlFor="password">Password</label>
-            <input type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
+            <input type="password" id="password" required='required' minLength='8' className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
           </div>
           <div className="FormField">
             <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
-            <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
+            <input type="email" id="email" required='required' className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
+          </div>
+
+          <div className="FormField">
+            <label className="FormField__Label" htmlFor="tel">Cell Number</label>
+            <input type="tel" id="number" className="FormField__Input" maxLength='10' minLength="10" placeholder="Enter your phone number (optional)" name="number" value={this.state.number} onChange={this.handleChange} />
           </div>
 
           <div className="FormField">
             <label className="FormField__CheckboxLabel">
-              <input className="FormField__Checkbox" type="checkbox" name="hasAgreed" value={this.state.hasAgreed} onChange={this.handleChange} /> I agree all statements in <a href="" className="FormField__TermsLink">terms of service</a>
+              <input className="FormField__Checkbox" type="checkbox" name="textsAllowed" value={this.state.textsAllowed} onChange={this.handleChange} /> Allow text alerts
+            </label>
+          </div>
+
+          <div className="FormField">
+            <label className="FormField__CheckboxLabel">
+              <input className="FormField__Checkbox" required='required' type="checkbox" name="hasAgreed" value={this.state.hasAgreed} onChange={this.handleChange} /> I agree all statements in <a href="" className="FormField__TermsLink">terms of service</a>
             </label>
           </div>
 

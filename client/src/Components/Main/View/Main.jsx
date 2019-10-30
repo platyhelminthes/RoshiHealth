@@ -175,7 +175,7 @@ class Main extends Component {
         }
         else{
         return(
-            <div id="mainBack" className='main__back' style={{backgroundImage: `url(${backimg})`}}>
+            <div id="mainBack" className='main__back' style={{backgroundImage: `url(https://storage.needpix.com/rsynced_images/poland-1985060_1280.jpg)`}}>
             <Sidebar doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
             <div className='main-container' >
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
