@@ -140,7 +140,10 @@ const accounts = new Schema({
     doctorsToAdd: [String],
     wallet: Number,
     confirmation: String,
-    confirmed: Boolean
+    confirmed: Boolean,
+    phone: String,
+    texts: Boolean,
+    hourReminders: Boolean
 },
   { timestamps: true }
 );

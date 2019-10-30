@@ -36,7 +36,7 @@ class App extends Component {
     return (
 
         <div className="App">
-          <div className="App__Aside"></div>
+          <img src='https://cdn.pixabay.com/photo/2019/05/07/00/18/mountain-4184725_960_720.jpg' className="App__Aside"></img>
           <div className="App__Form">
             <div className="PageSwitcher">
                 <NavLink to="/login/sign-in" activeClassName="PageSwitcher__Item--Active" 

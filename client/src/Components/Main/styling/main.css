@@ -72,7 +72,7 @@
   left: 0;
   background-image: linear-gradient(
     to bottom,
-    rgba(54, 57, 63, 0.9) 30%,
+    rgba(54, 57, 63, 0.3) 30%,
     rgba(54, 57, 63, 0.9) 60%,
     rgba(54, 57, 63, 1) 100%
   );

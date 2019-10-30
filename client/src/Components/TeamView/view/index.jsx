@@ -81,7 +81,9 @@ render(){
             </div>
             <div className="__team-View-Left">
                 <div className='__left-Top'>
-                    <img src={require('../../Pictures/'+ name +'.jpg')}/>
+                    <img style={{backgroundImage: `url(https://www.usnews.com/dims4/USNEWS/f700b39/2147483647/crop/2000x1313%2B0%2B0/resize/640x420/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2F0d%2Fc3%2F396b0ea644d98747667d7b993ccd%2F170726-doctors-stock.jpg)`}} alt='image'/>
+                    {/* <img src={require('../../Pictures/'+ name +'.jpg')} alt='image'/> */}
+                    
                 </div>
                 <div className='__left-Bottom'>
                     <img src={userImg}/>
@@ -115,8 +117,10 @@ render(){
                 <button style={{height: '100%', background: 'gray', border: '0', borderLeft: '1px solid black', background: '#31353D', width: '5vw'}} onClick={this.handleClick2}><ArrowBackIcon/></button>
             </div>
             <div className="__team-View-Left">
-                <div className='__left-Top'>
-                    <img src={require('../../Pictures/'+ name +'.jpg')}/>
+            <div className='__left-Top'>
+                    <img style={{backgroundImage: `url(https://www.rd.com/wp-content/uploads/2016/11/02-Ways-to-Make-the-Most-of-Your-Doctors-Appointment_First-appointment_93813283_cyano66.jpg)`}}/>
+                    {/* <img src={require('../../Pictures/'+ name +'.jpg')} alt='image'/> */}
+                    
                 </div>
                 <div className='__left-Bottom'>
                     <img src={userImg}/>
