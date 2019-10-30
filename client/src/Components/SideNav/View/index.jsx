@@ -5,6 +5,7 @@ import Header from './header'
 import Body from './body'
 import moment from 'moment'
 import BodyD from './bodyDoctor'
+import Footer from './footer'
 
 
 
@@ -45,6 +46,7 @@ class Sidenav extends Component {
                 :
                 (<BodyD/>)
                 }
+                <Footer/>
             </div>
         )
     }
