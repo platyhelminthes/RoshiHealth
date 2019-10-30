@@ -20,6 +20,7 @@ import Team from '../../TeamView/view/index'
 import Availability from '../../Providers/Views/availability';
 import Axios from 'axios';
 import Loading from '../../Loading'
+import AccountInfo from '../../AccountInfo/views/index'
 
 
 class Main extends Component {
@@ -44,7 +45,10 @@ class Main extends Component {
             confirmed: false,
             openInfoState: false,
             nextAppointment: 'You currently have no appointment',
-            subLevel: null
+            subLevel: null,
+            number: null,
+            textReminders: null,
+            hourReminders: null
 
         };
         this.openInfo = this.openInfo.bind(this)
@@ -89,7 +93,11 @@ class Main extends Component {
             APT: data.appointmentTokens,
             wallet: data.wallet,
             confirmed: data.confirmed,
-            subLevel: data.subLevel
+            subLevel: data.subLevel,
+            number: data.phone,
+            textReminders: data.texts,
+            hourReminders: data.hourReminders,
+            subscription: data.subLevel
       })
     }
 
@@ -199,6 +207,8 @@ class Main extends Component {
                 render={(props)=><Store {...props} types={this.state.types}/>}/>
               <Route exact path='/main/Team' 
                 render={(props)=><Team {...props} doctors={this.state.doctors}/>}/>
+                <Route exact path='/main/AccountInfo'
+                render={(props)=><AccountInfo {...props} state={this.state}/>}/>
               <Route exact path='/main/availability' 
                 render={(props)=><Availability {...props} />}/>
                 {
