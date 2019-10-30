@@ -11,7 +11,10 @@ var passport = require("./Server/Routes/passport");
 var Data = require('./Server/Collections/users')
 const moment = require('moment')
 const nodemailer = require('nodemailer')
-const sgTransport = require('nodemailer-sendgrid-transport') 
+const sgTransport = require('nodemailer-sendgrid-transport')
+const accountSid = 'AC493982b1daab2cac3e130cb21667b49f';
+const authToken = 'f2a62cab033dc1915ebf4ae35729bfda';
+const tclient = require('twilio')(accountSid, authToken);
 //var db = require('./models')
 
 
@@ -64,11 +67,11 @@ cron.schedule("0 12 * * *", function() {
       for(var j=0; j<res[i].appointments.length; j++){
         var day = moment(res[i].appointments[j].date).format('YYYY-MM-DD')
         if(moment(day).isSame(moment().format('YYYY-MM-DD'))){
-          appointments.push(moment(res[i].appointments[j].date).format('LT'))
+          appointments.push('<p>With ' + res[i].appointments[j].userName + ' at ' + moment(res[i].appointments[j].date).format('LT') + '</p>')
         }
       }
 
-      if(appointments == []){console.log('no appointments')}
+      if(appointments == ''){console.log('no appointments')}
       else{
       var options = {
         service: 'SendGrid',
@@ -86,14 +89,119 @@ cron.schedule("0 12 * * *", function() {
      from: 'roshihealth@gmail.com', // sender address
      to: res[i].email, // list of receivers
      subject: 'Appointments today', // Subject line
-     html: '<h1 style="color: red">You have appointments today</h1> <p>Appointments At</p>' + appointments// plain text body
+     html: '<h1 style="color: red">Hello ' + res[i].fullName + ' this is Roshi Health reminding you that you have appointments today</h1> <p>Appointments</p>' + appointments// plain text body
       };
+
     client.sendMail(mailOptions, function (err, info) {
         if(err)
           console.log(err)
         else
           console.log(info);
      });
+    
+    }}
+
+  })
+});
+
+
+cron.schedule("0 19 * * *", function() {
+  
+  Data.find().exec((err, res)=>{
+    for(var i=0; i < res.length; i++){
+      var appointments = []
+      for(var j=0; j<res[i].appointments.length; j++){
+        var day = moment(res[i].appointments[j].date).format('YYYY-MM-DD')
+        if(moment(day).isSame(moment().add(1, 'days' ).format('YYYY-MM-DD'))){
+          
+          appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+        }
+      }
+
+      if(appointments == '' || res[i].texts == false || res[i].phone == null){console.log('Unable to send text')}
+      else{
+    
+     tclient.messages
+     .create({
+        body: 'Hello ' + res[i].fullName + 'this is Roshi Health reminding you that you have appointments tomorrow ' + appointments,
+        from: '+12566702453',
+        to: res[i].phone
+      })
+     .then(message => console.log(message.sid));
+    
+    }}
+
+  })
+});
+
+cron.schedule("00 */1 * * *", function() {
+  
+  Data.find().exec((err, res)=>{
+    for(var i=0; i < res.length; i++){
+      var appointments = []
+      for(var j=0; j<res[i].appointments.length; j++){
+        var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
+        var now = moment().add(1, 'hours').format('YYYY-MM-DD-HH')
+        if(hour == now){
+            appointments.push('With ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+        }
+      }
+      if(appointments == '' || res[i].texts == false || res[i].texts == undefined || res[i].phone == null || res[i].hourReminders == false){console.log('Unable to send text for ' + res[i].email)}
+      else {
+        
+           tclient.messages
+           .create({
+              body: 'Hello ' + res[i].fullName + ' this is Roshi Health reminding you that you have an upcoming appointment ' + appointments,
+              from: '+12566702453',
+              to: res[i].phone
+            })
+           .then(message => console.log(message.sid));
+   }
+  }
+ })
+});
+
+cron.schedule("00 */1 * * *", function() {
+  
+  Data.find().exec((err, res)=>{
+    for(var i=0; i < res.length; i++){
+      var appointments = []
+      for(var j=0; j<res[i].appointments.length; j++){
+        var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
+        var now = moment().add(1, 'hours').format('YYYY-MM-DD-HH')
+        if(hour == now){
+            appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+        }
+      }
+
+      if(appointments == '' || res[i].email == 'emilyswanson95@gmail.com'){console.log('no appointments')}
+      else{
+      var options = {
+        service: 'SendGrid',
+        auth: {
+          api_user: 'fallenangel1996',
+          api_key: 'Jakeybear5!'
+        }
+      }
+   
+    var client = nodemailer.createTransport(sgTransport(options));
+
+      
+    
+    const mailOptions = {
+     from: 'roshihealth@gmail.com', // sender address
+     to: res[i].email, // list of receivers
+     subject: 'Appointment soon!', // Subject line
+     html: '<h1 style="color: red">Hello '+ res[i].fullName +' this is Roshi Health reminding you that you have an appointment soon!</h1>' + appointments// plain text body
+      };
+
+    client.sendMail(mailOptions, function (err, info) {
+        if(err)
+          console.log(err)
+        else
+          console.log(info);
+     });
+    
     }}
 
   })

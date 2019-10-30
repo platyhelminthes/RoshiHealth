@@ -40,7 +40,6 @@ class SignInForm extends Component {
 
     Login = (email, password) => {
       if(this.sanatize(email) || this.sanatize(password)){alert('No injections allowed!')}
-      else if(email == '' || email == null || password == '' || password == null){alert('please enter information')}
       else{
       axios.post('/api/login/login', {
           email: email.toLowerCase(),
@@ -80,13 +79,13 @@ class SignInForm extends Component {
             <form onSubmit={this.handleSubmit} className="FormFields">
             <div className="FormField">
                 <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
-                <input type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
+                <input required='required' type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
               </div>
 
 
               <div className="FormField">
                 <label className="FormField__Label" htmlFor="password">Password</label>
-                <input type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
+                <input required='required' type="password" id="password" className="FormField__Input" placeholder="Enter your password" name="password" value={this.state.password} onChange={this.handleChange} />
               </div>
 
               <div className="FormField">

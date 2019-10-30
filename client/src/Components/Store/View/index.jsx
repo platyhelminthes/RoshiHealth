@@ -32,7 +32,7 @@ class Store extends Component {
     }
 
     componentDidMount() {
-        this.getAppointments('appointment')
+        this.getAppointments('general')
         this.load()
     }
 

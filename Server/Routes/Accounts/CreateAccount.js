@@ -6,7 +6,7 @@ const uuidv4 = require('uuid/v4');
 module.exports = (req, res) => {
     let data = new Data();
     let confirmNum = uuidv4()
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, number, texts } = req.body;
 
     if (!email || !password) {
         return res.json({
@@ -60,6 +60,19 @@ module.exports = (req, res) => {
     data.subLevel = 'nonSub'
     data.confirmed = false
     data.confirmation = confirmNum
+    if(number == null){
+      data.phone == 'N/A'
+    }
+    else{
+      data.phone = number
+    }
+    if(texts == null){
+      data.texts == false
+    }
+    else{
+      data.texts == texts
+    }
+     
     console.log(data)
    
     data.save((err) => {
