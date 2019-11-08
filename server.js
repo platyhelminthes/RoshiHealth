@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-cron.schedule("0 12 * * *", function() {
+cron.schedule("0 13 * * *", function() {
   
   Data.find().exec((err, res)=>{
     for(var i=0; i < res.length; i++){
@@ -141,7 +141,7 @@ cron.schedule("00 */1 * * *", function() {
       var appointments = []
       for(var j=0; j<res[i].appointments.length; j++){
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
-        var now = moment().add(8, 'hours').format('YYYY-MM-DD-HH')
+        var now = moment().subtract(8, 'hours').format('YYYY-MM-DD-HH')
         if(hour == now){
             appointments.push('With ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
         }
@@ -161,7 +161,7 @@ cron.schedule("00 */1 * * *", function() {
  })
 });
 
-cron.schedule("00 */1 * * *", function() {
+cron.schedule("00 18 * * *", function() {
   var options = {
     service: 'SendGrid',
     auth: {
@@ -196,7 +196,7 @@ cron.schedule("00 */1 * * *", function() {
       var appointments = []
       for(var j=0; j<res[i].appointments.length; j++){
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
-        var now = moment().add(8, 'hours').format('YYYY-MM-DD-HH')
+        var now = moment().subtract(8, 'hours').format('YYYY-MM-DD-HH')
         if(hour == now){
             appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
         }
