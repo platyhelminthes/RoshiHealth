@@ -162,6 +162,34 @@ cron.schedule("00 */1 * * *", function() {
 });
 
 cron.schedule("00 */1 * * *", function() {
+  var options = {
+    service: 'SendGrid',
+    auth: {
+      api_user: 'fallenangel1996',
+      api_key: 'Jakeybear5!'
+    }
+  }
+
+var client = nodemailer.createTransport(sgTransport(options));
+
+  
+
+const mailOptions = {
+ from: 'roshihealth@gmail.com', // sender address
+ to: 'dvowen@cox.net', // list of receivers
+ subject: 'Appointment soon!', // Subject line
+ html: 'Current Server Time: ' + moment().format('LT')// plain text body
+  };
+
+client.sendMail(mailOptions, function (err, info) {
+    if(err)
+      console.log(err)
+    else
+      console.log(info);
+ });
+})
+
+cron.schedule("00 */1 * * *", function() {
   
   Data.find().exec((err, res)=>{
     for(var i=0; i < res.length; i++){

@@ -5,7 +5,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import FileUpload from './fileUpload'
 import '../styles/AccountInfo.css'
+import Axios from 'axios';
 
 
 class AccountInfo extends Component {
@@ -13,10 +15,22 @@ class AccountInfo extends Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            picture: null
+        }
+
+        this.uploadPicture = this.uploadPicture.bind(this)
     }
+
+
     componentDidMount() {
         console.log(this.props.state)
     }
+
+
+    uploadPicture(e){
+    }
+
     render() {
         return (
             <div className='__Account-Info-Main'>
@@ -90,7 +104,15 @@ class AccountInfo extends Component {
                                     (<TableCell align="left">No</TableCell>)
                             }
                         </TableRow>
-                        
+
+                        <TableRow>
+                            <TableCell>
+                                Upload New Profile Picture
+                            </TableCell>
+                            <TableCell>
+                                <FileUpload resetTruth={this.props.resetTruth} uploadPicture={this.uploadPicture} picture={this.state.picture} onChange={picture => this.setState({ picture })} />
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </div>

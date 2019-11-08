@@ -7,6 +7,7 @@ Data.findOne(
     {'email': req.user.email},
     (err,data)=>{
         if (err) return console.log(err)
+        else if (data == null){return console.log('data null')}
         return idSearch=data.providers
     }
     

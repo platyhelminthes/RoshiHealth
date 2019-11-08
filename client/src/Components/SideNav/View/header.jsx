@@ -18,7 +18,7 @@ class header extends Component {
                 </div>
                 <div id='__head-bio'>
                     <div id='__head-bio-pic'>
-                        <img src={userImg} />
+                        <img  src={this.props.profilePic}/>
                     </div>
                     <div id='__head-bio-info'>
                         <p>{this.props.name}</p>

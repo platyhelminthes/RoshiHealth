@@ -19,6 +19,12 @@ class Store extends Component {
         this.handleSubmit1 = this.handleSubmit1.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.changeSearch = this.changeSearch.bind(this);
+    }
+
+    changeSearch(e){
+        (e).preventDefault()
+        this.getAppointments(e.target.value)
     }
 
     onChange = (e) => {
@@ -134,9 +140,9 @@ class Store extends Component {
                         <div className="___store-nav">
                             
                             <ul>
-                                <li>Doctors</li>
-                                <li>Supplements</li>
-                                <li>Apparel</li>
+                                <button value='general' onClick={this.changeSearch}>Doctors</button>
+                                <button value='coming soon' onClick={this.changeSearch}>Supplements</button>
+                                <button value='coming soon' onClick={this.changeSearch}>Apparel</button>
                             </ul>
                         </div>
                         <div className="store__header" style={{ backgroundImage: `url(${backimg})` }}>
@@ -153,21 +159,34 @@ class Store extends Component {
                         <div className="___store-nav-category">
                             
                             <ul>
-                                <li>Metabolic</li>
-                                <li>Airway</li>
-                                <li>Cardio</li>
-                                <li>General</li>
-                                <li>Gut</li>
-                                <li>Mental</li>
+                                <button className='__store-nav-buttons' value='metabolic' onClick={this.changeSearch}>Metabolic</button>
+                                <button className='__store-nav-buttons' value='airway' onClick={this.changeSearch}>Airway</button>
+                                <button className='__store-nav-buttons' value='cardio' onClick={this.changeSearch}>Cardio</button>
+                                <button className='__store-nav-buttons' value='general' onClick={this.changeSearch}>General</button>
+                                <button className='__store-nav-buttons' value='gut' onClick={this.changeSearch}>Gut</button>
+                                <button className='__store-nav-buttons' value='mental' onClick={this.changeSearch}>Mental</button>
                             </ul>
                         </div>
                         <div className="store___box-container">
+                            {items.length == 0 ?
+                            (                                            <div className="appt_type_boxes" >
+                            <h2>Coming Soon</h2>
+                        </div>)
+                            :
+                            (null)}
                             {items.map(
 
 
                                 row => (
                                     (this.props.types.includes(row.DocType) ?
                                         (null)
+                                        :
+                                        (row.Type == 'coming soon' ?
+                                        (
+                                            <div className="appt_type_boxes" >
+                                                <h2>Coming Soon</h2>
+                                            </div>
+                                        )
                                         :
                                         (
 
@@ -182,7 +201,8 @@ class Store extends Component {
                                                         search: row.DocType
                                                     }
                                                 }} className='__SideLinks' style={{ width: '100%', paddingLeft: '0' }} >Add {row.DocType} To Your Team</Link>
-                                            </div>)
+                                            </div>))
+                                        
 
 
                                     ))

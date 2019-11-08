@@ -11,6 +11,20 @@
     "main main main main main main"; */
 }
 
+.__store-nav-buttons {
+  background: none;
+  border: none;
+  outline: none;
+  color: white;
+  width: 7vw;
+  height: 5vh;
+  font-size: 17px;
+}
+
+.__store-nav-buttons:hover {
+  color: gray;
+}
+
 .store__main {
   /* background-color: blue; */
   /* grid-area: main; */

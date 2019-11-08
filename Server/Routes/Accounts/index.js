@@ -10,6 +10,9 @@ const ADDF = require('./addFunds')
 const CFA = require('./confirmAccount')
 const GAP = require('./getAppointments')
 const UIMG = require('./uploadProfileImage')
+const SIMG = require('./confirmImage')
+const INITSUB = require('./initiateSub')
+const GETSD = require('./getSubDoctors')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -20,7 +23,10 @@ routes.post('/addProvider', ADDP)
 routes.post('/addFunds', ADDF)
 routes.post('/confirmAccount', CFA)
 routes.get('/getAppointments', GAP)
-//routes.post('/uploadImage', UIMG)
+routes.post('/uploadImage', UIMG)
+routes.post('/saveImage', SIMG)
+routes.post('/initiateSub', INITSUB)
+routes.post('/getSubProviders', GETSD)
 
 
 
