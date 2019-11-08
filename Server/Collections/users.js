@@ -5,6 +5,39 @@ bcrypt = require('bcrypt'),
 SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
+
+const subscriptionSchema = new Schema ({
+
+    dietitian: {
+        name: String,
+        id: String,
+        appointmentTokens: Number,
+        appointments: Number
+    },
+    healthCounselor: {
+        name: String,
+        id: String,
+        appointmentTokens: Number,
+        appointments: Number
+    },
+    nurse: {
+        initialConsultation: {
+            type: Boolean,
+            default: false
+        },
+        name: String,
+        id: String,
+        followUp: {
+            type: Boolean,
+            default: false
+        }
+    },
+    started: Date,
+    yearMark: Date,
+    months: Number
+})
+
+
 const tasksSchema = new Schema({
 
         providerId: {
@@ -143,7 +176,10 @@ const accounts = new Schema({
     confirmed: Boolean,
     phone: String,
     texts: Boolean,
-    hourReminders: Boolean
+    hourReminders: Boolean,
+    profilePicURL: String,
+    state: String,
+    subscription: subscriptionSchema
 },
   { timestamps: true }
 );

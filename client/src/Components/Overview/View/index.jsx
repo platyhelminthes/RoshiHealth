@@ -4,6 +4,7 @@ import News from './news'
 import SubInfo from './subscriberInfo'
 import Promotion from './promotion'
 import '../Styling/overview.css'
+import Alerts from './alerts'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
@@ -46,11 +47,16 @@ class Overview extends Component {
                 {/* <div > */}
                 {/* style={{ display: "flex" }} */}
                     <div className="overview-panel-one" >
-                        <SubInfo />
-                        <Promotion />
+                        {
+                        this.props.state.subscription ?
+                        (<SubInfo subLevel={this.props.subLevel} state={this.props.state.subscription}/>)
+                        :
+                        (null)}
+                        {/* <Promotion /> */}
                     </div>
                     <div className="overview-panel-two" >
                         <News />
+                        <Alerts />
                     </div>
                     {/* <div className="overview-panel-three" >
                         <Alerts AP={this.state.appointments} />

@@ -1,29 +1,28 @@
-import React from 'react';
-import {Component} from 'react';
-import { TableCell, Table, TableHead, TableRow, TableBody } from '@material-ui/core';
+import React, {Component} from 'react'
+import '../styles/yourSub.css'
+import { Table, TableHead, TableCell, TableRow, TableBody } from '@material-ui/core'
 import moment from 'moment'
 
-class SubInfo extends Component{
+
+
+
+class yourSub extends Component {
     constructor(props){
         super(props)
     }
 
-
-
-render(){
-
-    return(
-        <div className='__main-mobile-subscription-reminders'>
-            
-            <Table>
-                <TableHead>
+    render(){
+        return(
+            <div className='__yourSub-main'>
+                <Table style={{width: '50%'}}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Info</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                     <TableRow>
-                        <TableCell>Subscription Info</TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                <TableRow>
                             <TableCell>Subscription Active</TableCell>
                             {
                                 this.props.subLevel == 'nonSub' ?
@@ -100,18 +99,12 @@ render(){
                         <TableCell></TableCell>
                         <TableCell></TableCell>
                     </TableRow>
-                </TableBody>
-            </Table>
-
-
-        </div>
-
-
-
-    )
+                    </TableBody>
+                </Table>
+                
+            </div>
+        )
+    }
 }
 
-
-}
-
-export default SubInfo
+export default yourSub
