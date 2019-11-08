@@ -161,7 +161,7 @@ cron.schedule("00 */1 * * *", function() {
  })
 });
 
-cron.schedule("00 */1 * * *", function() {
+cron.schedule("00 18 * * *", function() {
   var options = {
     service: 'SendGrid',
     auth: {
