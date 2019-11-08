@@ -11,11 +11,10 @@ class News extends Component{
 render(){
 
     return(
-        <div className='__main-mobile-news-reminders' >         
-        <div style={{width: '25vw', marginTop: '3vh', textAlign: 'center'}}>
-              <h2>Thursday October 3rd 2019</h2>
-                   <li>spruced up look of site</li>                
-            </div>
+        <div className='__news-Main'>
+            <h2 style={{margin: '0', marginLeft: '7vw', fontSize: '100px'}}>News</h2>
+        <div className='__main-mobile-news-reminders' >
+        </div>
         </div>
 
 

@@ -1,7 +1,7 @@
 
 .overview-container{
 /* display: flex; */
- height: 87vh; 
+ /* height: 87vh; 
  overflow: hidden;
  width: 100vw;
  z-index: 1;
@@ -11,22 +11,29 @@ grid-template-rows: repeat(6, 1fr);
 grid-template-areas: 
 "one two ."
 "one two ."
-"one two .";
+"one two ."; */
+display: flex;
+flex-direction: column;
+max-width: 100%;
+min-height: 93vh;
+padding-left: 5vw;
+padding-right: 5vw;
 }
 
 .overview-panel-one {
-    grid-area: one;
-    min-width: 100%;
-     margin-left: 5vw;
+    /* min-width: 100%;
+    background: gray; */
 }
 
 .overview-panel-two {
-    grid-area: two;
+    /* grid-area: two;
     min-width: 35vw; 
     min-height: 86vh;
     display: flex; 
     flex-direction: column; 
-    justify-content: space-between;
+    justify-content: space-between; */
+    display: flex;
+
 }
 
 /* .overview-panel-three {
@@ -40,15 +47,15 @@ grid-template-areas:
 
 .overview-container {
     overflow-y: auto;
+    padding-bottom: 10vh;
 }
 .__main-mobile-subscription-reminders{
-    background-color: #36393F;
+    background-color: white;
     height: 40vh;
-    width:22vw;
-     margin-top: 3vh; 
-     border-radius: 10px; 
-     text-align: center; 
-     padding: 5vw;
+    width: 100%;
+    margin-top: 3vh; 
+    border-radius: 10px;
+    overflow: auto
 }
 /* .__main-mobile-appointments-reminders {
     margin-left: 3vh;
@@ -57,25 +64,48 @@ grid-template-areas:
     overflow: auto; 
 } */
 .__main-mobile-news-reminders {
-    background-color: #36393F; 
-        margin-left: 3vh;
-        height: 83vh;
-        margin-top: 3vh; 
-        border-radius: 10px; 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        overflow: auto;
-        padding-bottom: 3vh;
+    min-height: 83vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
 }
 .__main-mobile-promotions-reminders {
-    background-color: #36393F; 
+    background-color: none; 
     height: 40vh; 
     width:22vw;
     margin-top: 3vh; 
     border-radius: 10px; 
     text-align: center; 
     padding: 5vw;
+}
+
+.__news-cards {
+    width: 20vw;
+    height: 50vh;
+    background: #36393F;
+    border-radius: 20px;
+    margin: 2vw
+}
+
+.__alerts-main {
+    width: 30%;
+    height: 100%;
+    margin-top: 5vh
+}
+
+.__alerts-card {
+    width: 100%;
+    height: 50vh;
+    background: #36393F;
+    border-radius: 20px;
+}
+
+.__news-Main {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 769px) {

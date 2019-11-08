@@ -82,6 +82,7 @@ class body extends Component {
     }
 
 componentDidMount(){
+    console.log(this.props.subLevel)
     setTimeout(this.checkAP, 1500)
     setTimeout(this.checkDoctors, 2000)
 }
@@ -178,10 +179,30 @@ pushDoctors = (test) => {
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         <Link  to="/main/scheduler"  className='__SideLinks'>Make An Appointment</Link>
+                        <Link  to="/main/Appointments"  className='__SideLinks'>View upcoming appointments</Link>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
                 )}
-                <RenderTest true={this.state.true}/>
+                                <ExpansionPanel style={dropDownBack} >
+                <ExpansionPanelSummary
+                        expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        style={dropDown}
+                        className='__DD-header'
+                    >
+                        <HouseIcon style={{color: 'white'}}/>
+                        <p style={dropDownHead}>Subscription</p>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails style={dropDownActive}>
+                            {
+                                this.props.subLevel == 'nonSub' ?
+                                (<Link to="/main/subinfo" className='__SideLinks'>Purchase a Subscription</Link>)
+                                :
+                                (<Link to="/main/yourSub" className='__SideLinks'>Your Subscription</Link>)
+                            }
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
             </div>
         )
     }
