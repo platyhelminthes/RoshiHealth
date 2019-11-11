@@ -67,7 +67,7 @@ cron.schedule("0 13 * * *", function() {
       for(var j=0; j<res[i].appointments.length; j++){
         var day = moment(res[i].appointments[j].date).format('YYYY-MM-DD')
         if(moment(day).isSame(moment().format('YYYY-MM-DD'))){
-          appointments.push('<p>With ' + res[i].appointments[j].userName + ' at ' + moment(res[i].appointments[j].date).format('LT') + '</p>')
+          appointments.push('<p>With ' + res[i].appointments[j].userName + ' at ' + moment(res[i].appointments[j].date).subtract(8, 'hours').format('LT') + '</p>')
         }
       }
 
@@ -114,7 +114,7 @@ cron.schedule("0 19 * * *", function() {
         var day = moment(res[i].appointments[j].date).format('YYYY-MM-DD')
         if(moment(day).isSame(moment().add(1, 'days' ).format('YYYY-MM-DD'))){
           
-          appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+          appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).subtract(8, 'hours').format('LT'))
         }
       }
 
@@ -143,7 +143,7 @@ cron.schedule("00 */1 * * *", function() {
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
         var now = moment().format('YYYY-MM-DD-HH')
         if(hour == now){
-            appointments.push('With ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+            appointments.push('With ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).subtract(8, 'hours').format('LT'))
         }
       }
       if(appointments == '' || res[i].texts == false || res[i].texts == undefined || res[i].phone == null || res[i].hourReminders == false){console.log('Unable to send text for ' + res[i].email)}
@@ -198,7 +198,7 @@ cron.schedule("00 */1 * * *", function() {
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
         var now = moment().format('YYYY-MM-DD-HH')
         if(hour == now){
-            appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
+            appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).subtract(8, 'hours').format('LT'))
         }
       }
 
