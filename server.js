@@ -141,7 +141,7 @@ cron.schedule("00 */1 * * *", function() {
       var appointments = []
       for(var j=0; j<res[i].appointments.length; j++){
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
-        var now = moment().subtract(8, 'hours').format('YYYY-MM-DD-HH')
+        var now = moment().format('YYYY-MM-DD-HH')
         if(hour == now){
             appointments.push('With ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
         }
@@ -196,7 +196,7 @@ cron.schedule("00 */1 * * *", function() {
       var appointments = []
       for(var j=0; j<res[i].appointments.length; j++){
         var hour = moment(res[i].appointments[j].date).format('YYYY-MM-DD-HH')
-        var now = moment().subtract(8, 'hours').format('YYYY-MM-DD-HH')
+        var now = moment().format('YYYY-MM-DD-HH')
         if(hour == now){
             appointments.push(' with ' + res[i].appointments[j].userName + ' at '+ moment(res[i].appointments[j].date).format('LT'))
         }
