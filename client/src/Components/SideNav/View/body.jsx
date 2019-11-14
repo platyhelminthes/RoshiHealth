@@ -216,6 +216,12 @@ pushDoctors = (test) => {
                             }
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+                {
+                                this.props.initialConsultation == false ?
+                                (<div className='__body-alert'><p>&larr; Please Schedule Inital Consultation!</p></div>)
+                                :
+                                (null)
+                            }
             </div>
         )
     }

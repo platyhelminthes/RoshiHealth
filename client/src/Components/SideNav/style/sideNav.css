@@ -183,6 +183,16 @@
     transition: opacity 1s;
 }
 
+.__body-alert {
+    position: absolute;
+    left: 19vw;
+    top: 53vh;
+    background: red;
+    border-radius: 2vw;
+    width: 22vw;
+    text-align: center;
+}
+
 .settingsPopupHidden {
     position: absolute;
     top: 88vh;

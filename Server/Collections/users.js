@@ -12,13 +12,15 @@ const subscriptionSchema = new Schema ({
         name: String,
         id: String,
         appointmentTokens: Number,
-        appointments: Number
+        appointments: Number,
+        appointment: Date
     },
     healthCounselor: {
         name: String,
         id: String,
         appointmentTokens: Number,
-        appointments: Number
+        appointments: Number,
+        appointment: Date
     },
     nurse: {
         initialConsultation: {

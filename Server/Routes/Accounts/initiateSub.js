@@ -5,7 +5,8 @@ module.exports = (req,res) => {
 
     nurse = {
         name: 'Nurse Girl',
-        id: '5dc474c765f8a15d9c9f0a77'
+        id: '5dc474c765f8a15d9c9f0a77',
+        initialConsultation: false
     }
     dietitian = {
         appointmentTokens: 1
