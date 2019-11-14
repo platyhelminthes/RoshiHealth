@@ -105,7 +105,7 @@ class Schedule extends Component {
 
     handleSubmit2(e) {
         (e).preventDefault()
-        console.log(e.target.name)
+        this.setState({docSelected: e.target.name})
         this.getAppointments(e.target.value)
         setTimeout(this.checkAppointments, 300)
         //setTimeout(this.checkAPT, 700)
@@ -133,15 +133,29 @@ class Schedule extends Component {
 
     createAppointment = (time) => {
             var cleanTime = null
+        alert(this.state.docSelected + this.props.state.subscription.nurse.initialConsultation)
         if (time == '') { alert('sorry that time is not available!') }
         else {
-            if(time)
-            Axios.post('/api/users/removeAPT',
-                {
-                    price: this.state.cost
-                })
+        var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
+        if(this.state.docSelected == 'Nurse'){
+            if(this.props.state.subscription.nurse.initialConsultation == false){ 
+                Axios.get('/api/users/initialConsultationDone')
+            }
+        }   
+        if(this.state.docSelected == 'Health Counselor'){
+            Axios.get('/api/users/removeAPT')
+            Axios.post('/api/users/updateNextAPPHC', {
+                date: moment(dateTime).add(8, 'hours')
+            })
+        }
+        if(this.state.docSelected == 'Dietitian'){
+            Axios.get('/api/users/removeAPTDiet')
+            Axios.post('/api/users/updateNextAPPD', {
+                date: moment(dateTime).add(8, 'hours')
+            })
+        }
 
-            var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
+        
             Axios.post('/api/providers/makeAppointment',
                 {
                     date: moment(dateTime).add(8, 'hours'),
@@ -149,6 +163,7 @@ class Schedule extends Component {
                     name: this.state.doctor,
                 }
             )
+        
         }
     }
     //getUser = () => {

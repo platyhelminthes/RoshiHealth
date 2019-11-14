@@ -13,6 +13,10 @@ const UIMG = require('./uploadProfileImage')
 const SIMG = require('./confirmImage')
 const INITSUB = require('./initiateSub')
 const GETSD = require('./getSubDoctors')
+const ICD = require('./finishInitialConsultation')
+const RAPTD = require('./removeAPTDietitician')
+const UNAPHC = require('./updateNextAppHC')
+const UNAPD = require('./updateNextAppD')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -27,6 +31,10 @@ routes.post('/uploadImage', UIMG)
 routes.post('/saveImage', SIMG)
 routes.post('/initiateSub', INITSUB)
 routes.post('/getSubProviders', GETSD)
+routes.get('/initialConsultationDone', ICD)
+routes.get('/removeAPTDiet', RAPTD)
+routes.post('/updateNextAPPHC', UNAPHC)
+routes.post('/updateNextAPPD', UNAPD)
 
 
 

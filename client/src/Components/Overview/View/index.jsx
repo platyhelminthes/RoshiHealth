@@ -49,7 +49,7 @@ class Overview extends Component {
                     <div className="overview-panel-one" >
                         {
                         this.props.state.subscription ?
-                        (<SubInfo subLevel={this.props.subLevel} state={this.props.state.subscription}/>)
+                        (<SubInfo subLevel={this.props.subLevel} state={this.props.state.subscription} address={this.props.state.address}/>)
                         :
                         (null)}
                         {/* <Promotion /> */}
