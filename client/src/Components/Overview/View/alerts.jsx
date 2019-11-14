@@ -11,7 +11,6 @@ class Alerts extends Component {
             <div className='__alerts-main'>
                 <h2 style={{fontSize: '50px', margin: 0, marginBottom: '2vh'}}>Alerts</h2>
                 <div className='__alerts-card'>
-
                 </div>
 
             </div>

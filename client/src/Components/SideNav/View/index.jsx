@@ -40,7 +40,7 @@ class Sidenav extends Component {
     render(){
         return(
             <div id='__side-Nav'>
-                <Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email}/>
+                <Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>
                 {this.props.doctor == 'Patient' ?
                 (<Body subLevel={this.props.subLevel} doctors={this.props.doctors} allowed={this.props.allowed} APtime={this.state.APTime}/>)
                 :

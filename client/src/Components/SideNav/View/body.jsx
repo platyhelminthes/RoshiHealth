@@ -201,6 +201,19 @@ pushDoctors = (test) => {
                                 :
                                 (<Link to="/main/yourSub" className='__SideLinks'>Your Subscription</Link>)
                             }
+                                                        {
+                                this.props.subLevel == 'nonSub' ?
+                                (null)
+                                :
+                                (<Link to="/main/subschedule" className='__SideLinks'>Schedule Appointment With Team</Link>)
+                            }
+                                                        
+                            {
+                                this.props.subLevel == 'nonSub' ?
+                                (null)
+                                :
+                                (<Link to="/main/subappointments" className='__SideLinks'>Manage Sub Appointments</Link>)
+                            }
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             </div>
