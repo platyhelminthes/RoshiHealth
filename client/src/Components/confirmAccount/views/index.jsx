@@ -2,6 +2,7 @@ import React from 'react'
 import {Component} from 'react'
 import Axios from 'axios'
 import Loading from '../../Loading'
+import {Redirect} from 'react-router-dom'
 
 class confirmAccount extends Component {
 
@@ -11,7 +12,8 @@ class confirmAccount extends Component {
             confirmNum: null,
             email: null,
             num: 'not done',
-            loading: true
+            loading: true,
+            redirect: false
         }
 
         this.handleClick = this.handleClick.bind(this)
@@ -30,11 +32,13 @@ class confirmAccount extends Component {
         {
             email: this.state.email,
             confirmation: this.state.num
-        })
+        }).then(this.setState({redirect: true}))
     }
 
     render(){
-        
+            if(this.state.redirect == true){
+                return(<Redirect to='/main/home'/>)
+            }
             return(
                 <div>
                     <h2>{this.state.email}</h2>

@@ -179,7 +179,15 @@ const accounts = new Schema({
     hourReminders: Boolean,
     profilePicURL: String,
     state: String,
-    subscription: subscriptionSchema
+    subscription: subscriptionSchema,
+    state: String,
+    address: {
+        street: String,
+        city: String,
+        state: String,
+        postalcode: Number,
+        country: String
+    }
 },
   { timestamps: true }
 );
