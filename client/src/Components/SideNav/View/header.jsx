@@ -1,5 +1,6 @@
 import React from 'react'
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import userImg from '../../Pictures/UserPicTemp.jpg'
 import LensIcon from '@material-ui/icons/Lens';
 
@@ -18,15 +19,17 @@ class header extends Component {
                 </div>
                 <div id='__head-bio'>
                     <div id='__head-bio-pic'>
-                        <img  src={this.props.profilePic}/>
+                        <img  src={this.props.profilePic} alt src={userImg}/>
                     </div>
                     <div id='__head-bio-info'>
                         <p>{this.props.name}</p>
                         <p>{this.props.email}</p>
-                            <div id='__head-online'>
-                                <LensIcon color="primary" style={{width: '10px', marginTop: '5px', marginRight: '5px'}}/>
-                                <p>Online</p>
-                            </div>
+                        {this.props.subLevel == 'AD1279D1' ?
+                        (<p>Sub Active</p>)
+                        :
+                        (<Link id='subLink' to='/main/subinfo'>Purchase a sub?</Link>)
+                        
+    }
                         
                     </div>
                 </div>

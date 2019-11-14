@@ -162,6 +162,12 @@
     color: white
 }
 
+#subLink {
+    text-decoration: none;
+    color: white;
+    margin-top: 1vh;
+}
+
 .settingsPopup {
     position: absolute;
     top: 88vh;

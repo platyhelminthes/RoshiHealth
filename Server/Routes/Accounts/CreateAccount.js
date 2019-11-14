@@ -7,7 +7,13 @@ module.exports = (req, res) => {
     let data = new Data();
     let confirmNum = uuidv4()
     const { fullName, email, password, number, texts } = req.body;
-
+    const address = {
+      street: req.body.street,
+      city: req.body.city,
+      state: req.body.state,
+      postal: req.body.postal,
+      country: req.body.country
+    }
     if (!email || !password) {
         return res.json({
             success: false,
@@ -72,6 +78,7 @@ module.exports = (req, res) => {
     else{
       data.texts == texts
     }
+    data.address = address
      
     console.log(data)
    
