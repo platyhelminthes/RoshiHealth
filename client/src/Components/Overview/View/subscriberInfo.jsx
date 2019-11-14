@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 import { TableCell, Table, TableHead, TableRow, TableBody } from '@material-ui/core';
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 class SubInfo extends Component{
     constructor(props){
@@ -57,7 +57,7 @@ render(){
                         <TableCell>Next Appointment With Dietitian</TableCell>
                         {
                             this.props.state.dietitian.appointment ?
-                            (<TableCell>{moment(this.props.state.dietitian.appointment).format('MMMM DD [at] LT')}</TableCell>)
+                            (<TableCell>{moment(this.props.state.dietitian.appointment).tz('America/' + this.props.address.city).format('MMMM DD [at] LT')}</TableCell>)
                             :
                             (<TableCell>You dont currently have an appointment set up with your dietitian</TableCell>)
                         }
