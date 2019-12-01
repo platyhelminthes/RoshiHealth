@@ -8,10 +8,10 @@ import moment from 'moment'
 import subscription from '../../PurchaseSubscription/View/PurchaseSub'
 import admin from '../../AdminCommands/View/Admin'
 import FindProviders from '../../ChooseDoctor/View/index'
-import sendTasks from '../../Providers/Views/SendTasks'
+import SendTasks from '../../Providers/Views/SendTasks'
 import Schedule from '../../Scheduling/View/index'
 import {Route} from 'react-router-dom'
-import sendDoctor from '../../Providers/Views/sendDoctors'
+import SendDoctor from '../../Providers/Views/sendDoctors'
 import Appointments from '../../Appointments/views/index'
 import Store from '../../Store/View/index'
 import '../styling/main.css'
@@ -24,6 +24,14 @@ import AccountInfo from '../../AccountInfo/views/index'
 import SubInfo from '../../subInfo/views/index'
 import YourSub from '../../yourSub/views/index'
 import SubscriptionScheduler from '../../subscriptionScheduler/View/index'
+import {Redirect} from 'react-router-dom'
+import AdminCheck from '../../adminChecker'
+import MakeAdmin from '../../AdminPanel/MakeDoctor/views'
+import DailySchedule from '../../Providers/dailySchedule/view/dailySchedule'
+import HolidaySchedule from '../../Providers/holidayScheduler/view/index'
+import ProviderCheck from '../../providerCheck.jsx'
+import SubTasks from '../../subscriptionTasks/view/subscriptionsTasks'
+import SendSubtasks from '../../Providers/sendSubTasks/view/sendSubTasks';
 
 
 class Main extends Component {
@@ -56,7 +64,12 @@ class Main extends Component {
             subscription: null,
             search: [],
             subdoctors: [],
-            address: null
+            address: null,
+            pillOpen: false,
+            appointmentToday: true,
+            toAppointment: false,
+            notlogged: false,
+            availableDays: []
 
         };
         this.openInfo = this.openInfo.bind(this)
@@ -64,7 +77,7 @@ class Main extends Component {
 
     componentDidMount(){
       this.getInfo()
-      setTimeout(this.sortAppointments, 500)
+      setTimeout(this.sortAppointments, 1000)
       this.findDocs()
     //    Axios.get('/api/users/getUser')
     //    .then(
@@ -89,8 +102,12 @@ class Main extends Component {
     }
 
     getInfo = async () => {
+      console.log('hello Test')
       let res = await Axios.get('/api/users/getUser')
+      if(!res){alert('no res!')}
+      console.log(res.err)
       let {data} = res.data
+
       this.setState({
             email: data.email,
             name: data.fullName,
@@ -110,6 +127,7 @@ class Main extends Component {
             subscription: data.subscription,
             address: data.address
       })
+      console.log('hellotest')
       
       setTimeout(this.setSearch, 300)
       setTimeout(this.getSubDoctors, 600)
@@ -138,6 +156,8 @@ class Main extends Component {
 
     sortAppointments = () => {
       console.log('test')
+      if(this.state.appointments == null){this.setState({notLogged: true})}
+      else{
        var futureAppointments = this.state.appointments.filter(date => moment(date.date).isAfter())
        
        this.setState({appointments: futureAppointments})
@@ -146,7 +166,8 @@ class Main extends Component {
         //  if(moment(appointments[i].date).isBefore(moment()))
         //  var appointments2 = appointments.splice(i, 1)
         //  this.setState({appointments: appointments2})
-        //}
+        //}{
+      }
     }
 
     findDocs = async () => {
@@ -196,11 +217,18 @@ class Main extends Component {
     }
 
     openInfo(e){
-      if(this.state.openInfoState == true){
-        this.setState({openInfoState: false})
+      if(moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes'))){
+        
+      }
+      else if(moment().isAfter(moment(this.state.nextAppointment).add(30, 'minutes'))){
+        
+      }
+      else if(this.state.nextAppointment == ''){
+
       }
       else{
-      this.setState({openInfoState: true})}
+        alert(this.state.nextAppointment)
+      this.setState({toAppointment: true})}
     }
 
     resetTruth = async () => {
@@ -215,7 +243,23 @@ class Main extends Component {
 
 
     render(){
-        if(this.state.loading == true){return(<Loading/>)}
+      var today = moment()
+      if (this.state.notLogged == true){
+        return(
+          <Redirect to='/login'/>
+        )
+      }
+        else if(this.state.loading == true){return(<Loading/>)}
+
+        else if (this.state.toAppointment == true) {
+          return(
+            <Redirect to={{
+              pathname: '/video',
+              state: {
+                clicked: true
+              }}}/>
+          )
+        }
         else if (this.state.confirmed == false){
           return(
             <div>
@@ -230,23 +274,48 @@ class Main extends Component {
             <div className='main-container' >
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
+              {/* admin paths */}
+              <Route path="/main/admin" 
+              render={(props)=> <AdminCheck {...props} subLevel={this.state.subLevel}/>}/>
+              <Route exact path='/main/admin/makeDoctor'
+              render={(props)=> <MakeAdmin {...props}/>}/>
+              <Route exact path="/main/adminPage" component={admin}/>
+
+
+              {/* provider paths */}
+              <Route path ='/main/provider'
+              render={(props)=><ProviderCheck {...props} state={this.state}/>}/>
+              <Route exact path='/main/provider/dailySchedule'
+              render={(props)=> <DailySchedule state={this.state} {...props}/>}/>
+               <Route exact path='/main/provider/holidaySchedule'
+              render={(props)=><HolidaySchedule {...props} state={this.state}/>}/>
+              <Route exact path="/main/provider/sendTasks" 
+              render={(props)=><SendTasks {...props} state={this.state}/>}/>
+              <Route exact path='/main/provider/sendDoctor' 
+              render={(props)=><SendDoctor {...props} state={this.state} />}/>
+              <Route exact path='/main/provider/availability' 
+              render={(props)=><Availability {...props} />}/>
+              <Route exact path='/main/provider/appointments'
+              render={(props)=><Appointments {...props} state={this.state} />}/>
+              <Route exact path='/main/provider/sendSubTasks'
+              render={(props)=><SendSubtasks {...props} state={this.state}/>}/>
+
+
               <Route exact path="/main/overview" 
               render={(props)=> <Overview {...props} subLevel={this.state.subLevel} state={this.state}/>}/>
+              <Route exact path='/main/subTasks'
+              render={(props)=><SubTasks {...props} state={this.state}/>}/>
               <Route exact path="/main/subSchedule"
               render={(props)=> <SubscriptionScheduler {...props} state={this.state}/>}/>
-              <Route 
-                exact path="/main/tasks" 
+              <Route exact path="/main/tasks" 
                 render={(props)=><Tasks {...props} tasks={this.state.tasks}/>}/>
               {/*<Route exact path="/main/cart" 
                 render={(props)=><Cart {...props}/>}/>*/}
               <Route exact path="/main/subscription" component={subscription}/>
-              <Route exact path="/main/adminPage" component={admin}/>
               <Route exact path="/main/addProviders" 
               render={(props)=><FindProviders {...props} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
-              <Route exact path="/main/sendTasks" component={sendTasks}/>
               <Route exact path="/main/scheduler" 
                 render={(props)=><Schedule {...props} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
-              <Route exact path='/main/sendDoctor' component={sendDoctor}/>
               {/* <Route exact path='/main/appointments' component={appointments}/> */}
               <Route exact path='/main/Doctors' 
                 render={(props)=><Store {...props} types={this.state.types}/>}/>
@@ -258,17 +327,11 @@ class Main extends Component {
                 render={(props)=><Team {...props} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
                 <Route exact path='/main/AccountInfo'
                 render={(props)=><AccountInfo {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
-              <Route exact path='/main/availability' 
-                render={(props)=><Availability {...props} />}/>
-              <Route exact path='/main/appointments'
-                render={(props)=><Appointments {...props} state={this.state} />}/>
                 {
-                    this.state.openInfoState == true ?
-                    (<div className="__appointment-Info" onClick={this.openInfo}>
-                      <h2>Next Appointment: {this.state.nextAppointment}</h2>
-                    </div>)
+                    this.state.appointmentToday == false ?
+                    (null)
                     :
-                    (<button className="__appointment-Pill" onClick={this.openInfo}></button>)
+                (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from(): 'Go to your appointment'}</button>)
                   }
             </div>
             </div>

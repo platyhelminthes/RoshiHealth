@@ -19,7 +19,7 @@ class header extends Component {
                 </div>
                 <div id='__head-bio'>
                     <div id='__head-bio-pic'>
-                        <img  src={this.props.profilePic} alt src={userImg}/>
+                        <img  src={this.props.profilePic ? (this.props.profilePic) : (userImg)}/>
                     </div>
                     <div id='__head-bio-info'>
                         <p>{this.props.name}</p>
