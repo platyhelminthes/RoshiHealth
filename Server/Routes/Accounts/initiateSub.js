@@ -9,6 +9,8 @@ module.exports = (req,res) => {
         initialConsultation: false
     }
     dietitian = {
+        id: '',
+        name: 'Ken Block',
         appointmentTokens: 1
     }
 
@@ -34,6 +36,33 @@ module.exports = (req,res) => {
         (data, err) => {
             if (err) console.log('new sub')
             else console.log('error making sub: ' + data)
+        }
+    )
+    Data.findOneAndUpdate(
+        {'fullName': nurse.name},
+        {$push: {'patientIds': req.user._id}},
+        {safe: true, upsert: true, new: true},
+        (data, err) => {
+            if (err) console.log('new sub')
+            else console.log('error making sub 2: ' + data)
+        }
+    )
+    Data.findOneAndUpdate(
+        {'fullName': nurse.name},
+        {$push: {'patientIds': req.user._id}},
+        {safe: true, upsert: true, new: true},
+        (data, err) => {
+            if (err) console.log('new sub')
+            else console.log('error making sub 2: ' + data)
+        }
+    )
+    Data.findOneAndUpdate(
+        {'fullName': nurse.name},
+        {$push: {'patientIds': req.user._id}},
+        {safe: true, upsert: true, new: true},
+        (data, err) => {
+            if (err) console.log('new sub')
+            else console.log('error making sub 2: ' + data)
         }
     )
 }

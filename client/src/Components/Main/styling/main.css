@@ -21,28 +21,36 @@
   width: 5vw;
   height: 7vh;
   position: absolute;
-  background: green;
+  background: #36393F;
+  color: #36393F;
   right: 0;
   top: 20vh;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
   border-right: 0;
+  transition: 1s;
+}
+
+.__appointment-Pill-open {
+  width: 10vw;
+  height: 7vh;
+  position: absolute;
+  background: #36393F;
+  color: white;
+  right: 0;
+  top: 20vh;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-right: 0;
+  transition: 1s;
 }
 
 .__appointment-Pill:focus {
   outline: none;
 }
 
-.__appointment-Info {
-  width: 20vw;
-  height: 40vh;
-  position: absolute;
-  background: orange;
-  right: 0;
-  top: 20vh;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  border-right: 0;
+.__appointment-Pill-open:focus {
+  outline: none;
 }
 
 

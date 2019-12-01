@@ -1,6 +1,6 @@
 import React from 'react'
-import {Component} from 'react'
-import {Link} from 'react-router-dom'
+import { Component } from 'react'
+import { Link } from 'react-router-dom'
 import '../style/sideNav.css'
 import HouseIcon from '@material-ui/icons/House';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -45,33 +45,34 @@ const dropDownHead = {
 }
 
 
-const dropDownActive={
+const dropDownActive = {
     display: 'flex',
     flexDirection: 'column',
     padding: '0',
     margin: '0'
 }
 
-function RenderTest(props){
-    if(props.true == true){
-        return(
-            <div className='__SideLinks-Static-Box' style={{paddingLeft: '1.3vw', paddingRight: '5vw'}}>
-                    <HouseIcon/>
-                    <Link to={{
-  pathname: '/video',
-  state: {
-    clicked: true
-  }}} className='__SideLinks-Static' style={{width: '20vw', paddingLeft: '.7vw'}} >Go to Appointment</Link>
+function RenderTest(props) {
+    if (props.true == true) {
+        return (
+            <div className='__SideLinks-Static-Box' style={{ paddingLeft: '1.3vw', paddingRight: '5vw' }}>
+                <HouseIcon />
+                <Link to={{
+                    pathname: '/video',
+                    state: {
+                        clicked: true
+                    }
+                }} className='__SideLinks-Static' style={{ width: '20vw', paddingLeft: '.7vw' }} >Go to Appointment</Link>
             </div>
         )
     }
-    else{ return(null)}
+    else { return (null) }
 }
 
 
 class body extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -81,151 +82,169 @@ class body extends Component {
         }
     }
 
-componentDidMount(){
-    console.log(this.props.subLevel)
-    setTimeout(this.checkAP, 1500)
-    setTimeout(this.checkDoctors, 2000)
-}
-
-checkAP = () => {
-    console.log(this.props.APtime)
-    if(this.props.APtime == true){
-        this.setState({true: true})
+    componentDidMount() {
+        console.log(this.props.subLevel)
+        setTimeout(this.checkAP, 1500)
+        setTimeout(this.checkDoctors, 2000)
     }
-}
 
-checkDoctors = () => {
-    var checker = []
-        if(this.props.allowed[1] != 'none'){
-            if(this.props.allowed.length > 0){
-            for(var i=0; i<this.props.allowed.length; i++){
-                checker.push(this.props.allowed[i])
-                console.log(this.props.allowed)
+    checkAP = () => {
+        console.log(this.props.APtime)
+        if (this.props.APtime == true) {
+            this.setState({ true: true })
+        }
+    }
+
+    checkDoctors = () => {
+        var checker = []
+        if (this.props.allowed[1] != 'none') {
+            if (this.props.allowed.length > 0) {
+                for (var i = 0; i < this.props.allowed.length; i++) {
+                    checker.push(this.props.allowed[i])
+                    console.log(this.props.allowed)
+                }
+                setTimeout(this.pushDoctors(checker), 1500)
             }
-            setTimeout(this.pushDoctors(checker),1500)
-        }        
-    }  
-}
+        }
+    }
 
-pushDoctors = (test) => {
-    this.setState({doctorsAllowed: test, link: '/main/addProviders'})
-}
+    pushDoctors = (test) => {
+        this.setState({ doctorsAllowed: test, link: '/main/addProviders' })
+    }
 
- renderStuff = {}
+    renderStuff = {}
 
 
-    render(){
+    render() {
         console.log(this.props.doctors)
         var link = this.state.link
-        return(
+        return (
             <div className='__body-main'>
                 <div className='__SideLinks-Static-Box'>
-                    <HouseIcon/>
-                    <Link to='/main/overview'className='__SideLinks-Static'>Overview</Link>
-                </div>
-                <div className='__SideLinks-Static-Box'>
-                    <HouseIcon/>
-                    <Link to='/main/tasks'className='__SideLinks-Static'>Tasks</Link>
+                    <HouseIcon />
+                    <Link to='/main/overview' className='__SideLinks-Static'>Overview</Link>
                 </div>
                 <ExpansionPanel style={dropDownBack} >
-                <ExpansionPanelSummary
-                        expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                    <ExpansionPanelSummary
+                        expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                         style={dropDown}
                         className='__DD-header'
                     >
-                        <HouseIcon style={{color: 'white'}}/>
-                        <p style={dropDownHead}>Doctors</p>
+                        <HouseIcon style={{ color: 'white' }} />
+                        <p style={dropDownHead}>Tasks</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
-                        
-        {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
+
+                        {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
+                        <Link to='/main/tasks' className='__SideLinks'>Tasks</Link>
+                        <Link to='/main/subTasks' className='__SideLinks'>Subscription Tasks</Link>
+                    </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <ExpansionPanel style={dropDownBack} >
+                        <ExpansionPanelSummary
+                            expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={dropDown}
+                            className='__DD-header'
+                        >
+                            <HouseIcon style={{ color: 'white' }} />
+                            <p style={dropDownHead}>Doctors</p>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails style={dropDownActive}>
+
+                            {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
                             <Link to="/main/Doctors" className='__SideLinks'>View Doctors</Link>
-                        
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                {this.props.doctors.length == 0 ?
-                (null)
-                :
-                (<ExpansionPanel style={dropDownBack} >
+
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    {this.props.doctors.length == 0 ?
+                        (null)
+                        :
+                        (<ExpansionPanel style={dropDownBack} >
+                            <ExpansionPanelSummary
+                                expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                                style={dropDown}
+                            >
+                                <HouseIcon style={{ color: 'white' }} />
+                                <p to="/main/overview" style={dropDownHead}>Team</p>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails style={dropDownActive}>
+                                <Link to="/main/Team" className='__SideLinks'>View Team</Link>
+
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>)}
+                    {this.props.doctors.length == 0 ?
+                        (null)
+                        :
+                        (
+                            <ExpansionPanel style={dropDownBack} >
+                                <ExpansionPanelSummary
+                                    expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                    style={dropDown}
+                                >
+                                    <HouseIcon style={{ color: 'white' }} />
+                                    <p to="/main/overview" style={dropDownHead}>Appointments</p>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails style={dropDownActive}>
+                                    <Link to="/main/scheduler" className='__SideLinks'>Make An Appointment</Link>
+                                    <Link to="/main/Appointments" className='__SideLinks'>View upcoming appointments</Link>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        )}
+                    <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
-                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                            expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                             style={dropDown}
+                            className='__DD-header'
                         >
-                        <HouseIcon style={{color: 'white'}}/>
-                        <p to="/main/overview" style={dropDownHead}>Team</p>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails style={dropDownActive}>
-                        <Link to="/main/Team" className='__SideLinks'>View Team</Link>
-                        
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>)}
-                {this.props.doctors.length == 0 ?
-                (null)
-                :
-                (
-                <ExpansionPanel style={dropDownBack} >
-                        <ExpansionPanelSummary
-                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                            style={dropDown}
-                        >
-                        <HouseIcon style={{color: 'white'}}/>
-                        <p to="/main/overview" style={dropDownHead}>Appointments</p>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails style={dropDownActive}>
-                        <Link  to="/main/scheduler"  className='__SideLinks'>Make An Appointment</Link>
-                        <Link  to="/main/Appointments"  className='__SideLinks'>View upcoming appointments</Link>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                )}
-                                <ExpansionPanel style={dropDownBack} >
-                <ExpansionPanelSummary
-                        expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        style={dropDown}
-                        className='__DD-header'
-                    >
-                        <HouseIcon style={{color: 'white'}}/>
-                        <p style={dropDownHead}>Subscription</p>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails style={dropDownActive}>
+                            <HouseIcon style={{ color: 'white' }} />
+                            <p style={dropDownHead}>Subscription</p>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails style={dropDownActive}>
                             {
                                 this.props.subLevel == 'nonSub' ?
-                                (<Link to="/main/subinfo" className='__SideLinks'>Purchase a Subscription</Link>)
-                                :
-                                (<Link to="/main/yourSub" className='__SideLinks'>Your Subscription</Link>)
+                                    (<Link to="/main/subinfo" className='__SideLinks'>Purchase a Subscription</Link>)
+                                    :
+                                    (<Link to="/main/yourSub" className='__SideLinks'>Your Subscription</Link>)
                             }
-                                                        {
-                                this.props.subLevel == 'nonSub' ?
-                                (null)
-                                :
-                                (<Link to="/main/subschedule" className='__SideLinks'>Schedule Appointment With Team</Link>)
-                            }
-                                                        
                             {
                                 this.props.subLevel == 'nonSub' ?
-                                (null)
-                                :
-                                (<Link to="/main/subappointments" className='__SideLinks'>Manage Sub Appointments</Link>)
+                                    (null)
+                                    :
+                                    (<Link to="/main/subschedule" className='__SideLinks'>Schedule Appointment With Team</Link>)
                             }
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                {
-                                this.props.initialConsultation == false ?
+
+                            {
+                                this.props.subLevel == 'nonSub' ?
+                                    (null)
+                                    :
+                                    (<Link to="/main/subappointments" className='__SideLinks'>Manage Sub Appointments</Link>)
+                            }
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    {this.props.sub == null ?
+                        (null)
+                        :
+                        (
+                            this.props.sub.nurse.initialConsultation == false ?
                                 (<div className='__body-alert'><p>&larr; Please Schedule Inital Consultation!</p></div>)
                                 :
                                 (null)
-                            }
+                        )
+                    }
             </div>
-        )
-    }
-
-}
-
+                )
+            }
+        
+        }
+        
 export default body

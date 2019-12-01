@@ -207,7 +207,7 @@ class Availability extends Component {
                     <button onClick={this.clickHandle}value='saturday'>saturday</button>
                     <button onClick={this.clickHandle}value='sunday'>sunday</button>
                 </div>
-                <button onClick={this.handleClick2}>checkTimes</button>
+                <button onClick={this.handleClick2}>Set Day</button>
                 <p>{this.state.displayTimes}</p>
                 <div className='__availability-Bottom'>
                 <div className='__availability-Left'>
@@ -215,7 +215,7 @@ class Availability extends Component {
                     <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Time</TableCell>
+            <TableCell style={{color: 'white'}}>Time</TableCell>
             <TableCell align="left"></TableCell>
           </TableRow>
         </TableHead>
@@ -223,7 +223,7 @@ class Availability extends Component {
                 {timesAM.map(
                     row=>(
                 <TableRow >
-                <TableCell component="th" scope="row">{row}</TableCell>
+                <TableCell style={{color: 'white'}} component="th" scope="row">{row}</TableCell>
                 <TableCell align="left"><button value={row} onClick={this.handleClick} className='__availability-Table-Buttons'>Available</button></TableCell>
                 </TableRow>
                 ))}
@@ -236,14 +236,14 @@ class Availability extends Component {
                     <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Time</TableCell>
+            <TableCell style={{color: 'white'}}>Time</TableCell>
             <TableCell align="left"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
                 {timesPM.map(row=>(
                 <TableRow >
-                <TableCell component="th" scope="row">{row}</TableCell>
+                <TableCell style={{color: 'white'}} component="th" scope="row">{row}</TableCell>
                 <TableCell align="left"><button value={row} onClick={this.handleClick} className='__availability-Table-Buttons'>Available</button></TableCell>
                 </TableRow>
                 ))}

@@ -76,12 +76,13 @@ class doctorBody extends Component {
                         className='__DD-header'
                     >
                         <HouseIcon style={{color: 'white'}}/>
-                        <p style={dropDownHead}>View your info</p>
+                        <p style={dropDownHead}>Set Your Schedule</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
                         
-                            <Link to="/main/availability" className='__SideLinks'>Set Your Shedule</Link>
-                            <Link to="/main/bio" className='__SideLinks'>Change your bio</Link>
+                            <Link to="/main/provider/availability" className='__SideLinks'>Reoccurring Schedule</Link>
+                            <Link to="/main/provider/dailySchedule" className='__SideLinks'>Set A Specific Date</Link>
+                            <Link to="/main/provider/holidaySchedule" className='__SideLinks'>Set Your Holidays</Link>
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -93,12 +94,30 @@ class doctorBody extends Component {
                             style={dropDown}
                         >
                         <HouseIcon style={{color: 'white'}}/>
-                        <p to="/main/overview" style={dropDownHead}>Your Patients</p>
+                        <p style={dropDownHead}>Your Patients</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
-                        <Link to="/main/Patients" className='__SideLinks'>View Your Patients</Link>
-                        <Link to="/main/appointments" className='__SideLinks'>View Your Appointments</Link>
-                        <Link to="/main/Tasks" className='__SideLinks'>Send Tasks</Link>
+                        <Link to="/main/provider/Patients" className='__SideLinks'>View Your Patients</Link>
+                        <Link to="/main/provider/appointments" className='__SideLinks'>View Your Appointments</Link>
+                        <Link to="/main/provider/sendtasks" className='__SideLinks'>Send Tasks</Link>
+                        <Link to="/main/provider/sendSubTasks" className='__SideLinks'>Send a Subscription Task</Link>
+                        
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <ExpansionPanel style={dropDownBack} >
+                        <ExpansionPanelSummary
+                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={dropDown}
+                        >
+                        <HouseIcon style={{color: 'white'}}/>
+                        <p to="/main/overview" style={dropDownHead}>Help</p>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails style={dropDownActive}>
+                        <Link to="/main/provider/Patients" className='__SideLinks'>FAQ</Link>
+                        <Link to="/main/provider/appointments" className='__SideLinks'>Basic Tutorial</Link>
+                        <Link to="/main/provider/Tasks" className='__SideLinks'>Ask Support</Link>
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

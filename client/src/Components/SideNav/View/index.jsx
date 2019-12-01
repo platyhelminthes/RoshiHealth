@@ -42,7 +42,7 @@ class Sidenav extends Component {
             <div id='__side-Nav'>
                 <Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>
                 {this.props.doctor == 'Patient' ?
-                (<Body subLevel={this.props.subLevel} initialConsultation={this.props.sub.nurse.initialConsultation} doctors={this.props.doctors} allowed={this.props.allowed} APtime={this.state.APTime}/>)
+                (<Body subLevel={this.props.subLevel} sub={this.props.sub} doctors={this.props.doctors} allowed={this.props.allowed} APtime={this.state.APTime}/>)
                 :
                 (<BodyD/>)
                 }

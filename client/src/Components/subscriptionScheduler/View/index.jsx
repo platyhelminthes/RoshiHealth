@@ -38,7 +38,8 @@ class Schedule extends Component {
             dateDay: null,
             openAppointments: [],
             pickType: null,
-            cost: 'doctors price'
+            cost: 'doctors price',
+            availableDays: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -127,7 +128,7 @@ class Schedule extends Component {
         }
         else {
             this.createAppointment(e.target.value)
-            this.setState({ redirect: true })
+            
         }
     }
 
@@ -141,28 +142,52 @@ class Schedule extends Component {
             if(this.props.state.subscription.nurse.initialConsultation == false){ 
                 Axios.get('/api/users/initialConsultationDone')
             }
+            Axios.post('/api/providers/makeAppointment',
+            {
+                date: moment(dateTime).add(8, 'hours'),
+                id: this.state.docId,
+                name: this.state.doctor,
+            }
+            
+            )
+            this.setState({redirect: true})
         }   
         if(this.state.docSelected == 'Health Counselor'){
-            Axios.get('/api/users/removeAPT')
+            if(this.props.state.subscription.healthCounselor.appointmentTokens > 0){
+            Axios.post('/api/users/removeAPT')
             Axios.post('/api/users/updateNextAPPHC', {
                 date: moment(dateTime).add(8, 'hours')
             })
+            Axios.post('/api/providers/makeAppointment',
+            {
+                date: moment(dateTime).add(8, 'hours'),
+                id: this.state.docId,
+                name: this.state.doctor,
+            }
+        )
+        this.setState({redirect: true})
         }
+    else{alert('not enough tokens')}}
         if(this.state.docSelected == 'Dietitian'){
+            if(this.props.state.subscription.dietitian.appointmentTokens > 0){
+
             Axios.get('/api/users/removeAPTDiet')
             Axios.post('/api/users/updateNextAPPD', {
                 date: moment(dateTime).add(8, 'hours')
             })
+            Axios.post('/api/providers/makeAppointment',
+            {
+                date: moment(dateTime).add(8, 'hours'),
+                id: this.state.docId,
+                name: this.state.doctor,
+            }
+        )
+        this.setState({redirect: true})
         }
+    else{alert('not enought tokens')}}
 
         
-            Axios.post('/api/providers/makeAppointment',
-                {
-                    date: moment(dateTime).add(8, 'hours'),
-                    id: this.state.docId,
-                    name: this.state.doctor,
-                }
-            )
+
         
         }
     }
@@ -220,15 +245,33 @@ class Schedule extends Component {
                     doctor: res.data.data[0].fullName,
                     docId: res.data.data[0]._id,
                     days: res.data.data[0].providerInfo.availability,
-                    cost: res.data.data[0].providerInfo.cost
+                    cost: res.data.data[0].providerInfo.cost,
+                    availableDays: res.data.data[0].providerInfo.availableDays
                 })
             }
         ).then(this.checkAvailable)
     }
 
     checkAvailable = () => {
+        alert(this.state.date)
+        var datematch = false
+        var index = null
+        for(var i=0;i<this.state.availableDays.length; i++){
+            if(this.state.availableDays[i].date == this.state.date){
+                datematch = true
+                index = i
+            }
+        }
         if(this.state.doctor == null){
             return null
+        }
+        else if(datematch == true){
+            for(var i=0; i<this.state.availableDays[index].times.length; i++){
+                if(this.state.availableDays[index].times.includes(this.state.appointments[i])){
+                    this.state.availableDays[index].times.splice(this.state.availableDays[index].times.indexOf(this.state.appointments[i], 1))
+                }
+            }
+            this.setState({appointmentTimes: this.state.availableDays[index].times})
         }
 
         else if(this.state.dateDay == 'Monday'){

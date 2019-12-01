@@ -1,0 +1,87 @@
+.__daily-schedule-main{
+    height: 100%;
+    width: 100%;
+    color: white;
+    padding-left: 10vw;
+    padding-top: 10vh
+}
+
+.__daily-top-box {
+    width: 100%;
+    height: 15vh;
+    display: flex;
+}
+
+.__top-box-left {
+    width: 40%;
+    height: 15vh;
+    background: #36393F;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.__top-box-left button {
+    border: 0;
+    background: white;
+    color: black;
+    width: 50%;
+    height: 100%
+}
+
+.__top-box-left h3 {
+    width: 50%;
+    height: 20%
+}
+
+.__top-box-right {
+    width: 50%;
+    height: 15vh;
+    background: #36393F;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    margin-bottom: 3vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: center;
+}
+
+.__daily-bottom-box {
+    width: 90%;
+    height: 60vh;
+    background: #36393F;
+    border-radius: 5px;
+    
+    display: flex
+}
+
+.__daily-bottom-left {
+    width: 50%;
+    height: 100%
+}
+
+.__daily-bottom-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+}
+
+.react-calendar {
+    border-radius: 0;
+    margin-top: 0;
+}
+
+.__daily-bottom-am {
+    width: 50%;
+    overflow: auto;
+    height: 100%;
+}
+
+.__daily-bottom-pm {
+    width: 50%;
+    overflow: auto;
+    height: 100%;
+}
