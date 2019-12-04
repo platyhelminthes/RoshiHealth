@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import '../styles/forgotPass.css'
 import Axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 
 class ForgotPass extends Component {
@@ -10,7 +10,8 @@ class ForgotPass extends Component {
         super()
 
         this.state = {
-            email: null
+            email: null,
+            redirect: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,11 +19,14 @@ class ForgotPass extends Component {
 
     }
 
+    
+
     handleSubmit(e){
         (e).preventDefault()
 
         Axios.post('/api/users/forgotPassword',
-            {email: this.state.email})
+            {email: this.state.email.toLowerCase()})
+            this.setState({redirect: true})
     }
 
     handleChange(e) {
@@ -36,6 +40,7 @@ class ForgotPass extends Component {
     }
 
     render(){
+        if(this.state.redirect == true){return(<Redirect to='/login'/>)}
         return(
             <div className='__forgotPass-main'>
                 
