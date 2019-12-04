@@ -12,7 +12,7 @@ import SendTasks from '../../Providers/Views/SendTasks'
 import Schedule from '../../Scheduling/View/index'
 import {Route} from 'react-router-dom'
 import SendDoctor from '../../Providers/Views/sendDoctors'
-import Appointments from '../../Appointments/views/index'
+import Appointments from '../../Appointments/views/index.jsx'
 import Store from '../../Store/View/index'
 import '../styling/main.css'
 import backimg from '../images/mountains.jpg'
@@ -32,6 +32,7 @@ import HolidaySchedule from '../../Providers/holidayScheduler/view/index'
 import ProviderCheck from '../../providerCheck.jsx'
 import SubTasks from '../../subscriptionTasks/view/subscriptionsTasks'
 import SendSubtasks from '../../Providers/sendSubTasks/view/sendSubTasks';
+import ForgotPass from '../../forgotPass/view/forgotPass'
 
 
 class Main extends Component {
@@ -69,7 +70,8 @@ class Main extends Component {
             appointmentToday: true,
             toAppointment: false,
             notlogged: false,
-            availableDays: []
+            availableDays: [],
+            exp: null
 
         };
         this.openInfo = this.openInfo.bind(this)
@@ -125,7 +127,8 @@ class Main extends Component {
             subscription: data.subLevel,
             profilePic: data.profilePicURL,
             subscription: data.subscription,
-            address: data.address
+            address: data.address,
+            exp: data.game.exp
       })
       console.log('hellotest')
       
@@ -295,7 +298,7 @@ class Main extends Component {
               render={(props)=><SendDoctor {...props} state={this.state} />}/>
               <Route exact path='/main/provider/availability' 
               render={(props)=><Availability {...props} />}/>
-              <Route exact path='/main/provider/appointments'
+              <Route exact path='/main/appointments'
               render={(props)=><Appointments {...props} state={this.state} />}/>
               <Route exact path='/main/provider/sendSubTasks'
               render={(props)=><SendSubtasks {...props} state={this.state}/>}/>
@@ -325,8 +328,10 @@ class Main extends Component {
                 render={(props)=><SubInfo {...props} state={this.state} resetTruth={this.resetTruth}/>}/>
               <Route exact path='/main/Team' 
                 render={(props)=><Team {...props} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
-                <Route exact path='/main/AccountInfo'
+              <Route exact path='/main/AccountInfo'
                 render={(props)=><AccountInfo {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path='/forgotPass'
+                render={(props)=><ForgotPass {...props}/>}/>
                 {
                     this.state.appointmentToday == false ?
                     (null)

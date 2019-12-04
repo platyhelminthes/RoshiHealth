@@ -30,7 +30,6 @@ class Subtasks extends Component {
     componentDidMount(){
         var unclean = this.props.state.subscription.subTasks
         var clean = []
-        alert(this.props.state.subTasks)
         for(var i=0; i < unclean.length; i++){
             if(unclean[i].finished == 'Active'){
                 clean.push(unclean[i])
@@ -58,11 +57,11 @@ class Subtasks extends Component {
                         <div className='__sub-top-right'>
                             <div className='__sub-completed'>
                                 <h2 style={{textAlign:'center', fontSize: '30px'}}>Completed</h2>
-                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>6</h2>
+        <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>{this.props.state.exp}</h2>
                             </div>
                             <div className='__sub-level'>
                                 <h2 style={{textAlign:'center', fontSize: '30px'}}>Level</h2>
-                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>1</h2>
+    <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>{Math.floor(this.props.state.exp / 10)}</h2>
                             </div>
                         </div>
                     </div>
@@ -85,7 +84,7 @@ class Subtasks extends Component {
                         </div>
                         <div className='__sub-bottom-right'>
                             <div className='__task-info-top'>
-                                <h2 style={{position: 'fixed', paddingRight: '20%'}} >Notes</h2>
+                                <h2 style={{position: 'fixed', paddingRight: '20%'}}>Notes</h2>
                                 {   this.state.text == null ?
                                     (null)
                                     :

@@ -6,7 +6,9 @@ SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
 
-
+const gameSchema = new Schema ({
+    exp: Number
+})
 
 const subTasksSchema = new Schema({
 
@@ -32,7 +34,8 @@ const subTasksSchema = new Schema({
         require: true
     },
     dateAssigned: String,
-    extraInfo: String
+    extraInfo: String,
+    seen: Boolean
 })
 
 
@@ -229,7 +232,9 @@ const accounts = new Schema({
         state: String,
         postalcode: Number,
         country: String
-    }
+    },
+    game: gameSchema,
+    resetNum: String
 },
   { timestamps: true }
 );

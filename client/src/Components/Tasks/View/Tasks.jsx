@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react'
 import axios from 'axios'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import {Redirect} from 'react-router-dom';
-import moment from 'moment'
-
-import loadingCircle from '../../Pictures/loadingCircle.png'
+import '../styles/Tasks.css'
+import { Table, TableBody, TableRow, TableCell, Button, Icon } from '@material-ui/core'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 class Tasks extends Component {
     constructor(props) {
@@ -63,46 +57,143 @@ class Tasks extends Component {
     }
 
     render() {
-        var tasks = this.state.task
-        if(this.state.redirect == true) {
-          return(<Redirect to='/main/overview'/>)
-        }
-        else if(this.state.loading == true){return(
-          <div style={{alignItems: 'center', width: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
-              <h1 style={{marginLeft: '6vw', marginTop: '20vh'}}>Loading...</h1>
-              <img style={{marginTop: '5vh', width:'300px', height:'297px'}}src={loadingCircle} id="loadingCircle"/>
-          </div>
-          )}
-        return (
-        <div>
-            <Table>
-            <TableHead>
-          <TableRow>
-            <TableCell style={{color: 'white'}}>Task</TableCell>
-            <TableCell style={{color: 'white'}} align="left">Doctor</TableCell>
-            <TableCell style={{color: 'white'}} align="right">Due Date</TableCell>
-            <TableCell style={{color: 'white'}} align="right">Finish Task</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tasks.map(
-            
-            
-            row => (
-            <TableRow key={row._id}>
-              <TableCell style={{color: 'white'}} component="th" scope="row">
-                {row.text}
-              </TableCell>
-              <TableCell style={{color: 'white'}} align="left">{row.providerName}</TableCell>
-              <TableCell style={{color: 'white'}} align="right">{moment(row.dueDate).format('dddd')}</TableCell>
-              <TableCell style={{color: 'white'}} align="right"><button onClick={this.handleSubmit} value={row._id}>Finish</button></TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-            </Table>
-          </div>
-        );
+      var tasks = this.state.tasks
+      return(
+      <div className='__sub-tasks-main'>
+                <div className='__sub-tasks-container'>
+                    <div className='__sub-tasks-top'>
+                        <div className='__sub-top-left'>
+                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
+                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
+                        </div>
+                        <div className='__sub-top-right'>
+                            <div className='__sub-completed'>
+                                <h2 style={{textAlign:'center', fontSize: '30px'}}>Completed</h2>
+                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>6</h2>
+                            </div>
+                            <div className='__sub-level'>
+                                <h2 style={{textAlign:'center', fontSize: '30px'}}>Level</h2>
+                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>1</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='__sub-tasks-bottom'>
+                        <div className='__sub-bottom-left'>
+                        {
+                    this.props.tasks.map(
+                        row=>(
+                                <Table>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell style={{color: 'white'}}>{row.text}</TableCell>
+                                            <TableCell><button className='__task-select' data-id={row._id} data-provider={row.providerName} data-finished={row.finished} data-text={row.text} onClick={this.handleClick}>Info <ArrowForwardIcon></ArrowForwardIcon></button></TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                        )
+                    )
+                }
+                        </div>
+                        <div className='__sub-bottom-right'>
+                            <div className='__task-info-top'>
+                                <h2 style={{position: 'fixed', paddingRight: '20%'}} >Notes</h2>
+                                {   this.state.text == null ?
+                                    (null)
+                                    :
+                                    (<button className='__finish-task' data-id={this.state.id} onClick={this.handleClick2}>Finish Task</button>)
+                                }
+                            </div>
+                            <div className='__task-info-mid'>
+                                <div style={{height: '40%'}}>
+                                <h4 >Task Info:</h4 >
+                                <div>
+                                {   this.state.text == null ?
+                                    (null)
+                                    :
+                                    (<h4 >{this.state.text}</h4 >)
+                                }
+                                </div>
+                                </div>
+                                <div style={{height: '50%'}}>
+                                <h4 >Doctor Assigned:</h4 >
+                                <div>
+                                    {
+                                        this.state.provider == null ?
+                                        (null)
+                                        :
+                                        (<h4 >{this.state.provider}</h4 >)
+                                    }
+                                </div>
+                                </div>
+                            </div>
+                            <div className='__task-info-bottom'>
+                                <h2 style={this.state.finished == null ? {marginRight: '40%'} : {height: '100%'}}>Task Finished:</h2>
+                            {this.state.finished == null ?
+                                    (null)
+                                    :
+                                    (<h2>{this.state.finished}</h2>)
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+      </div>
+      )
     }
 }
 
 export default Tasks;
+
+
+// class Subtasks extends Component {
+
+//     constructor(props){
+//         super(props)
+
+//         this.state = {
+//             text: null,
+//             finished: null,
+//             provider: null,
+//             id: null,
+//             tasks: []
+//         }
+
+//         this.handleClick=this.handleClick.bind(this)
+//         this.handleClick2=this.handleClick2.bind(this)
+
+//     }
+
+//     handleClick2(e){
+//         (e).preventDefault()
+//         Axios.post('/api/tasks/finishSubTask',
+//             {id: this.state.id})
+//     }
+
+//     componentDidMount(){
+//         var unclean = this.props.state.subscription.subTasks
+//         var clean = []
+//         alert(this.props.state.subTasks)
+//         for(var i=0; i < unclean.length; i++){
+//             if(unclean[i].finished == 'Active'){
+//                 clean.push(unclean[i])
+//             }
+//         }
+//         this.setState({tasks: clean})
+//     }
+
+//     handleClick(e){
+//         (e).preventDefault()
+//         console.log(e.target.dataset.id)
+//         this.setState({text: e.target.dataset.text, finished: e.target.dataset.finished, provider: e.target.dataset.provider, id: e.target.dataset.id})
+//     }
+
+//     render(){
+//         return(
+//         )
+//     }
+
+
+// }
+
+// export default Subtasks

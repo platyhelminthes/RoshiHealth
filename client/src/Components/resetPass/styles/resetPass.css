@@ -1,0 +1,38 @@
+.__forgotPass-main {
+    height: 100vh;
+    width: 100vw;
+    background: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__forgotPass-card {
+    width: 30%;
+    height: 50%;
+    background: #36393F;
+    color: black;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.__forgotPass-bottom {
+    height: 20%;
+    width: 100%;
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.__forgotPass-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+}

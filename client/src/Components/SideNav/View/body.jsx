@@ -231,6 +231,23 @@ class body extends Component {
                             }
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
+                    <ExpansionPanel style={dropDownBack} >
+                        <ExpansionPanelSummary
+                            expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                            style={dropDown}
+                        >
+                        <HouseIcon style={{color: 'white'}}/>
+                        <p to="/main/overview" style={dropDownHead}>Help</p>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails style={dropDownActive}>
+                        <Link to="/main/provider/Patients" className='__SideLinks'>FAQ</Link>
+                        <Link to="/main/provider/appointments" className='__SideLinks'>Basic Tutorial</Link>
+                        <Link to="/main/provider/Tasks" className='__SideLinks'>Ask Support</Link>
+                        
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
                     {this.props.sub == null ?
                         (null)
                         :
