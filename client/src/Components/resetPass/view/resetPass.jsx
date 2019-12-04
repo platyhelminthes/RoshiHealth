@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import '../styles/resetPass.css'
 import Axios from 'axios'
 import {Link} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 
 class ResetPass extends Component {
@@ -12,7 +13,8 @@ class ResetPass extends Component {
         this.state = {
             password: null,
             email: null,
-            num: null
+            num: null,
+            redirect: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,8 +24,8 @@ class ResetPass extends Component {
 
     componentDidMount(){
         var aa = window.location.href
-        var after = aa.substring(39, 75)
-        var email = aa.substring(76)
+        var after = aa.substring(33, 69)
+        var email = aa.substring(70)
         this.setState({num: after, email: email})
     }
 
@@ -32,8 +34,9 @@ class ResetPass extends Component {
 
         Axios.post('/api/users/resetPassword',
             {password: this.state.password,
-            email: this.state.email,
+            email: this.state.email.toLowerCase(),
             resetNum: this.state.num})
+            this.setState({redirect: true})
     }
 
     handleChange(e) {
@@ -47,6 +50,7 @@ class ResetPass extends Component {
     }
 
     render(){
+        if(this.state.redirect == true){return(<Redirect to='/login'/>)}
         return(
             <div className='__forgotPass-main'>
                 
