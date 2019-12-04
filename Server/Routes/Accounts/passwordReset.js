@@ -1,4 +1,6 @@
 const Data = require('../../Collections/users')
+const bcrypt = require('bcrypt')
+const SALT_WORK_FACTOR = 10;
 
 module.exports = (req, res) => {
     var num = null
@@ -14,14 +16,15 @@ module.exports = (req, res) => {
 
     function stepTwo(){
         if(req.body.resetNum == num){
-            Data.findOneAndUpdate(
+            bcrypt.hash(req.body.password, SALT_WORK_FACTOR)
+            .then(hashedPassword => Data.findOneAndUpdate(
                 {'email': req.body.email},
-                {'password': req.body.password},
+                {'password': hashedPassword},
                 (err, data)=>{
                     if(err) return console.log(err)
                     return console.log('password Reset')
                 }
-            )
+            ))
         }
     }
 
