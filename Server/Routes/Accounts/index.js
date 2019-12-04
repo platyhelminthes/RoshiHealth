@@ -17,6 +17,8 @@ const ICD = require('./finishInitialConsultation')
 const RAPTD = require('./removeAPTDietitician')
 const UNAPHC = require('./updateNextAppHC')
 const UNAPD = require('./updateNextAppD')
+const FPASS = require('./forgotPassword')
+const RPASS = require('./passwordReset')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -35,6 +37,8 @@ routes.get('/initialConsultationDone', ICD)
 routes.get('/removeAPTDiet', RAPTD)
 routes.post('/updateNextAPPHC', UNAPHC)
 routes.post('/updateNextAPPD', UNAPD)
+routes.post('/forgotPassword', FPASS)
+routes.post('/resetPassword', RPASS)
 
 
 
