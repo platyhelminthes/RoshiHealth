@@ -24,13 +24,17 @@ module.exports = (req,res) => {
 
     var client = nodemailer.createTransport(sgTransport(options));
 
-    let link = '<a href="roshihealth.com/resetPass/'+resetNum+'/'+req.body.email+'">Confirm your account</a>'
+    let link = '<a href="roshihealth.com/resetPass/'+resetNum+'/'+req.body.email+'">Go To Password Reset</a>'
     
     const mailOptions = {
      from: 'roshihealth@gmail.com', // sender address
      to: req.body.email, // list of receivers
      subject: 'Your Password Reset Link', // Subject line
-     html: '<h1 style="color: red">You have requested a password reset</h1> <p>Please click the following link to reset your password</p>' + link// plain text body
+     html: `<h1 style="color: red">You have requested a password reset</h1>
+     <p>If this was not you then please change your password</p>
+     <p>If you do not have an account with Roshi Health then please disregard this email</p>
+     <p>Please click the following link to reset your password</p>
+      ` + link// plain text body
       };
     //var task = {
     //    id: 1,
@@ -42,6 +46,4 @@ module.exports = (req,res) => {
         else
           console.log(info);
      });
-
-
 }
