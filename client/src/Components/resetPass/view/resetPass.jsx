@@ -24,8 +24,8 @@ class ResetPass extends Component {
 
     componentDidMount(){
         var aa = window.location.href
-        var after = aa.substring(33, 69)
-        var email = aa.substring(70)
+        var after = aa.substring(34, 70)
+        var email = aa.substring(71)
         this.setState({num: after, email: email})
     }
 
