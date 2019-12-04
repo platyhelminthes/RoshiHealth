@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/platyhelminthes/Platyhelminthes#readme",
   "dependencies": {
+    "@sanity/client": "^0.144.0",
     "animejs": "^3.1.0",
     "aws-sdk": "^2.560.0",
     "bcrypt": "^3.0.6",

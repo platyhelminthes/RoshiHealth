@@ -9,10 +9,12 @@ const GA = require('./getAppointment')
 const MAP = require('./makeAppointment')
 const SD = require('./sendDoctors')
 const SA = require('./setAvailability')
+const AAD = require('./dailySchedule')
+const SST = require('./sendSubTask')
 
 
 
-
+routes.post('/dailySchedule', AAD)
 routes.post('/setProvider', MA)
 routes.post('/searchProviders', FP)
 routes.post('/addProvider', AP)
@@ -22,6 +24,7 @@ routes.post('/getAppointments', GA)
 routes.post('/makeAppointment', MAP)
 routes.post('/sendDoctor', SD)
 routes.post('/addAvailability', SA)
+routes.post('/sendSubTask', SST)
 
 
 

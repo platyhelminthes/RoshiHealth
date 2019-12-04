@@ -88,18 +88,6 @@ render(){
                         <TableCell>Health Counselor Appointments Left This Month</TableCell>
                         <TableCell>{this.props.state.healthCounselor.appointmentTokens}</TableCell>
                     </TableRow>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
                 </TableBody>
             </Table>
 

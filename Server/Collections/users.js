@@ -6,6 +6,39 @@ SALT_WORK_FACTOR = 10;
 
 // this will be our data base's data structure 
 
+const gameSchema = new Schema ({
+    exp: Number
+})
+
+const subTasksSchema = new Schema({
+
+    providerId: {
+        type: String,
+        require: true
+    },
+    providerName: {
+        type: String,
+        require: true
+    },
+    text: {
+        type: String,
+        require: true
+    },
+    finished: {
+        type: String,
+        enum: ["Finished", "Active", "Failed"],
+        default: "Active"
+    },
+    dueDate: {
+        type: String,
+        require: true
+    },
+    dateAssigned: String,
+    extraInfo: String,
+    seen: Boolean
+})
+
+
 const subscriptionSchema = new Schema ({
 
     dietitian: {
@@ -36,8 +69,11 @@ const subscriptionSchema = new Schema ({
     },
     started: Date,
     yearMark: Date,
-    months: Number
+    months: Number,
+    subTasks: [subTasksSchema]
 })
+
+
 
 
 const tasksSchema = new Schema({
@@ -63,7 +99,8 @@ const tasksSchema = new Schema({
             type: Date,
             require: true,
             default: Date.now()
-        }
+        },
+        extraInfo: String
     })
 
 const providersSchema = new Schema({
@@ -118,6 +155,11 @@ const shoppingCartSchema = new Schema({
     }
 })
 
+const daysSchema = new Schema({
+    date: String,
+    times: [String]
+})
+
 
 
 const accounts = new Schema({
@@ -163,6 +205,7 @@ const accounts = new Schema({
             saturday: [String],
             sunday: [String]
     },
+        availableDays: [daysSchema],
         subInfo: {
             healthCounselor: String,
             doctors: [String],
@@ -189,7 +232,9 @@ const accounts = new Schema({
         state: String,
         postalcode: Number,
         country: String
-    }
+    },
+    game: gameSchema,
+    resetNum: String
 },
   { timestamps: true }
 );
