@@ -7,6 +7,6 @@ module.exports = (req, res) => {
         (err) => {
             if (err) console.log(err)
         }
-
+        
     )
 }

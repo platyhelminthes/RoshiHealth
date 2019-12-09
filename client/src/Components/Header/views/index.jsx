@@ -47,7 +47,7 @@ class Tasks extends Component {
 
       openModal = (e) => {
         (e).preventDefault()
-        this.setState({ purchase: true, total: e.target.value });
+        this.setState({ purchase: true, total: e.target.value, DD: false });
       };
 
       openDropDown = () => {
@@ -106,7 +106,7 @@ class Tasks extends Component {
                 {this.state.purchase == true ?
                 (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
                         <Elements>
-                            <Checkout updateTruthWallet={this.props.updateTruthWallet} closeModal={this.closeModal} total={this.state.total} />
+                            <Checkout style={{zIndex: '9999999'}} updateTruthWallet={this.props.updateTruthWallet} closeModal={this.closeModal} total={this.state.total} />
                         </Elements>
                 </StripeProvider>)
                 :

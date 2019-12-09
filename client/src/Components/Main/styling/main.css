@@ -22,7 +22,7 @@
   height: 7vh;
   position: absolute;
   background: #36393F;
-  color: #36393F;
+  font-size: 0;
   right: 0;
   top: 20vh;
   border-top-left-radius: 25px;

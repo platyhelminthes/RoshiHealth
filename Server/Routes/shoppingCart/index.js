@@ -12,6 +12,7 @@ const CH = require('./charge')
 const UA = require('./updateAccount')
 const ADDT = require('./addToken')
 const INCT = require('./increaseToken')
+const CHMTH = require('./chargeMonthly')
 
 
 routes.post('/addProductToCart', AP)
@@ -26,6 +27,7 @@ routes.post('/charge', CH.charge)
 routes.post('/updateAccount', UA)
 routes.post('/addToken', ADDT)
 routes.post('/increaseToken', INCT)
+routes.post('/chargeMonthly', CHMTH)
 
 
 

@@ -8,7 +8,9 @@ import baby from '../../Pictures/baby.jpg'
 import coffee from '../../Pictures/coffee.jpg'
 import room from '../../Pictures/room.jpg'
 import Checkout from './checkOut'
+import StripeCheckout from 'react-stripe-checkout';
 import { Elements, StripeProvider } from 'react-stripe-elements';
+import Axios from 'axios'
 
 class subInfo extends Component {
 
@@ -20,6 +22,7 @@ class subInfo extends Component {
         }
 
         this.purchaseSub = this.purchaseSub.bind(this)
+        this.onToken = this.onToken.bind(this)
     }
 
     purchaseSub(e){
@@ -31,6 +34,10 @@ class subInfo extends Component {
     }
 
 
+    onToken = (token) => {
+        alert('Thank you for your purchase')
+      }
+
     render() {
         return (
             <div className='__Sub-Info-Main'>
@@ -41,7 +48,17 @@ class subInfo extends Component {
                         <p>Get expert guidance from your personlized team
                             to take your health to the next level. All programs
                         are fully customized to fit your lifestyle.</p>
-                        <button className='__sub-Purchase' onClick={()=>{this.setState({purchase: true})}}>Buy Now</button>
+                        <StripeCheckout
+                        amount={10000}
+                        billingAddress
+                        description="Health Plan"
+                        image="https://yourdomain.tld/images/logo.svg"
+                        locale="auto"
+                        name="RoshiHealth"
+                        stripeKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD"
+                        token={this.onToken}
+                        zipCode
+                  />
                     </div>
                 </div>
                 <div className='__sub-Info-2'>
@@ -113,15 +130,11 @@ class subInfo extends Component {
                     </div>
                 </div>
                 <button className='__sub-Purchase' onClick={()=>{this.setState({purchase: true})}}>Buy Now</button>
-                {this.state.purchase == true ?
-                (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
-                        <Elements>
-                            <Checkout resetTruth={this.props.resetTruth} closeModal={this.closeModal} total={100} />
-                        </Elements>
-                </StripeProvider>)
-                :
-                (null)
-                }
+                {/* // (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
+                //         <Elements>
+                //             <Checkout resetTruth={this.props.resetTruth} closeModal={this.closeModal} total={100} />
+                //         </Elements>
+                // </StripeProvider>) */}
             </div>
         )
     }

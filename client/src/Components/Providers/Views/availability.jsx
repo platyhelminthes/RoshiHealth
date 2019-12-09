@@ -1,6 +1,6 @@
 import React from 'react'
 import {Component} from 'react'
-import '../styles/availability.css'
+import '../availability/styles/availability.css'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Axios from 'axios';
 import moment from 'moment'
+
 
 class Availability extends Component {
     constructor(props){
@@ -24,11 +25,13 @@ class Availability extends Component {
             friday: [1],
             saturday: [1],
             sunday: [1],
-            displayTimes: ['select ', 'a', ' time']
+            displayTimesAM: ['select ', 'a', ' time'],
+            displayTimesPM: ['select ', 'a', ' time']
         }
         this.clickHandle = this.clickHandle.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClick2 = this.handleClick2.bind(this);
+        this.resetDay = this.resetDay.bind(this)
     }
 
     componentDidMount(){
@@ -37,7 +40,10 @@ class Availability extends Component {
         
     }
 
-    timesToSend = []
+   
+
+    timesToSendAM = []
+    timesToSendPM = []
 
     getUser = () => {
         Axios.get('/api/users/getUser')
@@ -58,10 +64,23 @@ class Availability extends Component {
 
     clickHandle = (e) => {
         (e).preventDefault()
-        this.timesToSend.length = 0
+        this.timesToSendAM.length = 0
+        this.timesToSendPM.length = 0
         this.setState({daySelected: e.target.value})
         setTimeout(this.reset, 50)
         setTimeout(this.checkTimes, 100)
+    }
+
+    resetDay = (e) => {
+        (e).preventDefault()
+        if(this.state.daySelected == null){
+            alert('select a day')
+        }
+        else{
+            alert('day resetting')
+        Axios.post('/api/providers/resetDay', {
+            day: this.state.daySelected
+        })}
     }
 
     reset = () => {
@@ -166,16 +185,28 @@ class Availability extends Component {
     }
 
     handleClick = (e) => {
-
-        this.timesToSend.push(e.target.value)
-        this.timesToSend.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
-        this.setState({displayTimes: this.timesToSend})
+        if(this.timesToSendAM.includes(e.target.value) || this.timesToSendPM.includes(e.target.value)){console.log('null')}
+        else{
+        if(e.target.value.includes('AM')){
+        this.timesToSendAM.push(e.target.value)
+        this.timesToSendAM.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
+        this.timesToSendAM.sort()
+        setTimeout(()=>{
+            this.setState({displayTimesAM: this.timesToSendAM})
+        }, 300)
     }
+    else{this.timesToSendPM.push(e.target.value)
+        this.timesToSendPM.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
+        this.timesToSendPM.sort()
+        setTimeout(()=>{
+            this.setState({displayTimesPM: this.timesToSendPM})
+        }, 300)}}
+}
 
     handleClick2 = (e) => {
         (e).preventDefault()
         if(this.state.daySelected == null){alert('choose a day')}
-        else if(this.timesToSend.length == 0){alert('select a time')}
+        else if(this.timesToSendAM.length == 0 || this.timesToSendPM.length == 0){alert('select a time')}
         else{
         this.sendTimes()
         setTimeout(this.getUser, 500)
@@ -188,7 +219,7 @@ class Availability extends Component {
     sendTimes = () => {
         Axios.post('/api/providers/addAvailability', {
             day: this.state.daySelected,
-            time: this.timesToSend
+            time: this.timesToSendFinal
         })
     }
 
@@ -207,8 +238,22 @@ class Availability extends Component {
                     <button onClick={this.clickHandle}value='saturday'>saturday</button>
                     <button onClick={this.clickHandle}value='sunday'>sunday</button>
                 </div>
+                <div className='__action-buttons'>
                 <button onClick={this.handleClick2}>Set Day</button>
-                <p>{this.state.displayTimes}</p>
+                <button onClick={this.resetDay}>Reset This Day</button>
+                </div>
+                <div className='__display-times'>
+                    <div className="__display-times-AM">
+                    {this.state.displayTimesAM.map((row)=>(
+                    <p>{row}</p>
+                    ))}
+                    </div>
+                    <div className="__display-times-PM">
+                    {this.state.displayTimesPM.map((row)=>(
+                    <p>{row}</p>
+                    ))}
+                    </div>
+                </div>
                 <div className='__availability-Bottom'>
                 <div className='__availability-Left'>
                     <div>

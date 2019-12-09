@@ -25,6 +25,8 @@
     height: 100%;
     display: flex;
     justify-content: space-between;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .__sub-top-right {
@@ -80,7 +82,6 @@
     border-bottom: 1px solid white;
     padding-left: 2vw;
     display: flex;
-    justify-content: space-around;
 }
 
 .__task-info-mid  {
@@ -128,4 +129,11 @@
 
 .__finish-task:hover {
     background: gray;
+}
+
+.__images {
+    border-radius: 15px;
+    max-width: 11vw;
+    height: 100%;
+    margin-right: 3vw;
 }
