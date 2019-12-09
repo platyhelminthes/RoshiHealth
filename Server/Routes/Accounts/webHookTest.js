@@ -1,4 +1,5 @@
 const Data = require('../../Collections/users')
+const stripe = require("stripe")(process.env.SECRET)
 
 
 
