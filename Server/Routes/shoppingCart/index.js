@@ -13,6 +13,10 @@ const UA = require('./updateAccount')
 const ADDT = require('./addToken')
 const INCT = require('./increaseToken')
 const CHMTH = require('./chargeMonthly')
+const multer = require('multer')
+const upload=multer()
+const cors = require('cors')
+const TEST = require('./testerinos')
 
 
 routes.post('/addProductToCart', AP)
@@ -27,7 +31,8 @@ routes.post('/charge', CH.charge)
 routes.post('/updateAccount', UA)
 routes.post('/addToken', ADDT)
 routes.post('/increaseToken', INCT)
-routes.post('/chargeMonthly', CHMTH)
+routes.post('/chargeMonthly', upload.none(), cors(), CHMTH)
+routes.get('/TEST', TEST)
 
 
 

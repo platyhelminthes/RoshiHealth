@@ -12,16 +12,21 @@ var Data = require('./Server/Collections/users')
 const moment = require('moment-timezone')
 const nodemailer = require('nodemailer')
 const sgTransport = require('nodemailer-sendgrid-transport')
-const accountSid = 'AC493982b1daab2cac3e130cb21667b49f';
-const authToken = 'f2a62cab033dc1915ebf4ae35729bfda';
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTH_TOKEN;
 const tclient = require('twilio')(accountSid, authToken);
+const multer = require('multer');
+const Stripe = require('stripe');
+const uuidv4 = require('uuid/v4');
+const apiKeySecret = process.env.SECRET;
 //var db = require('./models')
 
-
+const stripe = Stripe(apiKeySecret);
+const upload = multer();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESS_SEC, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -30,7 +35,7 @@ app.use('/api', routes);
 
 
 
-const dbRoute = 'mongodb+srv://Devon:Jakeybear5@holisticpatterns-dwbsh.azure.mongodb.net/EcommerceDB?retryWrites=true&w=majority';
+const dbRoute = process.env.DB_ROUTE
 
 mongoose.connect(dbRoute, {
     useCreateIndex: true,
@@ -76,8 +81,8 @@ cron.schedule("0 13 * * *", function() {
       var options = {
         service: 'SendGrid',
         auth: {
-          api_user: 'fallenangel1996',
-          api_key: 'Jakeybear5!'
+          api_user: process.env.SEND_GRID_USER,
+          api_key: process.env.SECRET_PASS
         }
       }
    
@@ -161,33 +166,33 @@ cron.schedule("00 */1 * * *", function() {
  })
 });
 
-cron.schedule("00 18 * * *", function() {
-  var options = {
-    service: 'SendGrid',
-    auth: {
-      api_user: 'fallenangel1996',
-      api_key: 'Jakeybear5!'
-    }
-  }
+// cron.schedule("00 18 * * *", function() {
+//   var options = {
+//     service: 'SendGrid',
+//     auth: {
+//       api_user: process.env.SEND_GRID_USER,
+//       api_key: process.env.SECRET_PASS
+//     }
+//   }
 
-var client = nodemailer.createTransport(sgTransport(options));
+// var client = nodemailer.createTransport(sgTransport(options));
 
   
 
-const mailOptions = {
- from: 'roshihealth@gmail.com', // sender address
- to: 'dvowen@cox.net', // list of receivers
- subject: 'Appointment soon!', // Subject line
- html: 'Current Server Time: ' + moment().format('LT')// plain text body
-  };
+// const mailOptions = {
+//  from: 'roshihealth@gmail.com', // sender address
+//  to: 'dvowen@cox.net', // list of receivers
+//  subject: 'Appointment soon!', // Subject line
+//  html: 'Current Server Time: ' + moment().format('LT')// plain text body
+//   };
 
-client.sendMail(mailOptions, function (err, info) {
-    if(err)
-      console.log(err)
-    else
-      console.log(info);
- });
-})
+// client.sendMail(mailOptions, function (err, info) {
+//     if(err)
+//       console.log(err)
+//     else
+//       console.log(info);
+//  });
+// })
 
 cron.schedule("00 */1 * * *", function() {
   
@@ -207,8 +212,8 @@ cron.schedule("00 */1 * * *", function() {
       var options = {
         service: 'SendGrid',
         auth: {
-          api_user: 'fallenangel1996',
-          api_key: 'Jakeybear5!'
+          api_user: process.env.SEND_GRID_USER,
+          api_key: process.env.SECRET_PASS
         }
       }
    

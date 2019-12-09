@@ -6,8 +6,8 @@
  
  // configure the keys for accessing AWS
  AWS.config.update({
-   accessKeyId: 'AKIAY7RYTAVL4MUDZT7Z',
-   secretAccessKey: '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'
+   accessKeyId: process.env.AWS_NON_SECRET,
+   secretAccessKey: process.env.AWS_SECRET
  });
  // configure AWS to work with promises
  AWS.config.setPromisesDependency(bluebird);

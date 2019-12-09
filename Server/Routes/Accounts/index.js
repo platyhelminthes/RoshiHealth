@@ -22,6 +22,7 @@ const RPASS = require('./passwordReset')
 const CHARGE = require('./charge')
 const CANCELA = require('./cancelAppointment')
 const CANCELSA = require('./cancelSubAppointment')
+const WHT = require('./webHookTest')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -45,7 +46,7 @@ routes.post('/resetPassword', RPASS)
 routes.post('/charge', CHARGE)
 routes.post('/cancelAppointment', CANCELA)
 routes.post('/cancelSubAppointment', CANCELSA)
-
+routes.post('/webhooktest', WHT)
 
 
 

@@ -17,8 +17,8 @@ module.exports = (req,res) => {
     var options = {
         service: 'SendGrid',
         auth: {
-          api_user: 'fallenangel1996',
-          api_key: 'Jakeybear5!'
+          api_user: process.env.SEND_GRID_USER,
+          api_key: process.env.SECRET_PASS
         }
       }
 
