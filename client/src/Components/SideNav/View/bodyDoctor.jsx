@@ -82,7 +82,7 @@ class doctorBody extends Component {
                         
                             <Link to="/main/provider/availability" className='__SideLinks'>Reoccurring Schedule</Link>
                             <Link to="/main/provider/dailySchedule" className='__SideLinks'>Set A Specific Date</Link>
-                            <Link to="/main/provider/holidaySchedule" className='__SideLinks'>Set Your Holidays</Link>
+                            {/* <Link to="/main/provider/holidaySchedule" className='__SideLinks'>Set Your Holidays</Link> */}
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
@@ -115,9 +115,9 @@ class doctorBody extends Component {
                         <p to="/main/overview" style={dropDownHead}>Help</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
-                        <Link to="/main/provider/Patients" className='__SideLinks'>FAQ</Link>
-                        <Link to="/main/provider/appointments" className='__SideLinks'>Basic Tutorial</Link>
-                        <Link to="/main/provider/Tasks" className='__SideLinks'>Ask Support</Link>
+                        <Link to="/main/support/FAQ" className='__SideLinks'>FAQ</Link>
+                        <Link to="/main/support/tutorial" className='__SideLinks'>Basic Tutorial</Link>
+                        <Link to="/main/support/askSupport" className='__SideLinks'>Ask Support</Link>
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

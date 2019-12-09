@@ -49,10 +49,12 @@ class Schedule extends Component {
 
 
     handleChange = (date) => {
+        if(moment(date).isBefore()){alert('Please only schedule future appointments')}
+        else{
         var dateClean = moment(date).format('YYYY-MM-DD')
         var Day = moment(date).format('dddd')
         this.setState({ date: dateClean, dateDay: moment(date).format('dddd')})
-        this.dateCheck(dateClean, Day)
+        this.dateCheck(dateClean, Day)}
     }
 
     dateCheck = (date, day12) => {
@@ -147,6 +149,9 @@ class Schedule extends Component {
                 date: moment(dateTime).add(8, 'hours'),
                 id: this.state.docId,
                 name: this.state.doctor,
+                price: 0,
+                subAPP: true,
+                type: 'Nurse'
             }
             
             )
@@ -163,6 +168,9 @@ class Schedule extends Component {
                 date: moment(dateTime).add(8, 'hours'),
                 id: this.state.docId,
                 name: this.state.doctor,
+                price: 1,
+                subAPP: true,
+                type: 'Health Counselor'
             }
         )
         this.setState({redirect: true})
@@ -180,6 +188,9 @@ class Schedule extends Component {
                 date: moment(dateTime).add(8, 'hours'),
                 id: this.state.docId,
                 name: this.state.doctor,
+                price: 1,
+                subAPP: true,
+                type: 'Dietitian'
             }
         )
         this.setState({redirect: true})

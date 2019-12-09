@@ -139,6 +139,12 @@ const appointmentsSchema = new Schema({
     },
     userName: {
         type: String
+    },
+    price: Number,
+    subAPP: Boolean,
+    subType: {
+        type: String,
+        enum: ['Health Counselor', 'Dietitian', 'Nurse', 'None']
     }
 })
 
@@ -193,8 +199,7 @@ const accounts = new Schema({
             default: "Patient"
     },
         patientIds: {
-            type: [String],
-            default: 'empty'
+            type: [String]
     },
         availability: {
             monday: [String],
@@ -213,7 +218,8 @@ const accounts = new Schema({
             teamTokens: Number,
             subRenewDate: Date
     },
-    cost: Number
+    cost: Number,
+    pay: Number
     },
     doctorsToAdd: [String],
     wallet: Number,

@@ -3,28 +3,40 @@ import axios from 'axios'
 import '../styles/Tasks.css'
 import { Table, TableBody, TableRow, TableCell, Button, Icon } from '@material-ui/core'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import {Redirect} from 'react-router-dom'
 
 class Tasks extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            task: null,
+            task: [],
             sub: null,
             redirect: false,
-            loading: true
+            loading: true,
+            text: null,
+            finished: null,
+            provider: null,
+            id: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
+    }
+    handleClick(e){
+        (e).preventDefault()
+        console.log(e.target.dataset.id)
+        this.setState({text: e.target.dataset.text, finished: e.target.dataset.finished, provider: e.target.dataset.provider, id: e.target.dataset.id})
     }
     handleSubmit(e) {
       (e).preventDefault()
 
-      this.finishTask(e.target.value)
+      this.finishTask(e.target.dataset.id)
   }
-  tasks = this.props.tasks
+  tasks = this.props.state.tasks
     componentDidMount(){
       console.log(this.props.tasks)
-      if(this.props.tasks == null){
+      if(this.props.state.tasks == null){
         this.setState({redirect: true})
       }else{
         this.sortTasks()
@@ -41,8 +53,8 @@ class Tasks extends Component {
   }
     sortTasks = () => {
       var push = []
-      for(var i=0;i<this.tasks.length;i++){
-        if(this.tasks[i].finished == 'Active') {
+      for(var i=0;i<this.props.state.tasks.length;i++){
+        if(this.props.state.tasks[i].finished == 'Active') {
           push.push(this.tasks[i])
         }
       }
@@ -53,35 +65,46 @@ class Tasks extends Component {
       axios.post('/api/tasks/finishTask',
       {
         id: id
-      }).then(this.setState({redirect: true}))
+      }).then(this.props.resetTruth())
     }
 
     render() {
       var tasks = this.state.tasks
+      if(this.state.redirect == true){return(<Redirect to='/main'/>)}
       return(
       <div className='__sub-tasks-main'>
                 <div className='__sub-tasks-container'>
                     <div className='__sub-tasks-top'>
                         <div className='__sub-top-left'>
-                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
-                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
+                            {this.props.state.doctors.length == 0 ?
+                            (<h2>No doctors added yet</h2>)
+                            :
+                            this.props.state.doctors.map(
+                                row=>(
+                                    <img src={row.profilePicURL} alt={row.fullName + ' has not added a photo yet'} className='__images'/>
+                                )
+                            )}
                         </div>
                         <div className='__sub-top-right'>
                             <div className='__sub-completed'>
                                 <h2 style={{textAlign:'center', fontSize: '30px'}}>Completed</h2>
-                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>6</h2>
+      <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>{this.props.state.exp}</h2>
                             </div>
                             <div className='__sub-level'>
                                 <h2 style={{textAlign:'center', fontSize: '30px'}}>Level</h2>
-                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>1</h2>
+                                <h2 style={{textAlign:'center', fontSize: '50px', marginTop: '5%'}}>{Math.floor(this.props.state.exp / 10)}</h2>
                             </div>
                         </div>
                     </div>
                     <div className='__sub-tasks-bottom'>
                         <div className='__sub-bottom-left'>
                         {
-                    this.props.tasks.map(
+                            this.state.task.length == 0 ?
+                            (<h2 style={{justifySelf: 'center', margin: '5vw'}}>You do not currently have any tasks.</h2>)
+                            :
+                    this.state.task.map(
                         row=>(
+                        
                                 <Table>
                                     <TableBody>
                                         <TableRow>
@@ -96,11 +119,11 @@ class Tasks extends Component {
                         </div>
                         <div className='__sub-bottom-right'>
                             <div className='__task-info-top'>
-                                <h2 style={{position: 'fixed', paddingRight: '20%'}} >Notes</h2>
+                                <h2 style={{position: 'fixed', paddingRight: '20%'}}>Notes</h2>
                                 {   this.state.text == null ?
                                     (null)
                                     :
-                                    (<button className='__finish-task' data-id={this.state.id} onClick={this.handleClick2}>Finish Task</button>)
+                                    (<button className='__finish-task' data-id={this.state.id} onClick={this.handleSubmit}>Finish Task</button>)
                                 }
                             </div>
                             <div className='__task-info-mid'>

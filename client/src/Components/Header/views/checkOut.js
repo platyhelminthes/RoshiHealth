@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import { CheckoutForm, injectStripe } from 'react-stripe-elements';
 import Axios from 'axios';
+import '../Styles/Header.css'
 
-class CheckoutForm extends Component {
+class AheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,9 +44,9 @@ class CheckoutForm extends Component {
     return (
       <div>
       <div onClick={this.props.closeModal} className="modal_background"></div>
-        <div className="checkout">
+        <div className="checkout" style={{color: 'white'}}>
           <p>Would you like to complete the purchase?</p>
-          <CardElement />
+          <CheckoutForm/>
           <button onClick={this.submit}>Submit Payment</button>
         </div>
         </div>
@@ -53,4 +54,4 @@ class CheckoutForm extends Component {
   }
 }
 
-export default injectStripe(CheckoutForm);
+export default injectStripe(AheckoutForm);

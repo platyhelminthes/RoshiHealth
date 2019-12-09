@@ -9,12 +9,14 @@ module.exports = (req,res) => {
         initialConsultation: false
     }
     dietitian = {
-        id: '',
+        id: '5dccdcc3e7df9c41d0761d70',
         name: 'Ken Block',
         appointmentTokens: 1
     }
 
     healthCounselor = {
+        id: '5db78296de3ec929b46d1af5',
+        name: 'Dr Devon',
         appointmentTokens: 4
     }
 
@@ -40,7 +42,7 @@ module.exports = (req,res) => {
     )
     Data.findOneAndUpdate(
         {'fullName': nurse.name},
-        {$push: {'patientIds': req.user._id}},
+        {$push: {'providerInfo.patientIds': req.user._id}},
         {safe: true, upsert: true, new: true},
         (data, err) => {
             if (err) console.log('new sub')
@@ -48,8 +50,8 @@ module.exports = (req,res) => {
         }
     )
     Data.findOneAndUpdate(
-        {'fullName': nurse.name},
-        {$push: {'patientIds': req.user._id}},
+        {'fullName': dietitian.name},
+        {$push: {'providerInfo.patientIds': req.user._id}},
         {safe: true, upsert: true, new: true},
         (data, err) => {
             if (err) console.log('new sub')
@@ -57,8 +59,8 @@ module.exports = (req,res) => {
         }
     )
     Data.findOneAndUpdate(
-        {'fullName': nurse.name},
-        {$push: {'patientIds': req.user._id}},
+        {'fullName': healthCounselor.name},
+        {$push: {'providerInfo.patientIds': req.user._id}},
         {safe: true, upsert: true, new: true},
         (data, err) => {
             if (err) console.log('new sub')

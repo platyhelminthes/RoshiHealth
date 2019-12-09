@@ -1,0 +1,35 @@
+.__FAQ-main {
+    width: 100%;
+    height: 100%;
+    background: white;
+    margin-top: 0
+}
+
+.__FAQ-info {
+    top: 15vh;
+    position: fixed;
+    color: black;
+    padding-left: 25px;
+    padding-top: 10vh;
+    max-width: 45%;
+    height: 75%;
+    border-right: 1px solid black;
+}
+
+.__FAQ-list {
+    width: 30%;
+    position: fixed;
+    right: 50px;
+    border-radius: 25px;
+    border: 1px solid black;
+    top: 100px
+}
+
+.__FAQ-list button {
+    background: #36393F;
+    border: none;
+    color: white;
+    border-radius: 25px;
+    width: 5vw;
+    height: 5vh
+}

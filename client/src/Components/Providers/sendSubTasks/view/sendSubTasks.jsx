@@ -3,6 +3,8 @@ import Axios from 'axios'
 import '../styles/sendSubTasks.css'
 import {Link} from 'react-router-dom'
 
+import { Table, TableRow, TableHead, TableBody, TableCell } from '@material-ui/core'
+
 class sendSubtasks extends Component {
 
     constructor(props){
@@ -27,25 +29,24 @@ class sendSubtasks extends Component {
     }
 
 
-    handleSubmit(){
+    handleSubmit(e){
+        if(this.state.body == null || e.target.value == null || this.state.DueDate == null){
+            alert('there was an issue sending this task')
+        }
+        else{
         Axios.post('/api/providers/sendSubTask',
         {
             text: this.state.body,
-            email: this.state.email,
+            email: e.target.value,
             date: this.state.DueDate
-        })
+        })}
     }
     
     render(){
         return(
             <div className='__send-sub-tasks-main'>
                 <div className='__send-sub-tasks-container'>
-                <form onSubmit={this.handleSubmit} className="FormFields">
-
-                <div className="FormField">
-                <label className="FormField__Label" htmlFor="email">Patient Email</label>
-                <input required='required' type="email" id="email" className="FormField__Input" placeholder="Enter your email" name="email" value={this.state.email} onChange={this.handleChange} />
-              </div>
+                <form onSubmit={this.handleSubmit} style={{padding: '1vw', borderBottom: '1px solid white'}} className="FormFields">
 
             <div className="FormField">
                 <label className="FormField__Label" htmlFor="body">body</label>
@@ -59,11 +60,43 @@ class sendSubtasks extends Component {
               </div>
 
               <div className="FormField">
-                  
-                    <button className="FormField__Button mr-20">Send Task</button>
-                     <Link to="/" className="FormField__Link">Create an account</Link>
+                
               </div>
             </form>
+            <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell style={{color: 'white'}}>
+                                Name
+                            </TableCell>
+                            <TableCell style={{color: 'white'}}>
+                                Email
+                            </TableCell>
+                            <TableCell style={{color: 'white'}}>
+                                Phone
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            this.props.state.patients.map(
+                                row => (
+                                    <TableRow>
+                                        <TableCell style={{color: 'white'}}>
+                                            {row.fullName}
+                                        </TableCell>
+                                        <TableCell style={{color: 'white'}}>
+                                            {row.email}
+                                        </TableCell>
+                                        <TableCell>
+                                        <button value={row.email} onClick={this.handleSubmit}>Send</button>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            )
+                        }
+                    </TableBody>
+                </Table>
                 </div>
             </div>
         )
