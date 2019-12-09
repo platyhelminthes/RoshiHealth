@@ -6,7 +6,7 @@ import Backdrop from '../HeaderBackDrop/Backdrop';
 import "../Styles/Header.css";
 import Axios from 'axios';
 import DropDownTest from './dropDownTest'
-import Checkout from './checkOut'
+import Aheckout from './checkOut'
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -106,7 +106,7 @@ class Tasks extends Component {
                 {this.state.purchase == true ?
                 (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
                         <Elements>
-                            <Checkout style={{zIndex: '9999999'}} updateTruthWallet={this.props.updateTruthWallet} closeModal={this.closeModal} total={this.state.total} />
+                            <Aheckout style={{zIndex: '9999999'}} updateTruthWallet={this.props.updateTruthWallet} closeModal={this.closeModal} total={this.state.total} />
                         </Elements>
                 </StripeProvider>)
                 :
