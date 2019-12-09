@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CheckoutForm, injectStripe } from 'react-stripe-elements';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 import Axios from 'axios';
 import '../Styles/Header.css'
 
@@ -46,7 +46,7 @@ class AheckoutForm extends Component {
       <div onClick={this.props.closeModal} className="modal_background"></div>
         <div className="checkout" style={{color: 'white'}}>
           <p>Would you like to complete the purchase?</p>
-          <CheckoutForm/>
+            <CardElement/>
           <button onClick={this.submit}>Submit Payment</button>
         </div>
         </div>
