@@ -1,4 +1,4 @@
-const stripe = require("stripe")("sk_test_wmByYTxHfH2aqnvMMGSJG05t00O0YJxd3o")
+const stripe = require("stripe")(process.env.SECRET)
 
 async function charge (req,res){
     console.log(req.body.body)
