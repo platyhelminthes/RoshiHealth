@@ -19,6 +19,9 @@ const UNAPHC = require('./updateNextAppHC')
 const UNAPD = require('./updateNextAppD')
 const FPASS = require('./forgotPassword')
 const RPASS = require('./passwordReset')
+const CHARGE = require('./charge')
+const CANCELA = require('./cancelAppointment')
+const CANCELSA = require('./cancelSubAppointment')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -39,7 +42,9 @@ routes.post('/updateNextAPPHC', UNAPHC)
 routes.post('/updateNextAPPD', UNAPD)
 routes.post('/forgotPassword', FPASS)
 routes.post('/resetPassword', RPASS)
-
+routes.post('/charge', CHARGE)
+routes.post('/cancelAppointment', CANCELA)
+routes.post('/cancelSubAppointment', CANCELSA)
 
 
 

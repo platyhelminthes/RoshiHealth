@@ -48,10 +48,13 @@ class Schedule extends Component {
 
 
     handleChange = (date) => {
+        if(moment(date).isBefore()){alert('Please only schedule future appointments')}
+        else{
         var dateClean = moment(date).format('YYYY-MM-DD')
         var Day = moment(date).format('dddd')
         this.setState({ date: dateClean, dateDay: moment(date).format('dddd')})
         this.dateCheck(dateClean, Day)
+        }
     }
 
     dateCheck = (date, day12) => {
@@ -135,7 +138,8 @@ class Schedule extends Component {
         if (time == '') { alert('sorry that time is not available!') }
         else {
             if(time)
-            Axios.post('/api/users/removeAPT',
+            this.props.updateWallet(this.state.cost)
+            Axios.post('/api/users/charge',
                 {
                     price: this.state.cost
                 })
@@ -146,6 +150,9 @@ class Schedule extends Component {
                     date: moment(dateTime).add(7, 'hours'),
                     id: this.state.docId,
                     name: this.state.doctor,
+                    price: this.state.cost,
+                    subAPP: false,
+                    subType: 'None'
                 }
             )
         }

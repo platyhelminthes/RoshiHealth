@@ -10,13 +10,16 @@ module.exports = (req, res) => {
     var userAppointment = {
         date: req.body.date,
         user: req.body.id,
-        userName: req.body.name
+        userName: req.body.name,
+        price: req.body.price,
+        subAPP: req.body.subAPP,
+        subType: req.body.type
     }
     var id = req.body.id
 
     Data.findOneAndUpdate(
         {_id: id},
-        {$push: {'appointments': appointment}},
+        {$push: {'appointments': appointment}, $inc: {'providerInfo.pay': req.body.price}},
         {safe: true, upsert: true, new : true},
         (err) => {
             if(err) console.log(err)
@@ -27,7 +30,7 @@ module.exports = (req, res) => {
 
         console.log(userAppointment)
         Data.findOneAndUpdate(
-        {_id: req.user._id},
+        {'email': req.user.email},
         {$push: {'appointments': userAppointment}},
         {safe: true, upsert: true, new: true},
         (err) => {

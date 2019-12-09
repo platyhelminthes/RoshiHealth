@@ -27,6 +27,8 @@ class Teamview extends Component {
         this.pickSubRight = this.pickSubRight.bind(this)
     }
 
+
+
     handleClick(e) {
         (e).preventDefault()
         if (this.state.selector == this.state.doctors.length - 1) { }
@@ -68,9 +70,16 @@ class Teamview extends Component {
         else if (this.state.path == null) {
             return (
                 <div className='__teamview-Picker'>
-                    <div className='Left'>
-                        <button value='doctors' onClick={this.pickView}>View Your Doctors</button>
-                    </div>
+                    {
+                        this.state.doctors.length == 0 ?
+                        (   <div className='Left'>
+                                <button>Please add a doctor</button>
+                            </div>)
+                        :
+                        (   <div className='Left'>
+                                <button value='doctors' onClick={this.pickView}>View Your Doctors</button>
+                            </div>)
+                    }
                     {
                         this.props.subLevel !== 'AD1279D1' ?
                             (

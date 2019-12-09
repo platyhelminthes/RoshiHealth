@@ -13,19 +13,26 @@ class CheckoutForm extends Component {
   }
 
   async submit(ev) {
-    let { token } = await this.props.stripe.createToken({ name: "Name" });
-    let response = await Axios.post("/api/cart/charge", {
-      body: token.id,
-      total: this.props.total
-    })
 
-    if (response.statusText == 'OK') {
-      Axios.post('/api/users/initiateSub')
-      }
+    
+    // const {paymentMethod, error} = await stripe.createPaymentMethod('card', CardElement, {
+    //   billing_details: {
+    //     email: 'dvowen@cox.net',
+    //   },
+    // });
+    // let { token } = await this.props.stripe.createToken({ name: "Name" });
+    // let response = await Axios.post("/api/cart/charge", {
+    //   body: token.id,
+    //   total: this.props.total
+    // })
 
-      this.props.closeModal()
-      this.props.updateTruthWallet(this.props.total)
-    }
+    // if (response.statusText == 'OK') {
+    //   Axios.post('/api/users/initiateSub')
+    //   }
+
+    //   this.props.closeModal()
+    //   this.props.updateTruthWallet(this.props.total)
+}
   
 
 

@@ -1,0 +1,12 @@
+.__appointments-main2 {
+    border-left: none;
+    border-radius: 25px;
+    width: 45vw;
+    height: 78vh;
+    margin-top: 5vw;
+    margin-left: 22vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #36393f;
+}
+

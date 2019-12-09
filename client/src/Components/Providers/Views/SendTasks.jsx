@@ -60,6 +60,7 @@ class SendTasks extends Component {
         axios.post('/api/providers/getPatients')
         .then(
             (res)=>{
+                console.log(res)
                 this.setState({
                     patients: res.data.data
                 })

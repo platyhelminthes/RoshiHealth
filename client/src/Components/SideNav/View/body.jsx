@@ -139,7 +139,7 @@ class body extends Component {
 
                         {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
                         <Link to='/main/tasks' className='__SideLinks'>Tasks</Link>
-                        <Link to='/main/subTasks' className='__SideLinks'>Subscription Tasks</Link>
+                        <Link to={this.props.subLevel == 'nonSub' ? '/main/subinfo' : '/main/subTasks'} className='__SideLinks'>Subscription Tasks</Link>
                     </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel style={dropDownBack} >
@@ -160,10 +160,7 @@ class body extends Component {
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-                    {this.props.doctors.length == 0 ?
-                        (null)
-                        :
-                        (<ExpansionPanel style={dropDownBack} >
+                    <ExpansionPanel style={dropDownBack} >
                             <ExpansionPanelSummary
                                 expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
                                 aria-controls="panel1a-content"
@@ -177,12 +174,8 @@ class body extends Component {
                                 <Link to="/main/Team" className='__SideLinks'>View Team</Link>
 
                             </ExpansionPanelDetails>
-                        </ExpansionPanel>)}
-                    {this.props.doctors.length == 0 ?
-                        (null)
-                        :
-                        (
-                            <ExpansionPanel style={dropDownBack} >
+                        </ExpansionPanel>
+                    <ExpansionPanel style={dropDownBack} >
                                 <ExpansionPanelSummary
                                     expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
                                     aria-controls="panel1a-content"
@@ -197,7 +190,7 @@ class body extends Component {
                                     <Link to="/main/Appointments" className='__SideLinks'>View upcoming appointments</Link>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
-                        )}
+                        
                     <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -222,13 +215,6 @@ class body extends Component {
                                     :
                                     (<Link to="/main/subschedule" className='__SideLinks'>Schedule Appointment With Team</Link>)
                             }
-
-                            {
-                                this.props.subLevel == 'nonSub' ?
-                                    (null)
-                                    :
-                                    (<Link to="/main/subappointments" className='__SideLinks'>Manage Sub Appointments</Link>)
-                            }
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <ExpansionPanel style={dropDownBack} >
@@ -242,9 +228,9 @@ class body extends Component {
                         <p to="/main/overview" style={dropDownHead}>Help</p>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={dropDownActive}>
-                        <Link to="/main/provider/Patients" className='__SideLinks'>FAQ</Link>
-                        <Link to="/main/provider/appointments" className='__SideLinks'>Basic Tutorial</Link>
-                        <Link to="/main/provider/Tasks" className='__SideLinks'>Ask Support</Link>
+                        <Link to="/main/support/FAQ" className='__SideLinks'>FAQ</Link>
+                        <Link to="/main/support/tutorial" className='__SideLinks'>Basic Tutorial</Link>
+                        <Link to="/main/support/askSupport" className='__SideLinks'>Ask Support</Link>
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>

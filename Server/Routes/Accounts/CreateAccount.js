@@ -54,14 +54,16 @@ module.exports = (req, res) => {
         total: 0,
         finishedTransaction: 'Active'
     }  
-
+    var game = {
+      exp: 0
+    }
+    data.game = game
     data.wallet = 0
     data.fullName = fullName
     data.email = email;
     data.password = password;
     //data.tasks.push(task)
     data.shoppingCart.push(cart)
-    data.providerInfo.test = "Patient"
     //data.doctorsToAdd.push('Primary Doctor')
     data.subLevel = 'nonSub'
     data.confirmed = false

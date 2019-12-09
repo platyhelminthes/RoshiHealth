@@ -33,7 +33,10 @@ import ProviderCheck from '../../providerCheck.jsx'
 import SubTasks from '../../subscriptionTasks/view/subscriptionsTasks'
 import SendSubtasks from '../../Providers/sendSubTasks/view/sendSubTasks';
 import ForgotPass from '../../forgotPass/view/forgotPass'
-
+import ViewPatients from '../../Providers/viewPatients/view/viewPatients'
+import FAQ from '../../support/FAQ/view/FAQ'
+import AskSupport from '../../support/AskSupport/view/askSupport'
+import Tutorial from '../../support/tutorial/view/tutorial'
 
 class Main extends Component {
 
@@ -71,7 +74,9 @@ class Main extends Component {
             toAppointment: false,
             notlogged: false,
             availableDays: [],
-            exp: null
+            exp: null,
+            patients: [],
+            TeamViewPath: null
 
         };
         this.openInfo = this.openInfo.bind(this)
@@ -134,6 +139,7 @@ class Main extends Component {
       
       setTimeout(this.setSearch, 300)
       setTimeout(this.getSubDoctors, 600)
+      setTimeout(this.getPatients, 600)
       
     }
     setSearch = () => {
@@ -155,6 +161,22 @@ class Main extends Component {
       let res = await Axios.post('/api/users/getSubProviders', {search: this.state.search})
       let {data} = res.data
       this.setState({subdoctors: data})
+    }
+    
+    getPatients = async () => {
+      if(this.state.doctor == 'Patient'){
+        console.log('doctors only')
+      }
+      else {
+        let res = await Axios.post('/api/providers/getPatients')
+        let {data} = res.data
+        if(data == undefined || data.length == 0){
+          return null
+        }
+        else{
+        this.setState({patients: data})
+        }
+      }
     }
 
     sortAppointments = () => {
@@ -209,6 +231,8 @@ class Main extends Component {
           setTimeout(this.cancelRedirect, 500)}
     }
 
+    
+
     cancelRedirect = () => {
       this.setState({redirect: false})
     }
@@ -240,9 +264,14 @@ class Main extends Component {
       this.getInfo()
       this.findDocs()
       .then(setTimeout(this.sort, 500))
-      .then(setTimeout(this.load, 1500))
+      .then(setTimeout(this.load, 2000))
     }
 
+    updateWallet = (a) => {
+      var ammount = parseInt(this.state.wallet) - parseInt(a)
+
+      this.setState({wallet: ammount})
+    }
 
 
     render(){
@@ -277,6 +306,12 @@ class Main extends Component {
             <div className='main-container' >
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
+              {/* support paths */}
+              <Route path="/main/support/FAQ" component={FAQ}/>
+              <Route path="/main/support/askSupport" component={AskSupport}/>
+              <Route path="/main/support/tutorial" component={Tutorial}/>
+
+
               {/* admin paths */}
               <Route path="/main/admin" 
               render={(props)=> <AdminCheck {...props} subLevel={this.state.subLevel}/>}/>
@@ -289,11 +324,11 @@ class Main extends Component {
               <Route path ='/main/provider'
               render={(props)=><ProviderCheck {...props} state={this.state}/>}/>
               <Route exact path='/main/provider/dailySchedule'
-              render={(props)=> <DailySchedule state={this.state} {...props}/>}/>
+              render={(props)=> <DailySchedule state={this.state} resetTruth={this.resetTruth} {...props}/>}/>
                <Route exact path='/main/provider/holidaySchedule'
               render={(props)=><HolidaySchedule {...props} state={this.state}/>}/>
               <Route exact path="/main/provider/sendTasks" 
-              render={(props)=><SendTasks {...props} state={this.state}/>}/>
+              render={(props)=><SendTasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path='/main/provider/sendDoctor' 
               render={(props)=><SendDoctor {...props} state={this.state} />}/>
               <Route exact path='/main/provider/availability' 
@@ -301,24 +336,26 @@ class Main extends Component {
               <Route exact path='/main/appointments'
               render={(props)=><Appointments {...props} state={this.state} />}/>
               <Route exact path='/main/provider/sendSubTasks'
-              render={(props)=><SendSubtasks {...props} state={this.state}/>}/>
+              render={(props)=><SendSubtasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path='/main/provider/Patients'
+              render={(props)=><ViewPatients {...props} state={this.state}/>}/>
 
 
               <Route exact path="/main/overview" 
               render={(props)=> <Overview {...props} subLevel={this.state.subLevel} state={this.state}/>}/>
               <Route exact path='/main/subTasks'
-              render={(props)=><SubTasks {...props} state={this.state}/>}/>
+              render={(props)=><SubTasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path="/main/subSchedule"
-              render={(props)=> <SubscriptionScheduler {...props} state={this.state}/>}/>
+              render={(props)=> <SubscriptionScheduler {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path="/main/tasks" 
-                render={(props)=><Tasks {...props} tasks={this.state.tasks}/>}/>
+                render={(props)=><Tasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
               {/*<Route exact path="/main/cart" 
                 render={(props)=><Cart {...props}/>}/>*/}
-              <Route exact path="/main/subscription" component={subscription}/>
+              <Route exact path="/main/subscription" resetTruth={this.resetTruth} component={subscription}/>
               <Route exact path="/main/addProviders" 
               render={(props)=><FindProviders {...props} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
               <Route exact path="/main/scheduler" 
-                render={(props)=><Schedule {...props} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
+                render={(props)=><Schedule {...props} updateWallet={this.updateWallet} resetTruth={this.resetTruth} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
               {/* <Route exact path='/main/appointments' component={appointments}/> */}
               <Route exact path='/main/Doctors' 
                 render={(props)=><Store {...props} types={this.state.types}/>}/>
@@ -330,13 +367,12 @@ class Main extends Component {
                 render={(props)=><Team {...props} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
               <Route exact path='/main/AccountInfo'
                 render={(props)=><AccountInfo {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
-              <Route exact path='/forgotPass'
-                render={(props)=><ForgotPass {...props}/>}/>
+              
                 {
                     this.state.appointmentToday == false ?
                     (null)
                     :
-                (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from(): 'Go to your appointment'}</button>)
+                (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.state.nextAppointment == "You currently have no appointment" ? null : this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from() : this.state.nextAppointment == 'You currently have no appointment' ? 'Please Schedule an appointment' : 'Go to your appointment'}</button>)
                   }
             </div>
             </div>

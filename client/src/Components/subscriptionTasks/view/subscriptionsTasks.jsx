@@ -24,7 +24,7 @@ class Subtasks extends Component {
     handleClick2(e){
         (e).preventDefault()
         Axios.post('/api/tasks/finishSubTask',
-            {id: this.state.id})
+            {id: this.state.id}).then(this.props.resetTruth())
     }
 
     componentDidMount(){
@@ -51,8 +51,8 @@ class Subtasks extends Component {
                 <div className='__sub-tasks-container'>
                     <div className='__sub-tasks-top'>
                         <div className='__sub-top-left'>
-                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
-                            <img src='https://image.freepik.com/free-vector/doctor-character-background_1270-84.jpg' style={{borderRadius: '15px', width: '45%', height: '100%'}}/>
+                            <img src='https://roshihealth.s3.amazonaws.com/bucketFolder/%271575674138688%27-lg.jpg' style={{borderRadius: '15px', height: '100%'}}/>
+                            <img src='https://roshihealth.s3.us-west-1.amazonaws.com/bucketFolder/%271575674464940%27-lg.jpg' style={{borderRadius: '15px', height: '100%'}}/>
                         </div>
                         <div className='__sub-top-right'>
                             <div className='__sub-completed'>
@@ -68,6 +68,9 @@ class Subtasks extends Component {
                     <div className='__sub-tasks-bottom'>
                         <div className='__sub-bottom-left'>
                         {
+                        tasks.length == 0 ?
+                        (<h2 style={{justifySelf: 'center', margin: '5vw'}}>You do not currently have any tasks.</h2>)
+                        :
                     tasks.map(
                         row=>(
                                 <Table>
