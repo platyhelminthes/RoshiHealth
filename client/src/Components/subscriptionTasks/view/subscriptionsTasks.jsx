@@ -3,6 +3,7 @@ import Axios from 'axios'
 import '../styles/subTasks.css'
 import { Table, TableBody, TableRow, TableCell, Button, Icon } from '@material-ui/core'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import{isMobile} from 'react-device-detect'
 class Subtasks extends Component {
 
     constructor(props){
@@ -18,16 +19,31 @@ class Subtasks extends Component {
 
         this.handleClick=this.handleClick.bind(this)
         this.handleClick2=this.handleClick2.bind(this)
+        this.openCard = this.openCard.bind(this)
+        this.closeCard = this.closeCard.bind(this)
 
+    }
+
+    closeCard(){
+        this.setState({cardOpen: false})
+    }
+
+    openCard(e){
+        
+        (e).preventDefault()
+        this.setState({cardOpen: true})
+        console.log(e.target.dataset.id)
+        this.setState({text: e.target.dataset.text, finished: e.target.dataset.finished, provider: e.target.dataset.provider, id: e.target.dataset.id})
     }
 
     handleClick2(e){
         (e).preventDefault()
         Axios.post('/api/tasks/finishSubTask',
-            {id: this.state.id}).then(this.props.resetTruth())
+            {id: this.state.id}).then(setTimeout(this.props.resetTruth, 500))
     }
 
     componentDidMount(){
+        this.props.closeNav()
         var unclean = this.props.state.subscription.subTasks
         var clean = []
         for(var i=0; i < unclean.length; i++){
@@ -47,7 +63,51 @@ class Subtasks extends Component {
     render(){
         var tasks = this.state.tasks
         return(
-            <div className='__sub-tasks-main'>
+            <div className={isMobile ? '__sub-tasks-mobile' : '__sub-tasks-main'}>
+                {
+              this.state.cardOpen == true ?
+              (<div className='__sub-tasks-mobile-card'>
+                  <button onClick={this.closeCard} className='__mobile-card-close'>X</button>
+                  <div className='__mobile-card-head'>
+                    <h4 style={{color:'white'}}>{this.state.provider}</h4>
+                  </div>
+                  <div className='__mobile-card-bottom'>
+                      <h3>Task Info:</h3>
+                        <h4>{this.state.text}</h4>
+                  </div>
+                  {   this.state.text == null ?
+                              (null)
+                              :
+                              (<button className='__mobile-finish-button' onClick={this.handleClick2}>Finish Task</button>)
+                          }
+              </div>)
+              :
+              (null)
+          }
+          {
+              isMobile ? 
+              (<div style={{marginTop: 0}}>
+                 {
+                      tasks.length == 0 ?
+                      (<h2 style={{justifySelf: 'center', margin: 0, padding: '5vh'}}>You do not currently have any tasks.</h2>)
+                      :
+              tasks.map(
+                  row=>(
+                  
+                          <Table>
+                              <TableBody>
+                                  <TableRow>
+                                      <TableCell style={{color: 'white'}}>{row.text}</TableCell>
+                                      <TableCell><button className='__task-select' data-id={row._id} data-provider={row.providerName} data-finished={row.finished} data-text={row.text} onClick={this.openCard}>Info <ArrowForwardIcon></ArrowForwardIcon></button></TableCell>
+                                  </TableRow>
+                              </TableBody>
+                          </Table>
+                  )
+              )
+          }   
+              </div>)
+              :
+              (
                 <div className='__sub-tasks-container'>
                     <div className='__sub-tasks-top'>
                         <div className='__sub-top-left'>
@@ -128,7 +188,7 @@ class Subtasks extends Component {
                         </div>
 
                     </div>
-                </div>
+                </div>)}
             </div>
         )
     }

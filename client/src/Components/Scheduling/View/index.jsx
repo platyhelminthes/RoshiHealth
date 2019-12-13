@@ -9,7 +9,7 @@ import CurrentAppointments from './currentAppointments'
 import loadingCircle from '../../Pictures/loadingCircle.png'
 import '../Styles/Schedule.css'
 import Appointments from './availableAppointments'
-
+import {isMobile} from 'react-device-detect'
 
 
 class Schedule extends Component {
@@ -73,6 +73,7 @@ class Schedule extends Component {
     componentDidMount() {
         //this.getUser()
         //this.getProviders()
+        this.props.closeNav()
         console.log(this.props.UAPP)
         this.load()
     }
@@ -108,9 +109,12 @@ class Schedule extends Component {
 
     handleSubmit2(e) {
         (e).preventDefault()
+        if(e.target.value == 'Please choose doctor'){console.log('worked')}
+        else{
         this.getAppointments(e.target.value)
         setTimeout(this.checkAppointments, 300)
         //setTimeout(this.checkAPT, 700)
+        }
     }
 
     handleSubmit3(e) {
@@ -301,19 +305,19 @@ class Schedule extends Component {
         else {
             return (
                 <div className="appointment-cont" >
-                    <div className='__scheduler-doctorInfo'>
+                    <div className={isMobile ? '__scheduler-doctorInfo-mobile' : '__scheduler-doctorInfo'}>
                         <Doctors handleSubmit2={this.handleSubmit2} providers={this.state.providers} />
                         <p>price: {this.state.cost}</p>
                     </div>
-                    <div className='__scheduler-main'>
-                        <div className='__scheduler-left'>
+                    <div className={isMobile ? '__scheduler-main-mobile' : '__scheduler-main'}>
+                        <div className={isMobile ? '__scheduler-left-mobile' : '__scheduler-left'}>
                             <CalendarComp style={{width: '10vw', height: '90%'}} handleChange={this.handleChange} />
                         </div>
-                        <div className='__scheduler-right'>
-                            <div className='__scheduler-right-top'>
+                        <div className={isMobile ? '__scheduler-right-mobile' : '__scheduler-right'}>
+                            <div className={isMobile ? '__scheduler-right-top-mobile' : '__scheduler-right-top'}>
                                 <Appointments times={this.state.appointmentTimes} onClick={this.handleSubmit3}/>
                             </div>
-                            <div className='__scheduler-right-bottom'>
+                            <div className={isMobile ? '__scheduler-right-bottom-mobile' : '__scheduler-right-bottom'}>
                                 <CurrentAppointments appointments={this.state.appointmentsToShow} />
                             </div>
                         </div>

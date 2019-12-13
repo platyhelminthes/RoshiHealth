@@ -14,7 +14,15 @@ class CheckoutForm extends Component {
 
   async submit(ev) {
 
-    
+    const {paymentMethod, error} = await this.props.stripe.createPaymentMethod('card', CardElement, {
+      billing_details: {
+        name: 'Jenny Rosen',
+      },
+    });
+    Axios.post('/api/cart/createCustomer',{
+      cardId: paymentMethod.id
+    })
+    console.log(paymentMethod)
     // const {paymentMethod, error} = await stripe.createPaymentMethod('card', CardElement, {
     //   billing_details: {
     //     email: 'dvowen@cox.net',

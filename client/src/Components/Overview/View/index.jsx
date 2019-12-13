@@ -24,7 +24,7 @@ class Overview extends Component {
     }
 
     componentDidMount() {
-
+        this.props.closeNav()
         setTimeout(this.load, 100)
     }
 

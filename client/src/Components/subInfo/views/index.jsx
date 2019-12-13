@@ -27,6 +27,10 @@ class subInfo extends Component {
         this.subscript = this.subscript.bind(this)
     }
 
+    componentDidMount(){
+        this.props.closeNav()
+    }
+
     purchaseSub(e){
         
     }
@@ -38,97 +42,25 @@ class subInfo extends Component {
     checkoutUrl = "/api/cart/chargeMonthly";
     stripeApiKey = 'pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD'
     handleToken = (token, addresses) => {
-        console.log("App#handleToken");
-        console.log(token);
-        console.log(addresses);
-        const { product } = this.state;
-    
-        const body = new FormData();
-        // Send information to determine how to charge customer:
-        body.append("product", 'HealthPlan');
-        body.append("quantity", 1);
-    
-        // Send standard Stripe information:
-        body.append("stripeEmail", token.email);
-        body.append("stripeToken", token.id);
-        body.append("stripeTokenType", token.type);
-    
-        body.append("stripeBillingName", addresses.billing_name || "");
-        body.append(
-          "stripeBillingAddressLine1",
-          addresses.billing_address_line1 || ""
-        );
-        body.append("stripeBillingAddressZip", addresses.billing_address_zip || "");
-        body.append(
-          "stripeBillingAddressState",
-          addresses.billing_address_state || ""
-        );
-        body.append(
-          "stripeBillingAddressCity",
-          addresses.billing_address_city || ""
-        );
-        body.append(
-          "stripeBillingAddressCountry",
-          addresses.billing_address_country || ""
-        );
-        body.append(
-          "stripeBillingAddressCountryCode",
-          addresses.billing_address_country_code || ""
-        );
-    
-        body.append("stripeShippingName", addresses.shipping_name || "");
-        body.append(
-          "stripeShippingAddressLine1",
-          addresses.shipping_address_line1 || ""
-        );
-        body.append(
-          "stripeShippingAddressZip",
-          addresses.shipping_address_zip || ""
-        );
-        body.append(
-          "stripeShippingAddressState",
-          addresses.shipping_address_state || ""
-        );
-        body.append(
-          "stripeShippingAddressCity",
-          addresses.shipping_address_city || ""
-        );
-        body.append(
-          "stripeShippingAddressCountry",
-          addresses.shipping_address_country || ""
-        );
-        body.append(
-          "stripeShippingAddressCountryCode",
-          addresses.shipping_address_country_code || ""
-        );
-    
-        fetch(this.checkoutUrl, {
-          method: "POST",
-          body,
-          mode: "cors"
-        })
-          .then(res => {
-            console.log("response received");
-            console.dir(res);
-            return res.json();
-          })
-          .then(result => {
-            console.log("result");
-            console.log(result);
-             stripe.redirectToCheckout({sessionId: result.charges.id
-         }).then(function (result) {
-           // If `redirectToCheckout` fails due to a browser or network
-           // error, display the localized error message to your customer
-           // using `result.error.message`.
-         });
-          })
-          .catch(error => {
-            console.log("error");
-            console.error(
-              error,
-              "You may need to refresh the server sandbox. It hibernates due to inactivity."
-            );
-          });
+      stripe.createToken({name: 'Name'}).then(
+        function(result){
+          console.log(result)
+        }
+      )
+      // stripe.createPaymentMethod({
+      //   type: 'card',
+      //   card: StripeCheckout,
+      //   billing_details: {
+      //     name: 'Jenny Rosen',
+      //   },
+      // }).then(function(result) {
+      //   console.log(result)
+      //   // Handle result.error or result.paymentMethod
+      // });
+      //   Axios.post('/api/cart/createCustomer',
+      //   {
+      //     cardId: token.card.id
+      //   })
       };
 
       subscript () {
@@ -153,7 +85,7 @@ class subInfo extends Component {
                         <p>Get expert guidance from your personlized team
                             to take your health to the next level. All programs
                         are fully customized to fit your lifestyle.</p>
-                        {/* <StripeCheckout
+                    {/* <StripeCheckout
                     allowRememberMe={false}
                     amount={10000}
                     billingAddress
@@ -171,7 +103,7 @@ class subInfo extends Component {
                     token={this.handleToken}
                     zipCode
                   /> */}
-                  <button onClick={this.subscript}>Subscribe</button>
+                  <button onClick={()=>{this.setState({purchase: true})}}>Subscribe</button>
                     </div>
                 </div>
                 <div className='__sub-Info-2'>
@@ -243,11 +175,15 @@ class subInfo extends Component {
                     </div>
                 </div>
                 <button onClick={this.subscript}>Subscribe</button>
-                {/* // (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
-                //         <Elements>
-                //             <Checkout resetTruth={this.props.resetTruth} closeModal={this.closeModal} total={100} />
-                //         </Elements>
-                // </StripeProvider>) */}
+                {this.state.purchase == true ?
+                (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
+                         <Elements>
+                             <Checkout resetTruth={this.props.resetTruth} closeModal={this.closeModal} total={100} />
+                         </Elements>
+                 </StripeProvider>)
+    
+    :
+    (null)}
             </div>
         )
     }

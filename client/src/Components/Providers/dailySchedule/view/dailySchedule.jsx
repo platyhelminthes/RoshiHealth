@@ -32,7 +32,7 @@ class dailySchedule extends Component {
     componentDidMount(){
 
         this.getUser()
-        
+        this.props.closeNav()
     }
 
     timesToSend = []

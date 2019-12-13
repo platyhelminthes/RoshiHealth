@@ -18,6 +18,10 @@ class Admin extends Component {
         
     }
 
+    componentDidMount(){
+      this.props.closeNav()
+    }
+
     handleChange(e) {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;

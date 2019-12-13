@@ -30,6 +30,7 @@ class Tasks extends Component {
       this.goToAppointment(e.target.value)
   }
     componentDidMount(){
+      this.props.closeNav()
       axios.get('/api/users/getUser').then(
         (res)=>{
           this.setState({ appointments: res.data.data.appointments})

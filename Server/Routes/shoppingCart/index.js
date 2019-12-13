@@ -17,6 +17,7 @@ const multer = require('multer')
 const upload=multer()
 const cors = require('cors')
 const TEST = require('./testerinos')
+const CCUS = require('./createCustomer')
 
 
 routes.post('/addProductToCart', AP)
@@ -33,6 +34,7 @@ routes.post('/addToken', ADDT)
 routes.post('/increaseToken', INCT)
 routes.post('/chargeMonthly', upload.none(), cors(), CHMTH)
 routes.get('/TEST', TEST)
+routes.post('/createCustomer', CCUS)
 
 
 
