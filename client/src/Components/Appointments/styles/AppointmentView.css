@@ -10,3 +10,14 @@
     background-color: #36393f;
 }
 
+.__appointments-main-mobile {
+    border-left: none;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0;
+    color: white;
+    margin-left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #36393f;
+}

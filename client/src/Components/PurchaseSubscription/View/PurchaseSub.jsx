@@ -19,6 +19,10 @@ class Tasks extends Component {
         this.handleSubmit2 = this.handleSubmit2.bind(this);
     }
 
+    componentWillMount(){
+        this.props.closeNav()
+    }
+
     handleChange(e) {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;

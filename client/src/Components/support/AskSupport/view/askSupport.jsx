@@ -5,7 +5,9 @@ class AskSupport extends Component {
     constructor(props){
         super(props)
     }
-
+    componentDidMount(){
+        this.props.closeNav()
+    }
     render(){
         return(
             <div style={{background: 'white', color: 'black', height: '100%', width: '100%'}}>

@@ -7,6 +7,9 @@ class Tutorial extends Component {
         super(props)
     }
 
+    componentDidMount(){
+        this.props.closeNav()
+    }
     render(){
         return(
             <div style={{width: '100%', height: '100%', background: 'white', padding: '5vw', color: 'black'}}>

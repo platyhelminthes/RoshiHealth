@@ -24,6 +24,7 @@ class AccountInfo extends Component {
 
 
     componentDidMount() {
+        this.props.closeNav()
         console.log(this.props.state)
     }
 

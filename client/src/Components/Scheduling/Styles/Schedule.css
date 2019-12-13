@@ -215,3 +215,59 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.__scheduler-doctorInfo-mobile {
+  width: 100vw;
+  height: 12vh;
+  background: #31353D;
+  margin-left: 0;
+  margin-top: 0;
+  border-radius: 0;
+  display: flex;
+  overflow: auto;
+  color: white
+}
+
+.__scheduler-main-mobile {
+  background: #31353D;
+    width: 100vw;
+    min-height: 200vh;
+    justify-self: center;
+    margin-left: 0;
+    margin-top: 0;
+    /* border-radius: 1.5vw; */
+    display: flex;
+    flex-direction: column;
+}
+
+.__scheduler-left-mobile {
+  width:100%
+}
+
+.__scheduler-right-mobile {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.__scheduler-right-top-mobile {
+  min-height: 10vh;
+    padding-left: 2vw;
+}
+
+.__appointments-main-mobile {
+    justify-content: center;
+    width: 100vw;
+    height: 50vh;
+    overflow: auto;
+}
+
+.__scheduler-right-bottom-mobile {
+  height: 50%;
+  padding-left: 2vw;
+}
+
+.appt-card-mobile {
+  color: white;
+  width: 100vw
+}

@@ -37,6 +37,14 @@ import ViewPatients from '../../Providers/viewPatients/view/viewPatients'
 import FAQ from '../../support/FAQ/view/FAQ'
 import AskSupport from '../../support/AskSupport/view/askSupport'
 import Tutorial from '../../support/tutorial/view/tutorial'
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
+
+import HouseIcon from '@material-ui/icons/House';
 
 class Main extends Component {
 
@@ -76,10 +84,26 @@ class Main extends Component {
             availableDays: [],
             exp: null,
             patients: [],
-            TeamViewPath: null
+            TeamViewPath: null,
+            navOpen: false
 
         };
         this.openInfo = this.openInfo.bind(this)
+        this.openNav = this.openNav.bind(this)
+        this.closeNav = this.closeNav.bind(this)
+    }
+
+    openNav(){
+      if(this.state.navOpen == true){
+        this.setState({navOpen: false})
+      }
+      else{
+      this.setState({navOpen: true})
+      }
+    }
+
+    closeNav(){
+      this.setState({navOpen: false})
     }
 
     componentDidMount(){
@@ -264,7 +288,7 @@ class Main extends Component {
       this.getInfo()
       this.findDocs()
       .then(setTimeout(this.sort, 500))
-      .then(setTimeout(this.load, 2000))
+      .then(setTimeout(this.load, 3000))
     }
 
     updateWallet = (a) => {
@@ -299,7 +323,7 @@ class Main extends Component {
             </div>
           )
         }
-        else{
+        else if (isBrowser){
         return(
             <div id="mainBack" className='main__back' style={{backgroundImage: `url(https://storage.needpix.com/rsynced_images/poland-1985060_1280.jpg)`}}>
             <Sidebar sub={this.state.subscription} profilePic={this.state.profilePic} subLevel={this.state.subLevel} doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
@@ -307,66 +331,66 @@ class Main extends Component {
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
               {/* support paths */}
-              <Route path="/main/support/FAQ" component={FAQ}/>
-              <Route path="/main/support/askSupport" component={AskSupport}/>
-              <Route path="/main/support/tutorial" component={Tutorial}/>
+              <Route path="/main/support/FAQ" closeNav={this.closeNav}component={FAQ}/>
+              <Route path="/main/support/askSupport" closeNav={this.closeNav} component={AskSupport}/>
+              <Route path="/main/support/tutorial" closeNav={this.closeNav} component={Tutorial}/>
 
 
               {/* admin paths */}
               <Route path="/main/admin" 
-              render={(props)=> <AdminCheck {...props} subLevel={this.state.subLevel}/>}/>
+              render={(props)=> <AdminCheck {...props} closeNav={this.closeNav}subLevel={this.state.subLevel}/>}/>
               <Route exact path='/main/admin/makeDoctor'
-              render={(props)=> <MakeAdmin {...props}/>}/>
-              <Route exact path="/main/adminPage" component={admin}/>
+              render={(props)=> <MakeAdmin closeNav={this.closeNav} {...props}/>}/>
+              <Route exact path="/main/adminPage"  component={admin}/>
 
 
               {/* provider paths */}
               <Route path ='/main/provider'
-              render={(props)=><ProviderCheck {...props} state={this.state}/>}/>
+              render={(props)=><ProviderCheck {...props} closeNav={this.closeNav} state={this.state}/>}/>
               <Route exact path='/main/provider/dailySchedule'
-              render={(props)=> <DailySchedule state={this.state} resetTruth={this.resetTruth} {...props}/>}/>
+              render={(props)=> <DailySchedule state={this.state} closeNav={this.closeNav} resetTruth={this.resetTruth} {...props}/>}/>
                <Route exact path='/main/provider/holidaySchedule'
-              render={(props)=><HolidaySchedule {...props} state={this.state}/>}/>
+              render={(props)=><HolidaySchedule {...props} closeNav={this.closeNav} state={this.state}/>}/>
               <Route exact path="/main/provider/sendTasks" 
-              render={(props)=><SendTasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              render={(props)=><SendTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path='/main/provider/sendDoctor' 
-              render={(props)=><SendDoctor {...props} state={this.state} />}/>
+              render={(props)=><SendDoctor {...props} closeNav={this.closeNav} state={this.state} />}/>
               <Route exact path='/main/provider/availability' 
-              render={(props)=><Availability {...props} />}/>
+              render={(props)=><Availability {...props} closeNav={this.closeNav} />}/>
               <Route exact path='/main/appointments'
-              render={(props)=><Appointments {...props} state={this.state} />}/>
+              render={(props)=><Appointments {...props} closeNav={this.closeNav} state={this.state} />}/>
               <Route exact path='/main/provider/sendSubTasks'
-              render={(props)=><SendSubtasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              render={(props)=><SendSubtasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path='/main/provider/Patients'
-              render={(props)=><ViewPatients {...props} state={this.state}/>}/>
+              render={(props)=><ViewPatients {...props} closeNav={this.closeNav} state={this.state}/>}/>
 
 
               <Route exact path="/main/overview" 
-              render={(props)=> <Overview {...props} subLevel={this.state.subLevel} state={this.state}/>}/>
+              render={(props)=> <Overview {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} state={this.state}/>}/>
               <Route exact path='/main/subTasks'
-              render={(props)=><SubTasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              render={(props)=><SubTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path="/main/subSchedule"
-              render={(props)=> <SubscriptionScheduler {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+              render={(props)=> <SubscriptionScheduler {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path="/main/tasks" 
-                render={(props)=><Tasks {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+                render={(props)=><Tasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               {/*<Route exact path="/main/cart" 
                 render={(props)=><Cart {...props}/>}/>*/}
-              <Route exact path="/main/subscription" resetTruth={this.resetTruth} component={subscription}/>
+              <Route exact path="/main/subscription" closeNav={this.closeNav}  resetTruth={this.resetTruth} component={subscription}/>
               <Route exact path="/main/addProviders" 
-              render={(props)=><FindProviders {...props} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
+              render={(props)=><FindProviders {...props} closeNav={this.closeNav} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
               <Route exact path="/main/scheduler" 
-                render={(props)=><Schedule {...props} updateWallet={this.updateWallet} resetTruth={this.resetTruth} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
+                render={(props)=><Schedule {...props} closeNav={this.closeNav} updateWallet={this.updateWallet} resetTruth={this.resetTruth} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
               {/* <Route exact path='/main/appointments' component={appointments}/> */}
               <Route exact path='/main/Doctors' 
-                render={(props)=><Store {...props} types={this.state.types}/>}/>
+                render={(props)=><Store {...props} closeNav={this.closeNav} types={this.state.types}/>}/>
               <Route exact path='/main/yourSub'
-                render={(props)=><YourSub {...props} subLevel={this.state.subLevel} state={this.state.subscription}/>}/>
+                render={(props)=><YourSub {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} state={this.state.subscription}/>}/>
               <Route exact path='/main/SubInfo'
-                render={(props)=><SubInfo {...props} state={this.state} resetTruth={this.resetTruth}/>}/>
+                render={(props)=><SubInfo {...props} closeNav={this.closeNav} state={this.state} resetTruth={this.resetTruth}/>}/>
               <Route exact path='/main/Team' 
-                render={(props)=><Team {...props} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
+                render={(props)=><Team {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
               <Route exact path='/main/AccountInfo'
-                render={(props)=><AccountInfo {...props} resetTruth={this.resetTruth} state={this.state}/>}/>
+                render={(props)=><AccountInfo {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               
                 {
                     this.state.appointmentToday == false ?
@@ -382,6 +406,93 @@ class Main extends Component {
 
 
         )}
+        else if(isMobile){
+          return(
+            <div>
+              <div className='__main-mobile-head'>
+              <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
+              </div>
+              <div className='__main-mobile-body'>
+                {/* support paths */}
+              <Route path="/main/support/FAQ" closeNav={this.closeNav}component={FAQ}/>
+              <Route path="/main/support/askSupport" closeNav={this.closeNav} component={AskSupport}/>
+              <Route path="/main/support/tutorial" closeNav={this.closeNav} component={Tutorial}/>
+
+
+              {/* admin paths */}
+              <Route path="/main/admin" 
+              render={(props)=> <AdminCheck {...props} closeNav={this.closeNav}subLevel={this.state.subLevel}/>}/>
+              <Route exact path='/main/admin/makeDoctor'
+              render={(props)=> <MakeAdmin closeNav={this.closeNav} {...props}/>}/>
+              <Route exact path="/main/adminPage"  component={admin}/>
+
+
+              {/* provider paths */}
+              <Route path ='/main/provider'
+              render={(props)=><ProviderCheck {...props} closeNav={this.closeNav} state={this.state}/>}/>
+              <Route exact path='/main/provider/dailySchedule'
+              render={(props)=> <DailySchedule state={this.state} closeNav={this.closeNav} resetTruth={this.resetTruth} {...props}/>}/>
+               <Route exact path='/main/provider/holidaySchedule'
+              render={(props)=><HolidaySchedule {...props} closeNav={this.closeNav} state={this.state}/>}/>
+              <Route exact path="/main/provider/sendTasks" 
+              render={(props)=><SendTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path='/main/provider/sendDoctor' 
+              render={(props)=><SendDoctor {...props} closeNav={this.closeNav} state={this.state} />}/>
+              <Route exact path='/main/provider/availability' 
+              render={(props)=><Availability {...props} closeNav={this.closeNav} />}/>
+              <Route exact path='/main/appointments'
+              render={(props)=><Appointments {...props} closeNav={this.closeNav} state={this.state} />}/>
+              <Route exact path='/main/provider/sendSubTasks'
+              render={(props)=><SendSubtasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path='/main/provider/Patients'
+              render={(props)=><ViewPatients {...props} closeNav={this.closeNav} state={this.state}/>}/>
+
+
+              <Route exact path="/main/overview" 
+              render={(props)=> <Overview {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} state={this.state}/>}/>
+              <Route exact path='/main/subTasks'
+              render={(props)=><SubTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path="/main/subSchedule"
+              render={(props)=> <SubscriptionScheduler {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              <Route exact path="/main/tasks" 
+                render={(props)=><Tasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              {/*<Route exact path="/main/cart" 
+                render={(props)=><Cart {...props}/>}/>*/}
+              <Route exact path="/main/subscription" closeNav={this.closeNav}  resetTruth={this.resetTruth} component={subscription}/>
+              <Route exact path="/main/addProviders" 
+              render={(props)=><FindProviders {...props} closeNav={this.closeNav} redirect={this.state.redirect} resetTruth={this.resetTruth}/>}/>
+              <Route exact path="/main/scheduler" 
+                render={(props)=><Schedule {...props} closeNav={this.closeNav} updateWallet={this.updateWallet} resetTruth={this.resetTruth} doctors={this.state.doctors} cost={this.state.cost} wallet={this.state.wallet} UAPP={this.state.appointments}/>}/>
+              {/* <Route exact path='/main/appointments' component={appointments}/> */}
+              <Route exact path='/main/Doctors' 
+                render={(props)=><Store {...props} closeNav={this.closeNav} types={this.state.types}/>}/>
+              <Route exact path='/main/yourSub'
+                render={(props)=><YourSub {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} state={this.state.subscription}/>}/>
+              <Route exact path='/main/SubInfo'
+                render={(props)=><SubInfo {...props} closeNav={this.closeNav} state={this.state} resetTruth={this.resetTruth}/>}/>
+              <Route exact path='/main/Team' 
+                render={(props)=><Team {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
+              <Route exact path='/main/AccountInfo'
+                render={(props)=><AccountInfo {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
+              
+                {
+                    this.state.appointmentToday == false ?
+                    (null)
+                    :
+                (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.state.nextAppointment == "You currently have no appointment" ? null : this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from() : this.state.nextAppointment == 'You currently have no appointment' ? 'Please Schedule an appointment' : 'Go to your appointment'}</button>)
+                  }
+              </div>
+              <div className='__main-mobile-foot'>
+                      <div className={this.state.navOpen == false ? '__main-mobile-nav-closed' : '__main-mobile-nav-holder'}>
+                        <Sidebar sub={this.state.subscription} profilePic={this.state.profilePic} subLevel={this.state.subLevel} doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
+                      </div>
+                <button onClick={this.openNav} className="__main-nav-button">
+                  <HouseIcon style={{ color: 'white' }}/>
+                </button>
+              </div>
+            </div>
+          )
+        }
     }
 
 

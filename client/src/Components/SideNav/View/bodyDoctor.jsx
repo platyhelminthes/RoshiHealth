@@ -7,6 +7,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import {isMobile} from 'react-device-detect'
 
 
 const dropDown = {
@@ -62,9 +63,9 @@ class doctorBody extends Component {
 
     render(){
         return(
-<div className='__body-main'>
-                <div className='__SideLinks-Static-Box'>
-                    <HouseIcon/>
+<div className={isMobile ? '__body-main-mobile':'__body-main'}>
+                <div className={isMobile ? '__SideLinks-Static-Box-Mobile' : '__SideLinks-Static-Box'}>
+                    <HouseIcon style={{color: 'white'}}/>
                     <Link to='/main/overview'className='__SideLinks-Static'>Overview</Link>
                 </div>
                 <ExpansionPanel style={dropDownBack} >

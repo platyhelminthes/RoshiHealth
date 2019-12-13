@@ -6,6 +6,7 @@ import axios from 'axios'
 import Sidebar from './sideBar.jsx'
 import backimg from '../images/headerimg.jpg'
 import { Link } from 'react-router-dom'
+import {isMobile} from 'react-device-detect'
 
 
 class Store extends Component {
@@ -38,6 +39,7 @@ class Store extends Component {
     }
 
     componentDidMount() {
+        this.props.closeNav()
         this.getAppointments('general')
         this.load()
     }
@@ -134,18 +136,18 @@ class Store extends Component {
         }
         else {
             return (
-                <div className="store-container" >
+                <div className={isMobile ? '__store-mobile': "store-container"} >
 
-                    <div className="store__main" >
+                    <div className={isMobile ? '__store-main-mobile':"store__main"} >
                         <div className="___store-nav">
                             
-                            <ul>
+                            {/* <ul>
                                 <button value='general' onClick={this.changeSearch}>Doctors</button>
                                 <button value='coming soon' onClick={this.changeSearch}>Supplements</button>
                                 <button value='coming soon' onClick={this.changeSearch}>Apparel</button>
-                            </ul>
+                            </ul> */}
                         </div>
-                        <div className="store__header" style={{ backgroundImage: `url(${backimg})` }}>
+                        <div className={isMobile ? '__store-header-mobile': "store__header"} style={{ backgroundImage: `url(${backimg})` }}>
                             <div className='store-header__content'>
                                 <div className='store-header__info'>
 
@@ -158,13 +160,13 @@ class Store extends Component {
 
                         <div className="___store-nav-category">
                             
-                            <ul>
-                                <button className='__store-nav-buttons' value='metabolic' onClick={this.changeSearch}>Metabolic</button>
-                                <button className='__store-nav-buttons' value='airway' onClick={this.changeSearch}>Airway</button>
-                                <button className='__store-nav-buttons' value='cardio' onClick={this.changeSearch}>Cardio</button>
-                                <button className='__store-nav-buttons' value='general' onClick={this.changeSearch}>General</button>
-                                <button className='__store-nav-buttons' value='gut' onClick={this.changeSearch}>Gut</button>
-                                <button className='__store-nav-buttons' value='mental' onClick={this.changeSearch}>Mental</button>
+                            <ul className={isMobile ? '__selectors-mobile': null}>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='metabolic' onClick={this.changeSearch}>Metabolic</button>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='airway' onClick={this.changeSearch}>Airway</button>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='cardio' onClick={this.changeSearch}>Cardio</button>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='general' onClick={this.changeSearch}>General</button>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='gut' onClick={this.changeSearch}>Gut</button>
+                                <button className={isMobile ? '__nav-buttons-mobile' : '__store-nav-buttons'} value='mental' onClick={this.changeSearch}>Mental</button>
                             </ul>
                         </div>
                         <div className="store___box-container">
@@ -183,14 +185,14 @@ class Store extends Component {
                                         :
                                         (row.Type == 'coming soon' ?
                                         (
-                                            <div className="appt_type_boxes" >
+                                            <div className={isMobile ? '__store-boxes-mobile' : "appt_type_boxes"} >
                                                 <h2>Coming Soon</h2>
                                             </div>
                                         )
                                         :
                                         (
 
-                                            <div className="appt_type_boxes" >
+                                            <div className={isMobile ? '__store-boxes-mobile' : "appt_type_boxes"} >
                                                 <h2>{row.Type}</h2>
                                                 <p>{row.DocType}</p>
                                                 <p>Appointment price: ${row.Price}.00</p>

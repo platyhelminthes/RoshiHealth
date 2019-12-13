@@ -13,6 +13,10 @@ class ViewPatients extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.closeNav()
+    }
+
     render() {
         if (this.state.redirect == true) { return (<Redirect to='/main' />) }
         return (

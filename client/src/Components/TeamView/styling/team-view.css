@@ -1,7 +1,8 @@
 .__team-View {
     height: 100%;
     width: 100%;
-    display: flex
+    display: flex;
+    overflow: hidden;
 }
 
 .__team-View-Left {
@@ -130,3 +131,93 @@
     align-items: center;
 }
 
+.__team-view-picker-main-mobile {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.__team-view-picker-left-mobile {
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__team-view-picker-left-mobile button {
+    width: 100%;
+    height: 100%;
+    background: orange;
+    border: none;
+}
+
+.__team-view-picker-right-mobile {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.__team-view-picker-right-mobile button {
+    width: 100%;
+    height: 100%;
+    background: orange;
+    border: none;
+}
+
+
+.__team-view-mobile {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: orange;
+    animation: revealb 1s forwards;
+}
+
+.__sub-team-mobile {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: orange;
+    animation: reveal 1s forwards;
+  }
+
+  @keyframes revealb {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  
+  @keyframes reveal {
+    from {
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  .__sub-team-mobile-mid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+  }
+
+  .__sub-team-picture {
+    width: 65vw;
+    margin-top: 25vh;
+    margin-bottom: 5vh;
+  }
+
+  .__sub-team-mobile-mid::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}

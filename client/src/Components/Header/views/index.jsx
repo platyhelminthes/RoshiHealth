@@ -9,6 +9,12 @@ import DropDownTest from './dropDownTest'
 import Aheckout from './checkOut'
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import AddIcon from '@material-ui/icons/Add';
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
 
 
 
@@ -51,7 +57,12 @@ class Tasks extends Component {
       };
 
       openDropDown = () => {
+        if(this.state.DD == true){
+          this.setState({DD: false})
+        }
+        else{
           this.setState({DD: true})
+        }
       }
 
       closeDropDown = () => {
@@ -73,35 +84,56 @@ class Tasks extends Component {
     }
 
         return (
-            <div className="__Header-Main">
-                <HeaderNav drawerClickHandler={this.drawerToggleClickHandler} />
-                <SideDrawer show={this.state.sideDrawerOpen} />
+            <div className={isMobile ? '__Header-Main-Mobile' : "__Header-Main"}>
+                {/* <HeaderNav drawerClickHandler={this.drawerToggleClickHandler} /> */}
+                {/* <SideDrawer show={this.state.sideDrawerOpen} /> */}
                 {backdrop}
 
-                <div className="__Header-Items">
+                <div className={isMobile ? '__Header-Items-Mobile' : "__Header-Items"}>
                     
                     {this.state.DD == true ?
+                    isMobile ?
+                    (<div className='__Header-Dropdown-Mobile' >
+                
+                    <button value='50' onClick={this.openModal}>Add $50</button>
+                    <button value='100' onClick={this.openModal}>Add $100</button>
+                    <button value='200' onClick={this.openModal}>Add $200</button>
+                    <button value='300' onClick={this.openModal}>Add $300</button>
+                    <button value='500' onClick={this.openModal}>Add $500</button>
+                    <button value='1000' onClick={this.openModal}>Add $1000</button>
+                    <p style={{textAlign: 'center', marginTop: '0'}} onClick={this.closeDropDown}>close?</p>
+                    </div>)
+                    :
                     (<div className='__Header-Dropdown' >
                 
-                        <button value='50' onClick={this.openModal}>Add $50</button>
-                        <button value='100' onClick={this.openModal}>Add $100</button>
-                        <button value='200' onClick={this.openModal}>Add $200</button>
-                        <button value='300' onClick={this.openModal}>Add $300</button>
-                        <button value='500' onClick={this.openModal}>Add $500</button>
-                        <button value='1000' onClick={this.openModal}>Add $1000</button>
-                        <p style={{textAlign: 'center', marginTop: '0'}} onClick={this.closeDropDown}>close?</p>
+                    <button value='50' onClick={this.openModal}>Add $50</button>
+                    <button value='100' onClick={this.openModal}>Add $100</button>
+                    <button value='200' onClick={this.openModal}>Add $200</button>
+                    <button value='300' onClick={this.openModal}>Add $300</button>
+                    <button value='500' onClick={this.openModal}>Add $500</button>
+                    <button value='1000' onClick={this.openModal}>Add $1000</button>
+                    <p style={{textAlign: 'center', marginTop: '0'}} onClick={this.closeDropDown}>close?</p>
                     </div>)
                     :
                     (null)
                     }
+                { isMobile ?
+                (<div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginLeft: '5vw'}}>
                 
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    
+                <p className='__Header-Wallet-Mobile'>Wallet: ${this.props.wallet}.00</p>
+                <button className='__Header-Add-Button-Mobile' onClick={this.openDropDown}><AddIcon style={{fontSize: '15px'}}/> Add money?</button>
+                
+                </div>)
+                :
+                (
+                <div style={isMobile ? {display: 'flex', flexDirection: 'row', alignItems: 'center'} :{display: 'flex', flexDirection: 'column'}}>
+                
                 <p className='__Header-Wallet'>Wallet: ${this.props.wallet}.00</p>
                 <button className='__Header-Add-Button' onClick={this.openDropDown}><AddIcon style={{fontSize: '15px'}}/> Add money?</button>
-
+                
                 </div>
-                <Link to='/login' onClick={this.logOut} style={{ marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
+                )}
+                <Link to='/login' onClick={this.logOut} style={isMobile ? {color: 'white', textDecoration: 'none', alignSelf: 'center', width: '25vw', height: '10vh', paddingTop: '2vh', paddingLeft: '3vw', borderLeft: '2px solid black', fontSize: '5vw'} : { marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
                 </div>
                 {this.state.purchase == true ?
                 (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">

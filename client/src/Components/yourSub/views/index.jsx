@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../styles/yourSub.css'
 import { Table, TableHead, TableCell, TableRow, TableBody } from '@material-ui/core'
 import moment from 'moment'
-
+import {isMobile} from 'react-device-detect'
 
 
 
@@ -11,10 +11,14 @@ class yourSub extends Component {
         super(props)
     }
 
+    componentDidMount(){
+        this.props.closeNav()
+    }
+
     render(){
         return(
-            <div className='__yourSub-main'>
-                <Table style={{width: '50%'}}>
+            <div className={isMobile ? '__yourSub-mobile' : '__yourSub-main'}>
+                <Table style={isMobile ? null : {width: '50%'}}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Info</TableCell>
