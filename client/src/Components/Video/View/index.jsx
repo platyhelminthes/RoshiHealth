@@ -20,7 +20,6 @@ class App extends Component {
   };
 
   componentDidMount(){
-    this.props.closeNav()
     this.getUser()
     console.log(this.props.location.state)
     if(this.props.location.state == null){this.setState({redirect: true})}
