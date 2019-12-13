@@ -43,6 +43,7 @@ class SendTasks extends Component {
     }
 
     componentDidMount(){
+      this.props.closeNav()
         setTimeout(this.getPatients,500)
         setTimeout(this.finishLoading, 700)
     }

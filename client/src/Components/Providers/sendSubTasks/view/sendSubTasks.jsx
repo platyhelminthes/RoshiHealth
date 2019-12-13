@@ -18,6 +18,10 @@ class sendSubtasks extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentDidMount(){
+        this.props.closeNav()
+    }
+
     handleChange(e) {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;

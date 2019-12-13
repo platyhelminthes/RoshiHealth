@@ -6,6 +6,7 @@ import Body from './body'
 import moment from 'moment'
 import BodyD from './bodyDoctor'
 import Footer from './footer'
+import {isMobile} from 'react-device-detect'
 
 
 
@@ -39,14 +40,20 @@ class Sidenav extends Component {
 
     render(){
         return(
-            <div id='__side-Nav'>
-                <Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>
+            <div id={isMobile ? '__side-Nav-Mobile' : '__side-Nav'}>
+                {isMobile ? 
+                (null)
+                :
+                (<Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>)}
                 {this.props.doctor == 'Patient' ?
                 (<Body subLevel={this.props.subLevel} sub={this.props.sub} doctors={this.props.doctors} allowed={this.props.allowed} APtime={this.state.APTime}/>)
                 :
                 (<BodyD/>)
                 }
-                <Footer/>
+                {isMobile ? 
+                (null)
+            :
+            (<Footer/>)}
             </div>
         )
     }

@@ -6,6 +6,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Axios from 'axios';
 import Loading from '../../Loading'
+import {isMobile} from 'react-device-detect'
 
 
 class Teamview extends Component {
@@ -16,8 +17,9 @@ class Teamview extends Component {
             selector: 0,
             doctors: this.props.doctors,
             loading: false,
-            path: null,
-            subSelect: 1
+            path: 'none',
+            subSelect: 1,
+            docTransition: false
         }
 
         this.handleClick = this.handleClick.bind(this)
@@ -25,9 +27,20 @@ class Teamview extends Component {
         this.pickView = this.pickView.bind(this)
         this.pickSubLeft = this.pickSubLeft.bind(this)
         this.pickSubRight = this.pickSubRight.bind(this)
+        this.docTransition = this.docTransition.bind(this)
     }
 
 
+
+    
+
+    componentDidMount(){
+        this.props.closeNav()
+    }
+
+    docTransition(){
+        this.setState({docTransition: true})
+    }
 
     handleClick(e) {
         (e).preventDefault()
@@ -59,7 +72,7 @@ class Teamview extends Component {
 
     pickSubRight(e) {
         (e).preventDefault()
-        if(this.state.subSelect == 3) {}
+        if(this.state.subSelect == 2) {}
         else{
         this.setState({ subSelect: this.state.subSelect + 1 })}
     }
@@ -67,32 +80,122 @@ class Teamview extends Component {
     render() {
 
         if (this.state.loading == true) { return (<Loading />) }
-        else if (this.state.path == null) {
+        else if (this.state.path == 'none') {
             return (
-                <div className='__teamview-Picker'>
+                <div className={isMobile ? '__team-view-picker-main-mobile' : '__teamview-Picker'}>
                     {
                         this.state.doctors.length == 0 ?
-                        (   <div className='Left'>
+                        (   <div className={isMobile ? '__team-view-picker-left-mobile' : 'Left'}>
                                 <button>Please add a doctor</button>
                             </div>)
                         :
-                        (   <div className='Left'>
+                        (   <div className={isMobile ? '__team-view-picker-left-mobile' : 'Left'}>
                                 <button value='doctors' onClick={this.pickView}>View Your Doctors</button>
                             </div>)
                     }
                     {
                         this.props.subLevel !== 'AD1279D1' ?
                             (
-                                <div className='Right'>
+                                <div className={isMobile ? '__team-view-picker-right-mobile' : 'Right'}>
                                     <button value='healthteam'>Please Purchase A Subsciption</button>
                                 </div>
                             )
                             :
                             (
-                                <div className='Right'>
+                                <div className={isMobile ? '__team-view-picker-right-mobile' : 'Right'}>
                                     <button value='healthteam' onClick={this.pickView}>View Your Health Team</button>
                                 </div>
                             )
+                    }
+                </div>
+            )
+        }
+        else if (this.state.path == 'doctors' && isMobile) {
+            var doctor = this.state.doctors[this.state.selector]
+            var name = this.state.doctors[this.state.selector].fullName
+            return(
+                <div className='__team-view-mobile'>
+                    <div className='__team-View'>
+                                 
+                                 <div>
+                                     <button style={{ height: '100%', background: 'gray', border: '0', background: '#31353D', width: '15vw' }} onClick={this.pickSubLeft}><ArrowBackIcon /></button>
+                                 </div>
+ 
+ 
+                                 <div className="__sub-team-mobile-mid">
+                                         <img className='__sub-team-picture' src={userImg} />
+ 
+                                         <div className='__right-Bottom'>
+                            <h2>Name: {doctor.fullName}</h2>
+                            <h2>Title: {doctor.providerInfo.providerType}</h2>
+                            <h2>About: This is a bio for a doctor. This doctor is a good accredited doctor.
+                    </h2>
+                                 </div>
+                                 </div>
+                                 <div>
+                                     <button style={{ height: '100%', border: '0', background: '#31353D', width: '15vw', float: 'right' }} onClick={this.pickSubRight}><ArrowForwardIcon /></button>
+                                 </div>
+
+                        </div>
+                </div>
+            )
+        }
+        else if (this.state.path == 'healthteam' && isMobile) {
+            return(
+                <div className='__sub-team-mobile'>
+                    {this.state.subSelect == 1 ?
+                        (
+                            <div className='__team-View'>
+                                 
+                                <div className='__button-Left'>
+                                    <button style={{ height: '100%', background: 'gray', border: '0', borderLeft: '1px solid black', background: '#31353D', width: '5vw' }} onClick={this.pickSubLeft}><ArrowBackIcon /></button>
+                                </div>
+
+
+                                <div className="__sub-team-mobile-mid">
+                                        <img className='__sub-team-picture' src={userImg} />
+
+                                        <div className='__right-Bottom'>
+                                        <h2>Name: Jenna</h2>
+                                        <h2>Title: Nurse/Dietitian</h2>
+                                        <h2>About: Jenna is a licensed Dietitian and Nurse.
+                                        </h2>
+
+                                    </div>
+                                </div>
+                                <div className='__button-Right'>
+                                    <button style={{ height: '100%', border: '0', background: '#31353D', width: '5vw', float: 'right' }} onClick={this.pickSubRight}><ArrowForwardIcon /></button>
+                                </div>
+                            </div>)
+                        :
+                        (null)
+                    }
+                    {this.state.subSelect == 2 ?
+                        (
+                            <div className='__team-View'>
+                                 
+                                <div className='__button-Left'>
+                                    <button style={{ height: '100%', background: 'gray', border: '0', borderLeft: '1px solid black', background: '#31353D', width: '5vw' }} onClick={this.pickSubLeft}><ArrowBackIcon /></button>
+                                </div>
+
+
+                                <div className="__sub-team-mobile-mid">
+                                        <img className='__sub-team-picture' src={userImg} />
+
+                                        <div className='__right-Bottom'>
+                                        <h2>Name: Null</h2>
+                                        <h2>Title: Health Counselor</h2>
+                                        <h2>About: Null is our Health Counselor. You will most likely see her the most on your health team.
+                                        </h2>
+
+                                    </div>
+                                </div>
+                                <div className='__button-Right'>
+                                    <button style={{ height: '100%', border: '0', background: '#31353D', width: '5vw', float: 'right' }} onClick={this.pickSubRight}><ArrowForwardIcon /></button>
+                                </div>
+                            </div>)
+                        :
+                        (null)
                     }
                 </div>
             )

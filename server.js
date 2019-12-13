@@ -26,6 +26,10 @@ const upload = multer();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
+
+
+
 app.use(session({ secret: process.env.SESS_SEC, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());

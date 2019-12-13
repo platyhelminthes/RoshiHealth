@@ -8,9 +8,38 @@
     justify-content: space-between;
 }
 
+.__Header-Main-Mobile {
+    color: White;
+    height: 10vh;
+    width: 100%;
+    background-color: #36393F;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .__Header-Items{
     display: flex;
     flex-direction: row;
+}
+
+.__Header-Items-Mobile {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.__Header-Logout-Mobile {
+    color: white;
+    text-decoration: none;
+    align-self: center;
+    /* height: 5vw; */
+    width: 25vw;
+    height: 10vh;
+    padding-top: 3vh;
+    padding-left: 4vw;
+    border-left: 2px solid black;
 }
 
 .__Header-Add-Button{
@@ -21,6 +50,17 @@
     height: 3vh;
     margin-right: 1.5vw!important;
     cursor: cell
+}
+
+.__Header-Add-Button-Mobile {
+    background: none;
+    outline: none;
+    border: none;
+    color: white;
+    height: 3vh;
+    margin-right: 1.5vw!important;
+    cursor: cell;
+    font-size: 4vw;
 }
 
 .__Header-Add-Button:hover {
@@ -36,6 +76,13 @@
 
 }
 
+.__Header-Wallet-Mobile {
+    color: white;
+    margin: 0!important;
+    text-decoration: none;
+    font-size: 6vw;
+}
+
 .__Header-Dropdown {
     z-index: 10;
     background: #36393F;
@@ -45,6 +92,31 @@
     position: absolute; 
     top: 7vh;
     border-radius: 10px;
+}
+
+.__Header-Dropdown-Mobile {
+    z-index: 10;
+    background: #36393F;
+    width: 100vw;
+    height: 72vh;
+    position: absolute;
+    top: 10vh;
+    right: 0;
+}
+
+.__Header-Dropdown-Mobile button {
+    width: 100%;
+    height: 10vh;
+    background: none;
+    border: none;
+    color: white;
+    margin-top: 1vh;
+    border-top: 1px solid white;
+    font-size: 5vw
+}
+
+.__Header-Dropdown-Mobile button:hover {
+    background: gray;
 }
 
 .__Header-Dropdown button {
@@ -58,6 +130,14 @@
 
 .__Header-Dropdown button:hover {
     background: gray;
+}
+
+.__Header-Dropdown-Mobile p {
+    text-align: center;
+    margin-top: 0;
+    padding-top: 1vh;
+    border-top: 1px solid white;
+    font-size: 4vw
 }
 
 .checkout {

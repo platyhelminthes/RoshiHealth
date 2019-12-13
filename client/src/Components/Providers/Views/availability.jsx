@@ -37,7 +37,7 @@ class Availability extends Component {
     componentDidMount(){
 
         this.getUser()
-        
+        this.props.closeNav()
     }
 
    
@@ -92,6 +92,9 @@ class Availability extends Component {
         var timeAM = ['12:00 AM', '1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM']
         var timePM = ['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM']
         if(this.state.daySelected == 'monday'){
+            if(this.state.monday.length > 0){
+                alert('You already have a schedule for today')
+            }
             if(this.state.monday != null){
         
         for(var i=0; i<this.state.monday.length; i++){
@@ -217,6 +220,8 @@ class Availability extends Component {
     }
 
     sendTimes = () => {
+        var timesToSendFinal = this.timesToSendAM.concat(this.timesToSendPM)
+        
         Axios.post('/api/providers/addAvailability', {
             day: this.state.daySelected,
             time: this.timesToSendFinal

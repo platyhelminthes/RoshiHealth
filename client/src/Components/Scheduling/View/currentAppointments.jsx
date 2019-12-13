@@ -1,6 +1,7 @@
 import React from 'react'
 import {Component} from 'react'
 import moment from 'moment'
+import {isMobile} from 'react-device-detect'
 
 
 class CurrentAppointments extends Component {
@@ -15,7 +16,7 @@ class CurrentAppointments extends Component {
 render(){
     var appointments = this.props.appointments
     if(appointments == null){return(
-        <div className="appt-card" >
+        <div className={isMobile ? 'appt-card-mobile' : "appt-card"} >
     <h4>Current appointments will go here</h4>
     </div>
     )}

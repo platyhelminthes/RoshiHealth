@@ -113,7 +113,16 @@ class SignUpForm extends Component {
                   postal: postal,
                   street: street,
                   country: country
-                }).then(setTimeout(this.Login, 500))
+                }).then(
+                  
+                  (res2)=>{
+                    console.log(res2.data)
+                    if(res2.data.success == false){
+                      alert('Sorry that email is taken')
+                    }
+                    else{
+                    setTimeout(this.Login, 500)}
+                  })
               }
               else(alert('This is an invalid address'))
           }

@@ -15,6 +15,9 @@ class FAQ extends Component {
     select(e){
         this.setState({selected: e.target.value})
     }
+    componentDidMount(){
+        this.props.closeNav()
+    }
 
     render(){
 

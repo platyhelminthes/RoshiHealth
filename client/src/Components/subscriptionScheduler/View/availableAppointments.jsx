@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
+import {isMobile} from 'react-device-detect'
 
 
 
@@ -20,7 +21,7 @@ class availableAppointments extends Component {
     render() {
         var times = this.props.times
         return (
-            <div className='__appointments-main'>
+            <div className={isMobile ? '__appointments-main-mobile' : '__appointments-main'}>
                 <Table>
                     <TableHead>
                         <TableRow>

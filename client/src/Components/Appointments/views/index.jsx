@@ -5,7 +5,7 @@ import moment from 'moment'
 import Axios from 'axios'
 import '../styles/AppointmentView.css'
 import {Link} from 'react-router-dom'
-
+import {isMobile} from 'react-device-detect'
 
 class Appointments extends Component {
 
@@ -14,6 +14,9 @@ class Appointments extends Component {
         
         this.cancelAPP = this.cancelAPP.bind(this)
         this.cancelSubAPP = this.cancelSubAPP.bind(this)
+    }
+    componentDidMount(){
+        this.props.closeNav()
     }
 
     cancelAPP(e){
@@ -43,7 +46,7 @@ class Appointments extends Component {
     render() {
         var sortedArray = this.props.state.appointments.sort((a,b) => new moment(a.date).format('YYYYMMDD') - new moment(b.date).format('YYYYMMDD'))
         return (
-            <div className='__appointments-main2'>
+            <div className={isMobile ? '__appointments-main-mobile' : '__appointments-main2'}>
                 {this.props.state.appointments.length == 0 || sortedArray.length == 0 ?
                     (
                         <div>

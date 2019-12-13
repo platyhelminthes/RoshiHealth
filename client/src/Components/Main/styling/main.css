@@ -17,6 +17,25 @@
   left: 0;
 }
 
+
+.__main-back-mobile {
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  color: white;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .__appointment-Pill {
   width: 5vw;
   height: 7vh;
@@ -106,6 +125,62 @@
   overflow-y: auto;
   background-color: #36393f;
   background: rgba(204, 204, 204, 0.05);
+}
+
+.__main-nav-button {
+  position: absolute;
+  bottom: 0;
+  left: 40vw;
+  border-top-left-radius: 10vw;
+  border-top-right-radius: 10vw;
+  height: 10vw;
+  width: 20vw;
+  background: #36393F;
+  border: none;
+  z-index: 12;
+}
+
+.__main-nav-button:focus {
+  outline: none;
+}
+
+.__main-nav-button:active {
+  border: 2px solid black
+}
+
+.__main-mobile-nav-holder {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 1s;
+  z-index: 11;
+}
+
+.__main-mobile-nav-closed {
+  height: 0;
+  width: 100vw;
+  
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 1s;
+}
+
+.__main-mobile-head {
+  height: 10vh;
+  width: 100%
+}
+
+.__main-mobile-body {
+  height: 90vh;
+  width: 100vw;
+  background: gray
+}
+
+.__main-mobile-foot {
+  
 }
 
 @media (max-width: 769px) {

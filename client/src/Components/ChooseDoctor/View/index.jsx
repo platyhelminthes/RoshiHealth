@@ -27,6 +27,7 @@ class ChooseDoctor extends Component {
     }
 
     componentDidMount(){
+        this.props.closeNav()
         console.log(this.props.location.state.search)
         this.findProviders(this.props.location.state.search)
     }

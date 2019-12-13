@@ -1,6 +1,6 @@
 import React from 'react'
 import {Component} from 'react'
-
+import {isMobile} from 'react-device-detect'
 
 class Doctors extends Component {
 
@@ -14,7 +14,7 @@ class Doctors extends Component {
 render(){
     var providers = this.props.providers
     return(
-    <select onChange={this.props.handleSubmit2} defaultValue={this.state.selectValue}>
+    <select style={isMobile ? {width: '70vw'} : null} onChange={this.props.handleSubmit2} defaultValue={this.state.selectValue}>
     <option>Please choose doctor</option>
         {
             providers.map(

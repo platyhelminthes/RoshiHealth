@@ -7,6 +7,16 @@
     justify-content: space-between;
 }
 
+#__side-Nav-Mobile {
+    height:100%;
+    width: 100vw;
+    background: #31353D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 5;
+}
+
 #__main-head {
     display: flex;
     flex-direction: column;
@@ -85,7 +95,16 @@
     padding-bottom: 5vh
 }
 
-.__SideLinks {
+.__body-main-mobile {
+    width: 100%;
+    height:85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 5vh
+}
+
+
+.__body-main .__SideLinks {
     font-family: 'Play', sans-serif;
     color: white;
     font-weight: 600;
@@ -99,16 +118,52 @@
     margin-left: 2vw;
 }
 
-.__SideLinks:hover {
+.__body-main .__SideLinks:hover {
   color: orange
 }
 
-.__SideLinks:visited {
+.__body-main .__SideLinks:visited {
+  text-decoration: none
+}
+
+.__body-main-mobile .__SideLinks {
+    font-family: 'Play', sans-serif;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    justify-self: start;
+    width: 100vw;
+    vertical-align: center;
+    height: 7vh;
+    padding: 0;
+    margin-left: 2vw;
+    border-bottom: 2px solid black;
+    padding-top: 2vw;
+    text-align: center;
+    
+}
+
+.__body-main-mobile .__SideLinks:hover {
+  color: orange
+}
+
+.__body-main-mobile .__SideLinks:visited {
   text-decoration: none
 }
 
 .__SideLinks-Static-Box {
     width: 90%;
+    height: 5vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 4vw;
+    padding-left: 1vw
+}
+
+.__SideLinks-Static-Box-Mobile {
+    width: 25%;
     height: 5vh;
     display: flex;
     justify-content: space-around;
@@ -135,6 +190,14 @@
 
 .__SideLinks-Static:visited {
   text-decoration: none
+}
+
+.__SideLinks-Static-Box-Mobile:hover .__SideLinks-Static {
+    color: orange
+  }
+  
+.__SideLinks-Static-Mobile:visited {
+    text-decoration: none
 }
 
 .__main-footer {

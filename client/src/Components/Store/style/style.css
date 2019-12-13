@@ -136,19 +136,17 @@
 }
 
 .___store-nav-category {
-  grid-area: cat;
   display: flex;
   justify-content: center;
 }
 
 .___store-nav-category ul li {
   display: inline-block;
-  padding: 0px 20px;
   align-content: center;
 }
 
 .store___box-container {
-  justify-items: center;
+  justify-content: center;
   /* grid-area: body; */
   min-width: 81vw;
   min-height: 92vh;
@@ -201,51 +199,47 @@
   text-align: center;
 }
 
-@media (max-width: 769px) {
-  .store-container {
-    display: grid;
-    /* grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        grid-template-areas:
-          "sb main main main"
-          "sb main main main"
-          "sb main main main"; */
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "main";
-  }
+.__selectors-mobile {
+  width: 100vw;
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+  margin-top: 0;
+}
 
-  .store__main {
-    overflow-y: scroll;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 215px 50px 1fr;
-    grid-template-areas:
-      "nav"
-      "head"
-      "cat"
-      "body";
-  }
-
-  .___store-nav-category {
-    margin-left: -40px;
-  }
-
-  .___store-nav-category ul li {
-    display: inline-block;
-    padding: 8px 15px 0px 5px;
-    margin-left: -8px;
+.__nav-buttons-mobile {
+  background: none;
+    border: none;
+    outline: none;
+    color: white;
+    width: 20vw;
+    height: 5vh;
+    border: 1px solid white;
     font-size: 14px;
-  }
+}
 
-  .store___box-container {
-    flex-direction: column;
-    padding-bottom: 100px;
-  }
-  .store__header h1 {
-    font-size: 22px;
-  }
-  .appt_type_boxes {
-    max-width: 100%;
-  }
+.__store-mobile {
+  max-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.__store-header-mobile {
+  width: 100vw;
+  height: 30vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.__store-boxes-mobile {
+  width: 80vw;
+  height: 50vh;
+  box-shadow: 20px 20px 50px grey;
+  /* grid-area: box; */
+  background-color: #36393f;
+  border-radius: 15px;
+  padding: 1vh;
+  color: white
 }
