@@ -311,6 +311,7 @@ class Main extends Component {
           return(
             <Redirect to={{
               pathname: '/video',
+              closeNav: this.closeNav,
               state: {
                 clicked: true
               }}}/>
