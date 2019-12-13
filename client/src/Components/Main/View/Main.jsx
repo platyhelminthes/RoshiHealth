@@ -408,7 +408,7 @@ class Main extends Component {
         )}
         else if(isMobile){
           return(
-            <div>
+            <div style={{maxHeight: '100vh', maxWidth: '100vw', overflow: 'hidden'}}>
               <div className='__main-mobile-head'>
               <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
               </div>
