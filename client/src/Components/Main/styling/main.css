@@ -160,8 +160,7 @@
 
 .__main-mobile-nav-closed {
   height: 0;
-  width: 100vw;
-  
+  width: 0;
   position: absolute;
   bottom: 0;
   left: 0;
