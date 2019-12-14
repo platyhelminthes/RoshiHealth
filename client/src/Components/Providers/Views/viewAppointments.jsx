@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment'
+import {isMobile} from 'react-device-detect'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
