@@ -409,7 +409,7 @@ class Main extends Component {
         )}
         else if(isMobile){
           return(
-            <div style={{maxHeight: '100vh', maxWidth: '100vw', overflow: 'hidden'}}>
+            <div style={{maxHeight: '100vh', maxWidth: '100vw', overflow: 'hidden', position: 'absolute', bottom: '0', right: '0'}}>
               <div className='__main-mobile-head'>
               <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
               </div>
