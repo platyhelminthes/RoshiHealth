@@ -26,12 +26,16 @@ class Availability extends Component {
             saturday: [1],
             sunday: [1],
             displayTimesAM: ['select ', 'a', ' time'],
-            displayTimesPM: ['select ', 'a', ' time']
+            displayTimesPM: ['select ', 'a', ' time'],
+            modal: false,
+            modalDay: null,
+            modalDayTimes: [1]
         }
         this.clickHandle = this.clickHandle.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClick2 = this.handleClick2.bind(this);
         this.resetDay = this.resetDay.bind(this)
+        this.openModal = this.openModal.bind(this)
     }
 
     componentDidMount(){
@@ -44,6 +48,10 @@ class Availability extends Component {
 
     timesToSendAM = []
     timesToSendPM = []
+
+    openModal = (day, times) => {
+        this.setState({modal: true, modalDay: day, modalDayTimes: times})
+    }
 
     getUser = () => {
         Axios.get('/api/users/getUser')
@@ -77,23 +85,29 @@ class Availability extends Component {
             alert('select a day')
         }
         else{
-            alert('day resetting')
         Axios.post('/api/providers/resetDay', {
             day: this.state.daySelected
         })}
+        this.setState({daySelected: null})
+        setTimeout(this.getUser, 500)
+        setTimeout(this.reset, 700)
+        setTimeout(this.checkTimes, 900)
     }
 
     reset = () => {
         this.setState({timesAM: ['12:00 AM', '1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM']})
         this.setState({timesPM: ['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM']})
+        this.setState({modal: false })
+        this.timesToSendAM.length = 0
+        this.timesToSendPM.length = 0
     }
 
     checkTimes = () => {
         var timeAM = ['12:00 AM', '1:00 AM','2:00 AM','3:00 AM','4:00 AM','5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM']
         var timePM = ['12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM','11:00 PM']
-        if(this.state.daySelected == 'monday'){
+        if(this.state.daySelected == 'Monday'){
             if(this.state.monday.length > 0){
-                alert('You already have a schedule for today')
+                this.openModal('Monday', this.state.monday)
             }
             if(this.state.monday != null){
         
@@ -109,7 +123,10 @@ class Availability extends Component {
         }}
     }
 
-        if(this.state.daySelected == 'tuesday'){
+        if(this.state.daySelected == 'Tuesday'){
+            if(this.state.tuesday.length > 0){
+                this.openModal('Tuesday', this.state.tuesday)
+            }
             console.log(this.state.tuesday)
             if(this.state.tuesday != null){
             for(var i=0; i<this.state.tuesday.length; i++){
@@ -124,7 +141,10 @@ class Availability extends Component {
             }}
         }
 
-        if(this.state.daySelected == 'wednesday'){
+        if(this.state.daySelected == 'Wednesday'){
+            if(this.state.wednesday.length > 0){
+                this.openModal('Wednesday', this.state.wednesday)
+            }
             for(var i=0; i<this.state.wednesday.length; i++){
                 if(this.state.timesAM.includes(this.state.wednesday[i])){
                     var number = timeAM.indexOf(this.state.wednesday[i])
@@ -136,7 +156,10 @@ class Availability extends Component {
                 }
             }}
 
-        if(this.state.daySelected == 'thursday'){
+        if(this.state.daySelected == 'Thursday'){
+            if(this.state.thursday.length > 0){
+                this.openModal('Thursday', this.state.thursday)
+            }
             for(var i=0; i<this.state.thursday.length; i++){
                 if(this.state.timesAM.includes(this.state.thursday[i])){
                     var number = timeAM.indexOf(this.state.thursday[i])
@@ -148,7 +171,10 @@ class Availability extends Component {
                 }
             }}
 
-        if(this.state.daySelected == 'friday'){
+        if(this.state.daySelected == 'Friday'){
+            if(this.state.friday.length > 0){
+                 this.openModal('Friday', this.state.friday)
+            }
             for(var i=0; i<this.state.friday.length; i++){
                 if(this.state.timesAM.includes(this.state.friday[i])){
                     var number = timeAM.indexOf(this.state.friday[i])
@@ -160,7 +186,10 @@ class Availability extends Component {
                 }
             }}
 
-            if(this.state.daySelected == 'saturday'){
+            if(this.state.daySelected == 'Saturday'){
+                if(this.state.saturday.length > 0){
+                    this.openModal('Saturday', this.state.saturday)
+                }
                 for(var i=0; i<this.state.saturday.length; i++){
                     if(this.state.timesAM.includes(this.state.saturday[i])){
                         var number = timeAM.indexOf(this.state.saturday[i])
@@ -172,7 +201,10 @@ class Availability extends Component {
                     }
                 }}
                 
-                if(this.state.daySelected == 'sunday'){
+                if(this.state.daySelected == 'Sunday'){
+                    if(this.state.sunday.length > 0){
+                        this.openModal('Sunday', this.state.sunday)
+                    }
                     for(var i=0; i<this.state.sunday.length; i++){
                         if(this.state.timesAM.includes(this.state.sunday[i])){
                             var number = timeAM.indexOf(this.state.sunday[i])
@@ -209,22 +241,31 @@ class Availability extends Component {
     handleClick2 = (e) => {
         (e).preventDefault()
         if(this.state.daySelected == null){alert('choose a day')}
-        else if(this.timesToSendAM.length == 0 || this.timesToSendPM.length == 0){alert('select a time')}
+        else if(this.timesToSendAM.length == 0 && this.timesToSendPM.length == 0){alert('select a time')}
         else{
         this.sendTimes()
         setTimeout(this.getUser, 500)
         setTimeout(this.reset, 700)
         setTimeout(this.checkTimes, 900)
         }
-        
     }
 
     sendTimes = () => {
-        var timesToSendFinal = this.timesToSendAM.concat(this.timesToSendPM)
+    var timesToSendFinal = null
+
+    if(this.timesToSendAM && this.timesToSendPM){
+    timesToSendFinal = this.timesToSendAM.concat(this.timesToSendPM)
+    }
+    else if(this.timesToSendAM && !this.timesToSendPM){
+        timesToSendFinal = this.timesToSendAM
+    }
+    else if(this.timesToSendPM && !this.timesToSendAM){
+        timesToSendFinal = this.timesToSendPM
+    }
         
         Axios.post('/api/providers/addAvailability', {
             day: this.state.daySelected,
-            time: this.timesToSendFinal
+            time: timesToSendFinal
         })
     }
 
@@ -235,14 +276,53 @@ class Availability extends Component {
         return(
             <div className='__availability-Main'>
                 <div className='__availability-Days'>
-                    <button onClick={this.clickHandle}value='monday'>monday</button>
-                    <button onClick={this.clickHandle}value='tuesday'>tuesday</button>
-                    <button onClick={this.clickHandle}value='wednesday'>wednesday</button>
-                    <button onClick={this.clickHandle}value='thursday'>thursday</button>
-                    <button onClick={this.clickHandle}value='friday'>friday</button>
-                    <button onClick={this.clickHandle}value='saturday'>saturday</button>
-                    <button onClick={this.clickHandle}value='sunday'>sunday</button>
+                    <button onClick={this.clickHandle}value='Monday' style={this.state.daySelected == 'Monday' ? {background: 'gray'} : null}>Monday</button>
+                    <button onClick={this.clickHandle}value='Tuesday' style={this.state.daySelected == 'Tuesday' ? {background: 'gray'} : null}>Tuesday</button>
+                    <button onClick={this.clickHandle}value='Wednesday' style={this.state.daySelected == 'Wednesday' ? {background: 'gray'} : null}>Wednesday</button>
+                    <button onClick={this.clickHandle}value='Thursday' style={this.state.daySelected == 'Thursday' ? {background: 'gray'} : null}>Thursday</button>
+                    <button onClick={this.clickHandle}value='Friday' style={this.state.daySelected == 'Friday' ? {background: 'gray'} : null}>Friday</button>
+                    <button onClick={this.clickHandle}value='Saturday' style={this.state.daySelected == 'Saturday' ? {background: 'gray'} : null}>Saturday</button>
+                    <button onClick={this.clickHandle}value='Sunday' style={this.state.daySelected == 'Sunday' ? {background: 'gray'} : null}>Sunday</button>
                 </div>
+                {
+                    this.state.modal == true ?
+                (<div className='__availability-modal'>
+                    <div className='__availability-modal-header'>
+                        <h2>You already have a schedule for {this.state.modalDay}</h2>
+                    </div>
+                    <div className='__availability-modal-bottom'>
+                        <div className='__availability-modal-bottom-left'>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    Times
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            { this.state.modalDayTimes.map(
+                                    row => (
+                                        <TableRow>
+                                            <TableCell>
+                                            {row}
+                                            </TableCell>
+                                        </TableRow>       
+                                    )
+                                )
+                            }
+                        </TableBody>
+                    </Table>
+                    </div>
+                    <div onClick={this.resetDay} className='__availability-modal-bottom-right'>
+                        <h3>Would you like to reset this day?</h3>
+                        <button>Reset</button>
+                    </div>
+                    </div>
+                </div>)
+                    :
+                    (null)
+                }
                 <div className='__action-buttons'>
                 <button onClick={this.handleClick2}>Set Day</button>
                 <button onClick={this.resetDay}>Reset This Day</button>

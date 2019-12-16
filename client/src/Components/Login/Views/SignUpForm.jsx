@@ -36,7 +36,7 @@ class SignUpForm extends Component {
     });
   }
   sanatize = (string) => {
-    var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
+    var format = /[$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/
     if(format.test(string)){
         return true
     }
@@ -61,7 +61,7 @@ class SignUpForm extends Component {
   }
 
   Login = () => {
-    if(this.sanatize(this.state.email)){alert('No injections allowed!')}
+    if(this.sanatize(this.state.email)){alert('Allowed special characters !#')}
     else{
     axios.post('/api/login/login', {
         email: this.state.email.toLowerCase(),
@@ -89,7 +89,7 @@ class SignUpForm extends Component {
  //}
 
   CreateAccount = (name, email, password, number, texts, city, state, postal, street, country) => {
-    if(this.sanatize(name) || this.sanatize(email)){alert('no injections allowed')}
+    if(this.sanatize(name) || this.sanatize(email)){alert('Sorry no special characters allowed')}
     else{
       axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
       {

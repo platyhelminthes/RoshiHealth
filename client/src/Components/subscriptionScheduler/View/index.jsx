@@ -139,7 +139,6 @@ class Schedule extends Component {
 
     createAppointment = (time) => {
             var cleanTime = null
-        alert(this.state.docSelected + this.props.state.subscription.nurse.initialConsultation)
         if (time == '') { alert('sorry that time is not available!') }
         else {
         var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
@@ -267,7 +266,6 @@ class Schedule extends Component {
     }
 
     checkAvailable = () => {
-        alert(this.state.date)
         var datematch = false
         var index = null
         for(var i=0;i<this.state.availableDays.length; i++){

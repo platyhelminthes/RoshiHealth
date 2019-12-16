@@ -185,6 +185,7 @@
   width: 100vw;
 }
 
+
 @media (max-width: 769px) {
   .main__back {
     padding: 0;
