@@ -20,7 +20,8 @@ class dailySchedule extends Component {
             dateDay: null,
             timesAM: ['12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM', '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM'],
             timesPM: ['12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM'],
-            displayTimes: ['select ', 'a', ' time' ,' (leave blank for unavailable)'],
+            displayTimesAM: ['select ', 'a', ' time' ,' (leave blank for unavailable)'],
+            displayTimesPM: [],
             availableDays: []
         }
 
@@ -35,7 +36,8 @@ class dailySchedule extends Component {
         this.props.closeNav()
     }
 
-    timesToSend = []
+    timesToSendAM = []
+    timesToSendPM = []
 
     getUser = () => {
         Axios.get('/api/users/getUser')
@@ -49,13 +51,22 @@ class dailySchedule extends Component {
     }
 
     handleClick = (e) => {
-        if(this.timesToSend.includes(e.target.value)){alert('Time Already Selected')}
+        if(this.timesToSendAM.includes(e.target.value) || this.timesToSendPM.includes(e.target.value)){console.log('null')}
         else{
-        this.checkTimes()
-        this.timesToSend.push(e.target.value)
-        this.timesToSend.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
-        this.setState({displayTimes: this.timesToSend})
-        setTimeout(this.checkTimes, 100)}
+        if(e.target.value.includes('AM')){
+        this.timesToSendAM.push(e.target.value)
+        this.timesToSendAM.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
+        this.timesToSendAM.sort()
+        setTimeout(()=>{
+            this.setState({displayTimesAM: this.timesToSendAM})
+        }, 300)
+    }
+    else{this.timesToSendPM.push(e.target.value)
+        this.timesToSendPM.push(moment(e.target.value, 'hh:mm A').add( 30, 'minutes').format('h:mm A'))
+        this.timesToSendPM.sort()
+        setTimeout(()=>{
+            this.setState({displayTimesPM: this.timesToSendPM})
+        }, 300)}}
     }
 
     handleChange = (date) => {
@@ -66,7 +77,7 @@ class dailySchedule extends Component {
     }
 
     handleSend = () => {
-        this.sendDate(this.state.date, this.timesToSend)
+        this.sendDate(this.state.date)
     }
 
     checkTimes = (date) => {
@@ -81,10 +92,21 @@ class dailySchedule extends Component {
         }
 }
 
-    sendDate(date, time){
+    sendDate(date){
+    var timesToSendFinal = null
+
+    if(this.timesToSendAM && this.timesToSendPM){
+    timesToSendFinal = this.timesToSendAM.concat(this.timesToSendPM)
+    }
+    else if(this.timesToSendAM && !this.timesToSendPM){
+        timesToSendFinal = this.timesToSendAM
+    }
+    else if(this.timesToSendPM && !this.timesToSendAM){
+        timesToSendFinal = this.timesToSendPM
+    }
         Axios.post('/api/providers/dailySchedule',
         { date: date,
-          times: time})
+          times: timesToSendFinal})
     }
 
     render() {
@@ -102,11 +124,20 @@ class dailySchedule extends Component {
                         <button onClick={this.handleSend}>Finish</button>
                         </div>
                         <div className='__top-box-right'>
-                        {this.state.displayTimes.map(
+                            <div className='__top-box-right'>
+                            {this.state.displayTimesAM.map(
                             row=> (
                             <h5>{row} &nbsp;&nbsp;</h5>
                             )
                         )}
+                            </div>
+                            <div className='__top-box-right'>
+                            {this.state.displayTimesPM.map(
+                            row=> (
+                            <h5>{row} &nbsp;&nbsp;</h5>
+                            )
+                        )}
+                            </div>
                         </div>
                     </div>
                     <div className='__daily-bottom-box'>

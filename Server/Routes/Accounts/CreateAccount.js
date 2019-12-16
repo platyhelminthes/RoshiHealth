@@ -35,7 +35,7 @@ module.exports = (req, res) => {
 
   var client = nodemailer.createTransport(sgTransport(options));
 
-  let link = '<a href="roshihealth.com/confirmAccount/'+confirmNum+'/'+ email +'" >Confirm your account</a>'
+  let link = '<a href="roshihealth.com/confirmAccount/'+confirmNum+'/'+ email +'" >roshihealth.com/confirmAccount/'+confirmNum+'/'+ email +'</a>'
   
   const mailOptions = {
    from: 'roshihealth@gmail.com', // sender address

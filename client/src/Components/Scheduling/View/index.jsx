@@ -38,12 +38,14 @@ class Schedule extends Component {
             days: null,
             dateDay: null,
             openAppointments: [],
-            cost: 'doctors price'
+            cost: 'doctors price',
+            specificDays: []
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmit2 = this.handleSubmit2.bind(this);
         this.handleSubmit3 = this.handleSubmit3.bind(this);
+        this.checkForDate = this.checkForDate.bind(this)
     }
 
 
@@ -213,15 +215,39 @@ class Schedule extends Component {
                     doctor: res.data.data[0].fullName,
                     docId: res.data.data[0]._id,
                     days: res.data.data[0].providerInfo.availability,
+                    specificDays: res.data.data[0].providerInfo.availableDays,
                     cost: res.data.data[0].providerInfo.cost
                 })
             }
         ).then(this.checkAvailable)
     }
+    checkedDate = null
+    checkForDate(){
+        for(var i=0; i<this.state.specificDays.length; i++){
+            if(this.state.date == this.state.specificDays[i].date){
+                this.checkedDate = i
+                return i
+            }
+        }
+    }
 
     checkAvailable = () => {
         if(this.state.doctor == null){
             return null
+        }
+        else if(this.checkForDate()){
+            if(this.state.appointments.length == 0){
+                console.log(this.state.appointments)
+            }
+            else {
+                console.log(this.state.days.monday)
+                for(var i=0; i < this.state.appointments.length;i++){
+                if(this.state.specificDays[this.checkedDate].times.includes(this.state.appointments[i])){
+                    this.state.specificDays[this.checkedDate].times.splice(this.state.specificDays[this.checkedDate].times.indexOf(this.state.appointments[i]), 1 )
+                }
+                }
+            }
+            this.setState({appointmentTimes: this.state.specificDays[this.checkedDate].times})
         }
 
         else if(this.state.dateDay == 'Monday'){

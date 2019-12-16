@@ -7,6 +7,7 @@ import '../Styling/overview.css'
 import Alerts from './alerts'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
+import Axios from 'axios';
 
 
 
@@ -20,12 +21,16 @@ class Overview extends Component {
             redirect: false,
             providerType: 'Patient',
         };
-        
+        this.cmsTest = this.cmsTest.bind(this)
     }
 
     componentDidMount() {
         this.props.closeNav()
         setTimeout(this.load, 100)
+    }
+
+    cmsTest(){
+        Axios.get('/api/CMS/test')
     }
 
 
