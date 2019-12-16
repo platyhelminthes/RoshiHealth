@@ -151,7 +151,7 @@ class Schedule extends Component {
             var dateTime = '' + this.state.date + 'T' + time + ':00.000+00:00'
             Axios.post('/api/providers/makeAppointment',
                 {
-                    date: moment(dateTime).add(7, 'hours'),
+                    date: moment(dateTime).add(8, 'hours'),
                     id: this.state.docId,
                     name: this.state.doctor,
                     price: this.state.cost,

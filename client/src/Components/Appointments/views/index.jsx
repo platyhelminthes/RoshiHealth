@@ -21,7 +21,6 @@ class Appointments extends Component {
 
     cancelAPP(e){
         (e).preventDefault()
-        alert(e.target.value)
         Axios.post('/api/users/cancelAppointment',
             {
                 id: e.target.value,

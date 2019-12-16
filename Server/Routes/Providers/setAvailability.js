@@ -6,7 +6,7 @@ module.exports = (req,res) => {
     var time = req.body.time
     var day = req.body.day
 
-    if(day == 'monday'){
+    if(day == 'Monday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.monday': time}},
@@ -17,7 +17,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'tuesday'){
+    else if(day == 'Tuesday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.tuesday': time}},
@@ -28,7 +28,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'wednesday'){
+    else if(day == 'Wednesday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.wednesday': time}},
@@ -39,7 +39,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'thursday'){
+    else if(day == 'Thursday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.thursday': time}},
@@ -50,7 +50,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'friday'){
+    else if(day == 'Friday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.friday': time}},
@@ -61,7 +61,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'saturday'){
+    else if(day == 'Saturday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.saturday': time}},
@@ -72,7 +72,7 @@ module.exports = (req,res) => {
         )
     }
 
-    else if(day == 'sunday'){
+    else if(day == 'Sunday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$push: {'providerInfo.availability.sunday': time}},

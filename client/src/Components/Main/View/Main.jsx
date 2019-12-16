@@ -133,10 +133,10 @@ class Main extends Component {
     }
 
     getInfo = async () => {
-      console.log('hello Test')
+
       let res = await Axios.get('/api/users/getUser')
-      if(!res){alert('no res!')}
-      console.log(res.err)
+
+
       let {data} = res.data
 
       this.setState({
@@ -278,7 +278,6 @@ class Main extends Component {
 
       }
       else{
-        alert(this.state.nextAppointment)
       this.setState({toAppointment: true})}
     }
 
