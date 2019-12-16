@@ -2,7 +2,7 @@ const Data = require('../../Collections/users')
 
 module.exports = (req,res) => {
 
-    if (req.body.day == 'monday'){
+    if (req.body.day == 'Monday'){
     Data.findOneAndUpdate(
         {'email': req.user.email},
         {$set: {'providerInfo.availability.monday': []}},
@@ -12,7 +12,7 @@ module.exports = (req,res) => {
         }
 
     )}
-    else if (req.body.day == 'tuesday'){
+    else if (req.body.day == 'Tuesday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.tuesday': []}},
@@ -23,7 +23,7 @@ module.exports = (req,res) => {
     
         )
     }
-    else if (req.body.day == 'wednesday'){
+    else if (req.body.day == 'Wednesday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.wednesday': []}},
@@ -34,7 +34,7 @@ module.exports = (req,res) => {
     
         )
     }
-    else if (req.body.day == 'thursday'){
+    else if (req.body.day == 'Thursday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.thursday': []}},
@@ -45,7 +45,7 @@ module.exports = (req,res) => {
     
         )
     }
-    else if (req.body.day == 'friday'){
+    else if (req.body.day == 'Friday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.friday': []}},
@@ -56,7 +56,7 @@ module.exports = (req,res) => {
     
         )
     }
-    else if (req.body.day == 'saturday'){
+    else if (req.body.day == 'Saturday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.saturday': []}},
@@ -67,7 +67,7 @@ module.exports = (req,res) => {
     
         )
     }
-    else if (req.body.day == 'sunday'){
+    else if (req.body.day == 'Sunday'){
         Data.findOneAndUpdate(
             {'email': req.user.email},
             {$set: {'providerInfo.availability.sunday': []}},
