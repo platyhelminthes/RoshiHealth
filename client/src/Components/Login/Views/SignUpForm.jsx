@@ -117,7 +117,7 @@ class SignUpForm extends Component {
                   
                   (res2)=>{
                     console.log(res2.data)
-                    if(res2.data.success == false){
+                    if(res2.data.data != null){
                       alert('Sorry that email is taken')
                     }
                     else{

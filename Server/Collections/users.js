@@ -171,7 +171,8 @@ const daysSchema = new Schema({
 const accounts = new Schema({
     email: {
         type: String,
-        require: true
+        require: true,
+        unique: true
 },
     password: {
         type: String,

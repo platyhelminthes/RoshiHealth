@@ -20,7 +20,6 @@ class confirmAccount extends Component {
     }
 
     componentDidMount(){
-        this.props.closeNav()
         var aa = window.location.href
         var after = aa.substring(39, 75)
         var email = aa.substring(76)

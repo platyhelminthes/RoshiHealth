@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment'
 import {isMobile} from 'react-device-detect'
+import '../viewAppointments/styles/viewAppointments.css'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 
@@ -60,7 +61,7 @@ class Tasks extends Component {
     
 
     render() {
-        var appointments = this.state.appointments
+      var sortedArray = this.props.state.appointments.sort((a,b) => new moment(a.date).format('YYYYMMDD') - new moment(b.date).format('YYYYMMDD'))
         var ID = this.state.APID
         if(this.state.redirect == true) {
           return(<Redirect to={{
@@ -75,28 +76,24 @@ class Tasks extends Component {
           </div>
           )}
         return (
-        <div>
+        <div className='__d-appointments-main'>
             <Table>
             <TableHead>
           <TableRow>
-            <TableCell style={{color: 'white'}}>Task</TableCell>
-            <TableCell style={{color: 'white'}} align="left">Doctor</TableCell>
-            <TableCell style={{color: 'white'}} align="right">Due Date</TableCell>
-            <TableCell style={{color: 'white'}} align="right">Finish Task</TableCell>
+            <TableCell style={{color: 'black'}} align="left">Patient</TableCell>
+            <TableCell style={{color: 'black'}} align="right">Appointment Time</TableCell>
+            <TableCell style={{color: 'black'}} align="right">Go to your appointment</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {appointments.map(
+          {sortedArray.map(
             
             
             row => (
             <TableRow key={row._id}>
-              <TableCell style={{color: 'white'}} component="th" scope="row">
-                {row.text}
-              </TableCell>
-              <TableCell style={{color: 'white'}} align="left">{row.userName}</TableCell>
-              <TableCell style={{color: 'white'}} align="right">{moment(row.dueDate).format('dddd')}</TableCell>
-              <TableCell style={{color: 'white'}} align="right"><button onClick={this.handleSubmit} value={row.user}>Finish</button></TableCell>
+              <TableCell style={{color: 'black'}} align="left">{row.userName}</TableCell>
+              <TableCell style={{color: 'black'}} align="right">{moment(row.date).format('dddd MMMM DD [at] LT')}</TableCell>
+              <TableCell style={{color: 'black'}} align="right"><button onClick={this.handleSubmit} value={row.user}>Go to appointment</button></TableCell>
             </TableRow>
           ))}
         </TableBody>
