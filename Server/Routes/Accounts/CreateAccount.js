@@ -41,7 +41,9 @@ module.exports = (req, res) => {
    from: 'roshihealth@gmail.com', // sender address
    to: email, // list of receivers
    subject: 'Thankyou for signing up', // Subject line
-   html: '<h1 style="color: red">Welcome to the family</h1> <p>We hope you enjoy your stay</p>' + link// plain text body
+   html: `<h1 style="color: red">Welcome to the family</h1>
+         <p>We hope you enjoy your stay</p>
+         <p>If link does not appear please copy and paste this into your browser</p>` + link// plain text body
     };
   //var task = {
   //    id: 1,
