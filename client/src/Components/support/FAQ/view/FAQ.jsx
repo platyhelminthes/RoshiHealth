@@ -4,8 +4,8 @@ import { Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/c
 
 class FAQ extends Component {
 
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state = {
             selected: 0
         }
@@ -27,29 +27,7 @@ class FAQ extends Component {
                 q: 'Are your doctors accredited',
                 a: 'We make sure all of our doctors have the necessary certifications. We also put all doctors through an initial interview to make sure we only have the best doctors representing us',
                 n: 0
-            },
-            {
-                q: 'What are tasks',
-                n: 1
-            },
-            {
-                q: 'Did Epstein kill himself',
-                n: 2
-            },
-            {
-                q: 'Why use your platform',
-                n: 3
-            },
-            {
-                q: 'How do i use your platform',
-                n: 4
-            },
-            {
-                q: 'Why use a subscription',
-                n: 5
-            },
-
-       ]
+            }]
 
 
 
