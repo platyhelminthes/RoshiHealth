@@ -1,9 +1,6 @@
 .__daily-schedule-main{
-    height: 100%;
-    width: 100%;
+    width: 89vw;
     color: white;
-    padding-left: 10vw;
-    padding-top: 10vh
 }
 
 .__daily-top-box {
@@ -65,7 +62,7 @@
 
 .__daily-bottom-right {
     width: 50%;
-    height: 100%;
+    height: 77vh;
     display: flex;
 }
 
