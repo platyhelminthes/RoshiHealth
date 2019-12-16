@@ -37,6 +37,7 @@ import ViewPatients from '../../Providers/viewPatients/view/viewPatients'
 import FAQ from '../../support/FAQ/view/FAQ'
 import AskSupport from '../../support/AskSupport/view/askSupport'
 import Tutorial from '../../support/tutorial/view/tutorial'
+import ViewAppointments from '../../Providers/Views/viewAppointments'
 import {
   BrowserView,
   MobileView,
@@ -331,14 +332,17 @@ class Main extends Component {
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
               {/* support paths */}
-              <Route path="/main/support/FAQ" closeNav={this.closeNav}component={FAQ}/>
-              <Route path="/main/support/askSupport" closeNav={this.closeNav} component={AskSupport}/>
-              <Route path="/main/support/tutorial" closeNav={this.closeNav} component={Tutorial}/>
+              <Route path="/main/support/FAQ"
+                render={(props)=> <FAQ {...props} closeNav={this.closeNav}/>}/>
+              <Route path="/main/support/askSupport" 
+               render={(props)=> <AskSupport {...props} closeNav={this.closeNav}/>}/>
+              <Route path="/main/support/tutorial" 
+               render={(props)=> <Tutorial {...props} closeNav={this.closeNav}/>}/>
 
 
               {/* admin paths */}
               <Route path="/main/admin" 
-              render={(props)=> <AdminCheck {...props} closeNav={this.closeNav}subLevel={this.state.subLevel}/>}/>
+              render={(props)=> <AdminCheck {...props}  subLevel={this.state.subLevel}/>}/>
               <Route exact path='/main/admin/makeDoctor'
               render={(props)=> <MakeAdmin closeNav={this.closeNav} {...props}/>}/>
               <Route exact path="/main/adminPage"  component={admin}/>
@@ -363,6 +367,8 @@ class Main extends Component {
               render={(props)=><SendSubtasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path='/main/provider/Patients'
               render={(props)=><ViewPatients {...props} closeNav={this.closeNav} state={this.state}/>}/>
+              <Route exact path='/main/provider/appointments'
+              render={(props)=><ViewAppointments {...props} state={this.state}closeNav={this.closeNav}/>}/>
 
 
               <Route exact path="/main/overview" 
@@ -393,7 +399,7 @@ class Main extends Component {
                 render={(props)=><AccountInfo {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               
                 {
-                    this.state.appointmentToday == false ?
+                    this.state.appointmentToday == false || this.state.doctor != 'Patient' ?
                     (null)
                     :
                 (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.state.nextAppointment == "You currently have no appointment" ? null : this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from() : this.state.nextAppointment == 'You currently have no appointment' ? 'Please Schedule an appointment' : 'Go to your appointment'}</button>)
@@ -414,9 +420,12 @@ class Main extends Component {
               </div>
               <div className='__main-mobile-body'>
                 {/* support paths */}
-              <Route path="/main/support/FAQ" closeNav={this.closeNav}component={FAQ}/>
-              <Route path="/main/support/askSupport" closeNav={this.closeNav} component={AskSupport}/>
-              <Route path="/main/support/tutorial" closeNav={this.closeNav} component={Tutorial}/>
+              <Route path="/main/support/FAQ"
+                render={(props)=> <FAQ {...props} closeNav={this.closeNav}/>}/>
+              <Route path="/main/support/askSupport" 
+               render={(props)=> <AskSupport {...props} closeNav={this.closeNav}/>}/>
+              <Route path="/main/support/tutorial" 
+               render={(props)=> <Tutorial {...props} closeNav={this.closeNav}/>}/>
 
 
               {/* admin paths */}
@@ -446,6 +455,8 @@ class Main extends Component {
               render={(props)=><SendSubtasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path='/main/provider/Patients'
               render={(props)=><ViewPatients {...props} closeNav={this.closeNav} state={this.state}/>}/>
+                            <Route exact path='/main/provider/appointments'
+              render={(props)=><ViewAppointments {...props} closeNav={this.closeNav}/>}/>
 
 
               <Route exact path="/main/overview" 
@@ -476,7 +487,7 @@ class Main extends Component {
                 render={(props)=><AccountInfo {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               
                 {
-                    this.state.appointmentToday == false ?
+                    this.state.appointmentToday == false || this.state.doctor != 'Patient'?
                     (null)
                     :
                 (<button onMouseEnter={()=>{this.setState({pillOpen: true})}} onMouseLeave={()=>{this.setState({pillOpen: false})}} className={this.state.pillOpen == false ? '__appointment-Pill' : '__appointment-Pill-open'} onClick={this.state.nextAppointment == "You currently have no appointment" ? null : this.openInfo}>{moment().isBefore(moment(this.state.nextAppointment).subtract(10, 'minutes')) ? 'Appointment ' + moment(this.state.nextAppointment).from() : this.state.nextAppointment == 'You currently have no appointment' ? 'Please Schedule an appointment' : 'Go to your appointment'}</button>)

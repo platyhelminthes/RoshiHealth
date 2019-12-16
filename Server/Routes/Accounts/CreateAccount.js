@@ -4,19 +4,10 @@ const sgTransport = require('nodemailer-sendgrid-transport')
 const uuidv4 = require('uuid/v4');
 
 module.exports = (req, res) => {
-  Data.findOne(
-    {'email': req.body.email},
-    (err, Data) => {
-      if(err){
-        makeAccount(req, res)
-      }
-      else return res.json({success: false})
-    }
-  )
 
-}
 
-function makeAccount(req,res){
+
+
   let data = new Data();
   let confirmNum = uuidv4()
   const { fullName, email, password, number, texts } = req.body;
