@@ -7,6 +7,7 @@ const cart = require('./shoppingCart')
 const providers = require('./Providers')
 const store = require('./Store')
 const CMS = require('./CMS')
+const ADMIN = require('./Admin')
 
 
 router.use('/users', users)
@@ -16,5 +17,6 @@ router.use('/cart', cart)
 router.use('/providers', providers)
 router.use('/store', store)
 router.use('/CMS', CMS)
+router.use('/admin', ADMIN)
 
 module.exports = router;

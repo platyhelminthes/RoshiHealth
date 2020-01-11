@@ -5,6 +5,8 @@ import SubInfo from './subscriberInfo'
 import Promotion from './promotion'
 import '../Styling/overview.css'
 import Alerts from './alerts'
+import OWHead from './OWhead'
+import WhatsNew from './WhatsNew.jsx'
 
 import loadingCircle from '../../Pictures/loadingCircle.png'
 import Axios from 'axios';
@@ -48,25 +50,8 @@ class Overview extends Component {
         }
         return (
             <div className="overview-container">
-
-                {/* <div > */}
-                {/* style={{ display: "flex" }} */}
-                    <div className="overview-panel-one" >
-                        {
-                        this.props.state.subscription ?
-                        (<SubInfo subLevel={this.props.subLevel} state={this.props.state.subscription} address={this.props.state.address}/>)
-                        :
-                        (null)}
-                        {/* <Promotion /> */}
-                    </div>
-                    <div className="overview-panel-two" >
-                        <News />
-                        <Alerts />
-                    </div>
-                    {/* <div className="overview-panel-three" >
-                        <Alerts AP={this.state.appointments} />
-                    </div> */}
-                {/* </div> */}
+                <OWHead/>
+                <WhatsNew small={this.props.state.sidenav}/>
 
             </div>
         );
@@ -78,3 +63,24 @@ class Overview extends Component {
 }
 
 export default Overview
+
+
+
+        //         {/* <div > */}
+        //         {/* style={{ display: "flex" }} */}
+        //         <div className="overview-panel-one" >
+        //         {
+        //         this.props.state.subscription ?
+        //         (<SubInfo subLevel={this.props.subLevel} state={this.props.state.subscription} address={this.props.state.address}/>)
+        //         :
+        //         (null)}
+        //         {/* <Promotion /> */}
+        //     </div>
+        //     <div className="overview-panel-two" >
+        //         <News />
+        //         <Alerts />
+        //     </div>
+        //     {/* <div className="overview-panel-three" >
+        //         <Alerts AP={this.state.appointments} />
+        //     </div> */}
+        // {/* </div> */}
