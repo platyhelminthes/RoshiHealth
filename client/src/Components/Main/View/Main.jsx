@@ -46,6 +46,7 @@ import {
 } from "react-device-detect";
 
 import HouseIcon from '@material-ui/icons/House';
+import Dehaze from '@material-ui/icons/Dehaze'
 
 class Main extends Component {
 
@@ -86,12 +87,34 @@ class Main extends Component {
             exp: null,
             patients: [],
             TeamViewPath: null,
-            navOpen: false
+            navOpen: false,
+            caraouselOpen: false,
+            sidenav: true
 
         };
         this.openInfo = this.openInfo.bind(this)
         this.openNav = this.openNav.bind(this)
         this.closeNav = this.closeNav.bind(this)
+        this.openCar = this.openCar.bind(this)
+        this.closeSide = this.closeSide.bind(this)
+    }
+
+    closeSide(){
+      if(this.state.sidenav == true){
+      this.setState({sidenav: false})
+      }
+      else{
+        this.setState({sidenav: true})
+      }
+    }
+
+    openCar(){
+      if(this.state.caraouselOpen == true){
+        this.setState({caraouselOpen: false})
+      }
+      else{
+        this.setState({caraouselOpen: true})
+      }
     }
 
     openNav(){
@@ -327,7 +350,8 @@ class Main extends Component {
         else if (isBrowser){
         return(
             <div id="mainBack" className='main__back' style={{backgroundImage: `url(https://storage.needpix.com/rsynced_images/poland-1985060_1280.jpg)`}}>
-            <Sidebar sub={this.state.subscription} profilePic={this.state.profilePic} subLevel={this.state.subLevel} doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
+            <Sidebar sub={this.state.subscription} open={this.state.sidenav} profilePic={this.state.profilePic} subLevel={this.state.subLevel} doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
+        <button onClick={this.closeSide} className={this.state.sidenav == true ? '__main-Side-Button': '__main-Side-Button-Closed'}><Dehaze/></button>
             <div className='main-container' >
             <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
@@ -397,7 +421,21 @@ class Main extends Component {
                 render={(props)=><Team {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} doctors={this.state.doctors}/>}/>
               <Route exact path='/main/AccountInfo'
                 render={(props)=><AccountInfo {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
-              
+              { this.state.caraouselOpen == true ?
+                (
+                  <div className='__main-bottom-nav'>
+                    <div className='__main-bottom-nav-button-1'>H</div>
+                    <div className='__main-bottom-nav-button-2'>H</div>
+                    <div className='__main-bottom-nav-button-4'>H</div>
+                    <div className='__main-bottom-nav-button-5'>H</div>
+                  </div>
+                )
+                :
+                (
+                null
+                )
+                }
+                <button className='__main-bottom-button' onClick={this.openCar}>Test</button>
                 {
                     this.state.appointmentToday == false || this.state.doctor != 'Patient' ?
                     (null)

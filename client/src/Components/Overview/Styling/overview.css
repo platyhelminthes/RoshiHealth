@@ -15,8 +15,60 @@ grid-template-areas:
 display: flex;
 flex-direction: column;
 max-width: 100%;
-padding-left: 5vw;
-padding-right: 5vw;
+background: #fafafa;
+min-height: 1000vh;
+overflow-x: hidden;
+}
+
+.__overview-head {
+    width: 100vw;
+    height: 80vh;
+    background: url('https://ogunquit.com/wp-content/uploads/2016/05/header-interior-explore-onland-hiking.jpg');
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.__overview-featured {
+    width: 15vw;
+    display: flex;
+    margin-left: 10vw;
+}
+
+.__overview-counter {
+    width: 3vw;
+    height: 6vh;
+    text-align: center;
+    background: orange;
+    align-self: center;
+    margin-right: 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5vw;
+}
+
+.__whatsNew-Cards {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    padding-top: 4vh;
+}
+
+.__whatsNew-Cards-Small {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 7vw;
+    padding-right: 7vw;
+    padding-top: 4vh;
+}
+
+.__whatsNew-Card {
+    background: white;
+    width: 20vw;
+    height: 45vh;
 }
 
 .overview-panel-one {

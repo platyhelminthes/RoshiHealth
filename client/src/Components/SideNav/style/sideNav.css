@@ -5,7 +5,18 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: .5s ease;
 }
+
+#__side-nav-closed {
+    width: 0;
+    transition: .5s ease;
+    overflow: hidden;
+    background: #31353D;
+}
+
+
+
 
 #__side-Nav-Mobile {
     height:100%;
