@@ -21,6 +21,8 @@ const Nav = props => (
                 to='/about'>Learn More</Link>
             <Link className='nav__item--link'
                 to='/news'>News</Link>
+            <Link className='nav__item--link'
+                to='/Store'>Store</Link>
             {/* <Link className={window.location.href.indexOf('news') > 0 || window.location.href.indexOf('category') > 0 ? 'nav__item--link active' : 'nav__item--link'}
                 to='/news'>News</Link> */}
         </div>

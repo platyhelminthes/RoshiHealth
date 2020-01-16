@@ -9,7 +9,7 @@
   "scripts": {
     "install": "cd client && npm i && npm run build",
     "start": "node server",
-    "dev": "concurrently \"node server.js\" \"cd client && npm start\""
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "node-cron": "^2.0.3",
     "nodemailer": "^6.3.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemon": "^2.0.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react-stripe-checkout": "^2.6.3",

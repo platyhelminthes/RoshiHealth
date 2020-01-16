@@ -6,7 +6,7 @@ dotenv.config()
 const mongoose = require('mongoose')
 var routes = require('./Server/Routes')
 var app = express();
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 8080;
 var passport = require("./Server/Routes/passport");
 var Data = require('./Server/Collections/users')
 const moment = require('moment-timezone')
@@ -21,7 +21,7 @@ const uuidv4 = require('uuid/v4');
 const apiKeySecret = process.env.SECRET;
 //var db = require('./models')
 
-const stripe = Stripe(apiKeySecret);
+// const stripe = Stripe(apiKeySecret);
 const upload = multer();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
