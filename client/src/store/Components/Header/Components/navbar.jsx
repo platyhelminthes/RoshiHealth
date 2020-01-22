@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Ads from './ads'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,24 +24,24 @@ export default function ButtonAppBar(props) {
   return (
     <div className={classes.root}>
         <Ads/>
-      <div style={{border: '1px solid gray', display: 'flex', height: '70px'}}>
+      <div style={{borderLeft: '2px solid #f5f5f5',borderRight: '2px solid #f5f5f5' , display: 'flex', height: '70px'}}>
         {/* <Toolbar style={{height: '100%', justifyContent: 'space-between'}}> */}
-          <Typography style={{paddingLeft: '20px', paddingTop: '20px'}} variant="h6">
+          <Link to='/store'><Typography style={{paddingLeft: '20px', paddingTop: '20px'}} variant="h6">
             Roshi Health
-          </Typography>
+          </Typography></Link>
           <div className='shop-Categories'>
-          <button style={{height: '100%'}} onClick={()=>{props.tests()}} className='shop-Category-Buttons'>All
+          <button style={{height: '100%'}} onClick={()=>{props.getProducts()}} className='shop-Category-Buttons'>All
               </button>
-              <button onClick={()=>{props.tests('wearable')}} className='shop-Category-Buttons'>Wearable
+              <button onClick={()=>{props.getProducts('wearable')}} className='shop-Category-Buttons'>Wearable
               </button>
-              <button onClick={()=>{props.tests('food')}} className='shop-Category-Buttons'>Food
+              <button onClick={()=>{props.getProducts('food')}} className='shop-Category-Buttons'>Food
               </button>
-              <button onClick={()=>{props.tests('health')}} className='shop-Category-Buttons'>Health
+              <button onClick={()=>{props.getProducts('health')}} className='shop-Category-Buttons'>Health
               </button>
-              <button onClick={()=>{props.tests('protein')}} className='shop-Category-Buttons'>Protein
+              <button onClick={()=>{props.getProducts('protein')}} className='shop-Category-Buttons'>Protein
               </button>
           </div>
-          <Button color="inherit">Cart</Button>
+          <Button onClick={props.openCart} color="inherit">Cart</Button>
           <Button color="inherit">Login</Button>
         {/* </Toolbar> */}
       </div>

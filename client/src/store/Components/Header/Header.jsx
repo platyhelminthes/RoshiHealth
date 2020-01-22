@@ -4,7 +4,7 @@ import Navbar from './Components/navbar'
 function display(props){
 
     return(
-        <Navbar tests={props.tests}/>
+        <Navbar openCart={props.openCart} getProducts={props.getProducts}/>
     )
 }
 

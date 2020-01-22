@@ -17,15 +17,24 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-
+  let price = props.item.products[0].price
+  let priceStr = price.toString()
+   priceStr = priceStr.slice(0, -2)
+   price = parseInt(priceStr)
+  console.log(props.item.products)
   return (
     <div className={classes.card}>
         <div>
-        <img className='cardImage' src={props.item.metadata.img}/>
+        <img className='cardImage' onClick={()=>{props.info(props.item.id)}} src={props.item.metadata.img}/>
         <h2>{props.item.name}</h2>
         <h2>* * * * *</h2>
+        <h2>${price}.00</h2>
         </div>
-        <Button style={{width: '250px', float: 'bottom'}} variant='outlined'>Purchase</Button>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <Button onClick={()=>{props.info(props.item.id)}} style={{width: '250px', float: 'bottom'}} variant='outlined'>info</Button>
+        <Button onClick={()=>{props.addToCart(props.item)}}style={{width: '250px', float: 'bottom'}} variant='outlined'>Add to cart</Button>
+        </div>
+        
     </div>
   );
 }
