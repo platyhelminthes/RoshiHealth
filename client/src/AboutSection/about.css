@@ -1,0 +1,112 @@
+.aboutMain {
+    background: black;
+    padding-left: 12vw;
+    padding-right: 12vw;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+
+
+.aboutHeadMain {
+    width: 100%;
+    height: 50vh;
+}
+
+.aboutHeadMain h2 {
+    color: white
+}
+
+.topNavMain {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.topNavMain div {
+    display: flex;
+    justify-content: space-between;
+    width: 10vw
+}
+
+.summaryMain{
+    width: 30%;
+    height: 70%;
+    padding-top: 5%;
+}
+
+.summaryMain p {
+    color: white
+}
+
+.bottomNavMain{
+    height: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255, 0, 0, 0.2);
+}
+
+.bottomNavLinks {
+    text-decoration: none;
+    color: white
+}
+
+.bottomNavLinks:hover {
+    color: orange
+}
+
+.philosophyMain {
+    display: flex;
+    flex-direction: column;
+    height: 300vh
+}
+
+.philoPart1 {
+    width: 100%;
+    height: 80vh;
+    background: #36393F;
+    border-radius: 15px;
+    display: flex;
+}
+
+.philoPart1 div {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.philoPart1 h2 {
+    color: white
+}
+
+.philoPart1 h1 {
+    font-size: 35px!important;
+    font-family: Arial, Helvetica, sans-serif;
+    color: greenyellow
+}
+
+.philoPart2 {
+    display: flex;
+    justify-content: space-between;
+    height: 30vh;
+    background: #36393F;
+    border-radius: 15px;
+    margin-top: 5vh;
+    margin-bottom: 5vh
+}
+
+.philoPart2Hover {
+    position: relative;
+    background: rgba(255, 55, 55, 0.6);
+    width: 175%;
+    height: 8vh;
+    left: -13vw;
+    bottom: -13vw;
+    border-radius: 15px;
+}

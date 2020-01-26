@@ -54,10 +54,13 @@ class CheckoutForm extends Component {
     if (this.state.complete == true) { return (<h1>Purchase Complete</h1>) }
     return (
       <div>
-        <div className="checkout">
+        <div className="checkOutStore">
+          <div className="cardInfo">
           <p>Total: ${this.props.total}.00</p>
           <p>Would you like to complete the purchase?</p>
           <CardElement />
+          </div>
+          
           <AddressSection handleChange={this.handleChange} state={this.state} />
           <button onClick={this.submit}>Submit Payment</button>
         </div>

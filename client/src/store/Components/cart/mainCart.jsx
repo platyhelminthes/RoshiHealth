@@ -1,7 +1,6 @@
 import React , {useState} from 'react'
 import {Button} from '@material-ui/core'
-import {StripeProvider, Elements} from 'react-stripe-elements'
-import MyStoreCheckout from './storeCheckout'
+import {Link} from 'react-router-dom'
 
 function CartDisplay (props) {
     const [checkoutDisplay, handleCheckout] = useState(false)
@@ -14,7 +13,11 @@ function CartDisplay (props) {
                 {
                     props.state.cartItems.map(
                         (row)=>(
+                            <div>
                             <h2>{row.name}</h2>
+                        <h2>X{row.amount}</h2>
+                            <Button variant='outlined' onClick={()=>{props.removeItem(row)}}>Remove {row.name}</Button>
+                            </div>
                         )
                     )
                 }
@@ -25,17 +28,7 @@ function CartDisplay (props) {
                     :
                     (null)
                 }
-                <Button onClick={()=>{
-                    checkoutDisplay == true ?
-                    handleCheckout(false)
-                    :
-                    handleCheckout(true)}
-                    } variant='outlined'>Checkout</Button>
-                        <StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">
-                            <Elements>
-                            <MyStoreCheckout total={props.state.totalCart} fullprice={props.state.fullprice} />
-                            </Elements>
-                        </StripeProvider>
+                <Link to='/store/checkout'><Button variant='outlined'>Checkout</Button></Link>
             </div>
             )
 }
