@@ -10,6 +10,7 @@ import confirmAcc from './Components/confirmAccount/views/index'
 import ForgotPass from './Components/forgotPass/view/forgotPass'
 import ResetPass from './Components/resetPass/view/resetPass'
 import Store from './store/main'
+import About from './AboutSection/aboutMain'
 
 import './App.css';
 
@@ -28,6 +29,7 @@ class App extends Component {
                 render={(props)=><ForgotPass {...props}/>}/>
               <Route path='/resetPass' component={ResetPass}/>
               <Route path='/store' component={Store}/>
+              <Route path='/about' component={About}/>
       </Router>
     );
   }

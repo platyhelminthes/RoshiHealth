@@ -6,7 +6,7 @@ function CardSection(props){
     return (
       
         
-        <div style={{display: 'flex', flexDirection:'column'}}>
+        <div className='addressInfo'>
           <label htmlFor='Line1'>Address Line 1</label>
           <input onChange={props.handleChange} name='line1' value={props.state.line1} id='Line1' placeholder='Address Line 1'/>
           <label htmlFor='city'>City</label>
