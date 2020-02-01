@@ -36,7 +36,7 @@
     height: 74vh;
     z-index: 0;
     /* background: #C33764; */
-    background: -webkit-linear-gradient(rgba(10, 10, 10, 1), rgba(10, 10, 10, .7)), url(/static/media/matheus-ferrero-228716-unsplash.dead4995.png);
+    background: -webkit-linear-gradient(rgba(10, 10, 10, 1), rgba(10, 10, 10, .7)), url('images/matheus-ferrero-228716-unsplash.png');
     left: -12vw;
     position: relative;
     padding-left: 12vw;
@@ -111,12 +111,6 @@
     font-family: 'Comfortaa', cursive;
 }
 
-.philoPart1 div {
-    /* width: 50%;
-    height: 100%;
-    padding: 10px; */
-}
-
 .comfort {
     color: white;
     font-family: 'Comfortaa', cursive;
@@ -133,14 +127,6 @@
     background: rgb(54, 57, 63, .25);
     border: 1px solid rgb(112, 112, 112, .25);
     border-radius: 15px;
-}
-
-#philoPart2 .Left {
-
-}
-
-#philoPart2 .Right {
-
 }
 
 #philoPart2Hover {
@@ -187,4 +173,60 @@
     position: fixed;
     top: 20px;
     left: 20px
+}
+
+#OurProgramBlur {
+    filter: blur(3px);
+    background-image: url(/static/media/samuraiiiiiii@2x.b7fba6ab.png);
+    width: 100%;
+    height: 50vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#blurTest {
+    background-image: url('images/hero.png');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#trail1 {
+    background-image: url('images/Screenshot_1.png');
+    width: 33vw;
+    height: 25vh;
+}
+
+#trail2 {
+    background-image: url('images/Screenshot_2.png');
+    width: 15vw;
+    height: 17vh;
+    float: right;
+}
+
+#medkit {
+    background-image: url(/static/media/Iconmap-doctor.b0ff9064.svg);
+    height: 49vh;
+    width: 100%;
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+#trail3 {
+    background-image: url('images/Screenshot_3.png');
+    width: 100%;
+    height: 19vh;
+    background-repeat: no-repeat;
+}
+
+#peopleCarry {
+    background-image: url('images/Iconawesome-people-carry.svg');
+    height: 49vh;
+    width: 50%;
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
 }

@@ -23,6 +23,7 @@ const CHARGE = require('./charge')
 const CANCELA = require('./cancelAppointment')
 const CANCELSA = require('./cancelSubAppointment')
 const WHT = require('./webHookTest')
+const NL = require('./JoinNewsletter')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -47,7 +48,7 @@ routes.post('/charge', CHARGE)
 routes.post('/cancelAppointment', CANCELA)
 routes.post('/cancelSubAppointment', CANCELSA)
 routes.post('/webhooktest', WHT)
-
+routes.post('/newsLetter', NL)
 
 
 module.exports = routes;

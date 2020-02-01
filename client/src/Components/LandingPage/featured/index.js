@@ -14,7 +14,7 @@ export default () => (
                    <h1 className='header__title'>Roshi Health</h1>
                    <p className='header__subtitle'>The Future of Healthcare</p>
                    <p className='header__shortDescription'>Functional Doctors. Integrative Health Team.  Sophisticated Technology.  Weekly Accountibility. Real Prevention. Low Monthly Cost.  <em>The last health program you'll ever need</em></p>
-                   <button className='btn__med'><Link to='/login/sign-in' className='btn__med'>Members</Link></button>
+                   <button className='btn__med'><Link to='/about' className='btn__med'>Info</Link></button>
                  </div>
                </div>
              </div>
