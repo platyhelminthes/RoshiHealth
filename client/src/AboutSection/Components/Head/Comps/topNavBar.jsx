@@ -15,8 +15,8 @@ function TopNav(){
                     paddingTop: "16px"
             }}/>}
             <Grid container justify='space-around' >
-                <Box item><Link to='/store'><h2>Store</h2></Link></Box>
-                <Box item><Link to='/home'><h2>Blog</h2></Link></Box>
+                {/* <Box item><Link to='/store'><h2>Store</h2></Link></Box> */}
+                <Box item><Link to='/home'><h2>Home</h2></Link></Box>
             </Grid>
         </div>
     )
