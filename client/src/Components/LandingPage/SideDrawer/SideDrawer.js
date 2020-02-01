@@ -12,8 +12,8 @@ const sideDrawer = props => {
     return (
     <nav className={drawerClasses}>
         <ul>
-            <li><a href="/">Products</a></li>
-            <li><a href="/">Users</a></li>
+            {/* <li><a href="/">Products</a></li>
+            <li><a href="/">Users</a></li> */}
             <Link to='/about'>Learn More</Link>
         </ul>
     </nav>

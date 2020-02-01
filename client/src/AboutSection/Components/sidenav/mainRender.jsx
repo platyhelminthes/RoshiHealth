@@ -38,11 +38,11 @@ export default function TemporaryDrawer() {
     >  
     <Grid container direction='column'>
         <Typography>
-        <Box textAlign='center' p={2} borderBottom='1px solid black' items><Link to='/about/philosophy'>Philosophy</Link></Box>
-        <Box textAlign='center' p={2} borderBottom='1px solid black' items><Link>Our Program</Link></Box>
-        <Box textAlign='center' p={2} borderBottom='1px solid black' items><Link>How It Works</Link></Box>
-        <Box textAlign='center' p={2} borderBottom='1px solid black' items><Link>Features</Link></Box>
-        <Box textAlign='center' p={2} borderBottom='1px solid black' items><Link>Get Started</Link></Box>
+        <Link to='/about/philosophy'><Box textAlign='center' p={2} borderBottom='1px solid black' items>Philosophy</Box></Link>
+        <Link to='/about/ourProgram'><Box textAlign='center' p={2} borderBottom='1px solid black' items>Our Program</Box></Link>
+        <Link to='/about/HowItWorks'><Box textAlign='center' p={2} borderBottom='1px solid black' items>How It Works</Box></Link>
+        <Link to='/about/Features'><Box textAlign='center' p={2} borderBottom='1px solid black' items>Features</Box></Link>
+        <Link to='/about/GetStarted'><Box textAlign='center' p={2} borderBottom='1px solid black' items>Get Started</Box></Link>
         </Typography>
     </Grid>
       
