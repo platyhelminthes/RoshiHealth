@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './SideDrawer.css';
+import { Link } from '@material-ui/core';
 
 const sideDrawer = props => {
     let drawerClasses = 'layout-side-drawer';
@@ -13,6 +14,7 @@ const sideDrawer = props => {
         <ul>
             <li><a href="/">Products</a></li>
             <li><a href="/">Users</a></li>
+            <Link to='/about'>Learn More</Link>
         </ul>
     </nav>
     );
