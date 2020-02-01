@@ -1,22 +1,65 @@
 .aboutMain {
-    background: black;
+    background: #0A0A0A;
     padding-left: 12vw;
     padding-right: 12vw;
     overflow: auto;
-    display: flex;
-    flex-direction: column;
+    overflow-x: hidden;
     max-height: 100vh;
+}
+
+.aboutHeadImage {
+    width: 100vw;
+    height: 65vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 
 .aboutHeadMain {
-    width: 100%;
-    height: 50vh;
+    min-width: 100vw;
+    height: 105vh;
+    z-index: 0;
+    background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+    background: -webkit-linear-gradient(rgba(10, 10, 10, 0.6), rgba(10, 10, 10, 1)), url("images/tori-1976609_1920@2x.png");
+    left: -12vw;
+    position: relative;
+    padding-left: 12vw;
+    padding-right: 12vw;
+    background-position: bottom;
+}
+
+.aboutFootMain {
+    margin-top: 20vh;
+    min-width: 100vw;
+    height: 74vh;
+    z-index: 0;
+    /* background: #C33764; */
+    background: -webkit-linear-gradient(rgba(10, 10, 10, 1), rgba(10, 10, 10, .7)), url(/static/media/matheus-ferrero-228716-unsplash.dead4995.png);
+    left: -12vw;
+    position: relative;
+    padding-left: 12vw;
+    padding-right: 12vw;
+    background-position: bottom;
+    background-size: cover;
 }
 
 .aboutHeadMain h2 {
     color: white
 }
+
+.summaryMain h2 {
+    font-family: bebas-kai, sans-serif;
+    font-style: normal;
+    width: 45vw;
+}
+
+.summaryMain p {
+    width: 45vw;
+}
+
+
 
 .topNavMain {
     width: 100%;
@@ -29,12 +72,6 @@
     display: flex;
     justify-content: space-between;
     width: 10vw
-}
-
-.summaryMain{
-    width: 30%;
-    height: 70%;
-    padding-top: 5%;
 }
 
 .summaryMain p {
@@ -59,49 +96,54 @@
 }
 
 .philosophyMain {
-    display: flex;
-    flex-direction: column;
     height: 300vh
 }
 
 .philoPart1 {
-    width: 100%;
-    height: 80vh;
-    background: #36393F;
+    /* width: 100%;
+    height: 100vh; */
+    background: rgb(54, 57, 63, .25);
+    border: 1px solid rgb(112, 112, 112, .25);
     border-radius: 15px;
-    display: flex;
+}
+
+.comforta {
+    font-family: 'Comfortaa', cursive;
 }
 
 .philoPart1 div {
-    width: 50%;
+    /* width: 50%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
+    padding: 10px; */
 }
 
-.philoPart1 h2 {
-    color: white
+.comfort {
+    color: white;
+    font-family: 'Comfortaa', cursive;
 }
 
 .philoPart1 h1 {
     font-size: 35px!important;
-    font-family: Arial, Helvetica, sans-serif;
-    color: greenyellow
+    font-family: 'Comfortaa', cursive;
+    color: rgb(123, 166, 150);
+    font-weight: 700
 }
 
-.philoPart2 {
-    display: flex;
-    justify-content: space-between;
-    height: 30vh;
-    background: #36393F;
+#philoPart2 {
+    background: rgb(54, 57, 63, .25);
+    border: 1px solid rgb(112, 112, 112, .25);
     border-radius: 15px;
-    margin-top: 5vh;
-    margin-bottom: 5vh
 }
 
-.philoPart2Hover {
+#philoPart2 .Left {
+
+}
+
+#philoPart2 .Right {
+
+}
+
+#philoPart2Hover {
     position: relative;
     background: rgba(255, 55, 55, 0.6);
     width: 175%;
@@ -109,4 +151,40 @@
     left: -13vw;
     bottom: -13vw;
     border-radius: 15px;
+}
+
+#root{
+    z-index: 0;
+}
+
+#blurredBackground {
+    filter: blur(5px);
+    background-image: url('images/coffee.jpg');
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#cardColor {
+    background: rgb(54, 57, 63, .25);
+    border: 1px solid rgb(112, 112, 112, .25);
+    border-radius: 15px;
+}
+
+#part6Blur{
+    filter: brightness(.2);
+    background-color: gray;
+    background-image: url('images/FiveRings.svg');
+    width: 100%;
+    min-height: 70vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.sideNavOpener {
+    position: fixed;
+    top: 20px;
+    left: 20px
 }
