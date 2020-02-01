@@ -34,6 +34,7 @@ module.exports = (req,res) => {
      <p>If this was not you then please change your password</p>
      <p>If you do not have an account with Roshi Health then please disregard this email</p>
      <p>Please click the following link to reset your password</p>
+     <p>If link does not appear please copy and paste this into your browser</p>
       ` + link// plain text body
       };
     //var task = {

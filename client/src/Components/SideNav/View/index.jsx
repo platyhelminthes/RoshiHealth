@@ -40,11 +40,11 @@ class Sidenav extends Component {
 
     render(){
         return(
-            <div id={isMobile ? '__side-Nav-Mobile' : '__side-Nav'}>
+            <div id={isMobile ? '__side-Nav-Mobile' : this.props.open == true ? '__side-Nav' : '__side-nav-closed'}>
                 {isMobile ? 
                 (null)
                 :
-                (<Header profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>)}
+                (<Header hidden={this.props.open} profilePic={this.props.profilePic} name={this.props.name} email={this.props.email} subLevel={this.props.subLevel}/>)}
                 {this.props.doctor == 'Patient' ?
                 (<Body subLevel={this.props.subLevel} sub={this.props.sub} doctors={this.props.doctors} allowed={this.props.allowed} APtime={this.state.APTime}/>)
                 :
