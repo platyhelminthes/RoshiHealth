@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Grid, Typography, Box} from '@material-ui/core'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { ThemeProvider} from '@material-ui/styles' 
@@ -10,6 +10,7 @@ import Part3 from './Part3'
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
+
 
 
 export default function Render(){
