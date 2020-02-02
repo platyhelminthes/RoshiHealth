@@ -26,7 +26,7 @@ function Render(){
                         </Box>
                     </Typography>
             </Box>
-            <Box item lg={6} md={6} xs={6} sm={6} bgcolor='primary' mb={isMobile ? 4 : null} mt={isMobile ? 4 : null} style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
+            <Box item lg={6} md={6} xs={6} sm={6} bgcolor='primary' mb={isMobile ? 4 : 0} mt={isMobile ? 4 : 0} style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
                     <div id='blurredBackground'>
                         
                     </div>
