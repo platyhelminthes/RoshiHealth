@@ -18,7 +18,7 @@ function Part2(){
     return(
         <Grid  item lg={12} md={12} xs={12} sm={12}>
             <Grid container direction={ isMobile ? 'column' : 'row'} justify='space-between' className={classes.height}>
-                <Box item lg={6} md={6} xs={6} sm={6} bgcolor='primary' style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
+                <Box item mb={isMobile ? 4 : null} lg={6} md={6} xs={6} sm={6} bgcolor='primary' style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
                         <div id='blurredBackground'>
                             
                         </div>

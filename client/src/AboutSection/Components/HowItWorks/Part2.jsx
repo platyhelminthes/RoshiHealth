@@ -15,7 +15,7 @@ export default function Render(){
                         <span style={{color: '#707070'}}>Each initial assessment is conducted by an intake nurse.  This vital first step ensures that any relevant information regarding the member’s health history, current health status, and goals are assessed prior to referrals or assignment to a health team or provider.  All information is communicated over HIPAA secure channels and stored in a HIPAA compliant electronic health record. </span>  
                         </Box>
                     </Typography>
-                    <div id={isMobile ? null :'trail2'}>
+                    <div id={isMobile ? null : 'trail1'}>
 
                     </div>
                     <Typography variant='h4'>
@@ -28,12 +28,12 @@ export default function Render(){
                     <div id={isMobile ? null :'trail2'}>
 
                     </div>
-                    <div id={isMobile ? null :'trail2'}>
+                    <div id={isMobile ? null :'peopleCarry'}>
 
                     </div>
                 </Box> 
                 <Box item style={isMobile ? {width: '100%'} : {width: '50%'}}>
-                    <div id={isMobile ? null :'trail2'}>
+                    <div id={isMobile ? null :'medkit'}>
 
                     </div> 
                     <Typography variant='h4'>
@@ -42,7 +42,7 @@ export default function Render(){
                         <span style={{color: '#707070'}}>Within 48 hours, our members will receive an invitation for follow-up to go over recommendations based on the initial intake.  </span>
                         </Box>
                     </Typography>
-                    <div id={isMobile ? null :'trail2'}>
+                    <div id={isMobile ? null :'trail3'}>
 
                     </div>
                     <Typography variant='h4'>
