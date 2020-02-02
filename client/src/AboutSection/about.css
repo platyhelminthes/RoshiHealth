@@ -177,7 +177,7 @@
 
 #OurProgramBlur {
     filter: blur(3px);
-    background-image: url(/static/media/samuraiiiiiii@2x.b7fba6ab.png);
+    background-image: url('images/samuraiiiiiii@2x.png');
     width: 100%;
     height: 50vh;
     background-position: center;
@@ -204,10 +204,11 @@
     width: 15vw;
     height: 17vh;
     float: right;
+    background-repeat: no-repeat;
 }
 
 #medkit {
-    background-image: url(/static/media/Iconmap-doctor.b0ff9064.svg);
+    background-image: url('images//Iconmap-doctor.svg');
     height: 49vh;
     width: 100%;
     background-position: center;

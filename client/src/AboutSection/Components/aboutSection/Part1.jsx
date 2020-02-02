@@ -18,11 +18,11 @@ export default function Render(){
                     </Typography>
                 </Grid>
                 <Grid item style={isMobile ? {width: '100%'} : {maxWidth: '50%'}}>
-                    <Box item lg={6} md={6} xs={6} sm={6} bgcolor='primary' style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
+                    <Box item lg={6} md={6} xs={6} sm={6} mt={isMobile ? 4 : null} bgcolor='primary' style={ isMobile ? {minWidth: '100%', height:'50vh', position: 'relative'} : {minWidth: '30%', position: 'relative'}}>
                         <div id='OurProgramBlur'>
 
                         </div>
-                        <Typography variant="h3" style={{zIndex: '10', position: 'absolute', top:0}}>
+                        <Typography variant={isMobile ? 'h4' : "h3"} style={{zIndex: '10', position: 'absolute', top:0}}>
                             <Box pl='30%' pr='30%' pt={5} fontWeight='bold' color='#7BA696'>"If you know the Way broadly, you will see it in everything." Miyamoto Musashi</Box>
                         </Typography>
                     </Box>

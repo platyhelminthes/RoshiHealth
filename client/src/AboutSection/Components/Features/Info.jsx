@@ -6,7 +6,7 @@ function Info(props) {
     return (
         <Grid item>
             <Grid container direction={isMobile ? 'column' : 'row'} mt={6} justify='space-around'>
-                <Box width={isMobile ? null : '35%'} p={4} m={isMobile ? 0 : 12} border='1px solid #707070' borderRadius='10px' bgcolor='#36393F' item>
+                <Box width={isMobile ? null : '35%'} p={4} mb={isMobile ? 4 : null} mt={isMobile ? 4 : null} m={isMobile ? 0 : 12} border='1px solid #707070' borderRadius='10px' bgcolor='#36393F' item>
                     <Typography variant='h5'>
                         <Box color='#707070'>
                             <span style={{ color: 'white' }}>Membership Features:</span>

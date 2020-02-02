@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './SideDrawer.css';
-import { Link } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const sideDrawer = props => {
     let drawerClasses = 'layout-side-drawer';
