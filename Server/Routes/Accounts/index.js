@@ -24,6 +24,7 @@ const CANCELA = require('./cancelAppointment')
 const CANCELSA = require('./cancelSubAppointment')
 const WHT = require('./webHookTest')
 const NL = require('./JoinNewsletter')
+const GNL = require('./getNL')
 
 routes.post('/createUser', CU)
 routes.get('/getUserInfo', GUI)
@@ -49,6 +50,7 @@ routes.post('/cancelAppointment', CANCELA)
 routes.post('/cancelSubAppointment', CANCELSA)
 routes.post('/webhooktest', WHT)
 routes.post('/newsLetter', NL)
+routes.get('/getNL', GNL)
 
 
 module.exports = routes;

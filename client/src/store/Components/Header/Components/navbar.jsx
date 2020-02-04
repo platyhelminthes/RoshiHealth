@@ -26,9 +26,11 @@ export default function ButtonAppBar(props) {
         <Ads/>
       <div style={{borderLeft: '2px solid #f5f5f5',borderRight: '2px solid #f5f5f5' , display: 'flex', height: '70px'}}>
         {/* <Toolbar style={{height: '100%', justifyContent: 'space-between'}}> */}
-          <Link to='/store'><Typography style={{paddingLeft: '20px', paddingTop: '20px'}} variant="h6">
+          <Link style={{textDecoration:'none', color: 'black'}} to='/store'>
+            <Typography style={{paddingLeft: '20px', paddingTop: '20px'}} variant="h6">
             Roshi Health
-          </Typography></Link>
+          </Typography>
+          </Link>
           <div className='shop-Categories'>
           <button style={{height: '100%'}} onClick={()=>{props.getProducts()}} className='shop-Category-Buttons'>All
               </button>
