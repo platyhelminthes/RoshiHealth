@@ -216,9 +216,8 @@ class Store extends Component {
         return (
             <Grid className='ShopMain' direction='column' justify='space-between'  container>
                     <Grid item>
-                        <Header openCart={this.openCart} getProducts={this.getProducts} />
+                        <Header openCart={this.openCart} getProducts={this.getProducts} removeItem={this.removeFromCart} checkout={this.checkout} state={this.state}/>
                     </Grid>
-                    <Cart removeItem={this.removeFromCart} checkout={this.checkout} state={this.state} />
                     <Grid item>
                         <Route exact path='/store'
                             render={(props) => <ItemDisplay {...props} addToCart={this.addToCart} info={this.Info} state={this.state} />} />
