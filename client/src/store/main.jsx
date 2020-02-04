@@ -34,7 +34,7 @@ class Store extends Component {
     componentDidMount() {
         let pushstuff = []
         if (localStorage.getItem('items') == null) {
-            return null;
+            console.log('no Items')
         }
         else {
             let imagesToPush = []
