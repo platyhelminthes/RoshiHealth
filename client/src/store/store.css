@@ -180,3 +180,9 @@ h2 {
     height: 500px;
     justify-content: space-around;
 }
+
+.hoverEffect:hover {
+    cursor: pointer;
+    background-color: gray;
+    transition: .1s;
+}
