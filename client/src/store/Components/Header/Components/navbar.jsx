@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Cart from '../../cart/mainCart'
 import Ads from './ads'
 import {Link} from 'react-router-dom'
 
@@ -43,7 +44,7 @@ export default function ButtonAppBar(props) {
               <button onClick={()=>{props.getProducts('protein')}} className='shop-Category-Buttons'>Protein
               </button>
           </div>
-          <Button onClick={props.openCart} color="inherit">Cart</Button>
+          <Cart removeItem={props.removeFromCart} checkout={props.checkout} state={props.state}/>
           <Button color="inherit">Login</Button>
         {/* </Toolbar> */}
       </div>

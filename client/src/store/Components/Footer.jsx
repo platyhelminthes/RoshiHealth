@@ -5,7 +5,8 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import PinterestIcon from '@material-ui/icons/Pinterest';
 import YouTubeIcon from '@material-ui/icons/YouTube';
-
+import EmailIcon from '@material-ui/icons/Email';
+import SearchIcon from '@material-ui/icons/Search';
 
 export default function Render() {
 
@@ -136,11 +137,23 @@ export default function Render() {
                 </Box>
                 <Box style={{width: '69%'}} item>
                     <Grid justify='space-around' container>
-                        <Box bgcolor='white' width='45%'>
-                            <Input variant='contained' style={{width: '100%'}} color='primary' placeholder='Email' />
+                        <Box alignItems='center' justifyItems='center' bgcolor='white' width='45%'>
+                        <Box display='flex' height='100%'>
+                            <Input variant='contained' style={{width: '90%', height: '100%'}} color='primary' placeholder='Email' />
+                            <Box className='hoverEffect' onClick={()=>{alert('hello')}} alignContent='center' pl='11px' pt='3px' width='13%' height='100%' borderLeft='1px solid gray'>
+
+                                <EmailIcon />
+                            </Box>
+                            </Box>
                         </Box>
-                        <Box bgcolor='white' width='45%'>
-                            <Input variant='contained' style={{width: '100%'}} color='primary' placeholder='Email' />
+                        <Box alignItems='center' justifyItems='center' bgcolor='white' width='45%'>
+                        <Box display='flex' height='100%'>
+                            <Input variant='contained' style={{width: '90%', height: '100%'}} color='primary' placeholder='Search ...' />
+                            <Box className='hoverEffect' onClick={()=>{alert('hello')}} alignContent='center' pl='11px' pt='3px' width='13%' height='100%' borderLeft='1px solid gray'>
+
+                                <SearchIcon />
+                            </Box>
+                            </Box>
                         </Box>
                     </Grid>
                     
