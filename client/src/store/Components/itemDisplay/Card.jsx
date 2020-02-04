@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   card: {
     minWidth: 325,
     minHeight: 500,
-    maxHeight:500,
+    maxHeight: 650,
     margin: '1vw 1vw 0 0',
   }
 });
