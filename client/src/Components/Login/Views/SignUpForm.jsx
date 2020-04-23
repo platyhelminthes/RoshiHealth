@@ -133,6 +133,7 @@ class SignUpForm extends Component {
     if(this.state.redirect == true){return(<Redirect to='/main'/>)}
     return (
       <div className="FormCenter">
+        <h2 style={{color: 'white'}}>Currently disabled.<br/> Please use login <br/> email: roshiHealth@gmail.com <br/>password: Password123! </h2>
         <form onSubmit={this.handleSubmit} className="FormFields">
           <div className="FormField">
             <label className="FormField__Label" htmlFor="name">Full Name</label>

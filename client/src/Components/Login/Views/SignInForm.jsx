@@ -75,6 +75,7 @@ class SignInForm extends Component {
       if(redirect == true){return (<Redirect to="/main/overview"/>)}
         return (
         <div className="FormCenter">
+          <h2 style={{color: 'white'}}>Please use login <br/> email: roshiHealth@gmail.com <br/>password: Password123! </h2>
           <div className='error_Message'></div>
             <form onSubmit={this.handleSubmit} className="FormFields">
             <div className="FormField">
