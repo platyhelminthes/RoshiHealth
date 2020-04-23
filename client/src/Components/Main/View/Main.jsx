@@ -444,7 +444,7 @@ class Main extends Component {
                 null
                 )
                 }
-                <button className='__main-bottom-button' onClick={this.openCar}>Test</button>
+                
                 {
                     this.state.appointmentToday == false || this.state.doctor != 'Patient' ?
                     (null)
