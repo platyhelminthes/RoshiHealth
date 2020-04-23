@@ -24,12 +24,13 @@ class header extends Component {
                     <div id='__head-bio-info'>
                         <p>{this.props.name}</p>
                         <p>{this.props.email}</p>
-                        {this.props.subLevel == 'AD1279D1' ?
+                        {/* --- not neccessary ---
+                         {this.props.subLevel == 'AD1279D1' ?
                         (<p>Sub Active</p>)
                         :
                         (<Link id='subLink' to='/main/subinfo'>Purchase a sub?</Link>)
                         
-    }
+    } */}
                         
                     </div>
                 </div>

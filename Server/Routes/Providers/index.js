@@ -12,6 +12,7 @@ const SA = require('./setAvailability')
 const AAD = require('./dailySchedule')
 const SST = require('./sendSubTask')
 const RESD = require('./resetDay')
+const FINDD = require('./findDoctor')
 
 
 
@@ -27,6 +28,7 @@ routes.post('/sendDoctor', SD)
 routes.post('/addAvailability', SA)
 routes.post('/sendSubTask', SST)
 routes.post('/resetDay', RESD)
+routes.post('/findDoctor', FINDD)
 
 
 

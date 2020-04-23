@@ -44,6 +44,7 @@ import {
   isBrowser,
   isMobile
 } from "react-device-detect";
+import FindYourDoc from '../../FindYourDoctor/index'
 
 import HouseIcon from '@material-ui/icons/House';
 import Dehaze from '@material-ui/icons/Dehaze'
@@ -89,7 +90,9 @@ class Main extends Component {
             TeamViewPath: null,
             navOpen: false,
             caraouselOpen: false,
-            sidenav: true
+            sidenav: true,
+            alerts: [],
+            myId: null
 
         };
         this.openInfo = this.openInfo.bind(this)
@@ -181,7 +184,10 @@ class Main extends Component {
             profilePic: data.profilePicURL,
             subscription: data.subscription,
             address: data.address,
-            exp: data.game.exp
+            exp: data.game.exp,
+            tasks: data.tasks,
+            alerts: data.alerts,
+            myId: data._id
       })
       console.log('hellotest')
       
@@ -323,12 +329,12 @@ class Main extends Component {
 
     render(){
       var today = moment()
-      if (this.state.notLogged == true){
-        return(
-          <Redirect to='/login'/>
-        )
-      }
-        else if(this.state.loading == true){return(<Loading/>)}
+      // if (this.state.notLogged == true){
+      //   return(
+      //     <Redirect to='/login'/>
+      //   )
+      // }
+        if(this.state.loading == true){return(<Loading/>)}
 
         else if (this.state.toAppointment == true) {
           return(
@@ -349,11 +355,12 @@ class Main extends Component {
         }
         else if (isBrowser){
         return(
-            <div id="mainBack" className='main__back' style={{backgroundImage: `url(https://storage.needpix.com/rsynced_images/poland-1985060_1280.jpg)`}}>
+          // mainback picture old: style={{backgroundImage: `url(https://storage.needpix.com/rsynced_images/poland-1985060_1280.jpg)`}}
+            <div id="mainBack" className='main__back' >
             <Sidebar sub={this.state.subscription} open={this.state.sidenav} profilePic={this.state.profilePic} subLevel={this.state.subLevel} doctors={this.state.doctors} appointments={this.state.appointments} name={this.state.name} email={this.state.email} allowed={this.state.allowed} doctor={this.state.doctor}/>
-        <button onClick={this.closeSide} className={this.state.sidenav == true ? '__main-Side-Button': '__main-Side-Button-Closed'}><Dehaze/></button>
+            <button onClick={this.closeSide} className={this.state.sidenav == true ? '__main-Side-Button': '__main-Side-Button-Closed'}><Dehaze/></button>
             <div className='main-container' >
-            <Header updateTruthWallet={this.updateTruthWallet}  wallet={this.state.wallet}/>
+            <Header updateTruthWallet={this.updateTruthWallet} state={this.state}  wallet={this.state.wallet}/>
             <div className='overview__divs' >
               {/* support paths */}
               <Route path="/main/support/FAQ"
@@ -377,7 +384,7 @@ class Main extends Component {
               render={(props)=><ProviderCheck {...props} closeNav={this.closeNav} state={this.state}/>}/>
               <Route exact path='/main/provider/dailySchedule'
               render={(props)=> <DailySchedule state={this.state} closeNav={this.closeNav} resetTruth={this.resetTruth} {...props}/>}/>
-               <Route exact path='/main/provider/holidaySchedule'
+              <Route exact path='/main/provider/holidaySchedule'
               render={(props)=><HolidaySchedule {...props} closeNav={this.closeNav} state={this.state}/>}/>
               <Route exact path="/main/provider/sendTasks" 
               render={(props)=><SendTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
@@ -397,6 +404,8 @@ class Main extends Component {
 
               <Route exact path="/main/overview" 
               render={(props)=> <Overview {...props} closeNav={this.closeNav} subLevel={this.state.subLevel} state={this.state}/>}/>
+              <Route exact path="/main/findYourDoc" 
+              render={(props)=> <FindYourDoc {...props} closeNav={this.closeNav} state={this.state}/>}/>
               <Route exact path='/main/subTasks'
               render={(props)=><SubTasks {...props} closeNav={this.closeNav} resetTruth={this.resetTruth} state={this.state}/>}/>
               <Route exact path="/main/subSchedule"

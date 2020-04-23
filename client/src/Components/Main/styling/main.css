@@ -1,4 +1,5 @@
 .main__back {
+  background: white;
   z-index: -1;
   background-position: center;
   background-size: cover;
@@ -124,7 +125,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #36393f;
-  background: rgba(204, 204, 204, 0.05);
+  background: white;
 }
 
 .__main-nav-button {

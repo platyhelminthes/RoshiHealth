@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import PicModal from './picModal'
 
 function LoadPage(props){
@@ -11,7 +11,7 @@ function LoadPage(props){
     priceStr = priceStr.slice(0, -2)
     price = parseInt(priceStr)
     return(
-        <React.Fragment>
+        <Grid style={{width: '100%'}} container>
             <PicModal item={item}/>
             <div className='info'>
                 <div>
@@ -26,7 +26,7 @@ function LoadPage(props){
                 <bold><h2 className='storePrice'>${price}</h2></bold>
                 <Button variant='outlined'>Add to cart</Button>
             </div>
-        </React.Fragment>
+        </Grid>
     )
 
 }

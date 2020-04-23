@@ -11,6 +11,7 @@ import ForgotPass from './Components/forgotPass/view/forgotPass'
 import ResetPass from './Components/resetPass/view/resetPass'
 import Store from './store/main'
 import About from './AboutSection/aboutMain'
+import Blog from './blog/main'
 
 import './App.css';
 
@@ -30,6 +31,7 @@ class App extends Component {
               <Route path='/resetPass' component={ResetPass}/>
               <Route path='/store' component={Store}/>
               <Route path='/about' component={About}/>
+              <Route path='/news' component={Blog}/>
       </Router>
     );
   }

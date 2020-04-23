@@ -9,11 +9,15 @@ module.exports = (req, res, next) => {
         text: req.body.task,
         dueDate: req.body.date
     }
+    let alert = {
+        seen: false,
+        alert: 'New Task!'
+    }
     console.log(task)
     console.log(req.body.email)
     Data.findByIdAndUpdate(
         {_id: req.body.id},
-        {$push: {"tasks": task}}, 
+        {$push: {"tasks": task, 'alerts': alert}},
         {safe: true, upsert: true, new : true},
         function(err) {
         console.log(err);
