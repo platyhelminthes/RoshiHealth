@@ -10,6 +10,14 @@ const gameSchema = new Schema ({
     exp: Number
 })
 
+const alertsSchema = new Schema ({
+    alert: String,
+    seen: {
+        default: false,
+        type: Boolean
+    }
+})
+
 const subTasksSchema = new Schema({
 
     providerId: {
@@ -241,7 +249,8 @@ const accounts = new Schema({
         country: String
     },
     game: gameSchema,
-    resetNum: String
+    resetNum: String,
+    alerts: [alertsSchema]
 },
   { timestamps: true }
 );

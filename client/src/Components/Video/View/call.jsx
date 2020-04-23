@@ -23,7 +23,6 @@ export default class Call extends Component {
 
   start = () => {
     
-      console.log('ClickEdDD')
       this.initLocalStream();
       this.initClient();
     

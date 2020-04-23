@@ -44,7 +44,7 @@ export default function ButtonAppBar(props) {
               <button onClick={()=>{props.getProducts('protein')}} className='shop-Category-Buttons'>Protein
               </button>
           </div>
-          <Cart removeItem={props.removeFromCart} checkout={props.checkout} state={props.state}/>
+          <Cart removeItem={props.removeItem} checkout={props.checkout} state={props.state}/>
           <Button color="inherit">Login</Button>
         {/* </Toolbar> */}
       </div>

@@ -181,3 +181,25 @@
   .Input-Element {
       color: white
   }
+
+  .alerts-button {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+  }
+
+  .alerts-icon:hover {
+    color: black;
+    cursor: pointer;
+  }
+
+  .alerts-box{
+    min-width: 250px;
+    height: 500px;
+    position: relative;
+    top: 286px;
+    right: 145px;
+    border-radius: 15px;
+    border: 1px solid gray;
+  }

@@ -1,13 +1,6 @@
-
-console.log('test')
-let richFood = ["sushi", "calamari", "idksomethingelse"]
-let selector = Math.floor(Math.random() * richFood.length)
-
-
-
-
-
-
-
-
-console.log(`I LOVE ${richFood[selector]}!!`)
+ for(var i = 0; i < 10; i++) { 
+   setTimeout(function() { 
+     console.log(i); 
+    }, 100); 
+  } 
+    

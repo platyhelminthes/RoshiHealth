@@ -8,6 +8,7 @@ const providers = require('./Providers')
 const store = require('./Store')
 const CMS = require('./CMS')
 const ADMIN = require('./Admin')
+const BLOG = require('./Blog')
 
 
 router.use('/users', users)
@@ -18,5 +19,6 @@ router.use('/providers', providers)
 router.use('/store', store)
 router.use('/CMS', CMS)
 router.use('/admin', ADMIN)
+router.use('/blog', BLOG)
 
 module.exports = router;

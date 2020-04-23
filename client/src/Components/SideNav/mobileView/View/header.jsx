@@ -23,10 +23,10 @@ class header extends Component {
                     <div id='__head-bio-info'>
                         <p>{this.props.name}</p>
                         <p>{this.props.email}</p>
-                            <div id='__head-online'>
+                            {/* <div id='__head-online'>
                                 <LensIcon color="primary" style={{width: '10px', marginTop: '5px', marginRight: '5px'}}/>
                                 <p>Online</p>
-                            </div>
+                            </div> */}
                         
                     </div>
                 </div>
