@@ -15,12 +15,13 @@ import {
   isBrowser,
   isMobile
 } from "react-device-detect";
+import Alerts from '../Components/Alerts'
 
 
 
 class Tasks extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             redirect: null,
@@ -88,10 +89,11 @@ class Tasks extends Component {
                 {/* <HeaderNav drawerClickHandler={this.drawerToggleClickHandler} /> */}
                 {/* <SideDrawer show={this.state.sideDrawerOpen} /> */}
                 {backdrop}
-
+                {/* Alerts component far left */}
+                {/* <Alerts state={this.props.state}/> */}
                 <div className={isMobile ? '__Header-Items-Mobile' : "__Header-Items"}>
                     
-                    {this.state.DD == true ?
+                    {/* {this.state.DD == true ?
                     isMobile ?
                     (<div className='__Header-Dropdown-Mobile' >
                 
@@ -132,8 +134,9 @@ class Tasks extends Component {
                 <button className='__Header-Add-Button' onClick={this.openDropDown}><AddIcon style={{fontSize: '15px'}}/> Add money?</button>
                 
                 </div>
-                )}
+                )} */}
                 <Link to='/login' onClick={this.logOut} style={isMobile ? {color: 'white', textDecoration: 'none', alignSelf: 'center', width: '25vw', height: '10vh', paddingTop: '2vh', paddingLeft: '3vw', borderLeft: '2px solid black', fontSize: '5vw'} : { marginRight: '2vw', marginTop: '2vh', color: 'white', textDecoration: 'none' }}>Logout</Link>
+                
                 </div>
                 {this.state.purchase == true ?
                 (<StripeProvider apiKey="pk_test_8sQtLxVeWVeUOvLTJwYlZhnS00G85h0vYD">

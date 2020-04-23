@@ -1,6 +1,7 @@
 const Data = require('../../Collections/users')
 
-module.exports = (req, res) => {   
+module.exports = (req, res) => {
+    
     var provider = {
         providerId: req.body.id
     }

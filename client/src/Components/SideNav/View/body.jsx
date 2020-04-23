@@ -63,7 +63,7 @@ function RenderTest(props) {
                     state: {
                         clicked: true
                     }
-                }} className='__SideLinks-Static' style={{ width: '20vw', paddingLeft: '.7vw' }} >Go to Appointment</Link>
+                }} className='__SideLinks-Static' style={{ width: '20vw', paddingLeft: '.7vw' }}>Go to Appointment</Link>
             </div>
         )
     }
@@ -125,6 +125,10 @@ class body extends Component {
                     <HouseIcon style={{color: 'white'}}/>
                     <Link to='/main/overview' className='__SideLinks-Static'>Overview</Link>
                 </div>
+                <div className={isMobile ? '__SideLinks-Static-Box-Mobile' : '__SideLinks-Static-Box'}>
+                    <HouseIcon style={{color: 'white'}}/>
+                    <Link to='/main/findYourDoc' className='__SideLinks-Static'>Find Your Doctor</Link>
+                </div>
                 <ExpansionPanel style={dropDownBack} >
                     <ExpansionPanelSummary
                         expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -140,9 +144,11 @@ class body extends Component {
 
                         {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
                         <Link to='/main/tasks' className='__SideLinks'>Tasks</Link>
-                        <Link to={this.props.subLevel == 'nonSub' ? '/main/subinfo' : '/main/subTasks'} className='__SideLinks'>Subscription Tasks</Link>
+                        {/* <Link to={this.props.subLevel == 'nonSub' ? '/main/subinfo' : '/main/subTasks'} className='__SideLinks'>Subscription Tasks</Link> */}
                     </ExpansionPanelDetails>
                     </ExpansionPanel>
+                    {/* --- this needs to be changed --- 
+                    
                     <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -156,11 +162,12 @@ class body extends Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails style={dropDownActive}>
 
-                            {/*<Link to="/main/cart" className='__SideLinks'>Cart</Link>*/}
+                            
                             <Link to="/main/Doctors" className='__SideLinks'>View Doctors</Link>
 
                         </ExpansionPanelDetails>
-                    </ExpansionPanel>
+                    </ExpansionPanel> */}
+                    {/* --- this is not currently neccesary --- 
                     <ExpansionPanel style={dropDownBack} >
                             <ExpansionPanelSummary
                                 expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -175,7 +182,7 @@ class body extends Component {
                                 <Link to="/main/Team" className='__SideLinks'>View Team</Link>
 
                             </ExpansionPanelDetails>
-                        </ExpansionPanel>
+                        </ExpansionPanel> */}
                     <ExpansionPanel style={dropDownBack} >
                                 <ExpansionPanelSummary
                                     expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -192,6 +199,7 @@ class body extends Component {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         
+                    {/* --- sub stuff not currently needed --- 
                     <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{ color: 'orange' }} />}
@@ -217,7 +225,7 @@ class body extends Component {
                                     (<Link to="/main/subschedule" className='__SideLinks'>Schedule Appointment With Team</Link>)
                             }
                         </ExpansionPanelDetails>
-                    </ExpansionPanel>
+                    </ExpansionPanel> */}
                     <ExpansionPanel style={dropDownBack} >
                         <ExpansionPanelSummary
                             expandIcon={<KeyboardArrowRightIcon style={{color: 'orange'}}/>}
@@ -235,7 +243,7 @@ class body extends Component {
                         
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
-                    {this.props.sub == null ?
+                    {/* {this.props.sub == null ?
                         (null)
                         :
                         (
@@ -244,7 +252,7 @@ class body extends Component {
                                 :
                                 (null)
                         )
-                    }
+                    } */}
             </div>
                 )
             }

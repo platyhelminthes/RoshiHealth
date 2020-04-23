@@ -1,17 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { useState } from 'react'
 import { Box, Grid, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function TemporaryDrawer(props) {
     const [state, setState] = React.useState({
@@ -32,7 +25,7 @@ export default function TemporaryDrawer(props) {
     const sideList = (side, props) => (
         <Grid
             role="presentation"
-            onClick={toggleDrawer(side, false)}
+            
             onKeyDown={toggleDrawer(side, false)}
             style={{
                 width: '20vw',
@@ -66,7 +59,7 @@ export default function TemporaryDrawer(props) {
                                                 <Typography variant='h6'>
                                                 <Box fontWeight='bold'>{row.name}</Box>
                                                 </Typography>
-                                                <Box >X</Box>
+                                                <Box ><CloseIcon className='hoverEffect' onClick={()=>{props.removeItem(row)}}/></Box>
                                             </Grid>
                                             <Grid justify='space-between' container>
                                                 <Typography variant='h7'>
@@ -145,12 +138,6 @@ export default function TemporaryDrawer(props) {
                             </Typography>
                         </Grid>
                     </Box>
-                    {
-                        checkoutDisplay == true ?
-                            (<h2>hello</h2>)
-                            :
-                            (null)
-                    }
                 </Grid>
                 )
             }
