@@ -45,7 +45,7 @@
     "multiparty": "^4.2.1",
     "mysql2": "^1.7.0",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.2",
+    "nodemailer": "^6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
