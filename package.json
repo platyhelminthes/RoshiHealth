@@ -37,7 +37,7 @@
     "express-session": "^1.17.0",
     "express-ws": "^4.0.0",
     "file-type": "^12.4.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.27",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
